@@ -11,7 +11,7 @@ Original App Design Project
 
 ## Overview
 ### Description
-Star Up is an application that allows startups to connect with investors and independent workers. There are three type of users in this app:
+Starup is an application that allows startups to connect with investors and independent workers. There are three type of users in this app:
 - Ideators: can post information about their startups and network for "sharks" or "hackers".
 - Sharks: can scroll and search for different startups, connecting with "ideators" and potentially investing in their startups.
 - Hackers: similarly to sharks, they can search for startups, but rather than investing in them, they can apply to join the project as independent workers.
