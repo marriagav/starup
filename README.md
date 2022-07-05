@@ -120,11 +120,11 @@ Starup is an application that allows startups to connect with investors and inde
 
 #### Details tab
 
-<img src="https://user-images.githubusercontent.com/65412950/177388066-e8714ebe-842d-4e02-8f16-ae01d6aeea8c.png" width=300>
+<img src="(https://user-images.githubusercontent.com/65412950/177388066-e8714ebe-842d-4e02-8f16-ae01d6aeea8c.png)" width=300>
 
 #### Compose starup
 
-<img src="https://user-images.githubusercontent.com/65412950/177388119-15e2f289-8f62-42b7-9057-36fb75fe49b4.png" width=300>
+<img src="(https://user-images.githubusercontent.com/65412950/177388119-15e2f289-8f62-42b7-9057-36fb75fe49b4.png)" width=300>
 
 ### Interactive Prototype
 
@@ -140,6 +140,7 @@ Starup is an application that allows startups to connect with investors and inde
 | :---:         |     :---:      |          :---: |
 | objectId   | string     | unique id for the user    |
 | createdAt   | DateTime     | date when user was created    |
+| updatedAt   | DateTime     | date when user was updated    |
 | username     | string       | unique username of the user      |
 | firstName     | string       | first name of the person that owns that profile      |
 | lastName     | string       | last name of the person that owns that profile      |
@@ -152,6 +153,8 @@ Starup is an application that allows startups to connect with investors and inde
 | Property | Type | Description |
 | :---         |     :---:      |          ---: |
 | objectId   | string     | unique id for the collaborator    |
+| createdAt   | DateTime     | date when collaborator was created    |
+| updatedAt   | DateTime     | date when collaborator was updated    |
 | user    | pointer to user       | the user that participates in the starup      |
 | starup     | pointer to starup       | starup in which the user participates      |
 | role     | string       | role that the user has in that starup (shark, ideator, hacker)      |
@@ -160,18 +163,26 @@ Starup is an application that allows startups to connect with investors and inde
 | Property | Type | Description |
 | :---         |     :---:      |          ---: |
 | objectId   | string     | unique id for the starup    |
+| createdAt   | DateTime     | date when starup was created    |
+| updatedAt   | DateTime     | date when starup was updated    |
 | starupName     | string       | the name of the starup      |
 | starupDesc     | string       | description of the starup      |
 | starupCategory     | string       | category of the starup (for example: software, design, etc.)      |
 | operatingSince     | DateTime       | Date when the starup started operating      |
 | sales     | number       | amount of money that the starup has generated in USD      |
 | collaborators     | array of pointers to collaborator       | collaborators that participate in that starup      |
+| goalInvestment     | number       | goal investment amount in usd      |
+| currentInvestment     | number       | current investment amount in usd      |
+| imageOfStarup     | file       | image of the starup      |
 
-#### Model: 
+#### Model: Post
 | Property | Type | Description |
 | :---         |     :---:      |          ---: |
-| git status   | git status     | git status    |
-| git diff     | git diff       | git diff      |
+| objectId   | string     | unique id for the post    |
+| createdAt   | DateTime     | date when post was created    |
+| updatedAt   | DateTime     | date when post was updated    |
+| updateStatus   | string     | update status of the post (for example: "looking for starups", "posted a new starup", "invested in a starup"    |
+| contentOfPost   | string     | text content of the post   |
 
 ### Networking
 - [Add list of network requests by screen ]
