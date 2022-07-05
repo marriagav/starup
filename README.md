@@ -137,8 +137,9 @@ Starup is an application that allows startups to connect with investors and inde
 
 #### Model: User 
 | Property | Type | Description |
-| :---         |     :---:      |          ---: |
+| :---:         |     :---:      |          :---: |
 | objectId   | string     | unique id for the user    |
+| createdAt   | DateTime     | date when user was created    |
 | username     | string       | unique username of the user      |
 | firstName     | string       | first name of the person that owns that profile      |
 | lastName     | string       | last name of the person that owns that profile      |
@@ -150,18 +151,15 @@ Starup is an application that allows startups to connect with investors and inde
 #### Model: Collaborator (catalogue)
 | Property | Type | Description |
 | :---         |     :---:      |          ---: |
-| collaboratorId   | number     | unique id for the collaborator    |
+| objectId   | string     | unique id for the collaborator    |
 | user    | pointer to user       | the user that participates in the starup      |
-| starup     | pointer to starup       | description of the starup      |
-| starupCategory     | string       | category of the starup (for example: software, design, etc.)      |
-| operatingSince     | DateTime       | Date when the starup started operating      |
-| sales     | number       | amount of money that the starup has generated in USD      |
-| collaborators     | array of pointers to collaborator       | collaborators that participate in that starup      |
+| starup     | pointer to starup       | starup in which the user participates      |
+| role     | string       | role that the user has in that starup (shark, ideator, hacker)      |
 
 #### Model: Starup
 | Property | Type | Description |
 | :---         |     :---:      |          ---: |
-| starupId   | number     | unique id for the starup    |
+| objectId   | string     | unique id for the starup    |
 | starupName     | string       | the name of the starup      |
 | starupDesc     | string       | description of the starup      |
 | starupCategory     | string       | category of the starup (for example: software, design, etc.)      |
