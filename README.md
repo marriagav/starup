@@ -120,11 +120,11 @@ Starup is an application that allows startups to connect with investors and inde
 
 #### Details tab
 
-<img src="https://user-images.githubusercontent.com/65412950/177388066-e8714ebe-842d-4e02-8f16-ae01d6aeea8c.png" width=300>
+<img src="https://user-images.githubusercontent.com/65412950/177425096-cddab20d-15f5-4223-a199-04d522be8d87.png" width=300>
 
 #### Compose starup
 
-<img src="https://user-images.githubusercontent.com/65412950/177388119-15e2f289-8f62-42b7-9057-36fb75fe49b4.png" width=300>
+<img src="https://user-images.githubusercontent.com/65412950/177425202-9ea5d540-7d5f-465f-b741-b935b0669081.png" width=300>
 
 ### Interactive Prototype
 
