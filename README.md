@@ -132,8 +132,49 @@ Starup is an application that allows startups to connect with investors and inde
 
 ## Schema 
 [This section will be completed in Unit 9]
+
 ### Models
-[Add table of models]
+
+#### Model: User 
+| Property | Type | Description |
+| :---         |     :---:      |          ---: |
+| objectId   | string     | unique id for the user    |
+| username     | string       | unique username of the user      |
+| firstName     | string       | first name of the person that owns that profile      |
+| lastName     | string       | last name of the person that owns that profile      |
+| profilePicture     | string       | name of the person that owns that profile      |
+| userBio     | string       | user biography      |
+| userRole     | string       | short user role to show beneath their profile (For example: iOS software engineer)      |
+| password     | string       | password for login      |
+
+#### Model: Collaborator (catalogue)
+| Property | Type | Description |
+| :---         |     :---:      |          ---: |
+| collaboratorId   | number     | unique id for the collaborator    |
+| user    | pointer to user       | the user that participates in the starup      |
+| starup     | pointer to starup       | description of the starup      |
+| starupCategory     | string       | category of the starup (for example: software, design, etc.)      |
+| operatingSince     | DateTime       | Date when the starup started operating      |
+| sales     | number       | amount of money that the starup has generated in USD      |
+| collaborators     | array of pointers to collaborator       | collaborators that participate in that starup      |
+
+#### Model: Starup
+| Property | Type | Description |
+| :---         |     :---:      |          ---: |
+| starupId   | number     | unique id for the starup    |
+| starupName     | string       | the name of the starup      |
+| starupDesc     | string       | description of the starup      |
+| starupCategory     | string       | category of the starup (for example: software, design, etc.)      |
+| operatingSince     | DateTime       | Date when the starup started operating      |
+| sales     | number       | amount of money that the starup has generated in USD      |
+| collaborators     | array of pointers to collaborator       | collaborators that participate in that starup      |
+
+#### Model: 
+| Property | Type | Description |
+| :---         |     :---:      |          ---: |
+| git status   | git status     | git status    |
+| git diff     | git diff       | git diff      |
+
 ### Networking
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
