@@ -124,7 +124,11 @@ Starup is an application that allows startups to connect with investors and inde
 
 #### Compose starup
 
-<img src="https://user-images.githubusercontent.com/65412950/177425202-9ea5d540-7d5f-465f-b741-b935b0669081.png" width=300>
+<img src="https://user-images.githubusercontent.com/65412950/177429942-7f4281e1-2a6b-408f-8cc2-5c120e90ef1b.png" width=300>
+
+#### Invest tab
+
+<img src="https://user-images.githubusercontent.com/65412950/177430007-f2700cc9-eebd-40cb-89d1-b6716499d4b3.png" width=300>
 
 ### Interactive Prototype
 
@@ -137,7 +141,7 @@ Starup is an application that allows startups to connect with investors and inde
 
 #### Model: User 
 | Property | Type | Description |
-| :---:         |     :---:      |          :---: |
+| :---:         |     :---:      |          :--- |
 | objectId   | string     | unique id for the user    |
 | createdAt   | DateTime     | date when user was created    |
 | updatedAt   | DateTime     | date when user was updated    |
@@ -151,7 +155,7 @@ Starup is an application that allows startups to connect with investors and inde
 
 #### Model: Collaborator (catalogue)
 | Property | Type | Description |
-| :---         |     :---:      |          ---: |
+| :---         |     :---:      |          :--- |
 | objectId   | string     | unique id for the collaborator    |
 | createdAt   | DateTime     | date when collaborator was created    |
 | updatedAt   | DateTime     | date when collaborator was updated    |
@@ -161,7 +165,7 @@ Starup is an application that allows startups to connect with investors and inde
 
 #### Model: Starup
 | Property | Type | Description |
-| :---         |     :---:      |          ---: |
+| :---         |     :---:      |          :--- |
 | objectId   | string     | unique id for the starup    |
 | createdAt   | DateTime     | date when starup was created    |
 | updatedAt   | DateTime     | date when starup was updated    |
@@ -173,11 +177,12 @@ Starup is an application that allows startups to connect with investors and inde
 | collaborators     | array of pointers to collaborator       | collaborators that participate in that starup      |
 | goalInvestment     | number       | goal investment amount in usd      |
 | currentInvestment     | number       | current investment amount in usd      |
+| ownershipPercentForInvestment     | number       | percentage of the company to give in exchange for the goal investment amount      |
 | imageOfStarup     | file       | image of the starup      |
 
 #### Model: Post
 | Property | Type | Description |
-| :---         |     :---:      |          ---: |
+| :---         |     :---:      |          :--- |
 | objectId   | string     | unique id for the post    |
 | createdAt   | DateTime     | date when post was created    |
 | updatedAt   | DateTime     | date when post was updated    |
@@ -185,6 +190,51 @@ Starup is an application that allows startups to connect with investors and inde
 | contentOfPost   | string     | text content of the post   |
 
 ### Networking
-- [Add list of network requests by screen ]
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+
+#### Screen: Login
+| CRUD | HTTP Verb | Description |
+| :---         |     :---:      |          :--- |
+| Create   | POST     | create a new user/registration    |
+| Read   | GET     | login the user    |
+
+#### Screen: Homefeed
+| CRUD | HTTP Verb | Description |
+| :---         |     :---:      |          :--- |
+| Read   | GET     | get the latest posts    |
+
+#### Screen: Starups tab
+| CRUD | HTTP Verb | Description |
+| :---         |     :---:      |          :--- |
+| Read   | GET     | get the latest starups    |
+
+#### Screen: Profile tab
+| CRUD | HTTP Verb | Description |
+| :---         |     :---:      |          :--- |
+| Read   | GET     | get the user information    |
+| Update   | PUT     | edit the user information    |
+
+#### Screen: Compose post
+| CRUD | HTTP Verb | Description |
+| :---         |     :---:      |          :--- |
+| Create   | POST     | post the post    |
+
+
+#### Screen: Compose starup
+| CRUD | HTTP Verb | Description |
+| :---         |     :---:      |          :--- |
+| Create   | POST     | post the starup    |
+
+
+#### Screen: Details tab
+| CRUD | HTTP Verb | Description |
+| :---         |     :---:      |          :--- |
+| Read   | GET     | get the starup information    |
+
+#### Screen: Invest tab
+| CRUD | HTTP Verb | Description |
+| :---         |     :---:      |          :--- |
+| Read   | GET     | get the starup information    |
+| Update   | PUT     | make an investment    |
+
+- [Create basic snippets for each Parse network request] - pending
+- [OPTIONAL: List endpoints if using existing API such as Yelp] - pending with linkedin api
