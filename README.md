@@ -38,12 +38,14 @@ Starup is an application that allows startups to connect with investors and inde
 * Persistent storage of users session
 * Profile view: clicking on a user to see their profile
 * Being able to see what other people are posting and make posts yourself
+* Invest in a starup
 
 **Optional Nice-to-have Stories**
 
 * Connecting the app to the Linkedin API.
 * Search bar to filter startups
 * Search bar to filter posts
+* Edit starups to add collaborators to them
 
 ### 2. Screen Archetypes
 
@@ -67,6 +69,9 @@ Starup is an application that allows startups to connect with investors and inde
 * Profile tab
     * See and edit your profile
     * See other profiles
+* Invest/contact tab
+    * See the current investment of the starup
+    * Select amount to invest and invest
 
 ### 3. Navigation
 
