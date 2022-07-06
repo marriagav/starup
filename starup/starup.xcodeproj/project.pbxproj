@@ -11,7 +11,6 @@
 		C7C8A4607A1D1D10CB698D73 /* Pods_starupTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827D1084F722208A5D08B0A5 /* Pods_starupTests.framework */; };
 		D41A9B7D2875F0DA0038852B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9B7C2875F0DA0038852B /* AppDelegate.m */; };
 		D41A9B802875F0DA0038852B /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9B7F2875F0DA0038852B /* SceneDelegate.m */; };
-		D41A9B832875F0DA0038852B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9B822875F0DA0038852B /* ViewController.m */; };
 		D41A9B862875F0DA0038852B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D41A9B842875F0DA0038852B /* Main.storyboard */; };
 		D41A9B882875F0DB0038852B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D41A9B872875F0DB0038852B /* Assets.xcassets */; };
 		D41A9B8B2875F0DB0038852B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D41A9B892875F0DB0038852B /* LaunchScreen.storyboard */; };
@@ -19,6 +18,15 @@
 		D41A9B982875F0DB0038852B /* starupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9B972875F0DB0038852B /* starupTests.m */; };
 		D41A9BA22875F0DC0038852B /* starupUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9BA12875F0DC0038852B /* starupUITests.m */; };
 		D41A9BA42875F0DC0038852B /* starupUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9BA32875F0DC0038852B /* starupUITestsLaunchTests.m */; };
+		D41A9BB6287600390038852B /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9BB5287600390038852B /* LoginViewController.m */; };
+		D41A9BBC2876005E0038852B /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9BBB2876005E0038852B /* HomeViewController.m */; };
+		D41A9BBF2876006D0038852B /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9BBE2876006D0038852B /* ProfileViewController.m */; };
+		D41A9BC22876009D0038852B /* ComposePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9BC12876009D0038852B /* ComposePostViewController.m */; };
+		D41A9BC5287600AD0038852B /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9BC4287600AD0038852B /* DetailsViewController.m */; };
+		D41A9BC8287600BD0038852B /* InvestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9BC7287600BD0038852B /* InvestViewController.m */; };
+		D41A9BCB287600D90038852B /* ComposeStarupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9BCA287600D90038852B /* ComposeStarupViewController.m */; };
+		D41A9BCE287600F10038852B /* StarupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9BCD287600F10038852B /* StarupsViewController.m */; };
+		D41A9BD1287609210038852B /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9BD0287609210038852B /* RegisterViewController.m */; };
 		FB50FED72C2285DFF8940994 /* Pods_starup_starupUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 120143D56E6EFC00AC9D69EF /* Pods_starup_starupUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,8 +62,6 @@
 		D41A9B7C2875F0DA0038852B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D41A9B7E2875F0DA0038852B /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		D41A9B7F2875F0DA0038852B /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		D41A9B812875F0DA0038852B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		D41A9B822875F0DA0038852B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		D41A9B852875F0DA0038852B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D41A9B872875F0DB0038852B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D41A9B8A2875F0DB0038852B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -66,6 +72,24 @@
 		D41A9B9D2875F0DC0038852B /* starupUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = starupUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D41A9BA12875F0DC0038852B /* starupUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = starupUITests.m; sourceTree = "<group>"; };
 		D41A9BA32875F0DC0038852B /* starupUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = starupUITestsLaunchTests.m; sourceTree = "<group>"; };
+		D41A9BB4287600390038852B /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		D41A9BB5287600390038852B /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		D41A9BBA2876005E0038852B /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		D41A9BBB2876005E0038852B /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		D41A9BBD2876006D0038852B /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		D41A9BBE2876006D0038852B /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		D41A9BC02876009D0038852B /* ComposePostViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposePostViewController.h; sourceTree = "<group>"; };
+		D41A9BC12876009D0038852B /* ComposePostViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComposePostViewController.m; sourceTree = "<group>"; };
+		D41A9BC3287600AD0038852B /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
+		D41A9BC4287600AD0038852B /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
+		D41A9BC6287600BD0038852B /* InvestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InvestViewController.h; sourceTree = "<group>"; };
+		D41A9BC7287600BD0038852B /* InvestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InvestViewController.m; sourceTree = "<group>"; };
+		D41A9BC9287600D90038852B /* ComposeStarupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposeStarupViewController.h; sourceTree = "<group>"; };
+		D41A9BCA287600D90038852B /* ComposeStarupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComposeStarupViewController.m; sourceTree = "<group>"; };
+		D41A9BCC287600F10038852B /* StarupsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StarupsViewController.h; sourceTree = "<group>"; };
+		D41A9BCD287600F10038852B /* StarupsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StarupsViewController.m; sourceTree = "<group>"; };
+		D41A9BCF287609210038852B /* RegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		D41A9BD0287609210038852B /* RegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,7 +140,6 @@
 				735A2F298342EC4AF9CD2821 /* Pods-starupTests.debug.xcconfig */,
 				746803DBBEAB7E40D2152912 /* Pods-starupTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -145,12 +168,14 @@
 		D41A9B7A2875F0DA0038852B /* starup */ = {
 			isa = PBXGroup;
 			children = (
+				D41A9BB32875F8450038852B /* Models */,
+				D41A9BB22875F82F0038852B /* Shared */,
+				D41A9BB12875F81F0038852B /* Views */,
+				D41A9BB02875F8150038852B /* View Controllers */,
 				D41A9B7B2875F0DA0038852B /* AppDelegate.h */,
 				D41A9B7C2875F0DA0038852B /* AppDelegate.m */,
 				D41A9B7E2875F0DA0038852B /* SceneDelegate.h */,
 				D41A9B7F2875F0DA0038852B /* SceneDelegate.m */,
-				D41A9B812875F0DA0038852B /* ViewController.h */,
-				D41A9B822875F0DA0038852B /* ViewController.m */,
 				D41A9B842875F0DA0038852B /* Main.storyboard */,
 				D41A9B872875F0DB0038852B /* Assets.xcassets */,
 				D41A9B892875F0DB0038852B /* LaunchScreen.storyboard */,
@@ -175,6 +200,52 @@
 				D41A9BA32875F0DC0038852B /* starupUITestsLaunchTests.m */,
 			);
 			path = starupUITests;
+			sourceTree = "<group>";
+		};
+		D41A9BB02875F8150038852B /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D41A9BB4287600390038852B /* LoginViewController.h */,
+				D41A9BB5287600390038852B /* LoginViewController.m */,
+				D41A9BBA2876005E0038852B /* HomeViewController.h */,
+				D41A9BBB2876005E0038852B /* HomeViewController.m */,
+				D41A9BBD2876006D0038852B /* ProfileViewController.h */,
+				D41A9BBE2876006D0038852B /* ProfileViewController.m */,
+				D41A9BC02876009D0038852B /* ComposePostViewController.h */,
+				D41A9BC12876009D0038852B /* ComposePostViewController.m */,
+				D41A9BC3287600AD0038852B /* DetailsViewController.h */,
+				D41A9BC4287600AD0038852B /* DetailsViewController.m */,
+				D41A9BC6287600BD0038852B /* InvestViewController.h */,
+				D41A9BC7287600BD0038852B /* InvestViewController.m */,
+				D41A9BC9287600D90038852B /* ComposeStarupViewController.h */,
+				D41A9BCA287600D90038852B /* ComposeStarupViewController.m */,
+				D41A9BCC287600F10038852B /* StarupsViewController.h */,
+				D41A9BCD287600F10038852B /* StarupsViewController.m */,
+				D41A9BCF287609210038852B /* RegisterViewController.h */,
+				D41A9BD0287609210038852B /* RegisterViewController.m */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		D41A9BB12875F81F0038852B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D41A9BB22875F82F0038852B /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		D41A9BB32875F8450038852B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -415,10 +486,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D41A9B832875F0DA0038852B /* ViewController.m in Sources */,
+				D41A9BCB287600D90038852B /* ComposeStarupViewController.m in Sources */,
+				D41A9BCE287600F10038852B /* StarupsViewController.m in Sources */,
+				D41A9BB6287600390038852B /* LoginViewController.m in Sources */,
+				D41A9BC22876009D0038852B /* ComposePostViewController.m in Sources */,
 				D41A9B7D2875F0DA0038852B /* AppDelegate.m in Sources */,
+				D41A9BC8287600BD0038852B /* InvestViewController.m in Sources */,
 				D41A9B8E2875F0DB0038852B /* main.m in Sources */,
+				D41A9BD1287609210038852B /* RegisterViewController.m in Sources */,
 				D41A9B802875F0DA0038852B /* SceneDelegate.m in Sources */,
+				D41A9BBF2876006D0038852B /* ProfileViewController.m in Sources */,
+				D41A9BC5287600AD0038852B /* DetailsViewController.m in Sources */,
+				D41A9BBC2876005E0038852B /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -157,6 +157,7 @@ Starup is an application that allows startups to connect with investors and inde
 | userBio     | string       | user biography      |
 | userRole     | string       | short user role to show beneath their profile (For example: iOS software engineer)      |
 | password     | string       | password for login      |
+| email     | string       | user email      |
 
 #### Model: Collaborator (catalogue)
 | Property | Type | Description |
