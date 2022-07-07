@@ -293,7 +293,13 @@
                         <viewLayoutGuide key="safeArea" id="MPB-Gj-G4n"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Pff-qb-dMQ"/>
+                    <navigationItem key="navigationItem" id="Pff-qb-dMQ">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="YZs-kJ-2nZ">
+                            <connections>
+                                <action selector="logOutClick:" destination="hRc-2W-ora" id="8Ib-iU-ghW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R5f-pu-gtL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -302,7 +308,7 @@
         <!--Navigation Controller-->
         <scene sceneID="7pi-K1-kFN">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Uj-gR-v1J" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="loginView" automaticallyAdjustsScrollViewInsets="NO" id="3Uj-gR-v1J" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="RI6-6s-BMt">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

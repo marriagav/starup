@@ -18,6 +18,23 @@
     // Do any additional setup after loading the view.
 }
 
+// TODO: this function is currently in the home view controller for testing purposes, eventually it needs to be migrated to the profile view controller.
+- (IBAction)logOutClick:(id)sender {
+//    Call to log out the user
+    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+        // PFUser.current() will now be nil
+        if (error){
+            NSLog(@"%@", error);
+        }
+        else{
+            UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            UIViewController *nav = [storyboard instantiateViewControllerWithIdentifier:@"loginView"];
+            [nav setModalPresentationStyle:UIModalPresentationFullScreen];
+            [self.navigationController presentViewController:nav animated:YES completion:nil];
+        }
+    }];
+}
+
 /*
 #pragma mark - Navigation
 
