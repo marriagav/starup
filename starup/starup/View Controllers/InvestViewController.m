@@ -18,6 +18,13 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)_setUpLabels {
+//    Sets up the labels of the details view
+    
+}
+
+//TODO: set up the graph
+
 /*
 #pragma mark - Navigation
 

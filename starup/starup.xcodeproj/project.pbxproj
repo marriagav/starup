@@ -28,6 +28,7 @@
 		D41A9BCE287600F10038852B /* StarupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9BCD287600F10038852B /* StarupsViewController.m */; };
 		D41A9BD1287609210038852B /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9BD0287609210038852B /* RegisterViewController.m */; };
 		D4CDEA4E2878A37C00495426 /* PostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CDEA4D2878A37C00495426 /* PostCell.m */; };
+		D4CDEA512878AB7100495426 /* StarupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CDEA502878AB7100495426 /* StarupCell.m */; };
 		FB50FED72C2285DFF8940994 /* Pods_starup_starupUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 120143D56E6EFC00AC9D69EF /* Pods_starup_starupUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +94,8 @@
 		D41A9BD0287609210038852B /* RegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		D4CDEA4C2878A37C00495426 /* PostCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostCell.h; sourceTree = "<group>"; };
 		D4CDEA4D2878A37C00495426 /* PostCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostCell.m; sourceTree = "<group>"; };
+		D4CDEA4F2878AB7100495426 /* StarupCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StarupCell.h; sourceTree = "<group>"; };
+		D4CDEA502878AB7100495426 /* StarupCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StarupCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +238,8 @@
 			children = (
 				D4CDEA4C2878A37C00495426 /* PostCell.h */,
 				D4CDEA4D2878A37C00495426 /* PostCell.m */,
+				D4CDEA4F2878AB7100495426 /* StarupCell.h */,
+				D4CDEA502878AB7100495426 /* StarupCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -491,6 +496,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4CDEA512878AB7100495426 /* StarupCell.m in Sources */,
 				D41A9BCB287600D90038852B /* ComposeStarupViewController.m in Sources */,
 				D41A9BCE287600F10038852B /* StarupsViewController.m in Sources */,
 				D41A9BB6287600390038852B /* LoginViewController.m in Sources */,

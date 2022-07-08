@@ -18,6 +18,20 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)dismissKeyboard{
+//    Dissmiss the keyboard
+     [self.view endEditing:YES];
+}
+
+- (void)textViewDidChange:(UITextView *)textView{
+//    If the text changes the placeholder dissapears
+    
+}
+
+- (IBAction)makePost:(id)sender {
+//    Makes the call to post the post
+}
+
 /*
 #pragma mark - Navigation
 
