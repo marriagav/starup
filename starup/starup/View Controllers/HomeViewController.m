@@ -100,7 +100,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 //    Checks if is scrolling
 }
 
-- (void)loadMoreData{
+- (void)loadMoreData {
 //    Adds 20 more posts to the tableView, for infinte scrolling
     
 }
