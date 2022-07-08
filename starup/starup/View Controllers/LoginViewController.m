@@ -19,21 +19,21 @@
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:gestureRecognizer];
     gestureRecognizer.cancelsTouchesInView = NO;
-//    Error should be set to empty initially
+    //    Error should be set to empty initially
     self.error = @"";
 }
 
 - (void)dismissKeyboard{
-//    Dissmiss the keyboard
-     [self.view endEditing:YES];
+    //    Dissmiss the keyboard
+    [self.view endEditing:YES];
 }
 
 - (void)loginUser {
-//    Method that logs the user in
+    //    Method that logs the user in
     NSString *username = self.usernameField.text;
     NSString *password = self.passwordField.text;
     
-//    Call log in function on the object
+    //    Call log in function on the object
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         if (error != nil) {
             NSLog(@"User log in failed: %@", error.localizedDescription);
@@ -64,16 +64,16 @@
 }
 
 - (void)initializeAlertController{
-//    Create the alert controller for login errors
+    //    Create the alert controller for login errors
     UIAlertController *loginError = [UIAlertController alertControllerWithTitle:@"Error"
-                    message:self.error
-                    preferredStyle:(UIAlertControllerStyleAlert)];
+                                                                        message:self.error
+                                                                 preferredStyle:(UIAlertControllerStyleAlert)];
     // create a cancel action
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Try Again"
-                    style:UIAlertActionStyleCancel
-                    handler:^(UIAlertAction * _Nonnull action) {
-                    // handle try again response here. Doing nothing will dismiss the view.
-                    }];
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+        // handle try again response here. Doing nothing will dismiss the view.
+    }];
     // add the cancel action to the alertControllers
     [loginError addAction:cancelAction];
     
@@ -85,13 +85,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
