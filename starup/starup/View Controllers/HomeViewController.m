@@ -105,7 +105,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     
 }
 
-- (void)postCell:(PostCell *)postCell didTap:(PFUser *)user{
+- (void)postCell:(PostCell *)postCell 
+          didTap:(PFUser *)user{
 //    Performs view change when the user taps on a profile image
     
 }
