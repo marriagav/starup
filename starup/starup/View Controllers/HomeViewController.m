@@ -74,8 +74,8 @@
     return 0;
     }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:
-    (NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 //    initialize cell (PostCell) to a reusable cell using the PostCell identifier
     
 //    get the post and delegate and assign it to the cell
