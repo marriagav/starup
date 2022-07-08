@@ -18,6 +18,18 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)_setUpLabels {
+//    Sets up the labels of the details view
+    
+}
+
+- (int)_getPercentage{
+//    Calculate the percentage gained from investing x amount
+    return 0;
+}
+
+//TODO: set up the graph
+
 /*
 #pragma mark - Navigation
 
