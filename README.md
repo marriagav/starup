@@ -4,10 +4,18 @@ Starup is an iOS app that connects startups, investors and collaborators
 Original App Design Project 
 
 ## Table of Contents
-1. [Overview](#Overview)
-1. [Product Spec](#Product-Spec)
-1. [Wireframes](#Wireframes)
-2. [Schema](#Schema)
+1. [Installation](#Installation)
+2. [Overview](#Overview)
+3. [Product Spec](#Product-Spec)
+4. [Wireframes](#Wireframes)
+5. [Schema](#Schema)
+
+## Installation
+1. Clone this github repository on your local machine
+`git clone git@github.com:marriagav/starup.git`
+2. Install the project dependencies by going to the `starup` directory with the command `cd starup` and then running the command `pod install`
+3. Open the project in xcode by running the command `open starup.xcworkspace/`
+4. Run the project from xcode
 
 ## Overview
 ### Description
