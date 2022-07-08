@@ -54,7 +54,7 @@
 }
 
 
-- (void)_initializeRefreshControl{
+- (void)_initializeRefreshControl {
 //    Initialices and inserts the refresh control
     
     
