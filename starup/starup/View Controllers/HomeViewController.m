@@ -66,8 +66,8 @@
    
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:
-    (NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView 
+ numberOfRowsInSection:(NSInteger)section {
 //    return amount of posts in the postArray
     
     
