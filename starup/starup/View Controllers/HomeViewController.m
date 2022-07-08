@@ -35,7 +35,7 @@
     }];
 }
 
-- (void)refreshDataWithNPosts:(int) numberOfPosts{
+- (void)refreshDataWithNPosts:(int) numberOfPosts {
 //    Refreshes the tableview data with numberOfPosts posts
     // construct query
     
