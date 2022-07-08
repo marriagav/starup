@@ -43,7 +43,7 @@
             
             // display view controller that needs to shown after successful login
             UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            UIViewController *nav = [storyboard instantiateViewControllerWithIdentifier:@"homeFeed"];
+            UIViewController *nav = [storyboard instantiateViewControllerWithIdentifier:@"navBar"];
             [nav setModalPresentationStyle:UIModalPresentationFullScreen];
             [self.navigationController presentViewController:nav animated:YES completion:nil];
         }
