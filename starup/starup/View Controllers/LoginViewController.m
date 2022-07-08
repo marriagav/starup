@@ -19,6 +19,8 @@
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:gestureRecognizer];
     gestureRecognizer.cancelsTouchesInView = NO;
+//    Error should be set to empty initially
+    self.error = @"";
 }
 
 - (void)dismissKeyboard{
@@ -31,13 +33,13 @@
     NSString *username = self.usernameField.text;
     NSString *password = self.passwordField.text;
     
-//    Initialize alert controller
-    [self initializeAlertController];
-    
 //    Call log in function on the object
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         if (error != nil) {
             NSLog(@"User log in failed: %@", error.localizedDescription);
+            //    Initialize alert controller if there is an error
+            self.error = error.localizedDescription;
+            [self initializeAlertController];
         } else {
             NSLog(@"User logged in successfully");
             
@@ -62,9 +64,9 @@
 }
 
 - (void)initializeAlertController{
-//    Create the alert controller
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error"
-                    message:@"Empty Field"
+//    Create the alert controller for login errors
+    UIAlertController *loginError = [UIAlertController alertControllerWithTitle:@"Error"
+                    message:self.error
                     preferredStyle:(UIAlertControllerStyleAlert)];
     // create a cancel action
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Try Again"
@@ -72,12 +74,12 @@
                     handler:^(UIAlertAction * _Nonnull action) {
                     // handle try again response here. Doing nothing will dismiss the view.
                     }];
-    // add the cancel action to the alertController
-    [alert addAction:cancelAction];
-
-    if ([self.usernameField.text isEqual:@""] || [self.passwordField.text isEqual:@""]){
-        [self presentViewController:alert animated:YES completion:^{
-            // optional code for what happens after the alert controller has finished presenting
+    // add the cancel action to the alertControllers
+    [loginError addAction:cancelAction];
+    
+    if (![self.error isEqual:@""]){
+        [self presentViewController:loginError animated:YES completion:^{
+            self.error = @"";
         }];
     }
 }
