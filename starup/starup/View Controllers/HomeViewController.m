@@ -89,7 +89,9 @@
     
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView 
+  willDisplayCell:(UITableViewCell *)cell 
+forRowAtIndexPath:(NSIndexPath *)indexPath {
 //    Calls load more data when scrolling reaches bottom of the tableView
     
 }
