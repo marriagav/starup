@@ -60,7 +60,7 @@
     
 }
 
-- (void)_initializeRefreshControlB{
+- (void)_initializeRefreshControlB {
 //    Initialices and inserts the refresh control
     // Set up Infinite Scroll loading indicator
    
