@@ -19,18 +19,18 @@
 }
 
 - (void)dismissKeyboard{
-//    Dissmiss the keyboard
-     [self.view endEditing:YES];
+    //    Dissmiss the keyboard
+    [self.view endEditing:YES];
 }
 
 - (void)didTapImage:(UITapGestureRecognizer *)sender{
-//    Gets called when the user taps on the image placeholder, creating and opening an UIImagePickerController
+    //    Gets called when the user taps on the image placeholder, creating and opening an UIImagePickerController
     
 }
 
 - (void)textViewDidChange:(UITextView *)textView{
-//    If the text changes the placeholder dissapears
-
+    //    If the text changes the placeholder dissapears
+    
 }
 
 - (void)pictureGestureRecognizer:(UIImageView *)image{
@@ -51,12 +51,12 @@
 }
 
 - (IBAction)postStarup:(id)sender {
-//    Makes the call to post the starup to the db
-//    Shows progress hud
+    //    Makes the call to post the starup to the db
+    //    Shows progress hud
     
-//    Dissables sharebutton so that the user cant spam it
+    //    Dissables sharebutton so that the user cant spam it
     
-//    Makes call
+    //    Makes call
     
 }
 
@@ -64,13 +64,13 @@
 //TODO: set up collection views
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
