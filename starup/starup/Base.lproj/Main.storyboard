@@ -5,7 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
-        <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -397,45 +396,51 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="skU-8g-WVo">
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cg2-b8-wq7">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cg2-b8-wq7" customClass="PFImageView">
                                         <rect key="frame" x="23" y="25" width="55" height="55"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="55" id="6qx-EK-fab"/>
                                             <constraint firstAttribute="width" constant="55" id="88M-02-14u"/>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwe-ZE-Fam">
-                                        <rect key="frame" x="86" y="25" width="306" height="55"/>
-                                        <color key="backgroundColor" systemColor="quaternarySystemFillColor"/>
-                                        <menu key="menu" id="K6W-CS-I9I">
-                                            <children>
-                                                <command title="Posted a new starup" id="bQV-uY-c60"/>
-                                                <command title="Looking for starups" id="fir-d3-13k"/>
-                                                <command title="Invested in a starup" id="eNS-AD-A5T"/>
-                                                <command title="Joined a starup" id="z1Z-bb-31y"/>
-                                            </children>
-                                        </menu>
-                                        <state key="normal" title="Select an update status"/>
-                                    </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VpS-7S-Vek">
                                         <rect key="frame" x="23" y="88" width="369" height="140"/>
                                         <color key="backgroundColor" systemColor="quaternarySystemFillColor"/>
                                         <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dxO-V4-Vo4">
+                                        <rect key="frame" x="86" y="25" width="306" height="55"/>
+                                        <color key="backgroundColor" systemColor="quaternarySystemFillColor"/>
+                                        <state key="normal" title="Select an update status"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="deleteDefaultState:" destination="rEn-hk-7t6" eventType="touchUpInside" id="ncY-PD-ydw"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="cwe-ZE-Fam" firstAttribute="bottom" secondItem="cg2-b8-wq7" secondAttribute="bottom" id="0oD-p7-2Ay"/>
                                     <constraint firstItem="VpS-7S-Vek" firstAttribute="top" secondItem="cg2-b8-wq7" secondAttribute="bottom" constant="8" symbolic="YES" id="5sB-kP-phK"/>
-                                    <constraint firstItem="cwe-ZE-Fam" firstAttribute="leading" secondItem="cg2-b8-wq7" secondAttribute="trailing" constant="8" symbolic="YES" id="6gM-AC-62L"/>
+                                    <constraint firstAttribute="trailing" secondItem="dxO-V4-Vo4" secondAttribute="trailing" constant="22" id="8FW-dm-JlP"/>
+                                    <constraint firstItem="dxO-V4-Vo4" firstAttribute="bottom" secondItem="cg2-b8-wq7" secondAttribute="bottom" id="Ioa-hD-fCu"/>
                                     <constraint firstItem="VpS-7S-Vek" firstAttribute="leading" secondItem="cg2-b8-wq7" secondAttribute="leading" id="JIV-vN-xmB"/>
+                                    <constraint firstItem="dxO-V4-Vo4" firstAttribute="leading" secondItem="cg2-b8-wq7" secondAttribute="trailing" constant="8" symbolic="YES" id="LIq-mp-VMl"/>
                                     <constraint firstItem="cg2-b8-wq7" firstAttribute="leading" secondItem="skU-8g-WVo" secondAttribute="leading" constant="23" id="MyP-wv-Ehz"/>
-                                    <constraint firstItem="cwe-ZE-Fam" firstAttribute="top" secondItem="cg2-b8-wq7" secondAttribute="top" id="U1H-5X-m6a"/>
-                                    <constraint firstItem="VpS-7S-Vek" firstAttribute="trailing" secondItem="cwe-ZE-Fam" secondAttribute="trailing" id="Yfr-2D-LEp"/>
                                     <constraint firstItem="cg2-b8-wq7" firstAttribute="top" secondItem="skU-8g-WVo" secondAttribute="top" constant="25" id="jyA-G4-oay"/>
-                                    <constraint firstAttribute="trailing" secondItem="cwe-ZE-Fam" secondAttribute="trailing" constant="22" id="uTd-SE-t4E"/>
+                                    <constraint firstItem="dxO-V4-Vo4" firstAttribute="top" secondItem="cg2-b8-wq7" secondAttribute="top" id="lc5-PA-x71"/>
+                                    <constraint firstItem="VpS-7S-Vek" firstAttribute="top" secondItem="dxO-V4-Vo4" secondAttribute="bottom" constant="8" symbolic="YES" id="uXK-sa-qda"/>
+                                    <constraint firstItem="VpS-7S-Vek" firstAttribute="trailing" secondItem="dxO-V4-Vo4" secondAttribute="trailing" id="x4f-D4-GBL"/>
                                     <constraint firstAttribute="bottom" secondItem="VpS-7S-Vek" secondAttribute="bottom" constant="580" id="zmC-EI-BMY"/>
                                 </constraints>
                             </view>
@@ -450,12 +455,22 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="t3O-xE-aPy">
+                        <barButtonItem key="leftBarButtonItem" title=" " image="chevron.backward" catalog="system" id="45c-Mf-C2n">
+                            <connections>
+                                <action selector="goBackToHome:" destination="rEn-hk-7t6" id="19N-uX-YQg"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Post" id="1ZV-tM-x4x"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="captionOutlet" destination="VpS-7S-Vek" id="dlr-rg-V8q"/>
+                        <outlet property="dropdownOutlet" destination="dxO-V4-Vo4" id="csx-uN-Vae"/>
+                        <outlet property="imageView" destination="cg2-b8-wq7" id="iv6-S6-11A"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m5E-Bh-ZFe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-104" y="2202"/>
+            <point key="canvasLocation" x="-104.34782608695653" y="2201.7857142857142"/>
         </scene>
         <!--Details View Controller-->
         <scene sceneID="sSV-qX-hgo">
@@ -1308,7 +1323,11 @@
                                 <action selector="logOutClick:" destination="hRc-2W-ora" id="8Ib-iU-ghW"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title=" " image="plus" catalog="system" id="9Y6-Ep-7zM"/>
+                        <barButtonItem key="rightBarButtonItem" title=" " image="plus" catalog="system" id="9Y6-Ep-7zM">
+                            <connections>
+                                <action selector="composeAPost:" destination="hRc-2W-ora" id="gZ4-uz-sOG"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R5f-pu-gtL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1355,7 +1374,7 @@
         <!--Navigation Controller-->
         <scene sceneID="ePZ-uk-aUt">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VG9-E4-sDR" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="composePost" automaticallyAdjustsScrollViewInsets="NO" id="VG9-E4-sDR" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YLF-ax-CcD">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1410,6 +1429,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="ideator-1" width="96" height="96"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>

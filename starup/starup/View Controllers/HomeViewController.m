@@ -99,6 +99,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 //    Adds 20 more posts to the tableView, for infinte scrolling
 }
 
+- (IBAction)composeAPost:(id)sender {
+    // display compose post view controller
+    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UIViewController *nav = [storyboard instantiateViewControllerWithIdentifier:@"composePost"];
+    [nav setModalPresentationStyle:UIModalPresentationFullScreen];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
+
 /*
  #pragma mark - Navigation
  

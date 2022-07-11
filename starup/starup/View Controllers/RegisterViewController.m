@@ -42,8 +42,8 @@
     newUser[@"firstname"] = self.firstNameField.text;
     newUser[@"lastname"] = self.lastNameField.text;
     newUser[@"role"] = self.roleField.text;
-    
-    
+    UIImage *image =  [UIImage imageNamed:@"profile_tab"];
+    [newUser setObject:[Algos getPFFileFromImage:image] forKey: @"profileImage"];
     
     // call sign up function on the object
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
