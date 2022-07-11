@@ -7,7 +7,7 @@
 
 #import "ComposePostViewController.h"
 
-@interface ComposePostViewController ()
+@interface ComposePostViewController () <UITextViewDelegate>
 
 @end
 
@@ -21,6 +21,8 @@
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:gestureRecognizer];
     gestureRecognizer.cancelsTouchesInView = NO;
+    // For the textfield placeholder to work
+    self.captionOutlet.delegate=self;
 }
 
 - (void)setOutlets{
@@ -56,7 +58,6 @@
 - (void)textViewDidChange:(UITextView *)textView{
     //    If the text changes the placeholder dissapears
     self.typeHere.hidden=(textView.text.length>0);
-    
 }
 
 - (IBAction)makePost:(id)sender {
