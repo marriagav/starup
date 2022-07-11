@@ -71,7 +71,7 @@
         }
         else{
             // Calls the didPost method from the delegate and dissmisses the view controller
-            // [self.delegate didPost];
+            [self.delegate didPost];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
         // hides progress hud

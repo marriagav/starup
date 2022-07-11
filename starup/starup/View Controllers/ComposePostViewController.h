@@ -13,6 +13,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol ComposePostViewControllerDelegate
+
+- (void)didPost;
+
+@end
+
 @interface ComposePostViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITextView *captionOutlet;
@@ -20,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *dropdownOutlet;
 @property (strong, nonatomic) NSString *updateStatus;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
+@property (nonatomic, weak) id<ComposePostViewControllerDelegate> delegate;
 
 @end
 
