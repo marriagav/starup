@@ -17,6 +17,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setOutlets];
+    // Add gesture recognizer to dissmiss keyboard when clicking on screen
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:gestureRecognizer];
+    gestureRecognizer.cancelsTouchesInView = NO;
 }
 
 - (void)setOutlets{
@@ -56,6 +60,24 @@
 
 - (IBAction)makePost:(id)sender {
     //    Makes the call to post the post
+    //    Shows progress hud
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //    Dissables sharebutton so that the user cant spam it
+    self.shareButton.enabled = false;
+    //    Makes call
+    [Post postUserStatus:self.updateStatus withCaption:self.captionOutlet.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (error){
+            NSLog(@"%@", error);
+        }
+        else{
+            // Calls the didPost method from the delegate and dissmisses the view controller
+            // [self.delegate didPost];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        // hides progress hud
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }
+    ];
 }
 
 - (IBAction)goBackToHome:(id)sender {

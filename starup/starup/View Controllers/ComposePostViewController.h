@@ -8,6 +8,8 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import "Algos.h"
+#import "MBProgressHUD.h"
+#import "Post.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet PFImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIButton *dropdownOutlet;
 @property (strong, nonatomic) NSString *updateStatus;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 
 @end
 

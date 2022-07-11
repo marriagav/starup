@@ -460,12 +460,17 @@
                                 <action selector="goBackToHome:" destination="rEn-hk-7t6" id="19N-uX-YQg"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Post" id="1ZV-tM-x4x"/>
+                        <barButtonItem key="rightBarButtonItem" title="Post" id="1ZV-tM-x4x">
+                            <connections>
+                                <action selector="makePost:" destination="rEn-hk-7t6" id="q8X-Pw-Tnr"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="captionOutlet" destination="VpS-7S-Vek" id="dlr-rg-V8q"/>
                         <outlet property="dropdownOutlet" destination="dxO-V4-Vo4" id="csx-uN-Vae"/>
                         <outlet property="imageView" destination="cg2-b8-wq7" id="iv6-S6-11A"/>
+                        <outlet property="shareButton" destination="1ZV-tM-x4x" id="r2b-SZ-w1g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m5E-Bh-ZFe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
