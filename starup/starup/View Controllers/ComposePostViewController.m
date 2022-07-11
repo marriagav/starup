@@ -55,6 +55,7 @@
 
 - (void)textViewDidChange:(UITextView *)textView{
     //    If the text changes the placeholder dissapears
+    self.typeHere.hidden=(textView.text.length>0);
     
 }
 
