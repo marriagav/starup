@@ -7,7 +7,7 @@
 
 #import "StarupsViewController.h"
 
-@interface StarupsViewController ()
+@interface StarupsViewController () <ComposeStarupViewControllerDelegate>
 
 @end
 
@@ -86,14 +86,18 @@
     
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+#pragma mark - Actions
+
+- (IBAction)composeAStarup:(id)sender {
+    // display compose post view controller
+    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    ComposeStarupViewController *composeStarupViewController = [storyboard instantiateViewControllerWithIdentifier:@"composeSNoNav"];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:composeStarupViewController];
+    [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
+    [self.navigationController presentViewController:navigationController animated:YES completion:^{
+        // Pass the delegate
+        composeStarupViewController.delegate = self;
+    }];
+}
 
 @end

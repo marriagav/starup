@@ -7,7 +7,7 @@
 
 #import "ComposeStarupViewController.h"
 
-@interface ComposeStarupViewController ()
+@interface ComposeStarupViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate>
 
 @end
 
@@ -15,7 +15,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self setOutlets];
+    [self pictureGestureRecognizer:self.starupImage];
+    // Add gesture recognizer to dissmiss keyboard when clicking on screen
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:gestureRecognizer];
+    gestureRecognizer.cancelsTouchesInView = NO;
+}
+
+- (void)setOutlets{
+    //  Set the profile picture
+    self.profilePicture.file = PFUser.currentUser[@"profileImage"];
+    [self.profilePicture loadInBackground];
+    //    Format the profile picture
+    [Algos formatPictureWithRoundedEdges:self.profilePicture];
 }
 
 - (void)dismissKeyboard{
@@ -25,7 +38,14 @@
 
 - (void)didTapImage:(UITapGestureRecognizer *)sender{
     //    Gets called when the user taps on the image placeholder, creating and opening an UIImagePickerController
+    UIImagePickerController *imagePickerVC = [UIImagePickerController new];
     
+    imagePickerVC.delegate = self;
+    imagePickerVC.allowsEditing = YES;
+
+    imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+
+    [self presentViewController:imagePickerVC animated:YES completion:nil];
 }
 
 - (void)textViewDidChange:(UITextView *)textView{
@@ -42,9 +62,12 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     // Get the image captured by the UIImagePickerController
-    
+    UIImage *editedImage = info[UIImagePickerControllerEditedImage];
+
     // Resize the image
+    UIImage *resizedImage = [Algos imageWithImage:editedImage scaledToWidth: 414];
     
+    self.starupImage.image = resizedImage;
     
     // Dismiss UIImagePickerController to go back to your original view controller
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -58,6 +81,17 @@
     
     //    Makes call
     
+}
+
+#pragma mark - Navigation
+
+- (IBAction)goBackToStarups:(id)sender {
+    // display starups view controller
+    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UITabBarController *nav = [storyboard instantiateViewControllerWithIdentifier:@"navBar"];
+    [nav setModalPresentationStyle:UIModalPresentationFullScreen];
+    [nav setSelectedViewController:[nav.viewControllers objectAtIndex:1]];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 //TODO: way to select collaborators
