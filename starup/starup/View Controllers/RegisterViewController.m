@@ -13,6 +13,8 @@
 
 @implementation RegisterViewController
 
+#pragma mark - Initialization
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Add gesture recognizer to dissmiss keyboard when clicking on screen
@@ -24,45 +26,11 @@
     self.correctLogin = @"";
 }
 
+#pragma mark - QualityOfLife
+
 - (void)dismissKeyboard{
     //    Dissmiss the keyboard
     [self.view endEditing:YES];
-}
-
-
-- (void)registerUser {
-    //    Method that registers the user
-    // initialize a user object
-    PFUser *newUser = [PFUser user];
-    
-    // set user properties
-    newUser.username = self.usernameField.text;
-    newUser.password = self.passwordField.text;
-    newUser.email = self.emailField.text;
-    newUser[@"firstname"] = self.firstNameField.text;
-    newUser[@"lastname"] = self.lastNameField.text;
-    newUser[@"role"] = self.roleField.text;
-    UIImage *image =  [UIImage imageNamed:@"profile_tab"];
-    [newUser setObject:[Algos getPFFileFromImage:image] forKey: @"profileImage"];
-    
-    // call sign up function on the object
-    [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
-        if (error != nil) {
-            NSLog(@"Error: %@", error.localizedDescription);
-            //    Initialize alert controller in case of errors
-            self.error = error.localizedDescription;
-            [self initializeAlertController];
-        } else {
-            NSLog(@"User registered successfully");
-            self.correctLogin = @"YES";
-            [self initializeAlertController];
-            
-        }
-    }];
-}
-
-- (IBAction)registerOnClick:(id)sender {
-    [self registerUser];
 }
 
 - (void)initializeAlertController{
@@ -112,14 +80,43 @@
     }
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+#pragma mark - Network
+
+- (void)registerUser {
+    //    Method that registers the user
+    // initialize a user object
+    PFUser *newUser = [PFUser user];
+    
+    // set user properties
+    newUser.username = self.usernameField.text;
+    newUser.password = self.passwordField.text;
+    newUser.email = self.emailField.text;
+    newUser[@"firstname"] = self.firstNameField.text;
+    newUser[@"lastname"] = self.lastNameField.text;
+    newUser[@"role"] = self.roleField.text;
+    UIImage *image =  [UIImage imageNamed:@"profile_tab"];
+    [newUser setObject:[Algos getPFFileFromImage:image] forKey: @"profileImage"];
+    
+    // call sign up function on the object
+    [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
+        if (error != nil) {
+            NSLog(@"Error: %@", error.localizedDescription);
+            //    Initialize alert controller in case of errors
+            self.error = error.localizedDescription;
+            [self initializeAlertController];
+        } else {
+            NSLog(@"User registered successfully");
+            self.correctLogin = @"YES";
+            [self initializeAlertController];
+            
+        }
+    }];
+}
+
+#pragma mark - Actions
+
+- (IBAction)registerOnClick:(id)sender {
+    [self registerUser];
+}
 
 @end

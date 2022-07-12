@@ -13,6 +13,8 @@
 
 @implementation LoginViewController
 
+#pragma mark - Initialization
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Add gesture recognizer to dissmiss keyboard when clicking on screen
@@ -23,10 +25,36 @@
     self.error = @"";
 }
 
+#pragma mark - QualityOfLife
+
 - (void)dismissKeyboard{
     //    Dissmiss the keyboard
     [self.view endEditing:YES];
 }
+
+
+- (void)initializeAlertController{
+    //    Create the alert controller for login errors
+    UIAlertController *loginError = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                        message:self.error
+                                                                 preferredStyle:(UIAlertControllerStyleAlert)];
+    // create a cancel action
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Try Again"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+        // handle try again response here. Doing nothing will dismiss the view.
+    }];
+    // add the cancel action to the alertControllers
+    [loginError addAction:cancelAction];
+    
+    if (![self.error isEqual:@""]){
+        [self presentViewController:loginError animated:YES completion:^{
+            self.error = @"";
+        }];
+    }
+}
+
+#pragma mark - Network
 
 - (void)loginUser {
     //    Method that logs the user in
@@ -52,6 +80,8 @@
     }];
 }
 
+#pragma mark - Actions
+
 - (IBAction)loginOnClick:(id)sender {
     [self loginUser];
 }
@@ -62,36 +92,5 @@
     UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"registerView"];
     [self.navigationController pushViewController:vc animated:YES];
 }
-
-- (void)initializeAlertController{
-    //    Create the alert controller for login errors
-    UIAlertController *loginError = [UIAlertController alertControllerWithTitle:@"Error"
-                                                                        message:self.error
-                                                                 preferredStyle:(UIAlertControllerStyleAlert)];
-    // create a cancel action
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Try Again"
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:^(UIAlertAction * _Nonnull action) {
-        // handle try again response here. Doing nothing will dismiss the view.
-    }];
-    // add the cancel action to the alertControllers
-    [loginError addAction:cancelAction];
-    
-    if (![self.error isEqual:@""]){
-        [self presentViewController:loginError animated:YES completion:^{
-            self.error = @"";
-        }];
-    }
-}
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end
