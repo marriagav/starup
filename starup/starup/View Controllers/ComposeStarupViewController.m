@@ -78,9 +78,10 @@
     //    Shows progress hud
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //    Dissables sharebutton so that the user cant spam it
-    self.shareButton.enabled = false;
+//    self.shareButton.enabled = false;
     //    Makes call
-    [Starup postStarup:self.starupName.text withCategory:self.starupCategory.text withDescription:self.description withImage:self.starupImage.image withOperationSince:self.operatingSince.date withSales:(int)[self.sales.text integerValue] withGoalInvestment:(int)[self.goalInvestment.text integerValue] withPercentageToGive:(int)[self.percentageToGive.text integerValue] withSharks:Nil withIdeators:Nil withHackers:Nil withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    //TODO: pass the sharks, hackers and ideators to the query
+    [Starup postStarup:self.starupName.text withCategory:self.starupCategory.text withDescription:self.descriptionOutlet.text withImage:self.starupImage.image withOperationSince:self.operatingSince.date withSales:(int)[self.sales.text integerValue] withGoalInvestment:(int)[self.goalInvestment.text integerValue] withPercentageToGive:(int)[self.percentageToGive.text integerValue] withSharks:Nil withIdeators:Nil withHackers:Nil withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (error){
             NSLog(@"%@", error);
         }
