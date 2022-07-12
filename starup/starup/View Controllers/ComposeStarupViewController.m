@@ -42,9 +42,9 @@
     
     imagePickerVC.delegate = self;
     imagePickerVC.allowsEditing = YES;
-
+    
     imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-
+    
     [self presentViewController:imagePickerVC animated:YES completion:nil];
 }
 
@@ -63,7 +63,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     // Get the image captured by the UIImagePickerController
     UIImage *editedImage = info[UIImagePickerControllerEditedImage];
-
+    
     // Resize the image
     UIImage *resizedImage = [Algos imageWithImage:editedImage scaledToWidth: 414];
     
@@ -74,13 +74,24 @@
 }
 
 - (IBAction)postStarup:(id)sender {
-    //    Makes the call to post the starup to the db
+    //    Makes the call to post the image to the db
     //    Shows progress hud
-    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //    Dissables sharebutton so that the user cant spam it
-    
+    self.shareButton.enabled = false;
     //    Makes call
-    
+    [Starup postStarup:self.starupName.text withCategory:self.starupCategory.text withDescription:self.description withImage:self.starupImage.image withOperationSince:self.operatingSince.date withSales:(int)[self.sales.text integerValue] withGoalInvestment:(int)[self.goalInvestment.text integerValue] withPercentageToGive:(int)[self.percentageToGive.text integerValue] withSharks:Nil withIdeators:Nil withHackers:Nil withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (error){
+            NSLog(@"%@", error);
+        }
+        else{
+            //Calls the didPost method from the delegate and dissmisses the view controller
+            [self.delegate didPost];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        // hides progress hud
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
 }
 
 #pragma mark - Navigation
