@@ -105,9 +105,8 @@ InfiniteScrollActivityView* _loadingMoreViewS;
 - (void)_beginRefresh:(UIRefreshControl *)refreshControl {
 //    Refreshes the data using the UIRefreshControl
     // construct query
-    PFQuery *query = [PFQuery queryWithClassName:@"Post"];
+    PFQuery *query = [PFQuery queryWithClassName:@"Starup"];
     [query orderByDescending:@"createdAt"];
-    [query includeKey:@"author"];
     query.limit = 20;
 
     // fetch data asynchronously
