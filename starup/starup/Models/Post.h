@@ -6,6 +6,7 @@
 //
 
 #import <Parse/Parse.h>
+#import "Algos.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,13 +15,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *postID;
 @property (nonatomic, strong) NSString *userID;
 @property (nonatomic, strong) PFUser *author;
+@property (nonatomic, strong) PFFileObject *statusImage;
 @property (nonatomic, strong) NSString *contentOfPost;
 @property (nonatomic, strong) NSString *updateStatus;
 @property (nonatomic, strong) NSNumber *likeCount;
 @property (nonatomic, strong) NSNumber *commentCount;
 
 
-+ (void) postUserStatus: ( NSString * _Nullable )updateStatus withCaption: ( NSString * _Nullable )contentOfPost withCompletion: (PFBooleanResultBlock  _Nullable)completion;
++ (void) postUserStatus: ( NSString * _Nullable )updateStatus withCaption: ( NSString * _Nullable )contentOfPost withImage:( UIImage * _Nullable )statusImage withCompletion: (PFBooleanResultBlock  _Nullable)completion;
 
 @end
 

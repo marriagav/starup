@@ -16,14 +16,16 @@
 @dynamic updateStatus;
 @dynamic likeCount;
 @dynamic commentCount;
+@dynamic statusImage;
 
 + (nonnull NSString *)parseClassName {
     return @"Post";
 }
 
-+ (void) postUserStatus: ( NSString * _Nullable )updateStatus withCaption: ( NSString * _Nullable )contentOfPost withCompletion: (PFBooleanResultBlock  _Nullable)completion {
++ (void) postUserStatus: ( NSString * _Nullable )updateStatus withCaption: ( NSString * _Nullable )contentOfPost withImage: ( UIImage * _Nullable )statusImage withCompletion: (PFBooleanResultBlock  _Nullable)completion {
 //    Method to set the properties of the post
     Post *newPost = [[Post alloc]initWithClassName:@"Post"];
+    newPost.statusImage = [Algos getPFFileFromImage:statusImage];
     newPost.author = [PFUser currentUser];
     newPost.contentOfPost = contentOfPost;
     newPost.updateStatus = updateStatus;

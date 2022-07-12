@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet PFImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIButton *dropdownOutlet;
 @property (strong, nonatomic) NSString *updateStatus;
+@property (strong, nonatomic) UIImage *updateImage;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 @property (weak, nonatomic) IBOutlet UILabel *typeHere;
 @property (nonatomic, weak) id<ComposePostViewControllerDelegate> delegate;

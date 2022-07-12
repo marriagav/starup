@@ -34,17 +34,25 @@
     //    Set the dropdown menu
     UIAction *postedStarup = [UIAction actionWithTitle:@"Posted a new Starup" image:NULL identifier:NULL handler:^(UIAction* action){
         self.updateStatus = @"Posted a new Starup";
+        self.updateImage = [UIImage imageNamed:@"ideator-1"];
     }];
-    UIAction *lookingStarups = [UIAction actionWithTitle:@"Looking for a Starup" image:NULL identifier:NULL handler:^(UIAction* action){
-        self.updateStatus = @"Looking for a Starup";
+    UIAction *lookingStarupsJ = [UIAction actionWithTitle:@"Looking for a Starup to join" image:NULL identifier:NULL handler:^(UIAction* action){
+        self.updateStatus = @"Looking for a Starup to join";
+        self.updateImage = [UIImage imageNamed:@"hacker-1"];
+    }];
+    UIAction *lookingStarupsI = [UIAction actionWithTitle:@"Looking for a Starup to invest" image:NULL identifier:NULL handler:^(UIAction* action){
+        self.updateStatus = @"Looking for a Starup to invest";
+        self.updateImage = [UIImage imageNamed:@"shark-1"];
     }];
     UIAction *investedStarup = [UIAction actionWithTitle:@"Invested on a Starup" image:NULL identifier:NULL handler:^(UIAction* action){
         self.updateStatus = @"Invested on a Starup";
+        self.updateImage = [UIImage imageNamed:@"shark-1"];
     }];
     UIAction *joinedStarup = [UIAction actionWithTitle:@"Joined a Starup" image:NULL identifier:NULL handler:^(UIAction* action){
         self.updateStatus = @"Joined a Starup";
+        self.updateImage = [UIImage imageNamed:@"hacker-1"];
     }];
-    UIMenu *menu = [[UIMenu alloc] menuByReplacingChildren:[NSArray arrayWithObjects:postedStarup, lookingStarups, investedStarup, joinedStarup, nil]];
+    UIMenu *menu = [[UIMenu alloc] menuByReplacingChildren:[NSArray arrayWithObjects:postedStarup, lookingStarupsJ, lookingStarupsI, investedStarup, joinedStarup, nil]];
     self.dropdownOutlet.menu = menu;
     self.dropdownOutlet.showsMenuAsPrimaryAction = YES;
     self.dropdownOutlet.changesSelectionAsPrimaryAction= YES;
@@ -67,7 +75,7 @@
     //    Dissables sharebutton so that the user cant spam it
     self.shareButton.enabled = false;
     //    Makes call
-    [Post postUserStatus:self.updateStatus withCaption:self.captionOutlet.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    [Post postUserStatus:self.updateStatus withCaption:self.captionOutlet.text withImage:self.updateImage withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (error){
             NSLog(@"%@", error);
         }
