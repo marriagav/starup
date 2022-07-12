@@ -27,6 +27,8 @@
 		D41A9BCB287600D90038852B /* ComposeStarupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9BCA287600D90038852B /* ComposeStarupViewController.m */; };
 		D41A9BCE287600F10038852B /* StarupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9BCD287600F10038852B /* StarupsViewController.m */; };
 		D41A9BD1287609210038852B /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9BD0287609210038852B /* RegisterViewController.m */; };
+		D450F1EF287C9F400000F5D1 /* Algos.m in Sources */ = {isa = PBXBuildFile; fileRef = D450F1EE287C9F400000F5D1 /* Algos.m */; };
+		D450F1F5287CCC040000F5D1 /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = D450F1F4287CCC040000F5D1 /* Post.m */; };
 		D4CDEA4E2878A37C00495426 /* PostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CDEA4D2878A37C00495426 /* PostCell.m */; };
 		D4CDEA512878AB7100495426 /* StarupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CDEA502878AB7100495426 /* StarupCell.m */; };
 		FB50FED72C2285DFF8940994 /* Pods_starup_starupUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 120143D56E6EFC00AC9D69EF /* Pods_starup_starupUITests.framework */; };
@@ -92,6 +94,10 @@
 		D41A9BCD287600F10038852B /* StarupsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StarupsViewController.m; sourceTree = "<group>"; };
 		D41A9BCF287609210038852B /* RegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		D41A9BD0287609210038852B /* RegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		D450F1ED287C9F400000F5D1 /* Algos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Algos.h; sourceTree = "<group>"; };
+		D450F1EE287C9F400000F5D1 /* Algos.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Algos.m; sourceTree = "<group>"; };
+		D450F1F3287CCC040000F5D1 /* Post.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
+		D450F1F4287CCC040000F5D1 /* Post.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
 		D4CDEA4C2878A37C00495426 /* PostCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostCell.h; sourceTree = "<group>"; };
 		D4CDEA4D2878A37C00495426 /* PostCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostCell.m; sourceTree = "<group>"; };
 		D4CDEA4F2878AB7100495426 /* StarupCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StarupCell.h; sourceTree = "<group>"; };
@@ -247,6 +253,8 @@
 		D41A9BB22875F82F0038852B /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				D450F1ED287C9F400000F5D1 /* Algos.h */,
+				D450F1EE287C9F400000F5D1 /* Algos.m */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -254,6 +262,8 @@
 		D41A9BB32875F8450038852B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D450F1F3287CCC040000F5D1 /* Post.h */,
+				D450F1F4287CCC040000F5D1 /* Post.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -269,7 +279,7 @@
 				D41A9B742875F0DA0038852B /* Sources */,
 				D41A9B752875F0DA0038852B /* Frameworks */,
 				D41A9B762875F0DA0038852B /* Resources */,
-				6E4C2566437F49FF826B8212 /* [CP] Embed Pods Frameworks */,
+				CC2C5A34FE74C4B1BCF3FE0F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -307,7 +317,7 @@
 				D41A9B992875F0DB0038852B /* Sources */,
 				D41A9B9A2875F0DB0038852B /* Frameworks */,
 				D41A9B9B2875F0DB0038852B /* Resources */,
-				D4169C5B01AF1A0218ACDA48 /* [CP] Embed Pods Frameworks */,
+				362B0B1F6DE96546235DA412 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -389,6 +399,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		362B0B1F6DE96546235DA412 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-starup-starupUITests/Pods-starup-starupUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-starup-starupUITests/Pods-starup-starupUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-starup-starupUITests/Pods-starup-starupUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6D064D983B4345D9E4E0CC54 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -409,23 +436,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6E4C2566437F49FF826B8212 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-starup/Pods-starup-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-starup/Pods-starup-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-starup/Pods-starup-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		821604036FA98FA52C415A4C /* [CP] Check Pods Manifest.lock */ = {
@@ -472,21 +482,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D4169C5B01AF1A0218ACDA48 /* [CP] Embed Pods Frameworks */ = {
+		CC2C5A34FE74C4B1BCF3FE0F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-starup-starupUITests/Pods-starup-starupUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-starup/Pods-starup-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-starup-starupUITests/Pods-starup-starupUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-starup/Pods-starup-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-starup-starupUITests/Pods-starup-starupUITests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-starup/Pods-starup-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -503,11 +513,13 @@
 				D4CDEA4E2878A37C00495426 /* PostCell.m in Sources */,
 				D41A9BC22876009D0038852B /* ComposePostViewController.m in Sources */,
 				D41A9B7D2875F0DA0038852B /* AppDelegate.m in Sources */,
+				D450F1F5287CCC040000F5D1 /* Post.m in Sources */,
 				D41A9BC8287600BD0038852B /* InvestViewController.m in Sources */,
 				D41A9B8E2875F0DB0038852B /* main.m in Sources */,
 				D41A9BD1287609210038852B /* RegisterViewController.m in Sources */,
 				D41A9B802875F0DA0038852B /* SceneDelegate.m in Sources */,
 				D41A9BBF2876006D0038852B /* ProfileViewController.m in Sources */,
+				D450F1EF287C9F400000F5D1 /* Algos.m in Sources */,
 				D41A9BC5287600AD0038852B /* DetailsViewController.m in Sources */,
 				D41A9BBC2876005E0038852B /* HomeViewController.m in Sources */,
 			);

@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "Parse/Parse.h"
 #import "LoginViewController.h"
+#import "Algos.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
