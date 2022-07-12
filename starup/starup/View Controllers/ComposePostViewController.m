@@ -13,6 +13,8 @@
 
 @implementation ComposePostViewController
 
+#pragma mark - Initialization
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -58,6 +60,8 @@
     self.dropdownOutlet.changesSelectionAsPrimaryAction= YES;
 }
 
+#pragma mark - QualityOfLife
+
 - (void)dismissKeyboard{
     //    Dissmiss the keyboard
     [self.view endEditing:YES];
@@ -67,6 +71,8 @@
     //    If the text changes the placeholder dissapears
     self.typeHere.hidden=(textView.text.length>0);
 }
+
+#pragma mark - Network
 
 - (IBAction)makePost:(id)sender {
     //    Makes the call to post the post
@@ -90,6 +96,8 @@
     ];
 }
 
+#pragma mark - Navigation
+
 - (IBAction)goBackToHome:(id)sender {
     // display home view controller
     UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
@@ -97,15 +105,5 @@
     [nav setModalPresentationStyle:UIModalPresentationFullScreen];
     [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

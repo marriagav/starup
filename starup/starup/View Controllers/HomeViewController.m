@@ -13,6 +13,8 @@
 
 @implementation HomeViewController
 
+#pragma mark - Initialization
+
 // Helper variables
 bool _isMoreDataLoading = false;
 InfiniteScrollActivityView* _loadingMoreView;
@@ -45,6 +47,58 @@ InfiniteScrollActivityView* _loadingMoreView;
         }
     }];
 }
+
+#pragma mark - QualityOfLife
+
+- (void)_initializeRefreshControl{
+//    Initialices and inserts the refresh control
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(_beginRefresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:refreshControl atIndex:0];
+}
+
+- (void)_initializeRefreshControlB{
+//    Initialices and inserts the refresh control
+    // Set up Infinite Scroll loading indicator
+    CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
+    _loadingMoreView = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
+    _loadingMoreView.hidden = true;
+    [self.tableView addSubview:_loadingMoreView];
+    
+    UIEdgeInsets insets = self.tableView.contentInset;
+    insets.bottom += InfiniteScrollActivityView.defaultHeight;
+    self.tableView.contentInset = insets;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if(!_isMoreDataLoading){
+        // Calculate the position of one screen length before the bottom of the results
+        int scrollViewContentHeight = self.tableView.contentSize.height;
+        int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
+        
+        // When the user has scrolled past the threshold, start requesting
+        if(scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
+            _isMoreDataLoading = true;
+            
+            // Update position of loadingMoreView, and start loading indicator
+            CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
+            _loadingMoreView.frame = frame;
+            [_loadingMoreView startAnimating];
+            
+            // Code to load more results
+            [self loadMoreData];
+        }
+    }
+}
+
+- (void)loadMoreData{
+    //    Adds 20 more posts to the tableView, for infinte scrolling
+    int postsToAdd = (int)[self.postArray count] + 20;
+    [self refreshDataWithNPosts: postsToAdd];
+    [_loadingMoreView stopAnimating];
+}
+
+#pragma mark - Network
 
 - (void)refreshDataWithNPosts:(int) numberOfPosts {
     //    Refreshes the tableview data with numberOfPosts posts
@@ -86,25 +140,7 @@ InfiniteScrollActivityView* _loadingMoreView;
     }];
 }
 
-- (void)_initializeRefreshControl{
-//    Initialices and inserts the refresh control
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(_beginRefresh:) forControlEvents:UIControlEventValueChanged];
-    [self.tableView insertSubview:refreshControl atIndex:0];
-}
-
-- (void)_initializeRefreshControlB{
-//    Initialices and inserts the refresh control
-    // Set up Infinite Scroll loading indicator
-    CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
-    _loadingMoreView = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
-    _loadingMoreView.hidden = true;
-    [self.tableView addSubview:_loadingMoreView];
-    
-    UIEdgeInsets insets = self.tableView.contentInset;
-    insets.bottom += InfiniteScrollActivityView.defaultHeight;
-    self.tableView.contentInset = insets;
-}
+#pragma mark - TableView
 
 - (NSInteger)tableView:(UITableView *)tableView 
  numberOfRowsInSection:(NSInteger)section {
@@ -124,12 +160,6 @@ InfiniteScrollActivityView* _loadingMoreView;
     return cell;
 }
 
-- (void)didPost{
-    //    Gets called when the user presses the "share" button on the "ComposePost" view, this controller functions as a delegate of the former
-    [self refreshDataWithNPosts:(int)self.postArray.count+1];
-}
-
-
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     //    Calls load more data when scrolling reaches bottom of the tableView
     if(indexPath.row + 1 == [self.postArray count]){
@@ -137,33 +167,14 @@ InfiniteScrollActivityView* _loadingMoreView;
     }
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if(!_isMoreDataLoading){
-        // Calculate the position of one screen length before the bottom of the results
-        int scrollViewContentHeight = self.tableView.contentSize.height;
-        int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
-        
-        // When the user has scrolled past the threshold, start requesting
-        if(scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
-            _isMoreDataLoading = true;
-            
-            // Update position of loadingMoreView, and start loading indicator
-            CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
-            _loadingMoreView.frame = frame;
-            [_loadingMoreView startAnimating];
-            
-            // Code to load more results
-            [self loadMoreData];
-        }
-    }
+#pragma mark - Delegates
+
+- (void)didPost{
+    //    Gets called when the user presses the "share" button on the "ComposePost" view, this controller functions as a delegate of the former
+    [self refreshDataWithNPosts:(int)self.postArray.count+1];
 }
 
-- (void)loadMoreData{
-    //    Adds 20 more posts to the tableView, for infinte scrolling
-    int postsToAdd = (int)[self.postArray count] + 20;
-    [self refreshDataWithNPosts: postsToAdd];
-    [_loadingMoreView stopAnimating];
-}
+#pragma mark - Actions
 
 - (IBAction)composeAPost:(id)sender {
     // display compose post view controller
@@ -177,19 +188,11 @@ InfiniteScrollActivityView* _loadingMoreView;
     }];
 }
 
+#pragma mark - Navigation
+
 - (void)postCell:(PostCell *)postCell didTap:(PFUser *)user{
 //    Goes to profile page when user taps on profile
 // TODO: change tabs
 }
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end
