@@ -24,15 +24,15 @@
 - (void)setPost:(Post *)post {
 //    Setter for the post
     _post = post;
+    self.user = post[@"author"];
     self.captionOutlet.text = post[@"contentOfPost"];
     self.profilePicture.file = self.user[@"profileImage"];
+    [self.profilePicture loadInBackground];
     self.statusImage.file = post[@"statusImage"];
     self.statusText.text = post[@"updateStatus"];
-    self.user = post[@"author"];
     self.userName.text = self.user.username;
     self.dateOutlet.text = self.post.createdAt.shortTimeAgoSinceNow;
     [self.statusImage loadInBackground];
-    [self.profilePicture loadInBackground];
 }
 
 - (void)_pictureGestureRecognizer{
