@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *captionOutlet;
 @property (weak, nonatomic) IBOutlet UILabel *dateOutlet;
 @property (weak, nonatomic) IBOutlet UILabel *userRole;
-@property (weak, nonatomic) IBOutlet UILabel *userName;
+@property (weak, nonatomic) IBOutlet UILabel *profileName;
 @property (strong, nonatomic) PFUser *user;
 @property (strong, nonatomic) Post *post;
 @property (nonatomic, weak) id<PostCellDelegate> delegate;

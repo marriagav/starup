@@ -7,7 +7,7 @@
 
 #import "ProfileViewController.h"
 
-@interface ProfileViewController ()
+@interface ProfileViewController () <UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end
 
@@ -15,7 +15,95 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    //    Case when the profile view is accessed through the nav bar
+    if (self.user == nil || self.user==PFUser.currentUser){
+        self.user = PFUser.currentUser;
+        //  Can only edit the profile if it is your profile
+        //    Set the dropdown menu
+        [self setDropDownMenu];
+    }
+    else {
+//        When in someone elses profile page
+        [self.editProfileButton removeFromSuperview];
+    }
+    //  Fill tableview and set outlets
+    [self refreshDataWithNPosts:20];
+    [self setOutlets];
+    // Initialize a UIRefreshControlBottom
+    [self _initializeRefreshControlB];
+}
+
+- (void)setOutlets{
+    //    Set the outlets for the profile
+    self.username.text = [NSString stringWithFormat:@"%@%@", @"@", self.user.username];
+    self.profileName.text = [NSString stringWithFormat:@"%@ %@", self.user[@"firstname"], self.user[@"lastname"]];
+    self.profileBio.text = self.user[@"userBio"];
+    self.profileRole.text = self.user[@"role"];
+    //  Set the profile picture
+    self.profilePicture.file = self.user[@"profileImage"];
+    [self.profilePicture loadInBackground];
+    //    Format the profile picture
+    [Algos formatPictureWithRoundedEdges:self.profilePicture];
+}
+
+- (void)setDropDownMenu{
+    UIAction *editPicture = [UIAction actionWithTitle:@"Change profile picture" image:NULL identifier:NULL handler:^(UIAction* action){
+        [self changeProfileImage];
+    }];
+    UIAction *editDetails = [UIAction actionWithTitle:@"Change my details" image:NULL identifier:NULL handler:^(UIAction* action){
+        // display register view controller
+        [self editProfileDetailsOnClick];
+    }];
+    UIMenu *menu = [[UIMenu alloc] menuByReplacingChildren:[NSArray arrayWithObjects:editPicture, editDetails, nil]];
+    
+    self.editProfileButton.menu = menu;
+    self.editProfileButton.showsMenuAsPrimaryAction = YES;
+}
+
+- (void)editProfileDetailsOnClick{
+    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    EditProfileViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"editVC"];
+    [self.navigationController presentViewController:vc animated:YES completion:nil];
+}
+
+- (void)changeProfileImage{
+    //    Creates and opens an UIImagePickerController when the user taps the user image
+    UIImagePickerController *imagePickerVC = [UIImagePickerController new];
+    
+    imagePickerVC.delegate = self;
+    imagePickerVC.allowsEditing = YES;
+    
+    imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    [self presentViewController:imagePickerVC animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    
+    // Get the image captured by the UIImagePickerController
+    UIImage *editedImage = info[UIImagePickerControllerEditedImage];
+    
+    // Resize the image
+    UIImage *resizedImage = [Algos imageWithImage:editedImage scaledToWidth: 414];
+    
+    self.profilePicture.image = resizedImage;
+    [self changeProfilePicture];
+    
+    // Dismiss UIImagePickerController to go back to your original view controller
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)changeProfilePicture{
+    //    Call to change the profile picture in the DB
+    [self.user setObject:[Algos getPFFileFromImage:self.profilePicture.image] forKey: @"profileImage"];
+    [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if(error){
+            NSLog(@"%@", error.localizedDescription);
+        }
+        else{
+            [self refreshDataWithNPosts:20];
+        }
+    }];
 }
 
 - (void)refreshDataWithNPosts:(int) numberOfPosts{

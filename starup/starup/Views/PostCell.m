@@ -30,7 +30,8 @@
     [self.profilePicture loadInBackground];
     self.statusImage.file = post[@"statusImage"];
     self.statusText.text = post[@"updateStatus"];
-    self.userName.text = self.user.username;
+    self.profileName.text = [NSString stringWithFormat:@"%@ %@", self.user[@"firstname"], self.user[@"lastname"]];
+    self.userRole.text = self.user[@"role"];
     self.dateOutlet.text = self.post.createdAt.shortTimeAgoSinceNow;
     [self.statusImage loadInBackground];
 }

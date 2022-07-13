@@ -11,6 +11,8 @@
 		C7C8A4607A1D1D10CB698D73 /* Pods_starupTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827D1084F722208A5D08B0A5 /* Pods_starupTests.framework */; };
 		D40045B9287CE69D001EB588 /* InfiniteScrollActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = D40045B8287CE69D001EB588 /* InfiniteScrollActivityView.m */; };
 		D40045BC287DECE3001EB588 /* Starup.m in Sources */ = {isa = PBXBuildFile; fileRef = D40045BB287DECE3001EB588 /* Starup.m */; };
+		D40045BF287F2E1D001EB588 /* profileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D40045BE287F2E1D001EB588 /* profileCell.m */; };
+		D40045C2287F443C001EB588 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D40045C1287F443C001EB588 /* EditProfileViewController.m */; };
 		D41A9B7D2875F0DA0038852B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9B7C2875F0DA0038852B /* AppDelegate.m */; };
 		D41A9B802875F0DA0038852B /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9B7F2875F0DA0038852B /* SceneDelegate.m */; };
 		D41A9B862875F0DA0038852B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D41A9B842875F0DA0038852B /* Main.storyboard */; };
@@ -67,6 +69,10 @@
 		D40045B8287CE69D001EB588 /* InfiniteScrollActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfiniteScrollActivityView.m; sourceTree = "<group>"; };
 		D40045BA287DECE3001EB588 /* Starup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Starup.h; sourceTree = "<group>"; };
 		D40045BB287DECE3001EB588 /* Starup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Starup.m; sourceTree = "<group>"; };
+		D40045BD287F2E1D001EB588 /* profileCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = profileCell.h; sourceTree = "<group>"; };
+		D40045BE287F2E1D001EB588 /* profileCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = profileCell.m; sourceTree = "<group>"; };
+		D40045C0287F443C001EB588 /* EditProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
+		D40045C1287F443C001EB588 /* EditProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
 		D41A9B782875F0DA0038852B /* starup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = starup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D41A9B7B2875F0DA0038852B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D41A9B7C2875F0DA0038852B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -241,6 +247,8 @@
 				D41A9BCD287600F10038852B /* StarupsViewController.m */,
 				D41A9BCF287609210038852B /* RegisterViewController.h */,
 				D41A9BD0287609210038852B /* RegisterViewController.m */,
+				D40045C0287F443C001EB588 /* EditProfileViewController.h */,
+				D40045C1287F443C001EB588 /* EditProfileViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -254,6 +262,8 @@
 				D4CDEA502878AB7100495426 /* StarupCell.m */,
 				D40045B7287CE69D001EB588 /* InfiniteScrollActivityView.h */,
 				D40045B8287CE69D001EB588 /* InfiniteScrollActivityView.m */,
+				D40045BD287F2E1D001EB588 /* profileCell.h */,
+				D40045BE287F2E1D001EB588 /* profileCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -528,7 +538,9 @@
 				D41A9BC8287600BD0038852B /* InvestViewController.m in Sources */,
 				D40045BC287DECE3001EB588 /* Starup.m in Sources */,
 				D41A9B8E2875F0DB0038852B /* main.m in Sources */,
+				D40045C2287F443C001EB588 /* EditProfileViewController.m in Sources */,
 				D41A9BD1287609210038852B /* RegisterViewController.m in Sources */,
+				D40045BF287F2E1D001EB588 /* profileCell.m in Sources */,
 				D41A9B802875F0DA0038852B /* SceneDelegate.m in Sources */,
 				D41A9BBF2876006D0038852B /* ProfileViewController.m in Sources */,
 				D450F1EF287C9F400000F5D1 /* Algos.m in Sources */,
