@@ -7,7 +7,7 @@
 
 #import "ProfileViewController.h"
 
-@interface ProfileViewController () <UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditProfileViewControllerDelegate>
+@interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditProfileViewControllerDelegate>
 
 @end
 
@@ -15,8 +15,15 @@
 
 #pragma mark - Initialization
 
+// Helper variables
+bool _isMoreDataLoadingP = false;
+InfiniteScrollActivityView* _loadingMoreViewP;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //  Initiallize delegate and datasource of the tableview to self
+    self.tableView.dataSource=self;
+    self.tableView.delegate=self;
     //    Case when the profile view is accessed through the nav bar
     if (self.user == nil || self.user==PFUser.currentUser){
         self.user = PFUser.currentUser;
@@ -31,6 +38,8 @@
     //  Fill tableview and set outlets
     [self refreshDataWithNPosts:20];
     [self setOutlets];
+    // Initialize a UIRefreshControl
+    [self _initializeRefreshControl];
     // Initialize a UIRefreshControlBottom
     [self _initializeRefreshControlB];
 }
@@ -129,69 +138,122 @@
     }];
 }
 
-#pragma mark - QualityOfLife
-
-- (void)refreshDataWithNPosts:(int) numberOfPosts{
+- (void)refreshDataWithNPosts:(int) numberOfPosts {
     //    Refreshes the tableview data with numberOfPosts posts
     // construct query
-    
+    PFQuery *query = [PFQuery queryWithClassName:@"Post"];
+    [query orderByDescending:@"createdAt"];
+    [query includeKey:@"author"];
+    [query whereKey:@"author" equalTo: self.user];
+    query.limit = numberOfPosts;
     
     // fetch data asynchronously
+    [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
+        if (posts != nil) {
+            self.postArray = (NSMutableArray *) posts;
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
     
 }
 
 - (void)_beginRefresh:(UIRefreshControl *)refreshControl {
-    //    Refreshes the data using the UIRefreshControl
+//    Refreshes the data using the UIRefreshControl
     // construct query
-    
-    
+    PFQuery *query = [PFQuery queryWithClassName:@"Post"];
+    [query orderByDescending:@"createdAt"];
+    [query includeKey:@"author"];
+    [query whereKey:@"author" equalTo: self.user];
+    query.limit = 20;
+
     // fetch data asynchronously
-    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
+        if (posts != nil) {
+            self.postArray = (NSMutableArray *) posts;
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+        [refreshControl endRefreshing];
+    }];
 }
 
+#pragma mark - QualityOfLife
 
 - (void)_initializeRefreshControl{
-    //    Initialices and inserts the refresh control
-    
-    
+//    Initialices and inserts the refresh control
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(_beginRefresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:refreshControl atIndex:0];
 }
 
 - (void)_initializeRefreshControlB{
-    //    Initialices and inserts the refresh control
+//    Initialices and inserts the refresh control
     // Set up Infinite Scroll loading indicator
+    CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
+    _loadingMoreViewP = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
+    _loadingMoreViewP.hidden = true;
+    [self.tableView addSubview:_loadingMoreViewP];
     
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:
-(NSInteger)section{
-    //    return amount of posts in the postArray
-    
-    
-    return 0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:
-(NSIndexPath *)indexPath{
-    //    initialize cell (PostCell) to a reusable cell using the PostCell identifier
-    
-    //    get the post and delegate and assign it to the cell
-    
-    return NULL;
-    
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    //    Calls load more data when scrolling reaches bottom of the tableView
-    
+    UIEdgeInsets insets = self.tableView.contentInset;
+    insets.bottom += InfiniteScrollActivityView.defaultHeight;
+    self.tableView.contentInset = insets;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    //    Checks if is scrolling
+    if(!_isMoreDataLoadingP){
+        // Calculate the position of one screen length before the bottom of the results
+        int scrollViewContentHeight = self.tableView.contentSize.height;
+        int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
+        
+        // When the user has scrolled past the threshold, start requesting
+        if(scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
+            _isMoreDataLoadingP = true;
+            
+            // Update position of loadingMoreView, and start loading indicator
+            CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
+            _loadingMoreViewP.frame = frame;
+            [_loadingMoreViewP startAnimating];
+            
+            // Code to load more results
+            [self loadMoreData];
+        }
+    }
 }
 
 - (void)loadMoreData{
     //    Adds 20 more posts to the tableView, for infinte scrolling
-    
+    int postsToAdd = (int)[self.postArray count] + 20;
+    [self refreshDataWithNPosts: postsToAdd];
+    [_loadingMoreViewP stopAnimating];
+}
+
+#pragma mark - TableView
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section {
+    //    return amount of posts in the postArray
+    return self.postArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //    initialize cell (PostCell) to a reusable cell using the PostCell identifier
+    PostCell *cell = [tableView
+                      dequeueReusableCellWithIdentifier: @"PostCell"];
+    //    get the post and delegate and assign it to the cell
+    Post *post = self.postArray[indexPath.row];
+    cell.post=post;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    //    Calls load more data when scrolling reaches bottom of the tableView
+    if(indexPath.row + 1 == [self.postArray count]){
+        [self loadMoreData];
+    }
 }
 
 //TODO: setup collection view

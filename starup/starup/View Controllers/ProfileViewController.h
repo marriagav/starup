@@ -9,6 +9,9 @@
 #import "Algos.h"
 #import "Parse/Parse.h"
 #import "EditProfileViewController.h"
+#import "Post.h"
+#import "PostCell.h"
+#import "InfiniteScrollActivityView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextView *profileBio;
 @property (strong, nonatomic) PFUser *user;
 @property (weak, nonatomic) IBOutlet UIButton *editProfileButton;
+@property (strong, nonatomic) NSMutableArray *postArray;
 
 @end
 
