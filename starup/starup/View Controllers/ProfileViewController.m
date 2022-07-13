@@ -7,11 +7,13 @@
 
 #import "ProfileViewController.h"
 
-@interface ProfileViewController () <UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface ProfileViewController () <UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditProfileViewControllerDelegate>
 
 @end
 
 @implementation ProfileViewController
+
+#pragma mark - Initialization
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -23,7 +25,7 @@
         [self setDropDownMenu];
     }
     else {
-//        When in someone elses profile page
+        //        When in someone elses profile page
         [self.editProfileButton removeFromSuperview];
     }
     //  Fill tableview and set outlets
@@ -35,15 +37,19 @@
 
 - (void)setOutlets{
     //    Set the outlets for the profile
-    self.username.text = [NSString stringWithFormat:@"%@%@", @"@", self.user.username];
-    self.profileName.text = [NSString stringWithFormat:@"%@ %@", self.user[@"firstname"], self.user[@"lastname"]];
-    self.profileBio.text = self.user[@"userBio"];
-    self.profileRole.text = self.user[@"role"];
+    [self setUserTextProperties];
     //  Set the profile picture
     self.profilePicture.file = self.user[@"profileImage"];
     [self.profilePicture loadInBackground];
     //    Format the profile picture
     [Algos formatPictureWithRoundedEdges:self.profilePicture];
+}
+
+- (void)setUserTextProperties{
+    self.username.text = [NSString stringWithFormat:@"%@%@", @"@", self.user.username];
+    self.profileName.text = [NSString stringWithFormat:@"%@ %@", self.user[@"firstname"], self.user[@"lastname"]];
+    self.profileBio.text = self.user[@"userBio"];
+    self.profileRole.text = self.user[@"role"];
 }
 
 - (void)setDropDownMenu{
@@ -60,10 +66,17 @@
     self.editProfileButton.showsMenuAsPrimaryAction = YES;
 }
 
+#pragma mark - Navigation
+
 - (void)editProfileDetailsOnClick{
+    //     display edit profile view
     UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    EditProfileViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"editVC"];
-    [self.navigationController presentViewController:vc animated:YES completion:nil];
+    EditProfileViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"editVCNoNav"];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self.navigationController presentViewController:navigationController animated:YES completion:^{
+        // Pass the delegate
+        vc.delegate = self;
+    }];
 }
 
 - (void)changeProfileImage{
@@ -93,6 +106,16 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - Delegates
+
+- (void)didEdit{
+    //    Gets called when the user presses the "update" button on the "editProfile" view, this controller functions as a delegate of the former
+    //    Updates the outlets for the profile
+    [self setUserTextProperties];
+}
+
+#pragma mark - Network
+
 - (void)changeProfilePicture{
     //    Call to change the profile picture in the DB
     [self.user setObject:[Algos getPFFileFromImage:self.profilePicture.image] forKey: @"profileImage"];
@@ -105,6 +128,8 @@
         }
     }];
 }
+
+#pragma mark - QualityOfLife
 
 - (void)refreshDataWithNPosts:(int) numberOfPosts{
     //    Refreshes the tableview data with numberOfPosts posts
@@ -152,11 +177,6 @@
     //    get the post and delegate and assign it to the cell
     
     return NULL;
-    
-}
-
-- (void)didPost{
-    //    Gets called when the user presses the "share" button on the "ComposePost" view, this controller functions as a delegate of the former
     
 }
 

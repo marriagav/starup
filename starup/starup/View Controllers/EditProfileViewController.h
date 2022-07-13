@@ -10,6 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol EditProfileViewControllerDelegate
+
+- (void)didEdit;
+
+@end
+
 @interface EditProfileViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameOutlet;
@@ -17,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *lastnameOutlet;
 @property (weak, nonatomic) IBOutlet UITextField *roleOutlet;
 @property (weak, nonatomic) IBOutlet UITextView *userBio;
+@property (nonatomic, weak) id<EditProfileViewControllerDelegate> delegate;
 
 @end
 

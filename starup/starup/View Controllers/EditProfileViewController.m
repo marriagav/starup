@@ -13,6 +13,8 @@
 
 @implementation EditProfileViewController
 
+#pragma mark - Initialization
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Set outlets
@@ -23,11 +25,6 @@
     gestureRecognizer.cancelsTouchesInView = NO;
 }
 
-- (void)dismissKeyboard{
-    //    Dissmiss the keyboard
-    [self.view endEditing:YES];
-}
-
 - (void)setOutlets{
     self.usernameOutlet.text = PFUser.currentUser[@"username"];
     self.firstnameOutlet.text = PFUser.currentUser[@"firstname"];
@@ -35,6 +32,15 @@
     self.userBio.text = PFUser.currentUser[@"userBio"];
     self.roleOutlet.text =  PFUser.currentUser[@"role"];
 }
+
+#pragma mark - QualityOfLife
+
+- (void)dismissKeyboard{
+    //    Dissmiss the keyboard
+    [self.view endEditing:YES];
+}
+
+#pragma mark - Network
 
 - (void)changeProfileDetails{
     //    Call to change the profile details
@@ -49,24 +55,22 @@
         }
         else{
             // Dismiss UIImagePickerController to go back to your original view controller
+            [self.delegate didEdit];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
 }
 
+#pragma mark - Actions
+
 - (IBAction)updateOnClick:(id)sender {
     [self changeProfileDetails];
 }
 
-
-/*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)cancelOnClick:(id)sender {
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
-*/
 
 @end
