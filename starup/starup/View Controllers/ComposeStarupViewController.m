@@ -7,7 +7,7 @@
 
 #import "ComposeStarupViewController.h"
 
-@interface ComposeStarupViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate>
+@interface ComposeStarupViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, AddCollaboratorViewControllerDelegate>
 
 @end
 
@@ -116,26 +116,39 @@
 
 - (IBAction)addShark:(id)sender {
     //     display edit profile view
-    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    AddCollaboratorViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"addCollaboratorNoNav"];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+    [self displayCollaboratorVcWithUserType:@"Shark"];
 }
 
 - (IBAction)addIdeator:(id)sender {
     //     display edit profile view
-    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    AddCollaboratorViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"addCollaboratorNoNav"];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+    [self displayCollaboratorVcWithUserType:@"Ideator"];
 }
 
 - (IBAction)addHacker:(id)sender {
     //     display edit profile view
+    [self displayCollaboratorVcWithUserType:@"Hacker"];
+}
+
+- (void)displayCollaboratorVcWithUserType:(NSString*)userType{
     UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     AddCollaboratorViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"addCollaboratorNoNav"];
+    vc.typeOfUserToAdd = userType;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
     [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+}
+
+#pragma mark - Delegates
+
+- (void)didAddIdeator:(PFUser *)user{
+    [self.ideators addObject:user];
+}
+
+- (void)didAddHacker:(PFUser *)user{
+    [self.ideators addObject:user];
+}
+
+- (void)didAddShark:(PFUser *)user{
+    [self.ideators addObject:user];
 }
 
 @end

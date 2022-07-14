@@ -13,6 +13,7 @@
     [super awakeFromNib];
     // Initialization code
     [Algos formatPictureWithRoundedEdges:self.profilePicture];
+    [self _cellGestureRecognizer];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -27,6 +28,18 @@
     [self.profilePicture loadInBackground];
     self.profileName.text = [NSString stringWithFormat:@"%@ %@", self.user[@"firstname"], self.user[@"lastname"]];
     self.username.text = [NSString stringWithFormat:@"%@%@", @"@", self.user[@"username"]];
+}
+
+- (void) didTapCell:(UITapGestureRecognizer *)sender{
+//    Gets called when the user taps on the user profile
+    [self.delegate profileCell:self didTap:self.user];
+}
+
+- (void)_cellGestureRecognizer{
+//    Method to set up a tap gesture recognizer for the profile picture
+    UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapCell:)];
+    [self addGestureRecognizer:profileTapGestureRecognizer];
+    [self setUserInteractionEnabled:YES];
 }
 
 @end

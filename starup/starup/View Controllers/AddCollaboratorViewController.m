@@ -7,7 +7,7 @@
 
 #import "AddCollaboratorViewController.h"
 
-@interface AddCollaboratorViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@interface AddCollaboratorViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, profileCellDelegate>
 
 @end
 
@@ -153,6 +153,22 @@ InfiniteScrollActivityView* _loadingMoreViewA;
 
 - (IBAction)goBack:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)profileCell:(profileCell *) profileCell didTap: (PFUser *)user{
+    [self addCollaborator: user];
+}
+
+- (void)addCollaborator: (PFUser*)user {
+    if ([self.typeOfUserToAdd isEqual:@"shark"]){
+        [self.delegate didAddShark:user];
+    }
+    else if ([self.typeOfUserToAdd isEqual:@"ideator"]){
+        [self.delegate didAddIdeator:user];
+    }
+    if ([self.typeOfUserToAdd isEqual:@"hacker"]){
+        [self.delegate didAddHacker:user];
+    }
 }
 
 @end
