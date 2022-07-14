@@ -88,6 +88,9 @@ InfiniteScrollActivityView* _loadingMoreViewS;
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Starup"];
     [query orderByDescending:@"createdAt"];
+    [query includeKey:@"hackers"];
+    [query includeKey:@"sharks"];
+    [query includeKey:@"ideators"];
     query.limit = numberOfStarups;
     
     // fetch data asynchronously
