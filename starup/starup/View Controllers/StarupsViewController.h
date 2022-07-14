@@ -7,10 +7,17 @@
 
 #import <UIKit/UIKit.h>
 #import "ComposeStarupViewController.h"
+#import "Parse/Parse.h"
+#import "StarupCell.h"
+#import "InfiniteScrollActivityView.h"
+#import "ComposeStarupViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface StarupsViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray *starupsArray;
 
 @end
 
