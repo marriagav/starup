@@ -40,7 +40,6 @@
     newStarup.sales = sales;
     newStarup.goalInvestment= goalInvestment;
     newStarup.percentageToGive = percentageToGive;
-    NSLog(@"%@", ideators);
     newStarup.ideators = ideators;
     newStarup.sharks= sharks;
     newStarup.hackers = hackers;

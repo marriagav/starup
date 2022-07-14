@@ -117,6 +117,7 @@ InfiniteScrollActivityView* _loadingMoreViewA;
     //    get the user and assign it to the cell
     PFUser *user = self.userArray[indexPath.row];
     cell.user=user;
+    cell.delegate = self;
     return cell;
 }
 
@@ -157,6 +158,7 @@ InfiniteScrollActivityView* _loadingMoreViewA;
 
 - (void)profileCell:(profileCell *) profileCell didTap: (PFUser *)user{
     [self addCollaborator: user];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)addCollaborator: (PFUser*)user {

@@ -116,23 +116,24 @@
 
 - (IBAction)addShark:(id)sender {
     //     display edit profile view
-    [self displayCollaboratorVcWithUserType:@"Shark"];
+    [self displayCollaboratorVcWithUserType:@"shark"];
 }
 
 - (IBAction)addIdeator:(id)sender {
     //     display edit profile view
-    [self displayCollaboratorVcWithUserType:@"Ideator"];
+    [self displayCollaboratorVcWithUserType:@"ideator"];
 }
 
 - (IBAction)addHacker:(id)sender {
     //     display edit profile view
-    [self displayCollaboratorVcWithUserType:@"Hacker"];
+    [self displayCollaboratorVcWithUserType:@"hacker"];
 }
 
 - (void)displayCollaboratorVcWithUserType:(NSString*)userType{
     UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     AddCollaboratorViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"addCollaboratorNoNav"];
     vc.typeOfUserToAdd = userType;
+    vc.delegate = self;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
     [self.navigationController presentViewController:navigationController animated:YES completion:nil];
 }
@@ -144,7 +145,7 @@
 }
 
 - (void)didAddHacker:(PFUser *)user{
-    [self.ideators addObject:user];
+    [self.hackers addObject:user];
 }
 
 - (void)didAddShark:(PFUser *)user{
