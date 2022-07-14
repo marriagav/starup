@@ -21,6 +21,12 @@
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:gestureRecognizer];
     gestureRecognizer.cancelsTouchesInView = NO;
+//    Initialize Arrays
+    self.ideators = [[NSMutableArray alloc] init];
+    self.sharks = [[NSMutableArray alloc] init];
+    self.hackers = [[NSMutableArray alloc] init];
+//    Add the user as an ideator
+    [self.ideators addObject:PFUser.currentUser];
 }
 
 - (void)setOutlets{
@@ -49,8 +55,7 @@
 }
 
 - (void)textViewDidChange:(UITextView *)textView{
-    //    If the text changes the placeholder dissapears
-    
+    //   TODO: If the text changes the placeholder dissapears
 }
 
 - (void)pictureGestureRecognizer:(UIImageView *)image{
@@ -78,10 +83,10 @@
     //    Shows progress hud
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //    Dissables sharebutton so that the user cant spam it
-//    self.shareButton.enabled = false;
+    self.shareButton.enabled = false;
     //    Makes call
     //TODO: pass the sharks, hackers and ideators to the query
-    [Starup postStarup:self.starupName.text withCategory:self.starupCategory.text withDescription:self.descriptionOutlet.text withImage:self.starupImage.image withOperationSince:self.operatingSince.date withSales:(int)[self.sales.text integerValue] withGoalInvestment:(int)[self.goalInvestment.text integerValue] withPercentageToGive:(int)[self.percentageToGive.text integerValue] withSharks:Nil withIdeators:Nil withHackers:Nil withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    [Starup postStarup:self.starupName.text withCategory:self.starupCategory.text withDescription:self.descriptionOutlet.text withImage:self.starupImage.image withOperationSince:self.operatingSince.date withSales:(int)[self.sales.text integerValue] withGoalInvestment:(int)[self.goalInvestment.text integerValue] withPercentageToGive:(int)[self.percentageToGive.text integerValue] withSharks:self.sharks withIdeators:self.ideators withHackers:self.hackers withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (error){
             NSLog(@"%@", error);
         }
@@ -108,5 +113,29 @@
 
 //TODO: way to select collaborators
 //TODO: set up collection views
+
+- (IBAction)addShark:(id)sender {
+    //     display edit profile view
+    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    AddCollaboratorViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"addCollaboratorNoNav"];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+}
+
+- (IBAction)addIdeator:(id)sender {
+    //     display edit profile view
+    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    AddCollaboratorViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"addCollaboratorNoNav"];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+}
+
+- (IBAction)addHacker:(id)sender {
+    //     display edit profile view
+    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    AddCollaboratorViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"addCollaboratorNoNav"];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+}
 
 @end
