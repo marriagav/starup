@@ -10,6 +10,7 @@
 #import "PostCell.h"
 #import "InfiniteScrollActivityView.h"
 #import "ComposePostViewController.h"
+#import "ProfileViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

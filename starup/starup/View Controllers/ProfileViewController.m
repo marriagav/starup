@@ -24,17 +24,8 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     //  Initiallize delegate and datasource of the tableview to self
     self.tableView.dataSource=self;
     self.tableView.delegate=self;
-    //    Case when the profile view is accessed through the nav bar
-    if (self.user == nil || self.user==PFUser.currentUser){
-        self.user = PFUser.currentUser;
-        //  Can only edit the profile if it is your profile
-        //    Set the dropdown menu
-        [self setDropDownMenu];
-    }
-    else {
-        //        When in someone elses profile page
-        [self.editProfileButton removeFromSuperview];
-    }
+    //    Configuration that deppends on which users profile youre accessing
+    [self prepAccordingToUser];
     //  Fill tableview and set outlets
     [self refreshDataWithNPosts:20];
     [self setOutlets];
@@ -52,6 +43,24 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     [self.profilePicture loadInBackground];
     //    Format the profile picture
     [Algos formatPictureWithRoundedEdges:self.profilePicture];
+}
+
+- (void)prepAccordingToUser{
+    //    Case when the profile view is accessed through the nav bar
+    if (self.user == nil){
+        // There is only a back button if not accessed through navbar
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+    if (self.user == nil || self.user.username==PFUser.currentUser.username){
+        //  Can only edit the profile if it is your profile
+        self.user = PFUser.currentUser;
+        //    Set the dropdown menu
+        [self setDropDownMenu];
+    }
+    else {
+        // When in someone elses profile page
+        [self.editProfileButton removeFromSuperview];
+    }
 }
 
 - (void)setUserTextProperties{
@@ -115,6 +124,10 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)goBack:(id)sender {
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - Delegates
 
 - (void)didEdit{
@@ -160,14 +173,14 @@ InfiniteScrollActivityView* _loadingMoreViewP;
 }
 
 - (void)_beginRefresh:(UIRefreshControl *)refreshControl {
-//    Refreshes the data using the UIRefreshControl
+    //    Refreshes the data using the UIRefreshControl
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"author"];
     [query whereKey:@"author" equalTo: self.user];
     query.limit = 20;
-
+    
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (posts != nil) {
@@ -183,14 +196,14 @@ InfiniteScrollActivityView* _loadingMoreViewP;
 #pragma mark - QualityOfLife
 
 - (void)_initializeRefreshControl{
-//    Initialices and inserts the refresh control
+    //    Initialices and inserts the refresh control
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(_beginRefresh:) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:refreshControl atIndex:0];
 }
 
 - (void)_initializeRefreshControlB{
-//    Initialices and inserts the refresh control
+    //    Initialices and inserts the refresh control
     // Set up Infinite Scroll loading indicator
     CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
     _loadingMoreViewP = [[InfiniteScrollActivityView alloc] initWithFrame:frame];

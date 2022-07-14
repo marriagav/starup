@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) PFUser *user;
 @property (weak, nonatomic) IBOutlet UIButton *editProfileButton;
 @property (strong, nonatomic) NSMutableArray *postArray;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 
 @end
 

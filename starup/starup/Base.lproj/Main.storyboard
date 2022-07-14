@@ -1020,7 +1020,7 @@
         <!--Profile View Controller-->
         <scene sceneID="o5K-KZ-2Ab">
             <objects>
-                <viewController id="SVa-Yd-Cp8" customClass="ProfileViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="profileVC" id="SVa-Yd-Cp8" customClass="ProfileViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ivH-Py-0Mm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1293,12 +1293,23 @@
                         <constraints>
                             <constraint firstItem="FyH-gW-5jl" firstAttribute="trailing" secondItem="Mkm-uw-CHF" secondAttribute="trailing" id="GVo-ss-zNf"/>
                             <constraint firstAttribute="bottom" secondItem="FyH-gW-5jl" secondAttribute="bottom" id="YSD-m5-Anb"/>
+                            <constraint firstItem="FyH-gW-5jl" firstAttribute="top" secondItem="ivH-Py-0Mm" secondAttribute="top" id="d0m-UF-txo"/>
+                            <constraint firstAttribute="bottom" secondItem="FyH-gW-5jl" secondAttribute="bottom" id="i2i-ui-Lsn"/>
+                            <constraint firstItem="FyH-gW-5jl" firstAttribute="leading" secondItem="Mkm-uw-CHF" secondAttribute="leading" id="lbQ-bw-NDj"/>
                             <constraint firstItem="FyH-gW-5jl" firstAttribute="leading" secondItem="Mkm-uw-CHF" secondAttribute="leading" id="n2R-XN-beH"/>
+                            <constraint firstItem="FyH-gW-5jl" firstAttribute="trailing" secondItem="Mkm-uw-CHF" secondAttribute="trailing" id="tsb-hR-ezf"/>
                             <constraint firstItem="FyH-gW-5jl" firstAttribute="top" secondItem="ivH-Py-0Mm" secondAttribute="top" id="y66-nW-ISL"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="bgz-jV-EPZ"/>
+                    <navigationItem key="navigationItem" id="bgz-jV-EPZ">
+                        <barButtonItem key="leftBarButtonItem" title=" " image="chevron.backward" catalog="system" id="ew8-rm-u3g">
+                            <connections>
+                                <action selector="goBack:" destination="SVa-Yd-Cp8" id="VQY-5J-Ef6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="backButton" destination="ew8-rm-u3g" id="htW-ah-Dhe"/>
                         <outlet property="editProfileButton" destination="lbw-MH-wNf" id="Vaq-ON-5te"/>
                         <outlet property="profileBio" destination="LJ0-35-Y2b" id="s1p-Tt-Out"/>
                         <outlet property="profileName" destination="gri-MQ-8nI" id="gjK-CL-SnO"/>

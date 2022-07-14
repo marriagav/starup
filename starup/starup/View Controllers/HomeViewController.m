@@ -192,7 +192,13 @@ InfiniteScrollActivityView* _loadingMoreView;
 
 - (void)postCell:(PostCell *)postCell didTap:(PFUser *)user{
 //    Goes to profile page when user taps on profile
-// TODO: change tabs
+    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    ProfileViewController *profileViewController = [storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
+    [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
+    // Pass the user
+    profileViewController.user = user;
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 @end
