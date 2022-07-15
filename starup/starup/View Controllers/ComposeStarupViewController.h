@@ -11,6 +11,7 @@
 #import "MBProgressHUD.h"
 #import "Starup.h"
 #import "AddCollaboratorViewController.h"
+#import "Collaborator.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -36,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray* ideators;
 @property (nonatomic, strong) NSMutableArray* sharks;
 @property (nonatomic, strong) NSMutableArray* hackers;
+@property (weak, nonatomic) IBOutlet UIButton *addCollaborator;
 
 @end
 
