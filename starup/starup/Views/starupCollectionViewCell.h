@@ -12,10 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface starupCollectionViewCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet PFImageView *userRoleImage;
 @property (weak, nonatomic) IBOutlet UILabel *starupName;
 @property (strong, nonatomic) Collaborator *collaborator;
 @property (strong, nonatomic) NSString *userRoleText;
+@property (weak, nonatomic) IBOutlet UIImageView *userRoleImage;
 
 - (void)setCollaborator:(Collaborator *)collaborator;
 

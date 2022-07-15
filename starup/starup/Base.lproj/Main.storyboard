@@ -1210,14 +1210,14 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="129" height="85"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ideator-1" translatesAutoresizingMaskIntoConstraints="NO" id="4xO-tJ-xdE" customClass="PFImageView">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ideator-1" translatesAutoresizingMaskIntoConstraints="NO" id="4xO-tJ-xdE">
                                                                         <rect key="frame" x="43" y="8" width="43" height="42"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="42" id="Df2-EE-RhI"/>
                                                                             <constraint firstAttribute="width" constant="42" id="OcC-2z-INp"/>
                                                                         </constraints>
                                                                     </imageView>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TheMerchStore" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBq-Pa-3Cg">
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TheMerchStore" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBq-Pa-3Cg">
                                                                         <rect key="frame" x="14.5" y="58" width="100" height="17"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <nil key="textColor"/>
@@ -1239,7 +1239,7 @@
                                                             <size key="customSize" width="129" height="85"/>
                                                             <connections>
                                                                 <outlet property="starupName" destination="oBq-Pa-3Cg" id="x6Q-Bb-NCu"/>
-                                                                <outlet property="userRoleImage" destination="4xO-tJ-xdE" id="aFe-8N-MV4"/>
+                                                                <outlet property="userRoleImage" destination="4xO-tJ-xdE" id="vpW-i4-MXR"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>
