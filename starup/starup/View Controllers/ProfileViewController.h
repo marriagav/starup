@@ -6,10 +6,27 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Algos.h"
+#import "Parse/Parse.h"
+#import "EditProfileViewController.h"
+#import "Post.h"
+#import "PostCell.h"
+#import "InfiniteScrollActivityView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ProfileViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet PFImageView *profilePicture;
+@property (weak, nonatomic) IBOutlet UILabel *profileName;
+@property (weak, nonatomic) IBOutlet UILabel *profileRole;
+@property (weak, nonatomic) IBOutlet UILabel *username;
+@property (weak, nonatomic) IBOutlet UITextView *profileBio;
+@property (strong, nonatomic) PFUser *user;
+@property (weak, nonatomic) IBOutlet UIButton *editProfileButton;
+@property (strong, nonatomic) NSMutableArray *postArray;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 
 @end
 
