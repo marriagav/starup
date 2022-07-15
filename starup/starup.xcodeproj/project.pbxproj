@@ -15,6 +15,7 @@
 		D40045C2287F443C001EB588 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D40045C1287F443C001EB588 /* EditProfileViewController.m */; };
 		D40045C528809123001EB588 /* AddCollaboratorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D40045C428809123001EB588 /* AddCollaboratorViewController.m */; };
 		D40045C92881D3F4001EB588 /* Collaborator.m in Sources */ = {isa = PBXBuildFile; fileRef = D40045C82881D3F4001EB588 /* Collaborator.m */; };
+		D40045CC2881EA90001EB588 /* starupCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D40045CB2881EA90001EB588 /* starupCollectionViewCell.m */; };
 		D41A9B7D2875F0DA0038852B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9B7C2875F0DA0038852B /* AppDelegate.m */; };
 		D41A9B802875F0DA0038852B /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9B7F2875F0DA0038852B /* SceneDelegate.m */; };
 		D41A9B862875F0DA0038852B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D41A9B842875F0DA0038852B /* Main.storyboard */; };
@@ -79,6 +80,8 @@
 		D40045C428809123001EB588 /* AddCollaboratorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddCollaboratorViewController.m; sourceTree = "<group>"; };
 		D40045C72881D3F4001EB588 /* Collaborator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Collaborator.h; sourceTree = "<group>"; };
 		D40045C82881D3F4001EB588 /* Collaborator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Collaborator.m; sourceTree = "<group>"; };
+		D40045CA2881EA90001EB588 /* starupCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = starupCollectionViewCell.h; sourceTree = "<group>"; };
+		D40045CB2881EA90001EB588 /* starupCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = starupCollectionViewCell.m; sourceTree = "<group>"; };
 		D41A9B782875F0DA0038852B /* starup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = starup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D41A9B7B2875F0DA0038852B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D41A9B7C2875F0DA0038852B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -272,6 +275,8 @@
 				D40045B8287CE69D001EB588 /* InfiniteScrollActivityView.m */,
 				D40045BD287F2E1D001EB588 /* profileCell.h */,
 				D40045BE287F2E1D001EB588 /* profileCell.m */,
+				D40045CA2881EA90001EB588 /* starupCollectionViewCell.h */,
+				D40045CB2881EA90001EB588 /* starupCollectionViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -545,6 +550,7 @@
 				D41A9BC22876009D0038852B /* ComposePostViewController.m in Sources */,
 				D41A9B7D2875F0DA0038852B /* AppDelegate.m in Sources */,
 				D450F1F5287CCC040000F5D1 /* Post.m in Sources */,
+				D40045CC2881EA90001EB588 /* starupCollectionViewCell.m in Sources */,
 				D41A9BC8287600BD0038852B /* InvestViewController.m in Sources */,
 				D40045BC287DECE3001EB588 /* Starup.m in Sources */,
 				D41A9B8E2875F0DB0038852B /* main.m in Sources */,

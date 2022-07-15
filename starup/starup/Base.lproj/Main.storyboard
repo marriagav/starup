@@ -1196,22 +1196,22 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="86" id="xmw-d1-Wml"/>
                                                     </constraints>
-                                                    <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="rf3-ad-YPa">
+                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="rf3-ad-YPa">
                                                         <size key="itemSize" width="129" height="85"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
-                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="LRj-WJ-64J">
-                                                            <rect key="frame" x="0.0" y="0.0" width="129" height="85"/>
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="starupCollectionViewCell" id="LRj-WJ-64J" customClass="starupCollectionViewCell">
+                                                            <rect key="frame" x="0.0" y="0.5" width="129" height="85"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="7k4-nk-LWg">
                                                                 <rect key="frame" x="0.0" y="0.0" width="129" height="85"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ideator-1" translatesAutoresizingMaskIntoConstraints="NO" id="4xO-tJ-xdE">
-                                                                        <rect key="frame" x="43" y="8" width="42" height="42"/>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ideator-1" translatesAutoresizingMaskIntoConstraints="NO" id="4xO-tJ-xdE" customClass="PFImageView">
+                                                                        <rect key="frame" x="43" y="8" width="43" height="42"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="42" id="Df2-EE-RhI"/>
                                                                             <constraint firstAttribute="width" constant="42" id="OcC-2z-INp"/>
@@ -1225,7 +1225,10 @@
                                                                     </label>
                                                                 </subviews>
                                                                 <constraints>
+                                                                    <constraint firstAttribute="bottom" secondItem="oBq-Pa-3Cg" secondAttribute="bottom" constant="10" id="06w-4W-1Wr"/>
+                                                                    <constraint firstItem="4xO-tJ-xdE" firstAttribute="centerX" secondItem="7k4-nk-LWg" secondAttribute="centerX" id="CBR-32-LRJ"/>
                                                                     <constraint firstItem="oBq-Pa-3Cg" firstAttribute="leading" secondItem="7k4-nk-LWg" secondAttribute="leading" constant="14.5" id="THK-eu-K3o"/>
+                                                                    <constraint firstItem="oBq-Pa-3Cg" firstAttribute="centerX" secondItem="7k4-nk-LWg" secondAttribute="centerX" id="Uin-1j-7NL"/>
                                                                     <constraint firstItem="4xO-tJ-xdE" firstAttribute="leading" secondItem="7k4-nk-LWg" secondAttribute="leading" constant="43" id="atE-le-icc"/>
                                                                     <constraint firstItem="4xO-tJ-xdE" firstAttribute="top" secondItem="7k4-nk-LWg" secondAttribute="top" constant="8" id="fW7-2F-8Bl"/>
                                                                     <constraint firstItem="oBq-Pa-3Cg" firstAttribute="centerX" secondItem="7k4-nk-LWg" secondAttribute="centerX" id="kB0-oB-0in"/>
@@ -1234,6 +1237,10 @@
                                                                 </constraints>
                                                             </collectionViewCellContentView>
                                                             <size key="customSize" width="129" height="85"/>
+                                                            <connections>
+                                                                <outlet property="starupName" destination="oBq-Pa-3Cg" id="x6Q-Bb-NCu"/>
+                                                                <outlet property="userRoleImage" destination="4xO-tJ-xdE" id="aFe-8N-MV4"/>
+                                                            </connections>
                                                         </collectionViewCell>
                                                     </cells>
                                                 </collectionView>
@@ -1313,13 +1320,13 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I want to share my new star up: flixter" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bye-c4-sog">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="I want to share my new star up: flixter" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bye-c4-sog">
                                                     <rect key="frame" x="20" y="74" width="374" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pTf-lp-3Dz">
+                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pTf-lp-3Dz">
                                                     <rect key="frame" x="20" y="99.5" width="374" height="113.5"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fS6-8U-Pl3" customClass="PFImageView">
@@ -1329,7 +1336,7 @@
                                                                 <constraint firstAttribute="height" constant="55" id="Lzv-qZ-sX8"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Miguel posted a new starup: Flixter" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8L-Hh-Ztu">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Miguel posted a new starup: Flixter" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8L-Hh-Ztu">
                                                             <rect key="frame" x="71.5" y="76" width="231.5" height="17"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                             <nil key="textColor"/>
@@ -1413,6 +1420,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="ew8-rm-u3g" id="htW-ah-Dhe"/>
+                        <outlet property="collectionView" destination="J78-UD-1hj" id="XfP-b6-RQl"/>
                         <outlet property="editProfileButton" destination="lbw-MH-wNf" id="Vaq-ON-5te"/>
                         <outlet property="profileBio" destination="LJ0-35-Y2b" id="s1p-Tt-Out"/>
                         <outlet property="profileName" destination="gri-MQ-8nI" id="gjK-CL-SnO"/>
