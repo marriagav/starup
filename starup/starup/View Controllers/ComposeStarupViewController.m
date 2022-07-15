@@ -7,7 +7,7 @@
 
 #import "ComposeStarupViewController.h"
 
-@interface ComposeStarupViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, AddCollaboratorViewControllerDelegate>
+@interface ComposeStarupViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, AddCollaboratorViewControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @end
 
@@ -31,6 +31,14 @@
     [self.ideators addObject:PFUser.currentUser];
     //    Set dropdown menu
     [self setDropDownMenu];
+//    Set collection views
+    self.sharksCollectionView.delegate = self;
+    self.sharksCollectionView.dataSource = self;
+    self.ideatorsCollectionView.delegate = self;
+    self.ideatorsCollectionView.dataSource = self;
+    self.hackersCollectionView.delegate = self;
+    self.hackersCollectionView.dataSource = self;
+    [self.ideatorsCollectionView reloadData];
 }
 
 - (void)setOutlets{
@@ -186,16 +194,57 @@
 
 - (void)didAddIdeator:(PFUser *)user{
     [self.ideators addObject:user];
+    [self.ideatorsCollectionView reloadData];
 }
 
 - (void)didAddHacker:(PFUser *)user{
     [self.hackers addObject:user];
+    [self.hackersCollectionView reloadData];
 }
 
 - (void)didAddShark:(PFUser *)user{
     [self.sharks addObject:user];
+    [self.sharksCollectionView reloadData];
 }
 
-//TODO: set up collection views
+#pragma mark - CollectionView
+
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    if (collectionView == self.sharksCollectionView){
+        //    get the amount of sharks
+        return self.sharks.count;
+    }
+    else if (collectionView == self.ideatorsCollectionView){
+        //    get the amount of ideators
+        return self.ideators.count;
+    }
+    else if (collectionView == self.hackersCollectionView){
+        //    get the amount of hackers
+        return self.hackers.count;
+    }
+    return 0;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    profilesCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"profilesCollectionViewCell" forIndexPath:indexPath];
+    
+    if (collectionView == self.sharksCollectionView){
+        //    get the shark and and assign it to the cell
+        PFUser *user = self.sharks[indexPath.row];
+        cell.user=user;
+    }
+    else if (collectionView == self.ideatorsCollectionView){
+        //    get the ideator and and assign it to the cell
+        PFUser *user = self.ideators[indexPath.row];
+        cell.user=user;
+    }
+    else if (collectionView == self.hackersCollectionView){
+        //    get the hacker and and assign it to the cell
+        PFUser *user = self.hackers[indexPath.row];
+        cell.user=user;
+    }
+    return cell;
+}
+
 
 @end
