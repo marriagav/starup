@@ -7,7 +7,7 @@
 
 #import "ProfileViewController.h"
 
-@interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditProfileViewControllerDelegate>
+@interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditProfileViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @end
 
@@ -21,13 +21,16 @@ InfiniteScrollActivityView* _loadingMoreViewP;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //  Initiallize delegate and datasource of the tableview to self
+    //  Initiallize delegate and datasource of the tableview and collectionview to self
     self.tableView.dataSource=self;
     self.tableView.delegate=self;
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
     //    Configuration that deppends on which users profile youre accessing
     [self prepAccordingToUser];
-    //  Fill tableview and set outlets
+    //  Fill tableview, collectionview and set outlets
     [self refreshDataWithNPosts:20];
+    [self refreshColletionViewData];
     [self setOutlets];
     // Initialize a UIRefreshControl
     [self _initializeRefreshControl];
@@ -169,11 +172,31 @@ InfiniteScrollActivityView* _loadingMoreViewP;
             NSLog(@"%@", error.localizedDescription);
         }
     }];
+}
+
+- (void)refreshColletionViewData{
+    //    Refreshes the collection view data
+    // construct query
+    PFQuery *query = [PFQuery queryWithClassName:@"Collaborator"];
+    [query orderByDescending:@"createdAt"];
+    [query includeKey:@"user"];
+    [query includeKey:@"starup"];
+    [query whereKey:@"user" equalTo: self.user];
     
+    // fetch data asynchronously
+    [query findObjectsInBackgroundWithBlock:^(NSArray *collaborators, NSError *error) {
+        if (collaborators != nil) {
+            self.collaboratorArray = (NSMutableArray *) collaborators;
+            [self.collectionView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
 }
 
 - (void)_beginRefresh:(UIRefreshControl *)refreshControl {
     //    Refreshes the data using the UIRefreshControl
+    [self refreshColletionViewData];
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
     [query orderByDescending:@"createdAt"];
@@ -256,7 +279,7 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     //    initialize cell (PostCell) to a reusable cell using the PostCell identifier
     PostCell *cell = [tableView
                       dequeueReusableCellWithIdentifier: @"PostCell"];
-    //    get the post and delegate and assign it to the cell
+    //    get the post and assign it to the cell
     Post *post = self.postArray[indexPath.row];
     cell.post=post;
     return cell;
@@ -269,16 +292,21 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     }
 }
 
+#pragma mark - CollectionView
+
 //TODO: setup collection view
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.collaboratorArray.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    starupCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"starupCollectionViewCell" forIndexPath:indexPath];
+    
+    //    get the collaborator and and assign it to the cell
+    Collaborator *collaborator = self.collaboratorArray[indexPath.row];
+    cell.collaborator = collaborator;
+    return cell;
+}
 
 @end

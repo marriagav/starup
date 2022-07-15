@@ -10,6 +10,9 @@
 #import "Algos.h"
 #import "MBProgressHUD.h"
 #import "Starup.h"
+#import "AddCollaboratorViewController.h"
+#import "Collaborator.h"
+#import "profilesCollectionViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,6 +35,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextView *descriptionOutlet;
 @property (weak, nonatomic) IBOutlet PFImageView *starupImage;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
+@property (nonatomic, strong) NSMutableArray* ideators;
+@property (nonatomic, strong) NSMutableArray* sharks;
+@property (nonatomic, strong) NSMutableArray* hackers;
+@property (weak, nonatomic) IBOutlet UIButton *addCollaborator;
+@property (weak, nonatomic) IBOutlet UICollectionView *sharksCollectionView;
+@property (weak, nonatomic) IBOutlet UICollectionView *ideatorsCollectionView;
+@property (weak, nonatomic) IBOutlet UICollectionView *hackersCollectionView;
 
 @end
 

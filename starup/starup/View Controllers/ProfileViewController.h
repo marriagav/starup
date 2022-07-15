@@ -11,12 +11,14 @@
 #import "EditProfileViewController.h"
 #import "Post.h"
 #import "PostCell.h"
+#import "starupCollectionViewCell.h"
 #import "InfiniteScrollActivityView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ProfileViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet PFImageView *profilePicture;
 @property (weak, nonatomic) IBOutlet UILabel *profileName;
@@ -26,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) PFUser *user;
 @property (weak, nonatomic) IBOutlet UIButton *editProfileButton;
 @property (strong, nonatomic) NSMutableArray *postArray;
+@property (strong, nonatomic) NSMutableArray *collaboratorArray;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 
 @end
