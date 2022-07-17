@@ -34,7 +34,7 @@
 }
 
 - (void) didTapCell:(UITapGestureRecognizer *)sender{
-//    Gets called when the user taps on the user profile
+//    Gets called when the user taps on the starup
     [self.delegate starupCell:self didTap:self.starup];
 }
 

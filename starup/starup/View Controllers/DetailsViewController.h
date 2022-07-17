@@ -8,6 +8,8 @@
 #import <UIKit/UIKit.h>
 #import "Starup.h"
 #import "DateTools.h"
+#import "Collaborator.h"
+#import "profilesCollectionViewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,6 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UICollectionView *sharksCollectionView;
 @property (weak, nonatomic) IBOutlet UIProgressView *investmentProgressBar;
 @property (weak, nonatomic) IBOutlet UILabel *progressString;
+@property (nonatomic, strong) NSMutableArray* ideators;
+@property (nonatomic, strong) NSMutableArray* sharks;
+@property (nonatomic, strong) NSMutableArray* hackers;
 
 @end
 

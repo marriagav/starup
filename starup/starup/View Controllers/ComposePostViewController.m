@@ -100,11 +100,7 @@
 
 - (IBAction)goBackToHome:(id)sender {
     // display home view controller
-    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    UITabBarController *nav = [storyboard instantiateViewControllerWithIdentifier:@"navBar"];
-    [nav setModalPresentationStyle:UIModalPresentationFullScreen];
-    [nav setSelectedViewController:[nav.viewControllers objectAtIndex:0]];
-    [self.navigationController presentViewController:nav animated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
