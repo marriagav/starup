@@ -11,6 +11,7 @@
 #import "StarupCell.h"
 #import "InfiniteScrollActivityView.h"
 #import "ComposeStarupViewController.h"
+#import "DetailsViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

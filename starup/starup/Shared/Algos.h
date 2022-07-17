@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage*)imageWithImage: (UIImage*) sourceImage scaledToWidth: (float) i_width;
 + (void)formatPictureWithRoundedEdges: (PFImageView *) image;
 + (NSString*)dateToString: (NSDate *) date;
++ (float)percentageWithNumbers: (double) current :(double) total;
 
 @end
 

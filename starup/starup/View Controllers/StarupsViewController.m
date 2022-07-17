@@ -7,7 +7,7 @@
 
 #import "StarupsViewController.h"
 
-@interface StarupsViewController () <ComposeStarupViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface StarupsViewController () <ComposeStarupViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, starupCellDelegate>
 
 @end
 
@@ -140,6 +140,7 @@ InfiniteScrollActivityView* _loadingMoreViewS;
     //    get the starup and assign it to the cell
     Starup *starup = self.starupsArray[indexPath.row];
     cell.starup = starup;
+    cell.delegate = self;
     return cell;
 }
 
@@ -155,6 +156,16 @@ InfiniteScrollActivityView* _loadingMoreViewS;
 - (void)didPost{
     //    Gets called when the user presses the "share" button on the "ComposePost" view, this controller functions as a delegate of the former
     [self refreshDataWithNStarups:(int)self.starupsArray.count+1];
+}
+
+- (void)starupCell:(StarupCell *) starupCell didTap: (Starup *)starup{
+    // display compose post view controller
+    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    DetailsViewController *detailsStarupViewController = [storyboard instantiateViewControllerWithIdentifier:@"detailsNoNav"];
+    detailsStarupViewController.starup = starup;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:detailsStarupViewController];
+    [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
+    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark - Actions

@@ -54,4 +54,8 @@
     return dateString;
 }
 
++ (float)percentageWithNumbers: (double) current :(double) total{
+    return current/total;
+}
+
 @end

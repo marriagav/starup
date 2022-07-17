@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSDate *operatingSince;
 @property (nonatomic) int sales;
 @property (nonatomic) int goalInvestment;
+@property (nonatomic) int currentInvestment;
 @property (nonatomic) int percentageToGive;
 @property (nonatomic, strong) PFFileObject *starupImage;
 @property (nonatomic, strong) NSString *starupDescription;
