@@ -18,7 +18,6 @@
 		D40045CC2881EA90001EB588 /* starupCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D40045CB2881EA90001EB588 /* starupCollectionViewCell.m */; };
 		D40045CF28820E20001EB588 /* profilesCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D40045CE28820E20001EB588 /* profilesCollectionViewCell.m */; };
 		D40045D82885D468001EB588 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = D40045D72885D468001EB588 /* Keys.plist */; };
-		D40045E72885E634001EB588 /* LinkedinApiVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D40045E62885E634001EB588 /* LinkedinApiVC.m */; };
 		D41A9B7D2875F0DA0038852B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9B7C2875F0DA0038852B /* AppDelegate.m */; };
 		D41A9B802875F0DA0038852B /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9B7F2875F0DA0038852B /* SceneDelegate.m */; };
 		D41A9B862875F0DA0038852B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D41A9B842875F0DA0038852B /* Main.storyboard */; };
@@ -88,8 +87,6 @@
 		D40045CD28820E20001EB588 /* profilesCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = profilesCollectionViewCell.h; sourceTree = "<group>"; };
 		D40045CE28820E20001EB588 /* profilesCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = profilesCollectionViewCell.m; sourceTree = "<group>"; };
 		D40045D72885D468001EB588 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
-		D40045E52885E634001EB588 /* LinkedinApiVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinkedinApiVC.h; sourceTree = "<group>"; };
-		D40045E62885E634001EB588 /* LinkedinApiVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinkedinApiVC.m; sourceTree = "<group>"; };
 		D41A9B782875F0DA0038852B /* starup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = starup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D41A9B7B2875F0DA0038852B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D41A9B7C2875F0DA0038852B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -187,8 +184,6 @@
 		D40045D02885D264001EB588 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				D40045E52885E634001EB588 /* LinkedinApiVC.h */,
-				D40045E62885E634001EB588 /* LinkedinApiVC.m */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -579,7 +574,6 @@
 				D41A9B8E2875F0DB0038852B /* main.m in Sources */,
 				D40045C2287F443C001EB588 /* EditProfileViewController.m in Sources */,
 				D40045C92881D3F4001EB588 /* Collaborator.m in Sources */,
-				D40045E72885E634001EB588 /* LinkedinApiVC.m in Sources */,
 				D41A9BD1287609210038852B /* RegisterViewController.m in Sources */,
 				D40045BF287F2E1D001EB588 /* profileCell.m in Sources */,
 				D41A9B802875F0DA0038852B /* SceneDelegate.m in Sources */,

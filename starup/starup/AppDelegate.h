@@ -6,13 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AppAuth/AppAuth.h"
-
-@protocol OIDExternalUserAgentSession;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
-
-@property(nonatomic, strong, nullable) id<OIDExternalUserAgentSession> currentAuthorizationFlow;
 
 @end
 

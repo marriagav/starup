@@ -23,7 +23,7 @@
     gestureRecognizer.cancelsTouchesInView = NO;
     //    Error should be set to empty initially
     self.error = @"";
-//    [self fetchUserInformations];
+    [self fetchUserInformations];
 }
 
 #pragma mark - QualityOfLife

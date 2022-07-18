@@ -11,7 +11,6 @@ target 'starup' do
   pod 'AFNetworking'
   pod 'DateTools'
   pod 'MBProgressHUD'
-  pod 'AppAuth'
   pod 'LinkedinIOSHelper', '~> 1.0.9'
 
   target 'starupTests' do
