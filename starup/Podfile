@@ -12,7 +12,6 @@ target 'starup' do
   pod 'DateTools'
   pod 'MBProgressHUD'
   pod 'AppAuth'
-  pod 'LinkedinIOSHelper', '~> 1.0.9'
 
   target 'starupTests' do
     inherit! :search_paths

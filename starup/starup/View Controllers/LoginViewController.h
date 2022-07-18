@@ -7,7 +7,6 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
-#import "LinkedinIOSHelper/LinkedInHelper.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
