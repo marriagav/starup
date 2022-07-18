@@ -47,5 +47,19 @@
     // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
 }
 
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<NSString *, id> *)options {
+  // Sends the URL to the current authorization flow (if any) which will
+  // process it if it relates to an authorization response.
+  if ([_currentAuthorizationFlow resumeExternalUserAgentFlowWithURL:url]) {
+    _currentAuthorizationFlow = nil;
+    return YES;
+  }
+
+  // Your additional URL handling (if any) goes here.
+
+  return NO;
+}
 
 @end

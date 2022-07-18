@@ -7,10 +7,12 @@ target 'starup' do
 
   # Pods for starup
   pod 'Parse'
-  pod 'AFNetworking'
   pod 'Parse/UI'
+  pod 'AFNetworking'
   pod 'DateTools'
   pod 'MBProgressHUD'
+  pod 'AppAuth'
+  pod 'LinkedinIOSHelper', '~> 1.0.9'
 
   target 'starupTests' do
     inherit! :search_paths
