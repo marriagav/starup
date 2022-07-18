@@ -7,7 +7,7 @@
 
 #import "ComposeStarupViewController.h"
 
-@interface ComposeStarupViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, AddCollaboratorViewControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ComposeStarupViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, AddCollaboratorViewControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, profilesCollectionViewCellDelegate>
 
 @end
 
@@ -81,12 +81,12 @@
 - (void)didTapImage:(UITapGestureRecognizer *)sender{
     //    Gets called when the user taps on the image placeholder, creating and opening an UIImagePickerController
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
-    
+
     imagePickerVC.delegate = self;
     imagePickerVC.allowsEditing = YES;
-    
+
     imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    
+
     [self presentViewController:imagePickerVC animated:YES completion:nil];
 }
 
@@ -159,11 +159,7 @@
 
 - (IBAction)goBackToStarups:(id)sender {
     // display starups view controller
-    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    UITabBarController *nav = [storyboard instantiateViewControllerWithIdentifier:@"navBar"];
-    [nav setModalPresentationStyle:UIModalPresentationFullScreen];
-    [nav setSelectedViewController:[nav.viewControllers objectAtIndex:1]];
-    [self.navigationController presentViewController:nav animated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)addShark{
@@ -207,6 +203,18 @@
     [self.sharksCollectionView reloadData];
 }
 
+#pragma mark - Delegates
+
+- (void)profileCell:(profilesCollectionViewCell *) profileCell didTap: (PFUser *)user{
+    //    Goes to profile page when user taps on profile
+    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    ProfileViewController *profileViewController = [storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
+    // Pass the user
+    profileViewController.user = user;
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
 #pragma mark - CollectionView
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -232,16 +240,19 @@
         //    get the shark and and assign it to the cell
         PFUser *user = self.sharks[indexPath.row];
         cell.user=user;
+        cell.delegate = self;
     }
     else if (collectionView == self.ideatorsCollectionView){
         //    get the ideator and and assign it to the cell
         PFUser *user = self.ideators[indexPath.row];
         cell.user=user;
+        cell.delegate = self;
     }
     else if (collectionView == self.hackersCollectionView){
         //    get the hacker and and assign it to the cell
         PFUser *user = self.hackers[indexPath.row];
         cell.user=user;
+        cell.delegate = self;
     }
     return cell;
 }

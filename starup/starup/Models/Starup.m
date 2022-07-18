@@ -20,6 +20,7 @@
 @dynamic goalInvestment;
 @dynamic percentageToGive;
 @dynamic starupImage;
+@dynamic currentInvestment;
 
 + (nonnull NSString *)parseClassName {
     return @"Starup";
@@ -36,6 +37,7 @@
     newStarup.operatingSince = operatingSince;
     newStarup.sales = sales;
     newStarup.goalInvestment= goalInvestment;
+    newStarup.currentInvestment = 0;
     newStarup.percentageToGive = percentageToGive;
     [newStarup saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         completion(newStarup, error);

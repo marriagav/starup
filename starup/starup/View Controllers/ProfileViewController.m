@@ -7,7 +7,7 @@
 
 #import "ProfileViewController.h"
 
-@interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditProfileViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
+@interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditProfileViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, starupCollectionViewCellDelegate>
 
 @end
 
@@ -35,6 +35,7 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     // Initialize a UIRefreshControl
     [self _initializeRefreshControl];
     // Initialize a UIRefreshControlBottom
+    self.currentMax = 20;
     [self _initializeRefreshControlB];
 }
 
@@ -81,13 +82,33 @@ InfiniteScrollActivityView* _loadingMoreViewP;
         // display register view controller
         [self editProfileDetailsOnClick];
     }];
-    UIMenu *menu = [[UIMenu alloc] menuByReplacingChildren:[NSArray arrayWithObjects:editPicture, editDetails, nil]];
+    UIAction *logOut = [UIAction actionWithTitle:@"Log out" image:NULL identifier:NULL handler:^(UIAction* action){
+        // log out user
+        [self logOutUser];
+    }];
+    UIMenu *menu = [[UIMenu alloc] menuByReplacingChildren:[NSArray arrayWithObjects:editPicture, editDetails, logOut, nil]];
     
     self.editProfileButton.menu = menu;
     self.editProfileButton.showsMenuAsPrimaryAction = YES;
 }
 
 #pragma mark - Navigation
+
+- (void)logOutUser{
+    //    Call to log out the user
+    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+        // PFUser.current() will now be nil
+        if (error){
+            NSLog(@"%@", error);
+        }
+        else{
+            UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            UIViewController *nav = [storyboard instantiateViewControllerWithIdentifier:@"loginView"];
+            [nav setModalPresentationStyle:UIModalPresentationFullScreen];
+            [self.navigationController presentViewController:nav animated:YES completion:nil];
+        }
+    }];
+}
 
 - (void)editProfileDetailsOnClick{
     //     display edit profile view
@@ -137,6 +158,16 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     //    Gets called when the user presses the "update" button on the "editProfile" view, this controller functions as a delegate of the former
     //    Updates the outlets for the profile
     [self setUserTextProperties];
+}
+
+- (void)starupCell:(starupCollectionViewCell *) starupCell didTap: (Starup *)starup{
+    // display details view controller
+    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    DetailsViewController *detailsStarupViewController = [storyboard instantiateViewControllerWithIdentifier:@"detailsNoNav"];
+    detailsStarupViewController.starup = starup;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:detailsStarupViewController];
+    [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
+    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark - Network
@@ -261,8 +292,11 @@ InfiniteScrollActivityView* _loadingMoreViewP;
 
 - (void)loadMoreData{
     //    Adds 20 more posts to the tableView, for infinte scrolling
-    int postsToAdd = (int)[self.postArray count] + 20;
-    [self refreshDataWithNPosts: postsToAdd];
+    if ([self.postArray count]>=self.currentMax){
+        self.currentMax+=20;
+        int postsToAdd = (int)[self.postArray count] + 20;
+        [self refreshDataWithNPosts: postsToAdd];
+    }
     [_loadingMoreViewP stopAnimating];
 }
 
@@ -306,6 +340,7 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     //    get the collaborator and and assign it to the cell
     Collaborator *collaborator = self.collaboratorArray[indexPath.row];
     cell.collaborator = collaborator;
+    cell.delegate = self;
     return cell;
 }
 

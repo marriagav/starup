@@ -11,6 +11,7 @@
 #import "StarupCell.h"
 #import "InfiniteScrollActivityView.h"
 #import "ComposeStarupViewController.h"
+#import "DetailsViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *starupsArray;
+@property (nonatomic) int currentMax;
 
 @end
 

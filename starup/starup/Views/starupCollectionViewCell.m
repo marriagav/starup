@@ -12,6 +12,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    [self _cellGestureRecognizer];
 }
 
 - (void)setCollaborator:(Collaborator *)collaborator{
@@ -39,6 +40,18 @@
     self.userRoleImage.layer.cornerRadius = self.userRoleImage.frame.size.height/2;
     self.userRoleImage.layer.borderWidth = 0;
     self.userRoleImage.clipsToBounds=YES;
+}
+
+- (void) didTapCell:(UITapGestureRecognizer *)sender{
+//    Gets called when the user taps on the starup
+    [self.delegate starupCell:self didTap:self.collaborator[@"starup"]];
+}
+
+- (void)_cellGestureRecognizer{
+//    Method to set up a tap gesture recognizer for the cell
+    UITapGestureRecognizer *cellTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapCell:)];
+    [self addGestureRecognizer:cellTapGestureRecognizer];
+    [self setUserInteractionEnabled:YES];
 }
 
 @end
