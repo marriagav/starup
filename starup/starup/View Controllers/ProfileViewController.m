@@ -7,7 +7,7 @@
 
 #import "ProfileViewController.h"
 
-@interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditProfileViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
+@interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditProfileViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, starupCollectionViewCellDelegate>
 
 @end
 
@@ -158,6 +158,16 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     //    Gets called when the user presses the "update" button on the "editProfile" view, this controller functions as a delegate of the former
     //    Updates the outlets for the profile
     [self setUserTextProperties];
+}
+
+- (void)starupCell:(starupCollectionViewCell *) starupCell didTap: (Starup *)starup{
+    // display details view controller
+    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    DetailsViewController *detailsStarupViewController = [storyboard instantiateViewControllerWithIdentifier:@"detailsNoNav"];
+    detailsStarupViewController.starup = starup;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:detailsStarupViewController];
+    [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
+    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark - Network
@@ -330,6 +340,7 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     //    get the collaborator and and assign it to the cell
     Collaborator *collaborator = self.collaboratorArray[indexPath.row];
     cell.collaborator = collaborator;
+    cell.delegate = self;
     return cell;
 }
 

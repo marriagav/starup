@@ -160,7 +160,7 @@ InfiniteScrollActivityView* _loadingMoreViewS;
 }
 
 - (void)starupCell:(StarupCell *) starupCell didTap: (Starup *)starup{
-    // display compose post view controller
+    // display details view controller
     UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     DetailsViewController *detailsStarupViewController = [storyboard instantiateViewControllerWithIdentifier:@"detailsNoNav"];
     detailsStarupViewController.starup = starup;

@@ -13,6 +13,7 @@
 #import "PostCell.h"
 #import "starupCollectionViewCell.h"
 #import "InfiniteScrollActivityView.h"
+#import "DetailsViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
