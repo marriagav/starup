@@ -7,7 +7,7 @@
 
 #import "DetailsViewController.h"
 
-@interface DetailsViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface DetailsViewController () <UICollectionViewDelegate, UICollectionViewDataSource, profilesCollectionViewCellDelegate>
 
 @end
 
@@ -121,18 +121,33 @@
         //    get the shark and and assign it to the cell
         PFUser *user = self.sharks[indexPath.row];
         cell.user=user;
+        cell.delegate = self;
     }
     else if (collectionView == self.ideatorsCollectionView){
         //    get the ideator and and assign it to the cell
         PFUser *user = self.ideators[indexPath.row];
         cell.user=user;
+        cell.delegate = self;
     }
     else if (collectionView == self.hackersCollectionView){
         //    get the hacker and and assign it to the cell
         PFUser *user = self.hackers[indexPath.row];
         cell.user=user;
+        cell.delegate = self;
     }
     return cell;
+}
+
+#pragma mark - Delegates
+
+- (void)profileCell:(profilesCollectionViewCell *) profileCell didTap: (PFUser *)user{
+    //    Goes to profile page when user taps on profile
+    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    ProfileViewController *profileViewController = [storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
+    // Pass the user
+    profileViewController.user = user;
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark - Navigation

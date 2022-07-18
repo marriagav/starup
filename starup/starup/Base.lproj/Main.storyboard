@@ -335,7 +335,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aeE-Bx-RTq" customClass="PFImageView">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aeE-Bx-RTq" customClass="PFImageView">
                                                     <rect key="frame" x="0.0" y="102" width="414" height="208"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="208" id="La3-Cl-rNh"/>
@@ -561,7 +561,7 @@
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Make an investment"/>
                                             </button>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TZ4-V2-SU4" customClass="PFImageView">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TZ4-V2-SU4" customClass="PFImageView">
                                                 <rect key="frame" x="0.0" y="295.5" width="414" height="222"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="414" id="pA5-td-PgV"/>
@@ -1514,7 +1514,7 @@
                                                             <command title="Item 2" id="GQe-Oy-MC6"/>
                                                         </children>
                                                     </menu>
-                                                    <state key="normal" title="Edit profile"/>
+                                                    <state key="normal" title="Settings"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="5"/>
@@ -2027,11 +2027,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Pff-qb-dMQ">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="YZs-kJ-2nZ">
-                            <connections>
-                                <action selector="logOutClick:" destination="hRc-2W-ora" id="8Ib-iU-ghW"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title=" " image="plus" catalog="system" id="9Y6-Ep-7zM">
                             <connections>
                                 <action selector="composeAPost:" destination="hRc-2W-ora" id="gZ4-uz-sOG"/>

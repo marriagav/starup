@@ -28,6 +28,7 @@ InfiniteScrollActivityView* _loadingMoreViewS;
     // Initialize a UIRefreshControl
     [self _initializeRefreshControl];
     // Initialize a UIRefreshControlBottom
+    self.currentMax = 20;
     [self _initializeRefreshControlB];
 }
 
@@ -76,8 +77,11 @@ InfiniteScrollActivityView* _loadingMoreViewS;
 
 - (void)loadMoreData{
     //    Adds 20 more posts to the tableView, for infinte scrolling
-    int postsToAdd = (int)[self.starupsArray count] + 20;
-    [self refreshDataWithNStarups: postsToAdd];
+    if ([self.starupsArray count]>=self.currentMax){
+        self.currentMax+=20;
+        int postsToAdd = (int)[self.starupsArray count] + 20;
+        [self refreshDataWithNStarups: postsToAdd];
+    }
     [_loadingMoreViewS stopAnimating];
 }
 
@@ -88,9 +92,6 @@ InfiniteScrollActivityView* _loadingMoreViewS;
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Starup"];
     [query orderByDescending:@"createdAt"];
-    [query includeKey:@"hackers"];
-    [query includeKey:@"sharks"];
-    [query includeKey:@"ideators"];
     query.limit = numberOfStarups;
     
     // fetch data asynchronously

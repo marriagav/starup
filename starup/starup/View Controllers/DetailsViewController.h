@@ -10,6 +10,7 @@
 #import "DateTools.h"
 #import "Collaborator.h"
 #import "profilesCollectionViewCell.h"
+#import "ProfileViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

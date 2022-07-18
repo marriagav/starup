@@ -28,24 +28,8 @@ InfiniteScrollActivityView* _loadingMoreView;
     // Initialize a UIRefreshControl
     [self _initializeRefreshControl];
     // Initialize a UIRefreshControlBottom
+    self.currentMax = 20;
     [self _initializeRefreshControlB];
-}
-
-// TODO: this function is currently in the home view controller for testing purposes, eventually it needs to be migrated to the profile view controller.
-- (IBAction)logOutClick:(id)sender {
-    //    Call to log out the user
-    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
-        // PFUser.current() will now be nil
-        if (error){
-            NSLog(@"%@", error);
-        }
-        else{
-            UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            UIViewController *nav = [storyboard instantiateViewControllerWithIdentifier:@"loginView"];
-            [nav setModalPresentationStyle:UIModalPresentationFullScreen];
-            [self.navigationController presentViewController:nav animated:YES completion:nil];
-        }
-    }];
 }
 
 #pragma mark - QualityOfLife
@@ -93,8 +77,11 @@ InfiniteScrollActivityView* _loadingMoreView;
 
 - (void)loadMoreData{
     //    Adds 20 more posts to the tableView, for infinte scrolling
-    int postsToAdd = (int)[self.postArray count] + 20;
-    [self refreshDataWithNPosts: postsToAdd];
+    if ([self.postArray count]>=self.currentMax){
+        self.currentMax+=20;
+        int postsToAdd = (int)[self.postArray count] + 20;
+        [self refreshDataWithNPosts: postsToAdd];
+    }
     [_loadingMoreView stopAnimating];
 }
 
@@ -174,6 +161,17 @@ InfiniteScrollActivityView* _loadingMoreView;
     [self refreshDataWithNPosts:(int)self.postArray.count+1];
 }
 
+- (void)postCell:(PostCell *)postCell didTap:(PFUser *)user{
+//    Goes to profile page when user taps on profile
+    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    ProfileViewController *profileViewController = [storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
+    [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
+    // Pass the user
+    profileViewController.user = user;
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
 #pragma mark - Actions
 
 - (IBAction)composeAPost:(id)sender {
@@ -186,19 +184,6 @@ InfiniteScrollActivityView* _loadingMoreView;
         // Pass the delegate
         postViewController.delegate = self;
     }];
-}
-
-#pragma mark - Navigation
-
-- (void)postCell:(PostCell *)postCell didTap:(PFUser *)user{
-//    Goes to profile page when user taps on profile
-    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    ProfileViewController *profileViewController = [storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
-    [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
-    // Pass the user
-    profileViewController.user = user;
-    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 @end
