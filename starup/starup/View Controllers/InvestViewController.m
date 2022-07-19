@@ -73,17 +73,41 @@
 }
 
 - (void)updateServerWithInvestment{
-    [Collaborator postCollaborator:@"Shark" withUser:PFUser.currentUser withStarup:self.starup withOwnership:[NSNumber numberWithFloat: self.percentageToGet] withCompletion:nil];
     //    Call to change the starup investment percent
     int newInvestment = [self.starup[@"currentInvestment"] intValue] + [self.investOutlet.text floatValue];
-    // Retrieve the object by id
+    
+//    If the user is already a shark, dont duplicate collaborator, only update their ownership
+    [self checkIfIsShark:newInvestment];
+    
+    // Update starup investment
     PFQuery *query = [PFQuery queryWithClassName:@"Starup"];
     [query getObjectInBackgroundWithId:self.starup.objectId
                                  block:^(PFObject *parseObject, NSError *error) {
         parseObject[@"currentInvestment"] = [NSNumber numberWithInt:newInvestment];
         [parseObject saveInBackground];
-//        [self.delegate didInvest];
+        [self.delegate didInvest];
         [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+}
+
+- (void)checkIfIsShark: (int)newInvestment{
+    
+    PFQuery *find = [PFQuery queryWithClassName:@"Collaborator"];
+    [find includeKey:@"user"];
+    [find includeKey:@"starup"];
+    [find whereKey:@"typeOfUser" equalTo:@"Shark"];
+    [find whereKey:@"user" equalTo:PFUser.currentUser];
+    [find whereKey:@"starup" equalTo:self.starup];
+    [find getFirstObjectInBackgroundWithBlock: ^(PFObject *parseObject, NSError *error) {
+        if (parseObject){
+            float currOwnership = [parseObject[@"ownership"] floatValue];
+            parseObject[@"ownership"] = [NSNumber numberWithFloat: currOwnership+self.percentageToGet];
+            [parseObject saveInBackground];
+        }
+        else{
+//            Create collaborator and add to db
+            [Collaborator postCollaborator:@"Shark" withUser:PFUser.currentUser withStarup:self.starup withOwnership:[NSNumber numberWithFloat: self.percentageToGet] withCompletion:nil];
+        }
     }];
 }
 

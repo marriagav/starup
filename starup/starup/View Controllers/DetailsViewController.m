@@ -7,7 +7,7 @@
 
 #import "DetailsViewController.h"
 
-@interface DetailsViewController () <UICollectionViewDelegate, UICollectionViewDataSource, profilesCollectionViewCellDelegate>
+@interface DetailsViewController () <UICollectionViewDelegate, UICollectionViewDataSource, profilesCollectionViewCellDelegate, InvestViewControllerDelegate>
 
 @end
 
@@ -150,6 +150,26 @@
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
+- (void)didInvest{
+//    Update starup
+    PFQuery *query = [PFQuery queryWithClassName:@"Starup"];
+    [query whereKey:@"objectId" equalTo: self.starup.objectId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *starups, NSError *error) {
+        if (starups != nil) {
+            self.starup = starups[0];
+            //    Reset and refresh Arrays
+            self.ideators = [[NSMutableArray alloc] init];
+            self.sharks = [[NSMutableArray alloc] init];
+            self.hackers = [[NSMutableArray alloc] init];
+            [self refreshColletionViewData];
+            //    Update ProgressBar
+            [self updateProgressBar];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+}
+
 #pragma mark - Navigation
 
 - (IBAction)goBack:(id)sender {
@@ -165,6 +185,7 @@
     [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
     // Pass the user
     investController.starup = self.starup;
+    investController.delegate = self;
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 

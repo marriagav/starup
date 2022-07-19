@@ -11,6 +11,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol InvestViewControllerDelegate
+
+- (void)didInvest;
+
+@end
+
 @interface InvestViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITextField *investOutlet;
@@ -24,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *starupName;
 @property (weak, nonatomic) IBOutlet UILabel *maxInvestOutlet;
 @property BOOL hasError;
+@property (nonatomic, weak) id<InvestViewControllerDelegate> delegate;
 
 @end
 
