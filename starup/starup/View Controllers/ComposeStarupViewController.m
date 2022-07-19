@@ -39,6 +39,8 @@
     self.hackersCollectionView.delegate = self;
     self.hackersCollectionView.dataSource = self;
     [self.ideatorsCollectionView reloadData];
+    // For the textfield placeholder to work
+    self.descriptionOutlet.delegate=self;
 }
 
 - (void)setOutlets{
@@ -73,7 +75,8 @@
 }
 
 - (void)textViewDidChange:(UITextView *)textView{
-    //   TODO: If the text changes the placeholder dissapears
+    //    If the text changes the placeholder dissapears
+    self.typeHere.hidden=(textView.text.length>0);
 }
 
 #pragma mark - ImagePicker

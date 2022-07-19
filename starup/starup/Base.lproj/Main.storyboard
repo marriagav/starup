@@ -983,6 +983,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="investButton" destination="vua-hH-uo6" id="v2c-xA-drx"/>
                         <outlet property="investOutlet" destination="gIh-WC-lYQ" id="7s5-pE-eak"/>
                         <outlet property="maxInvestOutlet" destination="log-1d-uwd" id="3I6-dJ-eYV"/>
                         <outlet property="percentageOutlet" destination="DVT-uJ-yX4" id="sFe-ir-5cw"/>
@@ -1283,6 +1284,16 @@
                                                     </collectionViewCell>
                                                 </cells>
                                             </collectionView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Starup description..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="koj-OQ-dC4">
+                                                <rect key="frame" x="41" y="298" width="136" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="21" id="4by-Vv-6nW"/>
+                                                    <constraint firstAttribute="width" constant="136" id="oEt-o4-C3P"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" systemColor="opaqueSeparatorColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -1305,7 +1316,9 @@
                                             <constraint firstItem="ioi-m8-obg" firstAttribute="top" secondItem="mvE-fw-adH" secondAttribute="bottom" constant="8" symbolic="YES" id="FX6-yx-05x"/>
                                             <constraint firstItem="mvE-fw-adH" firstAttribute="leading" secondItem="ZIB-Mo-6bq" secondAttribute="leading" id="HWY-oq-fhn"/>
                                             <constraint firstItem="ZIB-Mo-6bq" firstAttribute="leading" secondItem="emh-JV-YA0" secondAttribute="leading" constant="34" id="Ha8-BG-ZP5"/>
+                                            <constraint firstItem="koj-OQ-dC4" firstAttribute="top" secondItem="jG3-uL-Mv0" secondAttribute="bottom" constant="16" id="LdR-Ot-DiK"/>
                                             <constraint firstItem="ioi-m8-obg" firstAttribute="bottom" secondItem="3bx-s7-UxK" secondAttribute="bottom" id="NVD-MP-SMu"/>
+                                            <constraint firstItem="koj-OQ-dC4" firstAttribute="leading" secondItem="emh-JV-YA0" secondAttribute="leading" constant="41" id="NWf-ko-uXC"/>
                                             <constraint firstItem="mvE-fw-adH" firstAttribute="top" secondItem="NBe-NN-UW4" secondAttribute="bottom" constant="19" id="O5M-x9-74y"/>
                                             <constraint firstItem="JQE-BZ-kDa" firstAttribute="leading" secondItem="ZIB-Mo-6bq" secondAttribute="leading" id="OdO-jj-Jtz"/>
                                             <constraint firstItem="UpF-tv-J3a" firstAttribute="leading" secondItem="ZIB-Mo-6bq" secondAttribute="leading" id="PxH-Fd-w1g"/>
@@ -1391,6 +1404,7 @@
                         <outlet property="starupCategory" destination="mvE-fw-adH" id="I14-O6-kAx"/>
                         <outlet property="starupImage" destination="mNN-38-7EM" id="T4q-5A-zlN"/>
                         <outlet property="starupName" destination="NBe-NN-UW4" id="ZuR-hI-Cda"/>
+                        <outlet property="typeHere" destination="koj-OQ-dC4" id="U0f-b2-KBX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uc8-QK-hYm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1857,6 +1871,16 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="name"/>
                                             </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Biography..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rj0-de-g4Q">
+                                                <rect key="frame" x="40" y="201" width="136" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="136" id="9XX-TY-2Oq"/>
+                                                    <constraint firstAttribute="height" constant="21" id="Pn1-4E-3yX"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" systemColor="opaqueSeparatorColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -1866,6 +1890,8 @@
                                             <constraint firstItem="Bsv-YL-FbD" firstAttribute="leading" secondItem="iUz-CD-2iI" secondAttribute="leading" id="Hwr-wb-TmL"/>
                                             <constraint firstItem="Z6d-he-5g0" firstAttribute="leading" secondItem="TNa-2z-kTr" secondAttribute="leading" constant="34" id="IKa-70-iOo"/>
                                             <constraint firstItem="muw-aK-jA7" firstAttribute="centerX" secondItem="TNa-2z-kTr" secondAttribute="centerX" id="Qfb-iZ-eeW"/>
+                                            <constraint firstItem="Rj0-de-g4Q" firstAttribute="top" secondItem="Bsv-YL-FbD" secondAttribute="bottom" constant="16" id="UPN-8k-ACn"/>
+                                            <constraint firstItem="Rj0-de-g4Q" firstAttribute="leading" secondItem="TNa-2z-kTr" secondAttribute="leading" constant="40" id="Ut2-Bm-40y"/>
                                             <constraint firstItem="muw-aK-jA7" firstAttribute="top" secondItem="Sy4-PP-uRD" secondAttribute="bottom" constant="8" symbolic="YES" id="Vpf-8C-ybm"/>
                                             <constraint firstItem="Z6d-he-5g0" firstAttribute="centerX" secondItem="TNa-2z-kTr" secondAttribute="centerX" id="X8D-a4-u94"/>
                                             <constraint firstItem="Sy4-PP-uRD" firstAttribute="centerX" secondItem="TNa-2z-kTr" secondAttribute="centerX" id="XB7-AG-18Y"/>
@@ -1920,6 +1946,7 @@
                         <outlet property="firstnameOutlet" destination="Sy4-PP-uRD" id="HoX-fH-HOX"/>
                         <outlet property="lastnameOutlet" destination="muw-aK-jA7" id="e7x-Ly-vXC"/>
                         <outlet property="roleOutlet" destination="Bsv-YL-FbD" id="kxL-x4-yMD"/>
+                        <outlet property="typeHere" destination="Rj0-de-g4Q" id="fjQ-Wu-QtU"/>
                         <outlet property="userBio" destination="Z6d-he-5g0" id="ljw-ys-pXO"/>
                         <outlet property="usernameOutlet" destination="iUz-CD-2iI" id="AYr-k8-ZQw"/>
                     </connections>

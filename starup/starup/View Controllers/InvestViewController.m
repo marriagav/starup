@@ -13,16 +13,13 @@
 
 @implementation InvestViewController
 
+#pragma mark - Initialization
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self _setUpLabels];
     [self.investOutlet addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-}
-
-- (IBAction)goBack:(id)sender {
-    // display starups view controller
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)_setUpLabels {
@@ -55,6 +52,8 @@
     }
 }
 
+#pragma mark - Calculations
+
 - (void)_getMaxInvestment {
     //    Calculate the percentage gained from investing x amount
     NSNumber* currentInv = self.starup[@"currentInvestment"];
@@ -72,7 +71,14 @@
     [self _getPercentage:[self.investOutlet.text floatValue]];
 }
 
+#pragma mark - Network
+
 - (void)updateServerWithInvestment{
+    //    Shows progress hud
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //    Dissables invest button so that the user cant spam it
+    self.investButton.enabled = false;
+    
     //    Call to change the starup investment percent
     int newInvestment = [self.starup[@"currentInvestment"] intValue] + [self.investOutlet.text floatValue];
     
@@ -87,6 +93,8 @@
         [parseObject saveInBackground];
         [self.delegate didInvest];
         [self dismissViewControllerAnimated:YES completion:nil];
+        // hides progress hud
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
 }
 
@@ -121,5 +129,13 @@
         self.hasError = NO;
     }
 }
+
+#pragma mark - Navigation
+
+- (IBAction)goBack:(id)sender {
+    // display starups view controller
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 @end

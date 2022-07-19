@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "Starup.h"
 #import "Collaborator.h"
+#import "MBProgressHUD.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -31,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *maxInvestOutlet;
 @property BOOL hasError;
 @property (nonatomic, weak) id<InvestViewControllerDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UIButton *investButton;
 
 @end
 
