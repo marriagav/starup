@@ -31,7 +31,7 @@
     [self.ideators addObject:PFUser.currentUser];
     //    Set dropdown menu
     [self setDropDownMenu];
-//    Set collection views
+    //    Set collection views
     self.sharksCollectionView.delegate = self;
     self.sharksCollectionView.dataSource = self;
     self.ideatorsCollectionView.delegate = self;
@@ -81,12 +81,12 @@
 - (void)didTapImage:(UITapGestureRecognizer *)sender{
     //    Gets called when the user taps on the image placeholder, creating and opening an UIImagePickerController
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
-
+    
     imagePickerVC.delegate = self;
     imagePickerVC.allowsEditing = YES;
-
+    
     imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-
+    
     [self presentViewController:imagePickerVC animated:YES completion:nil];
 }
 
@@ -138,19 +138,25 @@
 
 - (void)addStarupsToIdeators: (Starup*) starup :(NSMutableArray<PFUser*>*) ideators{
     for (PFUser *ideator in ideators){
-        [Collaborator postCollaborator:@"Ideator" withUser:ideator withStarup:starup withCompletion:nil];
+        if (ideator.objectId == PFUser.currentUser.objectId){
+            //  Ownership is calculated by decreasing 100 by the amount of percentage to give
+            [Collaborator postCollaborator:@"Ideator" withUser:ideator withStarup:starup withOwnership:[NSNumber numberWithInt: 100-[self.percentageToGive.text intValue]] withCompletion:nil];
+        }
+        else{
+            [Collaborator postCollaborator:@"Ideator" withUser:ideator withStarup:starup withOwnership:0 withCompletion:nil];
+        }
     }
 }
 
 - (void)addStarupsToSharks: (Starup*) starup :(NSMutableArray<PFUser*>*) sharks{
     for (PFUser *shark in sharks){
-        [Collaborator postCollaborator:@"Shark" withUser:shark withStarup:starup withCompletion:nil];
+        [Collaborator postCollaborator:@"Shark" withUser:shark withStarup:starup withOwnership:0 withCompletion:nil];
     }
 }
 
 - (void)addStarupsToHackers: (Starup*) starup :(NSMutableArray<PFUser*>*) hackers{
     for (PFUser *hacker in hackers){
-        [Collaborator postCollaborator:@"Hacker" withUser:hacker withStarup:starup withCompletion:nil];
+        [Collaborator postCollaborator:@"Hacker" withUser:hacker withStarup:starup withOwnership:0 withCompletion:nil];
     }
 }
 
@@ -189,21 +195,34 @@
 #pragma mark - Delegates
 
 - (void)didAddIdeator:(PFUser *)user{
-    [self.ideators addObject:user];
-    [self.ideatorsCollectionView reloadData];
+    if (![self checkIfArrayHasUser:user :self.ideators]){
+        [self.ideators addObject:user];
+        [self.ideatorsCollectionView reloadData];
+    }
 }
 
 - (void)didAddHacker:(PFUser *)user{
-    [self.hackers addObject:user];
-    [self.hackersCollectionView reloadData];
+    if (![self checkIfArrayHasUser:user :self.hackers]){
+        [self.hackers addObject:user];
+        [self.hackersCollectionView reloadData];
+    }
 }
 
 - (void)didAddShark:(PFUser *)user{
-    [self.sharks addObject:user];
-    [self.sharksCollectionView reloadData];
+    if (![self checkIfArrayHasUser:user :self.sharks]){
+        [self.sharks addObject:user];
+        [self.sharksCollectionView reloadData];
+    }
 }
 
-#pragma mark - Delegates
+- (BOOL)checkIfArrayHasUser:(PFUser *)user :(NSMutableArray*)array{
+    for (PFUser* collaborator in array){
+        if (collaborator.username == user.username){
+            return YES;
+        }
+    }
+    return NO;
+}
 
 - (void)profileCell:(profilesCollectionViewCell *) profileCell didTap: (PFUser *)user{
     //    Goes to profile page when user taps on profile

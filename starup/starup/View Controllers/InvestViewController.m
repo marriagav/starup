@@ -73,8 +73,18 @@
 }
 
 - (void)updateServerWithInvestment{
-    [Collaborator postCollaborator:@"Shark" withUser:PFUser.currentUser withStarup:self.starup withCompletion:nil];
-    
+    [Collaborator postCollaborator:@"Shark" withUser:PFUser.currentUser withStarup:self.starup withOwnership:[NSNumber numberWithFloat: self.percentageToGet] withCompletion:nil];
+    //    Call to change the starup investment percent
+    int newInvestment = [self.starup[@"currentInvestment"] intValue] + [self.investOutlet.text floatValue];
+    // Retrieve the object by id
+    PFQuery *query = [PFQuery queryWithClassName:@"Starup"];
+    [query getObjectInBackgroundWithId:self.starup.objectId
+                                 block:^(PFObject *parseObject, NSError *error) {
+        parseObject[@"currentInvestment"] = [NSNumber numberWithInt:newInvestment];
+        [parseObject saveInBackground];
+//        [self.delegate didInvest];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
 }
 
 - (IBAction)invest:(id)sender {
