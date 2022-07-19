@@ -16,28 +16,76 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self _setUpLabels];
+    [self.investOutlet addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+}
+
+- (IBAction)goBack:(id)sender {
+    // display starups view controller
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)_setUpLabels {
     //    Sets up the labels of the details view
+    self.goalInv = self.starup[@"goalInvestment"];
+    self.totalPercent = self.starup[@"percentageToGive"];
+    self.starupName.text = self.starup[@"starupName"];
+    self.hasError = NO;
+    [self _getMaxInvestment];
+}
+
+- (void)initializeAlertController{
+    //    Create the alert controller for login errors
+    UIAlertController *investError = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                        message:@"Investment off limits, must be lowered"
+                                                                 preferredStyle:(UIAlertControllerStyleAlert)];
+    // create a cancel action
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+        // handle try again response here. Doing nothing will dismiss the view.
+    }];
+    // add the cancel action to the alertControllers
+    [investError addAction:cancelAction];
+    
+    if ([self.investOutlet.text floatValue] > self.maxInvestment){
+        [self presentViewController:investError animated:YES completion:^{
+            self.hasError = YES;
+        }];
+    }
+}
+
+- (void)_getMaxInvestment {
+    //    Calculate the percentage gained from investing x amount
+    NSNumber* currentInv = self.starup[@"currentInvestment"];
+    self.maxInvestment = [self.goalInv floatValue] - [currentInv floatValue];
+    self.maxInvestOutlet.text = [NSString stringWithFormat:@"%@%.0f", @"max:", self.maxInvestment];
+}
+
+- (void)_getPercentage: (float) amount {
+    //    Calculate the percentage gained from investing x amount
+    self.percentageToGet = amount * [self.totalPercent floatValue] / [self.goalInv floatValue];
+    self.percentageOutlet.text = [NSString stringWithFormat:@"%@%.02f", @"%", self.percentageToGet];
+}
+
+- (void)textFieldDidChange :(UITextField *) textField{
+    [self _getPercentage:[self.investOutlet.text floatValue]];
+}
+
+- (void)updateServerWithInvestment{
+    [Collaborator postCollaborator:@"Shark" withUser:PFUser.currentUser withStarup:self.starup withCompletion:nil];
     
 }
 
-- (int)_getPercentage{
-    //    Calculate the percentage gained from investing x amount
-    return 0;
+- (IBAction)invest:(id)sender {
+    [self initializeAlertController];
+    if (!self.hasError){
+        //        TODO: go to payment selection
+        [self updateServerWithInvestment];
+    }
+    else{
+        self.hasError = NO;
+    }
 }
-
-//TODO: set up the graph
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

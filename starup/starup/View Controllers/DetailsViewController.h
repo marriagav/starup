@@ -11,6 +11,7 @@
 #import "Collaborator.h"
 #import "profilesCollectionViewCell.h"
 #import "ProfileViewController.h"
+#import "InvestViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

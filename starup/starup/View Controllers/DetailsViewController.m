@@ -157,4 +157,15 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)goToInvestments:(id)sender {
+    //    Goes to incestments page
+    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    InvestViewController *investController = [storyboard instantiateViewControllerWithIdentifier:@"investmentsVC"];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:investController];
+    [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
+    // Pass the user
+    investController.starup = self.starup;
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
 @end
