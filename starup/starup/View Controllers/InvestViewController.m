@@ -46,9 +46,8 @@
     [investError addAction:cancelAction];
     
     if ([self.investOutlet.text floatValue] > self.maxInvestment){
-        [self presentViewController:investError animated:YES completion:^{
-            self.hasError = YES;
-        }];
+        self.hasError = YES;
+        [self presentViewController:investError animated:YES completion:nil];
     }
 }
 
@@ -84,7 +83,9 @@
     
 //    If the user is already a shark, dont duplicate collaborator, only update their ownership
     [self checkIfIsShark:newInvestment];
-    
+}
+
+-(void)updateStarupInvestment: (int)newInvestment{
     // Update starup investment
     PFQuery *query = [PFQuery queryWithClassName:@"Starup"];
     [query getObjectInBackgroundWithId:self.starup.objectId
@@ -116,6 +117,7 @@
 //            Create collaborator and add to db
             [Collaborator postCollaborator:@"Shark" withUser:PFUser.currentUser withStarup:self.starup withOwnership:[NSNumber numberWithFloat: self.percentageToGet] withCompletion:nil];
         }
+        [self updateStarupInvestment:newInvestment];
     }];
 }
 

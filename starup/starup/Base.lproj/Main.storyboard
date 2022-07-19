@@ -363,6 +363,7 @@
                                                 <constraint firstItem="p7J-t7-2Lw" firstAttribute="leading" secondItem="Bha-z7-R8J" secondAttribute="leading" id="cOZ-FC-vc2"/>
                                                 <constraint firstItem="aeE-Bx-RTq" firstAttribute="centerX" secondItem="868-CE-U4I" secondAttribute="centerX" id="ngl-F2-Z4J"/>
                                                 <constraint firstItem="Bha-z7-R8J" firstAttribute="top" secondItem="868-CE-U4I" secondAttribute="topMargin" id="vLf-wZ-XSE"/>
+                                                <constraint firstAttribute="trailing" secondItem="VLT-QB-pH6" secondAttribute="trailing" constant="24.5" id="zWw-3r-TP4"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -868,7 +869,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XJj-NY-iDL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2766.666666666667" y="1508.7053571428571"/>
+            <point key="canvasLocation" x="1857" y="1509"/>
         </scene>
         <!--Invest View Controller-->
         <scene sceneID="2na-DJ-wEx">
@@ -907,7 +908,7 @@
                                                     <action selector="invest:" destination="Gnj-LF-AN2" eventType="touchUpInside" id="Win-aS-aL9"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DVT-uJ-yX4">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%0.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DVT-uJ-yX4">
                                                 <rect key="frame" x="154" y="98" width="55" height="46"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -992,7 +993,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oxB-jM-4Bd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4618.840579710145" y="1508.7053571428571"/>
+            <point key="canvasLocation" x="3709" y="1509"/>
         </scene>
         <!--Compose Starup View Controller-->
         <scene sceneID="Pem-Oa-Uoj">
@@ -2258,7 +2259,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ijr-KF-2Ir" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1857.9710144927537" y="1508.7053571428571"/>
+            <point key="canvasLocation" x="948" y="1509"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nBb-Uw-g75">
@@ -2276,7 +2277,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8sD-IW-mP2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3708.6956521739135" y="1508.7053571428571"/>
+            <point key="canvasLocation" x="2799" y="1509"/>
         </scene>
     </scenes>
     <resources>
