@@ -17,7 +17,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self _setUpLabels];
     //    Initialize Arrays
     self.ideators = [[NSMutableArray alloc] init];
     self.sharks = [[NSMutableArray alloc] init];
@@ -29,6 +28,7 @@
     self.ideatorsCollectionView.dataSource = self;
     self.hackersCollectionView.delegate = self;
     self.hackersCollectionView.dataSource = self;
+    [self _setUpLabels];
     [self refreshColletionViewData];
 }
 
@@ -55,7 +55,8 @@
     NSNumber* currentInv = self.starup[@"currentInvestment"];
     NSNumber* goalInv = self.starup[@"goalInvestment"];
     self.progressString.text = [NSString stringWithFormat:@"%@$%@ / $%@", @"Progress: ", currentInv, goalInv];
-    self.investmentProgressBar.progress = [Algos percentageWithNumbers:[currentInv floatValue] :[goalInv floatValue]];
+//    self.investmentProgressBar.progress = [Algos percentageWithNumbers:[currentInv floatValue] :[goalInv floatValue]];
+    [self.investmentProgressBar setProgress:[Algos percentageWithNumbers:[currentInv floatValue] :[goalInv floatValue]] animated:YES];
 }
 
 #pragma mark - Network

@@ -111,13 +111,20 @@
         if (parseObject){
             float currOwnership = [parseObject[@"ownership"] floatValue];
             parseObject[@"ownership"] = [NSNumber numberWithFloat: currOwnership+self.percentageToGet];
-            [parseObject saveInBackground];
+            [parseObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded){
+                    [self updateStarupInvestment:newInvestment];
+                }
+            }];
         }
         else{
 //            Create collaborator and add to db
-            [Collaborator postCollaborator:@"Shark" withUser:PFUser.currentUser withStarup:self.starup withOwnership:[NSNumber numberWithFloat: self.percentageToGet] withCompletion:nil];
+            [Collaborator postCollaborator:@"Shark" withUser:PFUser.currentUser withStarup:self.starup withOwnership:[NSNumber numberWithFloat: self.percentageToGet] withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded){
+                    [self updateStarupInvestment:newInvestment];
+                }
+            }];
         }
-        [self updateStarupInvestment:newInvestment];
     }];
 }
 
