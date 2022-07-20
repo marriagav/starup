@@ -1,0 +1,225 @@
+diff --git a/cocoapods-patch-20220719-32153-zjymp4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m
+index 906eec3..63ae2fe 100644
+--- a/cocoapods-patch-20220719-32153-zjymp4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m
++++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m
+@@ -63,14 +63,14 @@
+     self.grantedAccess = permissions;
+     self.permissions = [NSMutableArray new];
+ 
+-    if ([permissions containsObject:@(ContactInfo)])    [self.permissions addObject:@"r_contactinfo"];
++    if ([permissions containsObject:@(ContactInfo)])    [self.permissions addObject:@"r_liteprofile"];
+     if ([permissions containsObject:@(FullProfile)])    [self.permissions addObject:@"r_fullprofile"];
+     if (![permissions containsObject:@(FullProfile)] &&
+         [permissions containsObject:@(BasicProfile)])   [self.permissions addObject:@"r_basicprofile"];
+     if ([permissions containsObject:@(Nus)])            [self.permissions addObject:@"rw_nus"];
+     if ([permissions containsObject:@(Network)])        [self.permissions addObject:@"r_network"];
+     if ([permissions containsObject:@(EmailAddress)])   [self.permissions addObject:@"r_emailaddress"];
+-    if ([permissions containsObject:@(Share)])          [self.permissions addObject:@"w_share"];
++    if ([permissions containsObject:@(Share)])          [self.permissions addObject:@"w_member_social"];
+     if ([permissions containsObject:@(CompanyAdmin)])   [self.permissions addObject:@"rw_company_admin"];
+     if ([permissions containsObject:@(Groups)])         [self.permissions addObject:@"rw_groups"];
+     if ([permissions containsObject:@(Messages)])       [self.permissions addObject:@"w_messages"];
+diff --git a/cocoapods-patch-20220719-32153-zjymp4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m
+index 73fbc14..fa68ee2 100644
+--- a/cocoapods-patch-20220719-32153-zjymp4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m
++++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m
+@@ -67,7 +67,7 @@ NSString * const linkedinIosHelperDomain = @"com.linkedinioshelper";
+ - (void)viewDidAppear:(BOOL)animated {
+     [super viewDidAppear:animated];
+     
+-    NSString *linkedIn = [NSString stringWithFormat:@"https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=%@&scope=%@&state=%@&redirect_uri=%@", self.serviceManager.settings.clientId, self.serviceManager.settings.grantedAccessString, self.serviceManager.settings.state, self.serviceManager.settings.applicationWithRedirectURL];
++    NSString *linkedIn = [NSString stringWithFormat:@"https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=%@&state=%@&redirect_uri=%@&scope=%@", self.serviceManager.settings.clientId, self.serviceManager.settings.state, self.serviceManager.settings.applicationWithRedirectURL, self.serviceManager.settings.grantedAccessString];
+     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:linkedIn]]];
+ }
+ 
+@@ -90,10 +90,9 @@ NSString * const linkedinIosHelperDomain = @"com.linkedinioshelper";
+ - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+     
+     NSString *url = [[request URL] absoluteString];
+-    
+     //prevent loading URL if it is the redirectURL
+     self.handling = [url hasPrefix:self.serviceManager.settings.applicationWithRedirectURL];
+-    
++
+     if (self.isHandling) {
+         if ([url rangeOfString:@"error"].location != NSNotFound) {
+             BOOL accessDenied = [url rangeOfString:@"the+user+denied+your+request"].location != NSNotFound;
+@@ -111,12 +110,13 @@ NSString * const linkedinIosHelperDomain = @"com.linkedinioshelper";
+             }
+         } else {
+             NSString *receivedState = [self extractGetParameter:@"state" fromURLString: url];
+-            
++
+             //assert that the state is as we expected it to be
+             if ([self.serviceManager.settings.state isEqualToString:receivedState]) {
+-                
++
+                 //extract the code from the url
+                 NSString *authorizationCode = [self extractGetParameter:@"code" fromURLString: url];
++                
+                 if (self.authorizationCodeSuccessCallback) {
+                     self.authorizationCodeSuccessCallback(authorizationCode);
+                 }
+diff --git a/cocoapods-patch-20220719-32153-zjymp4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m
+index 5e060b5..4c8c2d2 100644
+--- a/cocoapods-patch-20220719-32153-zjymp4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m
++++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m
+@@ -108,14 +108,15 @@
+             break;
+         case POST: {
+             
+-            NSData *postData = [NSData dataWithBytes:[_postString UTF8String] length:[_postString length]];
++            NSData *postData = [_postString dataUsingEncoding:NSUTF8StringEncoding];
+             NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+             [request setURL:_url];
+             [request setHTTPMethod:@"POST"];
+-            [request setValue:@"application/json" forHTTPHeaderField:@"Current-Type"];
++            [request addValue:@"application/x-www-form-urlencoded;" forHTTPHeaderField:@"Content-Type"];
+             [request setHTTPBody:postData];
+             
+             self.connection = [NSURLConnection connectionWithRequest:request delegate:self];
++            NSLog(@"%@", self.connection.currentRequest);
+             [self.connection start];
+         }
+         default:
+@@ -216,14 +217,12 @@
+     return nil;
+ }
+ 
+-- (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
+-{
++- (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
+ //    NSLog(@"Authenticated");
+     return [protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust];
+ }
+ 
+-- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+-{
++- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+ //    NSLog(@"Challenged");
+     if ([challenge.protectionSpace.authenticationMethod
+          isEqualToString:NSURLAuthenticationMethodServerTrust])
+diff --git a/cocoapods-patch-20220719-32153-zjymp4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m
+index 2690156..ec98a5e 100644
+--- a/cocoapods-patch-20220719-32153-zjymp4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m
++++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m
+@@ -135,7 +135,9 @@ NSString * StringOrEmpty(NSString *string) {
+         
+         [self.service getAccessToken:code
+                              success:^(NSDictionary *accessTokenData) {
+-                                 [weakSelf requestMeWithToken];
++//                                [weakSelf requestMeWithToken];
++                                NSString *accessToken = accessTokenData[@"access_token"];
++                                NSLog(@"The token is - %@",accessToken);
+                              }
+                              failure:^(NSError *error) {
+                                  // Quering accessToken failed
+diff --git a/cocoapods-patch-20220719-32153-zjymp4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m
+index 3717848..86af984 100644
+--- a/cocoapods-patch-20220719-32153-zjymp4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m
++++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m
+@@ -107,60 +107,46 @@
+ - (void)getAccessToken:(NSString *)authorizationCode
+                success:(void (^)(NSDictionary *))success
+                failure:(void (^)(NSError *))failure {
+-    
+-    _settings.applicationWithRedirectURL = (NSString *)CFBridgingRelease( CFURLCreateStringByAddingPercentEscapes( NULL,
+-                                                                                                               (__bridge CFStringRef) _settings.applicationWithRedirectURL,
+-                                                                                                               NULL,
+-                                                                                                               CFSTR("!*'();:@&=+$,/?%#[]"),
+-                                                                                                               kCFStringEncodingUTF8
+-                                                                                                               )
+-                                                                );
+-    
+-    [self setSuccessBlock:^(NSDictionary *dict) {
+-        
+-        NSString *accessToken = [dict objectForKey:@"access_token"];
+-        NSTimeInterval expiration = [[dict objectForKey:@"expires_in"] doubleValue];
+-        
+-        // store credentials
+-        [LinkedinSimpleKeychain saveWithService:LINKEDIN_TOKEN_KEY data:accessToken];
+-        [LinkedinSimpleKeychain saveWithService:LINKEDIN_AUTHORIZATION_CODE data:authorizationCode];
+-        [LinkedinSimpleKeychain saveWithService:LINKEDIN_EXPIRATION_KEY data:@(expiration)];
+-        [LinkedinSimpleKeychain saveWithService:LINKEDIN_CREATION_KEY data:@([[NSDate date] timeIntervalSince1970])];
+-        
+-        success(dict);
+-    }];
+-    
+-    [self setFailureBlock:^(NSError *err) {
+-        failure(err);
+-    }];
+ 
+     NSString *postDataStr = [NSString stringWithFormat:@"grant_type=authorization_code""&code=%@""&redirect_uri=%@""&client_id=%@""&client_secret=%@", authorizationCode, _settings.applicationWithRedirectURL, _settings.clientId, _settings.clientSecret];
+-    
+-    __weak typeof (self) weakSelf = self;
+-    
+-    LinkedInConnectionHandler *handler = [[LinkedInConnectionHandler alloc] initWithURL:[NSURL URLWithString:@"https://www.linkedin.com/uas/oauth2/accessToken"]
+-                                                                                   type:POST
+-                                                                               postData:postDataStr
+-                                                                                success:^(NSDictionary *response) {
+-                                                                                    if (weakSelf.successBlock) {
+-                                                                                        weakSelf.successBlock(response);
+-                                                                                    }
+-                                                                                }
+-                                                                                 cancel:^{
+-                                                                                     if (weakSelf.failureBlock) {
+-                                                                                         NSError *error = [NSError errorWithDomain:@"com.linkedinioshelper"
+-                                                                                                                            code:-2
+-                                                                                                                        userInfo:@{NSLocalizedDescriptionKey:@"Url connection canceled"}];
+-                                                                                         weakSelf.failureBlock(error);
+-                                                                                     }
+-                                                                                 }
+-                                                                                failure:^(NSError *err) {
+-                                                                                    if (weakSelf.failureBlock) {
+-                                                                                        weakSelf.failureBlock(err);
+-                                                                                    }
+-                                                                                }
+-                                          ];
+-    [handler start];
++    NSData *data1 = [postDataStr dataUsingEncoding:NSUTF8StringEncoding];
++    
++        NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://www.linkedin.com/oauth/v2/accessToken"]];
++    
++        //create the Method "GET" or "POST"
++        [urlRequest setHTTPMethod:@"POST"];
++    
++        //Apply the data to the body
++        [urlRequest setHTTPBody:data1];
++    
++        [urlRequest addValue:@"application/x-www-form-urlencoded;" forHTTPHeaderField:@"Content-Type"];
++    
++        NSURLSession *session = [NSURLSession sharedSession];
++        NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
++            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
++            if(httpResponse.statusCode == 200)
++            {
++                NSError *parseError = nil;
++                NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
++                
++                NSString *accessToken = responseDictionary[@"access_token"];
++                
++                NSTimeInterval expiration = [[responseDictionary objectForKey:@"expires_in"] doubleValue];
++
++                // store credentials
++                [LinkedinSimpleKeychain saveWithService:LINKEDIN_TOKEN_KEY data:accessToken];
++                [LinkedinSimpleKeychain saveWithService:LINKEDIN_AUTHORIZATION_CODE data:authorizationCode];
++                [LinkedinSimpleKeychain saveWithService:LINKEDIN_EXPIRATION_KEY data:@(expiration)];
++                [LinkedinSimpleKeychain saveWithService:LINKEDIN_CREATION_KEY data:@([[NSDate date] timeIntervalSince1970])];
++
++                success(responseDictionary);
++            }
++            else
++            {
++                failure(error);
++            }
++        }];
++        [dataTask resume];
+ }
+ 
+ #pragma mark - Memory Management -
+@@ -169,4 +155,5 @@
+ {
+     
+ }
++
+ @end
