@@ -138,7 +138,7 @@
     
     __weak typeof (self) weakSelf = self;
     
-    LinkedInConnectionHandler *handler = [[LinkedInConnectionHandler alloc] initWithURL:[NSURL URLWithString:@"https://www.linkedin.com/uas/oauth2/accessToken"]
+    LinkedInConnectionHandler *handler = [[LinkedInConnectionHandler alloc] initWithURL:[NSURL URLWithString:@"https://www.linkedin.com/oauth/v2/accessToken"]
                                                                                    type:POST
                                                                                postData:postDataStr
                                                                                 success:^(NSDictionary *response) {
