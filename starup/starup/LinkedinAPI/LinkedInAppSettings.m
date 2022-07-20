@@ -63,14 +63,14 @@
     self.grantedAccess = permissions;
     self.permissions = [NSMutableArray new];
 
-    if ([permissions containsObject:@(ContactInfo)])    [self.permissions addObject:@"r_contactinfo"];
+    if ([permissions containsObject:@(ContactInfo)])    [self.permissions addObject:@"r_liteprofile"];
     if ([permissions containsObject:@(FullProfile)])    [self.permissions addObject:@"r_fullprofile"];
     if (![permissions containsObject:@(FullProfile)] &&
         [permissions containsObject:@(BasicProfile)])   [self.permissions addObject:@"r_basicprofile"];
     if ([permissions containsObject:@(Nus)])            [self.permissions addObject:@"rw_nus"];
     if ([permissions containsObject:@(Network)])        [self.permissions addObject:@"r_network"];
     if ([permissions containsObject:@(EmailAddress)])   [self.permissions addObject:@"r_emailaddress"];
-    if ([permissions containsObject:@(Share)])          [self.permissions addObject:@"w_share"];
+//    if ([permissions containsObject:@(Share)])          [self.permissions addObject:@"w_member_social"];
     if ([permissions containsObject:@(CompanyAdmin)])   [self.permissions addObject:@"rw_company_admin"];
     if ([permissions containsObject:@(Groups)])         [self.permissions addObject:@"rw_groups"];
     if ([permissions containsObject:@(Messages)])       [self.permissions addObject:@"w_messages"];
