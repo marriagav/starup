@@ -23,8 +23,6 @@
     gestureRecognizer.cancelsTouchesInView = NO;
     //    Error should be set to empty initially
     self.error = @"";
-//    [self fetchUserInformations];
-//    [self getUserInfo];
 }
 
 #pragma mark - QualityOfLife
@@ -82,6 +80,33 @@
     }];
 }
 
+- (void)registerUserWithLinkedin {
+    //    Method that registers the user
+    // initialize a user object
+    PFUser *newUser = [PFUser user];
+    
+    // set user properties
+//    the username is a combination of users name, astname and id from linkedin
+    newUser.username = [NSString stringWithFormat:@"%@_%@_%@", self.linkedinFName , self.linkedinLName, self.linkedinID];
+    // Generate random password for user
+    newUser.password = [Algos generateRandomString:10];
+    //    newUser.email = self.Lin;
+    newUser[@"firstname"] = self.linkedinFName;
+    newUser[@"lastname"] = self.linkedinLName;
+    UIImage *image =  self.imageLinkedin;
+    [newUser setObject:[Algos getPFFileFromImage:image] forKey: @"profileImage"];
+    
+    // call sign up function on the object
+    [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
+        if (error != nil) {
+            NSLog(@"Error: %@", error.localizedDescription);
+        } else {
+            NSLog(@"User registered successfully");
+            
+        }
+    }];
+}
+
 #pragma mark - Actions
 
 - (IBAction)loginOnClick:(id)sender {
@@ -96,20 +121,25 @@
     
 }
 
+- (IBAction)logInLinkedin:(id)sender {
+    [self fetchUserInformations];
+    //    [self getUserInfo];
+}
+
 #pragma mark - Linkedin API
 
 - (void)fetchUserInformations {
     
     LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
-
+    
     linkedIn.cancelButtonText = @"Close"; // Or any other language But Default is Close
     
     NSArray *permissions = @[@(ContactInfo),
-                            @(EmailAddress),
-                            @(Share)];
-        
+                             @(EmailAddress),
+                             @(Share)];
+    
     linkedIn.showActivityIndicator = YES;
-        
+    
 #warning - Your LinkedIn App ClientId - ClientSecret - RedirectUrl
     [linkedIn requestMeWithSenderViewController:self
                                        clientId:@"86j2dodya1oazo"         // Your App Client Id
@@ -118,12 +148,21 @@
                                     permissions:permissions
                                           state:@"authState"               // Your client state
                                 successUserInfo:^(NSDictionary *userInfo) {
-                                    // Whole User Info
-                                    NSLog(@"user Info : %@", userInfo);
-                                }
-                                failUserInfoBlock:^(NSError *error) {
-                                    NSLog(@"error : %@", error.userInfo.description);
-                                }
+        // Save User Info
+        NSDictionary *linkedinFName = userInfo[@"firstName"][@"localized"];
+        self.linkedinFName = [Algos firstObjectFromDict:linkedinFName];
+        self.linkedinID = [userInfo[@"id"] substringToIndex:3];
+        NSDictionary *linkedinLName = userInfo[@"lastName"][@"localized"];
+        self.linkedinLName = [Algos firstObjectFromDict:linkedinLName];
+        NSArray *elementsOfPicture = userInfo[@"profilePicture"][@"displayImage~"][@"elements"];
+        NSDictionary *urlOfImageDict =  elementsOfPicture[0];
+        NSDictionary *urlOfimageIdentifiers = [urlOfImageDict valueForKey:@"identifiers"];
+        NSArray *imageURLLinkedin = [urlOfimageIdentifiers valueForKey:@"identifier"];
+        self.imageLinkedin = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: imageURLLinkedin[0]]]];
+    }
+                              failUserInfoBlock:^(NSError *error) {
+        NSLog(@"error : %@", error.userInfo.description);
+    }
     ];
 }
 
@@ -138,10 +177,10 @@
     // If user has already connected via linkedin in and access token is still valid then
     // No need to fetch authorizationCode and then accessToken again!
     
-    #warning - To fetch user info  automatically without getting authorization code, accessToken must be still valid
+#warning - To fetch user info  automatically without getting authorization code, accessToken must be still valid
     
     if (linkedIn.isValidToken) {
-                
+        
         // So Fetch member info by elderyly access token
         [linkedIn autoFetchUserInfoWithSuccess:^(NSDictionary *userInfo) {
             // Whole User Info

@@ -95,7 +95,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="registerOnClick:" destination="0fW-9q-Gp2" eventType="touchUpInside" id="3Ai-Uo-Xdg"/>
+                                                    <action selector="logInLinkedin:" destination="0fW-9q-Gp2" eventType="touchUpInside" id="t2k-3F-W3r"/>
                                                 </connections>
                                             </button>
                                         </subviews>
