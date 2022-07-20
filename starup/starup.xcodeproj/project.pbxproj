@@ -38,6 +38,7 @@
 		D41A9BD1287609210038852B /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9BD0287609210038852B /* RegisterViewController.m */; };
 		D450F1EF287C9F400000F5D1 /* Algos.m in Sources */ = {isa = PBXBuildFile; fileRef = D450F1EE287C9F400000F5D1 /* Algos.m */; };
 		D450F1F5287CCC040000F5D1 /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = D450F1F4287CCC040000F5D1 /* Post.m */; };
+		D4ABAA4E2888C75F00EF3B8A /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4ABAA4D2888C75F00EF3B8A /* PasswordViewController.m */; };
 		D4CDEA4E2878A37C00495426 /* PostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CDEA4D2878A37C00495426 /* PostCell.m */; };
 		D4CDEA512878AB7100495426 /* StarupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CDEA502878AB7100495426 /* StarupCell.m */; };
 		FB50FED72C2285DFF8940994 /* Pods_starup_starupUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 120143D56E6EFC00AC9D69EF /* Pods_starup_starupUITests.framework */; };
@@ -124,6 +125,8 @@
 		D450F1EE287C9F400000F5D1 /* Algos.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Algos.m; sourceTree = "<group>"; };
 		D450F1F3287CCC040000F5D1 /* Post.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
 		D450F1F4287CCC040000F5D1 /* Post.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
+		D4ABAA4C2888C75F00EF3B8A /* PasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordViewController.h; sourceTree = "<group>"; };
+		D4ABAA4D2888C75F00EF3B8A /* PasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PasswordViewController.m; sourceTree = "<group>"; };
 		D4CDEA4C2878A37C00495426 /* PostCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostCell.h; sourceTree = "<group>"; };
 		D4CDEA4D2878A37C00495426 /* PostCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostCell.m; sourceTree = "<group>"; };
 		D4CDEA4F2878AB7100495426 /* StarupCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StarupCell.h; sourceTree = "<group>"; };
@@ -266,6 +269,8 @@
 				D40045C1287F443C001EB588 /* EditProfileViewController.m */,
 				D40045C328809123001EB588 /* AddCollaboratorViewController.h */,
 				D40045C428809123001EB588 /* AddCollaboratorViewController.m */,
+				D4ABAA4C2888C75F00EF3B8A /* PasswordViewController.h */,
+				D4ABAA4D2888C75F00EF3B8A /* PasswordViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -559,6 +564,7 @@
 				D41A9BC22876009D0038852B /* ComposePostViewController.m in Sources */,
 				D41A9B7D2875F0DA0038852B /* AppDelegate.m in Sources */,
 				D450F1F5287CCC040000F5D1 /* Post.m in Sources */,
+				D4ABAA4E2888C75F00EF3B8A /* PasswordViewController.m in Sources */,
 				D40045CC2881EA90001EB588 /* starupCollectionViewCell.m in Sources */,
 				D40045CF28820E20001EB588 /* profilesCollectionViewCell.m in Sources */,
 				D41A9BC8287600BD0038852B /* InvestViewController.m in Sources */,

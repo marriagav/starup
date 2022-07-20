@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *linkedinFName;
 @property (strong, nonatomic) NSString *linkedinLName;
 @property (strong, nonatomic) NSString *linkedinID;
+@property (strong, nonatomic) NSString *linkedinEmail;
 @property (strong, nonatomic) UIImage *imageLinkedin;
 
 @end

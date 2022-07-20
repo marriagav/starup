@@ -86,11 +86,11 @@
     PFUser *newUser = [PFUser user];
     
     // set user properties
-//    the username is a combination of users name, astname and id from linkedin
+    //    the username is a combination of users name, lastname and id from linkedin
     newUser.username = [NSString stringWithFormat:@"%@_%@_%@", self.linkedinFName , self.linkedinLName, self.linkedinID];
     // Generate random password for user
     newUser.password = [Algos generateRandomString:10];
-    //    newUser.email = self.Lin;
+    newUser.email = self.linkedinEmail;
     newUser[@"firstname"] = self.linkedinFName;
     newUser[@"lastname"] = self.linkedinLName;
     UIImage *image =  self.imageLinkedin;
@@ -159,11 +159,31 @@
         NSDictionary *urlOfimageIdentifiers = [urlOfImageDict valueForKey:@"identifiers"];
         NSArray *imageURLLinkedin = [urlOfimageIdentifiers valueForKey:@"identifier"];
         self.imageLinkedin = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: imageURLLinkedin[0]]]];
+        //        Get the email address
+        [linkedIn requestEmailWithToken:^(NSDictionary *response, NSError *error) {
+            NSDictionary *emailHandle = response[@"elements"];
+            NSArray *userEmailArray = [[emailHandle valueForKey:@"handle~"] valueForKey:@"emailAddress"];
+            //            Save email address
+            self.linkedinEmail = userEmailArray[0];
+        }];
+//        TODO: Register or login the user
+        
     }
                               failUserInfoBlock:^(NSError *error) {
         NSLog(@"error : %@", error.userInfo.description);
     }
     ];
+}
+
+- (void)requestUserPassword{
+    //     display password view
+//    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+//    EditProfileViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"editVCNoNav"];
+//    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
+//    [self.navigationController presentViewController:navigationController animated:YES completion:^{
+//        // Pass the delegate
+//        vc.delegate = self;
+//    }];
 }
 
 - (BOOL)isLinkedInAccessTokenValid {

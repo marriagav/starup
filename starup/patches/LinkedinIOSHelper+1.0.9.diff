@@ -1,6 +1,6 @@
-diff --git a/cocoapods-patch-20220720-10737-i6oqdx/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m
+diff --git a/cocoapods-patch-20220720-18545-mv0jsb/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m
 index 906eec3..63ae2fe 100644
---- a/cocoapods-patch-20220720-10737-i6oqdx/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m
+--- a/cocoapods-patch-20220720-18545-mv0jsb/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m
 @@ -63,14 +63,14 @@
      self.grantedAccess = permissions;
@@ -19,9 +19,9 @@ index 906eec3..63ae2fe 100644
      if ([permissions containsObject:@(CompanyAdmin)])   [self.permissions addObject:@"rw_company_admin"];
      if ([permissions containsObject:@(Groups)])         [self.permissions addObject:@"rw_groups"];
      if ([permissions containsObject:@(Messages)])       [self.permissions addObject:@"w_messages"];
-diff --git a/cocoapods-patch-20220720-10737-i6oqdx/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m
+diff --git a/cocoapods-patch-20220720-18545-mv0jsb/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m
 index 73fbc14..fa68ee2 100644
---- a/cocoapods-patch-20220720-10737-i6oqdx/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m
+--- a/cocoapods-patch-20220720-18545-mv0jsb/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m
 @@ -67,7 +67,7 @@ NSString * const linkedinIosHelperDomain = @"com.linkedinioshelper";
  - (void)viewDidAppear:(BOOL)animated {
@@ -60,9 +60,9 @@ index 73fbc14..fa68ee2 100644
                  if (self.authorizationCodeSuccessCallback) {
                      self.authorizationCodeSuccessCallback(authorizationCode);
                  }
-diff --git a/cocoapods-patch-20220720-10737-i6oqdx/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m
+diff --git a/cocoapods-patch-20220720-18545-mv0jsb/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m
 index 5e060b5..4c8c2d2 100644
---- a/cocoapods-patch-20220720-10737-i6oqdx/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m
+--- a/cocoapods-patch-20220720-18545-mv0jsb/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m
 @@ -108,14 +108,15 @@
              break;
@@ -99,29 +99,39 @@ index 5e060b5..4c8c2d2 100644
  //    NSLog(@"Challenged");
      if ([challenge.protectionSpace.authenticationMethod
           isEqualToString:NSURLAuthenticationMethodServerTrust])
-diff --git a/cocoapods-patch-20220720-10737-i6oqdx/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.h b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.h
-index bb93d6e..fbdad2d 100644
---- a/cocoapods-patch-20220720-10737-i6oqdx/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.h
+diff --git a/cocoapods-patch-20220720-18545-mv0jsb/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.h b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.h
+index bb93d6e..eee814a 100644
+--- a/cocoapods-patch-20220720-18545-mv0jsb/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.h
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.h
-@@ -86,29 +86,24 @@
+@@ -60,6 +60,9 @@
+                                success:(void (^) (NSString *accessToken))success
+                               failure:(void (^) (NSError *err) )failure;
+ 
++// MY REQUESTS
++- ( void )requestEmailWithToken:(void(^)(NSDictionary *response, NSError *error))completion;
++
+ /*!
+  * @brief Cancel Button's text while getting AuthorizationCode via webview
+  */
+@@ -86,29 +89,24 @@
  // ================== Frequently Using Fields  =================
  
  /*!
 - * @brief User's job title
+- */
+-@property (nonatomic, copy, readonly) NSString *title;
+-
+-/*!
+- * @brief User's company Name
 + * @brief User's first name title
   */
--@property (nonatomic, copy, readonly) NSString *title;
+-@property (nonatomic, copy, readonly) NSString *companyName;
 +@property (nonatomic, copy, readonly) NSString *firstName;
  
  /*!
-- * @brief User's company Name
+- * @brief User's email Address
 + * @brief User's last name
   */
--@property (nonatomic, copy, readonly) NSString *companyName;
--
--/*!
-- * @brief User's email Address
-- */
 -@property (nonatomic, copy, readonly) NSString *emailAddress;
 +@property (nonatomic, copy, readonly) NSString *lastName;
  
@@ -140,9 +150,9 @@ index bb93d6e..fbdad2d 100644
  
  /*!
   * @brief Access Token comes from Linkedin
-diff --git a/cocoapods-patch-20220720-10737-i6oqdx/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m
-index 2690156..00ec1fa 100644
---- a/cocoapods-patch-20220720-10737-i6oqdx/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m
+diff --git a/cocoapods-patch-20220720-18545-mv0jsb/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m
+index 2690156..13628d7 100644
+--- a/cocoapods-patch-20220720-18545-mv0jsb/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m
 @@ -16,14 +16,11 @@
  
@@ -173,7 +183,7 @@ index 2690156..00ec1fa 100644
                               }
                               failure:^(NSError *error) {
                                   // Quering accessToken failed
-@@ -231,64 +228,73 @@ NSString * StringOrEmpty(NSString *string) {
+@@ -231,64 +228,69 @@ NSString * StringOrEmpty(NSString *string) {
      
      NSAssert(_customSubPermissions, @"Sub Permissions can not be null !!");
      
@@ -265,11 +275,9 @@ index 2690156..00ec1fa 100644
 +        [dataTask resume];
 +}
 +
-+- ( void )requestEmailWithToken{
++- ( void )requestEmailWithToken:(void(^)(NSDictionary *response, NSError *error))completion{
 +    
 +    NSString *clientUrl = @"https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))";
-+    
-+    __weak typeof(self) weakSelf = self;
 +    
 +        NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:clientUrl]];
 +    
@@ -285,22 +293,20 @@ index 2690156..00ec1fa 100644
 +            {
 +                NSError *parseError = nil;
 +                NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
-+                if (weakSelf.userInfoSuccessBlock) {
-+                   weakSelf.userInfoSuccessBlock(response);
-+               }
++                completion(response, error);
 +            }
 +            else
 +            {
-+//                failure(error);
++                NSLog(@"Error");
 +            }
 +        }];
 +        [dataTask resume];
  }
  
  @end
-diff --git a/cocoapods-patch-20220720-10737-i6oqdx/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m
+diff --git a/cocoapods-patch-20220720-18545-mv0jsb/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m
 index 3717848..86af984 100644
---- a/cocoapods-patch-20220720-10737-i6oqdx/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m
+--- a/cocoapods-patch-20220720-18545-mv0jsb/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m
 @@ -107,60 +107,46 @@
  - (void)getAccessToken:(NSString *)authorizationCode
