@@ -1,0 +1,37 @@
+diff --git a/cocoapods-patch-20220719-90425-4nmntq/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m
+index 906eec3..2deb429 100644
+--- a/cocoapods-patch-20220719-90425-4nmntq/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m
++++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m
+@@ -63,17 +63,9 @@
+     self.grantedAccess = permissions;
+     self.permissions = [NSMutableArray new];
+ 
+-    if ([permissions containsObject:@(ContactInfo)])    [self.permissions addObject:@"r_contactinfo"];
+-    if ([permissions containsObject:@(FullProfile)])    [self.permissions addObject:@"r_fullprofile"];
+-    if (![permissions containsObject:@(FullProfile)] &&
+-        [permissions containsObject:@(BasicProfile)])   [self.permissions addObject:@"r_basicprofile"];
+-    if ([permissions containsObject:@(Nus)])            [self.permissions addObject:@"rw_nus"];
+-    if ([permissions containsObject:@(Network)])        [self.permissions addObject:@"r_network"];
++    if ([permissions containsObject:@(ContactInfo)])    [self.permissions addObject:@"r_liteprofile"];
+     if ([permissions containsObject:@(EmailAddress)])   [self.permissions addObject:@"r_emailaddress"];
+-    if ([permissions containsObject:@(Share)])          [self.permissions addObject:@"w_share"];
+-    if ([permissions containsObject:@(CompanyAdmin)])   [self.permissions addObject:@"rw_company_admin"];
+-    if ([permissions containsObject:@(Groups)])         [self.permissions addObject:@"rw_groups"];
+-    if ([permissions containsObject:@(Messages)])       [self.permissions addObject:@"w_messages"];
++    if ([permissions containsObject:@(Share)])          [self.permissions addObject:@"w_member_social"];
+     
+     NSAssert((self.permissions.count != 0) || (self.permissions != nil), @"permissions should have been set");
+     
+diff --git a/cocoapods-patch-20220719-90425-4nmntq/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m
+index 73fbc14..328b9a3 100644
+--- a/cocoapods-patch-20220719-90425-4nmntq/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m
++++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m
+@@ -67,7 +67,7 @@ NSString * const linkedinIosHelperDomain = @"com.linkedinioshelper";
+ - (void)viewDidAppear:(BOOL)animated {
+     [super viewDidAppear:animated];
+     
+-    NSString *linkedIn = [NSString stringWithFormat:@"https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=%@&scope=%@&state=%@&redirect_uri=%@", self.serviceManager.settings.clientId, self.serviceManager.settings.grantedAccessString, self.serviceManager.settings.state, self.serviceManager.settings.applicationWithRedirectURL];
++    NSString *linkedIn = [NSString stringWithFormat:@"https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=%@&scope=%@&state=%@&redirect_uri=%@", self.serviceManager.settings.clientId, self.serviceManager.settings.grantedAccessString, self.serviceManager.settings.state, self.serviceManager.settings.applicationWithRedirectURL];
+     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:linkedIn]]];
+ }
+ 
