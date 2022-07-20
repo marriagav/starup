@@ -181,13 +181,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		D40045D02885D264001EB588 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
 		D41A9B6F2875F0DA0038852B = {
 			isa = PBXGroup;
 			children = (
@@ -213,7 +206,6 @@
 		D41A9B7A2875F0DA0038852B /* starup */ = {
 			isa = PBXGroup;
 			children = (
-				D40045D02885D264001EB588 /* Network */,
 				D41A9BB32875F8450038852B /* Models */,
 				D41A9BB22875F82F0038852B /* Shared */,
 				D41A9BB12875F81F0038852B /* Views */,
