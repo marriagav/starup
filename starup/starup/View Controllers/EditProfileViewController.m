@@ -7,7 +7,7 @@
 
 #import "EditProfileViewController.h"
 
-@interface EditProfileViewController ()
+@interface EditProfileViewController () <UITextViewDelegate>
 
 @end
 
@@ -23,6 +23,8 @@
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:gestureRecognizer];
     gestureRecognizer.cancelsTouchesInView = NO;
+    // For the textfield placeholder to work
+    self.userBio.delegate=self;
 }
 
 - (void)setOutlets{
@@ -38,6 +40,11 @@
 - (void)dismissKeyboard{
     //    Dissmiss the keyboard
     [self.view endEditing:YES];
+}
+
+- (void)textViewDidChange:(UITextView *)textView{
+    //    If the text changes the placeholder dissapears
+    self.typeHere.hidden=(textView.text.length>0);
 }
 
 #pragma mark - Network

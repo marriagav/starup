@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UICollectionView *sharksCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *ideatorsCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *hackersCollectionView;
+@property (weak, nonatomic) IBOutlet UILabel *typeHere;
 
 @end
 

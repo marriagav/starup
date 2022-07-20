@@ -7,7 +7,7 @@
 
 #import "DetailsViewController.h"
 
-@interface DetailsViewController () <UICollectionViewDelegate, UICollectionViewDataSource, profilesCollectionViewCellDelegate>
+@interface DetailsViewController () <UICollectionViewDelegate, UICollectionViewDataSource, profilesCollectionViewCellDelegate, InvestViewControllerDelegate>
 
 @end
 
@@ -17,7 +17,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self _setUpLabels];
     //    Initialize Arrays
     self.ideators = [[NSMutableArray alloc] init];
     self.sharks = [[NSMutableArray alloc] init];
@@ -29,6 +28,7 @@
     self.ideatorsCollectionView.dataSource = self;
     self.hackersCollectionView.delegate = self;
     self.hackersCollectionView.dataSource = self;
+    [self _setUpLabels];
     [self refreshColletionViewData];
 }
 
@@ -55,7 +55,8 @@
     NSNumber* currentInv = self.starup[@"currentInvestment"];
     NSNumber* goalInv = self.starup[@"goalInvestment"];
     self.progressString.text = [NSString stringWithFormat:@"%@$%@ / $%@", @"Progress: ", currentInv, goalInv];
-    self.investmentProgressBar.progress = [Algos percentageWithNumbers:[currentInv floatValue] :[goalInv floatValue]];
+//    self.investmentProgressBar.progress = [Algos percentageWithNumbers:[currentInv floatValue] :[goalInv floatValue]];
+    [self.investmentProgressBar setProgress:[Algos percentageWithNumbers:[currentInv floatValue] :[goalInv floatValue]] animated:YES];
 }
 
 #pragma mark - Network
@@ -150,11 +151,43 @@
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
+- (void)didInvest{
+//    Update starup
+    PFQuery *query = [PFQuery queryWithClassName:@"Starup"];
+    [query whereKey:@"objectId" equalTo: self.starup.objectId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *starups, NSError *error) {
+        if (starups != nil) {
+            self.starup = starups[0];
+            //    Reset and refresh Arrays
+            self.ideators = [[NSMutableArray alloc] init];
+            self.sharks = [[NSMutableArray alloc] init];
+            self.hackers = [[NSMutableArray alloc] init];
+            [self refreshColletionViewData];
+            //    Update ProgressBar
+            [self updateProgressBar];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+}
+
 #pragma mark - Navigation
 
 - (IBAction)goBack:(id)sender {
     // display starups view controller
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)goToInvestments:(id)sender {
+    //    Goes to incestments page
+    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    InvestViewController *investController = [storyboard instantiateViewControllerWithIdentifier:@"investmentsVC"];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:investController];
+    [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
+    // Pass the user
+    investController.starup = self.starup;
+    investController.delegate = self;
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 @end

@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *roleOutlet;
 @property (weak, nonatomic) IBOutlet UITextView *userBio;
 @property (nonatomic, weak) id<EditProfileViewControllerDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UILabel *typeHere;
 
 @end
 
