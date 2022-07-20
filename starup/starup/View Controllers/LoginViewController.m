@@ -84,6 +84,9 @@
 #pragma mark - Actions
 
 - (IBAction)loginOnClick:(id)sender {
+    [self getUserInfo];
+    
+    
     [self loginUser];
 }
 
@@ -92,6 +95,7 @@
     UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"registerView"];
     [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 #pragma mark - Linkedin API
@@ -102,10 +106,9 @@
 
     linkedIn.cancelButtonText = @"Close"; // Or any other language But Default is Close
     
-    NSArray *permissions = @[@(BasicProfile),
+    NSArray *permissions = @[@(ContactInfo),
                             @(EmailAddress),
-                            @(Share),
-                            @(CompanyAdmin)];
+                            @(Share)];
         
     linkedIn.showActivityIndicator = YES;
         
@@ -113,7 +116,7 @@
     [linkedIn requestMeWithSenderViewController:self
                                        clientId:@"86j2dodya1oazo"         // Your App Client Id
                                    clientSecret:@"t9WeE5hll2xaqXnL"         // Your App Client Secret
-                                    redirectUrl:@"https://www.linkedin.com/developers/tools/oauth/redirect"         // Your App Redirect Url
+                                    redirectUrl:@"http://starupcode.com"         // Your App Redirect Url
                                     permissions:permissions
                                           state:@"authState"               // Your client state
                                 successUserInfo:^(NSDictionary *userInfo) {
