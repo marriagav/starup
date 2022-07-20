@@ -7,10 +7,13 @@ target 'starup' do
 
   # Pods for starup
   pod 'Parse'
-  pod 'AFNetworking'
   pod 'Parse/UI'
+  pod 'AFNetworking'
   pod 'DateTools'
   pod 'MBProgressHUD'
+  pod 'LinkedinIOSHelper', '~> 1.0.9'
+  
+  plugin 'cocoapods-patch'
 
   target 'starupTests' do
     inherit! :search_paths

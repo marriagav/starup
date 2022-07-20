@@ -30,6 +30,7 @@ InfiniteScrollActivityView* _loadingMoreView;
     // Initialize a UIRefreshControlBottom
     self.currentMax = 20;
     [self _initializeRefreshControlB];
+    
 }
 
 #pragma mark - QualityOfLife
