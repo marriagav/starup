@@ -23,7 +23,8 @@
     gestureRecognizer.cancelsTouchesInView = NO;
     //    Error should be set to empty initially
     self.error = @"";
-    [self fetchUserInformations];
+//    [self fetchUserInformations];
+//    [self getUserInfo];
 }
 
 #pragma mark - QualityOfLife
@@ -84,9 +85,6 @@
 #pragma mark - Actions
 
 - (IBAction)loginOnClick:(id)sender {
-    [self getUserInfo];
-    
-    
     [self loginUser];
 }
 
@@ -152,6 +150,10 @@
             NSLog(@"error : %@", error.userInfo.description);
         }];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 }
 
 @end
