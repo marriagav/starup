@@ -56,11 +56,8 @@
 
 #pragma mark - Network
 
-- (void)loginUser {
+- (void)loginUser: (NSString *)username :(NSString *)password{
     //    Method that logs the user in
-    NSString *username = self.usernameField.text;
-    NSString *password = self.passwordField.text;
-    
     //    Call log in function on the object
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         if (error != nil) {
@@ -70,12 +67,8 @@
             [self initializeAlertController];
         } else {
             NSLog(@"User logged in successfully");
-            
             // display view controller that needs to shown after successful login
-            UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            UIViewController *nav = [storyboard instantiateViewControllerWithIdentifier:@"navBar"];
-            [nav setModalPresentationStyle:UIModalPresentationFullScreen];
-            [self.navigationController presentViewController:nav animated:YES completion:nil];
+            [self afterSuccessfullLogin];
         }
     }];
 }
@@ -87,7 +80,7 @@
     
     // set user properties
     //    the username is a combination of users name, lastname and id from linkedin
-    newUser.username = [NSString stringWithFormat:@"%@_%@_%@", self.linkedinFName , self.linkedinLName, self.linkedinID];
+    newUser.username = self.linkedinUsername;
     newUser.password = self.password;
     newUser.email = self.linkedinEmail;
     newUser[@"firstname"] = self.linkedinFName;
@@ -101,15 +94,34 @@
             NSLog(@"Error: %@", error.localizedDescription);
         } else {
             NSLog(@"User registered successfully");
-            
+            // successful register means we need to log the user in
+            [self loginUser:newUser.username :newUser.password];
         }
     }];
+}
+
+- (void)checkIfUserExists {
+    PFQuery *query = [PFUser query];
+    [query whereKey:@"email" equalTo:self.linkedinEmail];
+    query.limit = 1;
+    [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
+            if (users != nil) {
+                if (users.count>0){
+                    [self requestUserPassword:NO];
+                }
+                else{
+                    [self requestUserPassword:YES];
+                }
+            } else {
+                NSLog(@"%@", error);
+            }
+        }];
 }
 
 #pragma mark - Actions
 
 - (IBAction)loginOnClick:(id)sender {
-    [self loginUser];
+    [self loginUser:self.usernameField.text :self.passwordField.text];
 }
 
 - (IBAction)registerOnClick:(id)sender {
@@ -122,7 +134,6 @@
 
 - (IBAction)logInLinkedin:(id)sender {
     [self fetchUserInformations];
-    //    [self getUserInfo];
 }
 
 #pragma mark - Linkedin API
@@ -158,15 +169,17 @@
         NSDictionary *urlOfimageIdentifiers = [urlOfImageDict valueForKey:@"identifiers"];
         NSArray *imageURLLinkedin = [urlOfimageIdentifiers valueForKey:@"identifier"];
         self.imageLinkedin = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: imageURLLinkedin[0]]]];
+        //    the username is a combination of users name, lastname and id from linkedin
+        self.linkedinUsername = [NSString stringWithFormat:@"%@_%@_%@", self.linkedinFName , self.linkedinLName, self.linkedinID];
         //        Get the email address
         [linkedIn requestEmailWithToken:^(NSDictionary *response, NSError *error) {
             NSDictionary *emailHandle = response[@"elements"];
             NSArray *userEmailArray = [[emailHandle valueForKey:@"handle~"] valueForKey:@"emailAddress"];
             //            Save email address
             self.linkedinEmail = userEmailArray[0];
+            //        Checks if the user already exists to determine if new user needs to be created
+            [self checkIfUserExists];
         }];
-//        TODO: Register or login the user
-        [self requestUserPassword];
         
     }
                               failUserInfoBlock:^(NSError *error) {
@@ -175,16 +188,16 @@
     ];
 }
 
-- (void)requestUserPassword{
+- (void)requestUserPassword: (BOOL)isNewUser{
     //     display password view
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
         PasswordViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"passwordView"];
+        vc.newUser = isNewUser;
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
         [self.navigationController presentViewController:navigationController animated:YES completion:^{
             // Pass the delegate
-            vc.newUSer = YES;
             vc.delegate = weakSelf;
         }];
     });
@@ -194,7 +207,7 @@
     return [LinkedInHelper sharedInstance].isValidToken;
 }
 
--  (void)getUserInfo {
+- (void)getUserInfo {
     
     LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
     
@@ -215,13 +228,27 @@
     }
 }
 
-- (void)didPressNext:(NSString *)password{
+- (void)didPressNextRegister:(NSString *)password{
     self.password = password;
     [self registerUserWithLinkedin];
 }
 
+- (void)didPressNextLogin:(NSString *)password{
+    self.password = password;
+    [self loginUser:self.linkedinUsername :self.password];
+}
+
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+}
+
+- (void)afterSuccessfullLogin{
+    // display view controller that needs to shown after successful login
+    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UIViewController *nav = [storyboard instantiateViewControllerWithIdentifier:@"navBar"];
+    [nav setModalPresentationStyle:UIModalPresentationFullScreen];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 @end

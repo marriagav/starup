@@ -89,7 +89,6 @@ InfiniteScrollActivityView* _loadingMoreViewA;
     //    Refreshes the tableview data with numberOfUsers users
     // construct query
     PFQuery *query = [PFUser query];
-//    [query whereKey:@"email" equalTo:@"email@example.com"];
     query.limit = numberOfUsers;
     [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
             if (users != nil) {

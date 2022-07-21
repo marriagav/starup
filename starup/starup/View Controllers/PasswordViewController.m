@@ -20,11 +20,21 @@
 }
 
 - (void)setInstruction{
-    
+    if (self.newUser){
+        self.instructionOutlet.text = @"Set your password";
+    }
+    else{
+        self.instructionOutlet.text = @"Enter your password";
+    }
 }
 
 - (IBAction)continueOnClick:(id)sender {
-    [self.delegate didPressNext:self.passwordField.text];
+    if (self.newUser){
+        [self.delegate didPressNextRegister:self.passwordField.text];
+    }
+    else {
+        [self.delegate didPressNextLogin:self.passwordField.text];
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
