@@ -10,6 +10,7 @@
 #import "LinkedinIOSHelper/LinkedInHelper.h"
 #import "AFNetworking/AFNetworking.h"
 #import "Algos.h"
+#import "PasswordViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *linkedinFName;
 @property (strong, nonatomic) NSString *linkedinLName;
 @property (strong, nonatomic) NSString *linkedinID;
+@property (strong, nonatomic) NSString *password;
 @property (strong, nonatomic) NSString *linkedinEmail;
 @property (strong, nonatomic) UIImage *imageLinkedin;
 

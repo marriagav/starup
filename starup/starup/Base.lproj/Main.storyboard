@@ -13,7 +13,7 @@
         <!--Password View Controller-->
         <scene sceneID="oEM-xS-56S">
             <objects>
-                <viewController id="2EB-RS-e1z" customClass="PasswordViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="passwordView" id="2EB-RS-e1z" customClass="PasswordViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4FT-mi-B78">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -70,9 +70,22 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="T6u-bL-tcl">
-                        <barButtonItem key="leftBarButtonItem" title=" " image="chevron.backward" catalog="system" id="eNM-La-kwA"/>
-                        <barButtonItem key="rightBarButtonItem" title="Continue" id="0mV-4k-9sg"/>
+                        <barButtonItem key="leftBarButtonItem" title=" " image="chevron.backward" catalog="system" id="eNM-La-kwA">
+                            <connections>
+                                <action selector="goBack:" destination="2EB-RS-e1z" id="0SL-ax-bwQ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Continue" id="0mV-4k-9sg">
+                            <connections>
+                                <action selector="continueOnClick:" destination="2EB-RS-e1z" id="fay-DV-VGB"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="continueButton" destination="0mV-4k-9sg" id="ibt-rs-b4g"/>
+                        <outlet property="instructionOutlet" destination="weS-d8-lAg" id="UTk-ck-LSI"/>
+                        <outlet property="passwordField" destination="ACk-re-zYQ" id="StN-iN-p3w"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rUg-B6-he3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2371,7 +2384,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Yz1-cB-Jz9">
             <objects>
-                <navigationController storyboardIdentifier="passwordView" automaticallyAdjustsScrollViewInsets="NO" id="SP9-DF-Z4N" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SP9-DF-Z4N" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xva-bj-MZe">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

@@ -7,7 +7,7 @@
 
 #import "LoginViewController.h"
 
-@interface LoginViewController ()
+@interface LoginViewController () <PasswordViewControllerDelegate>
 
 @end
 
@@ -88,8 +88,7 @@
     // set user properties
     //    the username is a combination of users name, lastname and id from linkedin
     newUser.username = [NSString stringWithFormat:@"%@_%@_%@", self.linkedinFName , self.linkedinLName, self.linkedinID];
-    // Generate random password for user
-    newUser.password = [Algos generateRandomString:10];
+    newUser.password = self.password;
     newUser.email = self.linkedinEmail;
     newUser[@"firstname"] = self.linkedinFName;
     newUser[@"lastname"] = self.linkedinLName;
@@ -167,6 +166,7 @@
             self.linkedinEmail = userEmailArray[0];
         }];
 //        TODO: Register or login the user
+        [self requestUserPassword];
         
     }
                               failUserInfoBlock:^(NSError *error) {
@@ -177,13 +177,17 @@
 
 - (void)requestUserPassword{
     //     display password view
-//    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-//    EditProfileViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"editVCNoNav"];
-//    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
-//    [self.navigationController presentViewController:navigationController animated:YES completion:^{
-//        // Pass the delegate
-//        vc.delegate = self;
-//    }];
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        PasswordViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"passwordView"];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
+        [self.navigationController presentViewController:navigationController animated:YES completion:^{
+            // Pass the delegate
+            vc.newUSer = YES;
+            vc.delegate = weakSelf;
+        }];
+    });
 }
 
 - (BOOL)isLinkedInAccessTokenValid {
@@ -209,6 +213,11 @@
             NSLog(@"error : %@", error.userInfo.description);
         }];
     }
+}
+
+- (void)didPressNext:(NSString *)password{
+    self.password = password;
+    [self registerUserWithLinkedin];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
