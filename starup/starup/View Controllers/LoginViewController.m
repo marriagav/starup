@@ -85,6 +85,7 @@
     newUser.email = self.linkedinEmail;
     newUser[@"firstname"] = self.linkedinFName;
     newUser[@"lastname"] = self.linkedinLName;
+    newUser[@"linkedinAuthentification"] = @"True";
     UIImage *image =  self.imageLinkedin;
     [newUser setObject:[Algos getPFFileFromImage:image] forKey: @"profileImage"];
     
@@ -159,6 +160,7 @@
                                           state:@"authState"               // Your client state
                                 successUserInfo:^(NSDictionary *userInfo) {
         // Save User Info
+        NSLog(@"user : %@", userInfo);
         NSDictionary *linkedinFName = userInfo[@"firstName"][@"localized"];
         self.linkedinFName = [Algos firstObjectFromDict:linkedinFName];
         self.linkedinID = [userInfo[@"id"] substringToIndex:3];
@@ -201,31 +203,6 @@
             vc.delegate = weakSelf;
         }];
     });
-}
-
-- (BOOL)isLinkedInAccessTokenValid {
-    return [LinkedInHelper sharedInstance].isValidToken;
-}
-
-- (void)getUserInfo {
-    
-    LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
-    
-    // If user has already connected via linkedin in and access token is still valid then
-    // No need to fetch authorizationCode and then accessToken again!
-    
-#warning - To fetch user info  automatically without getting authorization code, accessToken must be still valid
-    
-    if (linkedIn.isValidToken) {
-        
-        // So Fetch member info by elderyly access token
-        [linkedIn autoFetchUserInfoWithSuccess:^(NSDictionary *userInfo) {
-            // Whole User Info
-            NSLog(@"user Info : %@", userInfo);
-        } failUserInfo:^(NSError *error) {
-            NSLog(@"error : %@", error.userInfo.description);
-        }];
-    }
 }
 
 - (void)didPressNextRegister:(NSString *)password{

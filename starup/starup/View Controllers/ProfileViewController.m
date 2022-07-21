@@ -102,10 +102,12 @@ InfiniteScrollActivityView* _loadingMoreViewP;
             NSLog(@"%@", error);
         }
         else{
+            [Linkedin logoutFromLinkedin];
             UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
             UIViewController *nav = [storyboard instantiateViewControllerWithIdentifier:@"loginView"];
             [nav setModalPresentationStyle:UIModalPresentationFullScreen];
             [self.navigationController presentViewController:nav animated:YES completion:nil];
+            [[NSURLCache sharedURLCache] removeAllCachedResponses];
         }
     }];
 }

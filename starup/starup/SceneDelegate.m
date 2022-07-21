@@ -21,10 +21,29 @@
     //    Persistant sessions
     if (PFUser.currentUser) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        
+        [self checkIfUserHasLinkedin];
         self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"navBar"];
     }
 }
+- (void)checkIfUserHasLinkedin {
+    PFQuery *query = [PFUser query];
+    [query whereKey:@"linkedinAuthentification" equalTo:@"True"];
+    [query whereKey:@"username" equalTo:PFUser.currentUser.username];
+    query.limit = 1;
+    [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
+            if (users != nil) {
+                if (users.count>0){
+                    [Linkedin getUserInfo];
+                }
+                else{
+                    nil;
+                }
+            } else {
+                NSLog(@"%@", error);
+            }
+        }];
+}
+
 
 
 - (void)sceneDidDisconnect:(UIScene *)scene {

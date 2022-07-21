@@ -14,6 +14,7 @@
 #import "starupCollectionViewCell.h"
 #import "InfiniteScrollActivityView.h"
 #import "DetailsViewController.h"
+#import "Linkedin.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
