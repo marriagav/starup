@@ -34,7 +34,7 @@
     //    Format the profile picture
     [Algos formatPictureWithRoundedEdges:self.imageView];
     //    Set the dropdown menu
-    UIAction *noStatus = [UIAction actionWithTitle:@"Select an update status" image:NULL identifier:NULL handler:^(UIAction* action){
+    UIAction *noStatus = [UIAction actionWithTitle:@"Select an option" image:NULL identifier:NULL handler:^(UIAction* action){
         self.updateStatus = @"Just a thought";
         self.updateImage = [UIImage imageNamed:@"thought-icon-6"];
     }];
@@ -58,10 +58,16 @@
         self.updateStatus = @"Joined a Starup";
         self.updateImage = [UIImage imageNamed:@"hacker-1"];
     }];
-    UIMenu *menu = [[UIMenu alloc] menuByReplacingChildren:[NSArray arrayWithObjects:noStatus,postedStarup, lookingStarupsJ, lookingStarupsI, investedStarup, joinedStarup, nil]];
+    UIAction *postToLinkedin = [UIAction actionWithTitle:@"Post to Linkedin" image:NULL identifier:NULL handler:^(UIAction* action){
+        self.updateStatus = @"Linkedin Post";
+        self.updateImage = [UIImage imageNamed:@"LI-In-Bug"];
+    }];
+    UIMenu *menu = [[UIMenu alloc] menuByReplacingChildren:[NSArray arrayWithObjects:noStatus,postedStarup, lookingStarupsJ, lookingStarupsI, investedStarup, joinedStarup, postToLinkedin, nil]];
     self.dropdownOutlet.menu = menu;
     self.dropdownOutlet.showsMenuAsPrimaryAction = YES;
     self.dropdownOutlet.changesSelectionAsPrimaryAction= YES;
+    //    Set default state
+    self.updateStatus = @"";
 }
 
 #pragma mark - QualityOfLife
@@ -80,8 +86,13 @@
 
 - (IBAction)makePost:(id)sender {
     if ([self.updateStatus isEqual:@""]){
+//        If no status selected
         self.updateStatus = @"Just a thought";
         self.updateImage = [UIImage imageNamed:@"thought-icon-6"];
+    }
+    else if ([self.updateStatus isEqual:@"Linkedin Post"]){
+//        Make post to likedin if the user wants to
+        [Linkedin postTolinkedin:@"CONNECTIONS" :self.captionOutlet.text];
     }
     //    Makes the call to post the post
     //    Shows progress hud

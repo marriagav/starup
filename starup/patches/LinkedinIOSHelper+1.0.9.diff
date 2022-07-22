@@ -1,6 +1,6 @@
-diff --git a/cocoapods-patch-20220721-93933-70le9u/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m
+diff --git a/cocoapods-patch-20220722-32345-9qopif/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m
 index 906eec3..63ae2fe 100644
---- a/cocoapods-patch-20220721-93933-70le9u/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m
+--- a/cocoapods-patch-20220722-32345-9qopif/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m
 @@ -63,14 +63,14 @@
      self.grantedAccess = permissions;
@@ -19,9 +19,9 @@ index 906eec3..63ae2fe 100644
      if ([permissions containsObject:@(CompanyAdmin)])   [self.permissions addObject:@"rw_company_admin"];
      if ([permissions containsObject:@(Groups)])         [self.permissions addObject:@"rw_groups"];
      if ([permissions containsObject:@(Messages)])       [self.permissions addObject:@"w_messages"];
-diff --git a/cocoapods-patch-20220721-93933-70le9u/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m
+diff --git a/cocoapods-patch-20220722-32345-9qopif/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m
 index 73fbc14..fa68ee2 100644
---- a/cocoapods-patch-20220721-93933-70le9u/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m
+--- a/cocoapods-patch-20220722-32345-9qopif/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m
 @@ -67,7 +67,7 @@ NSString * const linkedinIosHelperDomain = @"com.linkedinioshelper";
  - (void)viewDidAppear:(BOOL)animated {
@@ -60,9 +60,9 @@ index 73fbc14..fa68ee2 100644
                  if (self.authorizationCodeSuccessCallback) {
                      self.authorizationCodeSuccessCallback(authorizationCode);
                  }
-diff --git a/cocoapods-patch-20220721-93933-70le9u/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m
+diff --git a/cocoapods-patch-20220722-32345-9qopif/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m
 index 5e060b5..4c8c2d2 100644
---- a/cocoapods-patch-20220721-93933-70le9u/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m
+--- a/cocoapods-patch-20220722-32345-9qopif/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m
 @@ -108,14 +108,15 @@
              break;
@@ -99,9 +99,9 @@ index 5e060b5..4c8c2d2 100644
  //    NSLog(@"Challenged");
      if ([challenge.protectionSpace.authenticationMethod
           isEqualToString:NSURLAuthenticationMethodServerTrust])
-diff --git a/cocoapods-patch-20220721-93933-70le9u/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.h b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.h
-index bb93d6e..eee814a 100644
---- a/cocoapods-patch-20220721-93933-70le9u/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.h
+diff --git a/cocoapods-patch-20220722-32345-9qopif/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.h b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.h
+index bb93d6e..2d51528 100644
+--- a/cocoapods-patch-20220722-32345-9qopif/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.h
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.h
 @@ -60,6 +60,9 @@
                                 success:(void (^) (NSString *accessToken))success
@@ -113,48 +113,61 @@ index bb93d6e..eee814a 100644
  /*!
   * @brief Cancel Button's text while getting AuthorizationCode via webview
   */
-@@ -86,29 +89,24 @@
+@@ -86,29 +89,29 @@
  // ================== Frequently Using Fields  =================
  
  /*!
 - * @brief User's job title
-- */
--@property (nonatomic, copy, readonly) NSString *title;
--
--/*!
-- * @brief User's company Name
 + * @brief User's first name title
   */
--@property (nonatomic, copy, readonly) NSString *companyName;
+-@property (nonatomic, copy, readonly) NSString *title;
 +@property (nonatomic, copy, readonly) NSString *firstName;
  
  /*!
-- * @brief User's email Address
+- * @brief User's company Name
 + * @brief User's last name
   */
--@property (nonatomic, copy, readonly) NSString *emailAddress;
+-@property (nonatomic, copy, readonly) NSString *companyName;
 +@property (nonatomic, copy, readonly) NSString *lastName;
  
  /*!
-  * @brief User's Photo Url
+- * @brief User's email Address
++ * @brief User's Photo Url
   */
--@property (nonatomic, copy, readonly) NSString *photo;
+-@property (nonatomic, copy, readonly) NSString *emailAddress;
 +@property (nonatomic, copy, readonly) NSString *profilePicture;
  
  /*!
-- * @brief User's Industry name
+- * @brief User's Photo Url
 + * @brief User's unique id name
   */
--@property (nonatomic, copy, readonly) NSString *industry;
+-@property (nonatomic, copy, readonly) NSString *photo;
 +@property (nonatomic, copy, readonly) NSString *ID;
  
  /*!
+- * @brief User's Industry name
++ * @brief User's url
+  */
+-@property (nonatomic, copy, readonly) NSString *industry;
++@property (nonatomic, copy, readonly) NSString *url;
+ 
+ /*!
   * @brief Access Token comes from Linkedin
-diff --git a/cocoapods-patch-20220721-93933-70le9u/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m
-index 2690156..52595e7 100644
---- a/cocoapods-patch-20220721-93933-70le9u/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m
+@@ -120,4 +123,9 @@
+  */
+ - (void)logout;
+ 
++/*!
++ * @brief Makes a post to linkedin
++ */
++- ( void )postInLinkedin:(NSString*) visibility :(NSString*) textToPost :(void(^)(NSDictionary *response, NSError *error))completion;
++
+ @end
+diff --git a/cocoapods-patch-20220722-32345-9qopif/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m
+index 2690156..3795155 100644
+--- a/cocoapods-patch-20220722-32345-9qopif/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m
-@@ -16,14 +16,11 @@
+@@ -16,15 +16,13 @@
  
  @property (nonatomic, strong) LinkedInServiceManager *service;
  
@@ -172,18 +185,83 @@ index 2690156..52595e7 100644
 +@property (nonatomic, copy, readwrite) NSString *profilePicture;
 +@property (nonatomic, copy, readwrite) NSString *ID;
  @property (nonatomic, copy, readwrite) NSString *accessToken;
++@property (nonatomic, copy, readwrite) NSString *urn;
  
  /*!
-@@ -135,7 +132,7 @@ NSString * StringOrEmpty(NSString *string) {
+  * @brief clientId of application that you created on linkedin developer portal
+@@ -135,25 +133,25 @@ NSString * StringOrEmpty(NSString *string) {
          
          [self.service getAccessToken:code
                               success:^(NSDictionary *accessTokenData) {
 -                                 [weakSelf requestMeWithToken];
-+                                [weakSelf requestMeWithToken];
-                              }
+-                             }
++            [weakSelf requestMeWithToken];
++        }
                               failure:^(NSError *error) {
-                                  // Quering accessToken failed
-@@ -214,7 +211,6 @@ NSString * StringOrEmpty(NSString *string) {
+-                                 // Quering accessToken failed
+-                                 weakSelf.dismissFailBlock(error);
+-                             }
+-         ];
++            // Quering accessToken failed
++            weakSelf.dismissFailBlock(error);
++        }
++        ];
+     }
+                                 cancel:^{
+-                                    // Authorization was cancelled by user
+-                                    weakSelf.dismissFailBlock([NSError errorWithDomain:@"com.linkedinioshelper"
+-                                                                              code:-5
+-                                                                          userInfo:@{NSLocalizedDescriptionKey:@"Authorization was cancelled by user" }]);
+-                                }
++        // Authorization was cancelled by user
++        weakSelf.dismissFailBlock([NSError errorWithDomain:@"com.linkedinioshelper"
++                                                      code:-5
++                                                  userInfo:@{NSLocalizedDescriptionKey:@"Authorization was cancelled by user" }]);
++    }
+                                failure:^(NSError *error) {
+-                                   // Authorization failed
+-                                   weakSelf.dismissFailBlock(error);
+-                               }
+-     ];
++        // Authorization failed
++        weakSelf.dismissFailBlock(error);
++    }
++    ];
+ }
+ 
+ #pragma mark - AutoLogin -
+@@ -178,7 +176,7 @@ NSString * StringOrEmpty(NSString *string) {
+                            permissions:(NSArray *)permissions
+                                  state:(NSString *)state
+                                success:(void (^) (NSString *accessToken))success
+-                              failure:(void (^) (NSError *err) )failure {
++                               failure:(void (^) (NSError *err) )failure {
+     
+     
+     self.clientId = clientId;
+@@ -200,21 +198,20 @@ NSString * StringOrEmpty(NSString *string) {
+     __weak typeof(self) weakSelf = self;
+     
+     NSString *authCode = self.service.authorizationCode.length ? self.service.authorizationCode : [LinkedinSimpleKeychain loadWithService:LINKEDIN_AUTHORIZATION_CODE];
+-
++    
+     [self.service getAccessToken:authCode
+                          success:^(NSDictionary *accessTokenData) {
+-                             weakSelf.accessToken = accessTokenData[@"access_token"];
+-                             success(weakSelf.accessToken);
+-                         }
++        weakSelf.accessToken = accessTokenData[@"access_token"];
++        success(weakSelf.accessToken);
++    }
+                          failure:^(NSError *error) {
+-                             // Quering accessToken failed
+-                             failure(error);
+-                         }
+-     ];
++        // Quering accessToken failed
++        failure(error);
++    }
++    ];
  }
  
  - (void)logout {
@@ -191,7 +269,7 @@ index 2690156..52595e7 100644
      [LinkedinSimpleKeychain deleteObjectWithService:LINKEDIN_TOKEN_KEY];
      [LinkedinSimpleKeychain deleteObjectWithService:LINKEDIN_AUTHORIZATION_CODE];
      [LinkedinSimpleKeychain deleteObjectWithService:LINKEDIN_EXPIRATION_KEY];
-@@ -231,64 +227,106 @@ NSString * StringOrEmpty(NSString *string) {
+@@ -231,64 +228,123 @@ NSString * StringOrEmpty(NSString *string) {
      
      NSAssert(_customSubPermissions, @"Sub Permissions can not be null !!");
      
@@ -256,102 +334,119 @@ index 2690156..52595e7 100644
 -                                                                                   }
 -                                             ];
 -    [connection start];
-+        NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:clientUrl]];
++    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:clientUrl]];
 +    
-+        //create the Method "GET" or "POST"
-+        [urlRequest setHTTPMethod:@"GET"];
++    //create the Method "GET" or "POST"
++    [urlRequest setHTTPMethod:@"GET"];
 +    
-+        [urlRequest addValue:[NSString stringWithFormat:@"Bearer %@", [self accessToken]] forHTTPHeaderField:@"Authorization"];
++    [urlRequest addValue:[NSString stringWithFormat:@"Bearer %@", [self accessToken]] forHTTPHeaderField:@"Authorization"];
 +    
-+        NSURLSession *session = [NSURLSession sharedSession];
-+        NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-+            if(httpResponse.statusCode == 200)
-+            {
-+                NSError *parseError = nil;
-+                NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
-+                if (weakSelf.userInfoSuccessBlock) {
-+                   weakSelf.userInfoSuccessBlock(response);
-+               }
++    NSURLSession *session = [NSURLSession sharedSession];
++    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
++        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
++        if(httpResponse.statusCode == 200)
++        {
++            NSError *parseError = nil;
++            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
++            if (weakSelf.userInfoSuccessBlock) {
++                self.urn = [NSString stringWithFormat:@"urn:li:person:%@", response[@"id"]];
++                weakSelf.userInfoSuccessBlock(response);
 +            }
-+            else
-+            {
-+//                failure(error);
-+            }
-+        }];
-+        [dataTask resume];
++        }
++        else
++        {
++            nil;
++        }
++    }];
++    [dataTask resume];
 +}
 +
 +- ( void )requestEmailWithToken:(void(^)(NSDictionary *response, NSError *error))completion{
 +    
 +    NSString *clientUrl = @"https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))";
 +    
-+        NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:clientUrl]];
++    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:clientUrl]];
 +    
-+        //create the Method "GET" or "POST"
-+        [urlRequest setHTTPMethod:@"GET"];
++    //create the Method "GET" or "POST"
++    [urlRequest setHTTPMethod:@"GET"];
 +    
-+        [urlRequest addValue:[NSString stringWithFormat:@"Bearer %@", [self accessToken]] forHTTPHeaderField:@"Authorization"];
++    [urlRequest addValue:[NSString stringWithFormat:@"Bearer %@", [self accessToken]] forHTTPHeaderField:@"Authorization"];
 +    
-+        NSURLSession *session = [NSURLSession sharedSession];
-+        NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-+            if(httpResponse.statusCode == 200)
-+            {
-+                NSError *parseError = nil;
-+                NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
-+                completion(response, error);
-+            }
-+            else
-+            {
-+                NSLog(@"Error");
-+            }
-+        }];
-+        [dataTask resume];
++    NSURLSession *session = [NSURLSession sharedSession];
++    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
++        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
++        if(httpResponse.statusCode == 200)
++        {
++            NSError *parseError = nil;
++            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
++            completion(response, error);
++        }
++        else
++        {
++            NSLog(@"Error");
++        }
++    }];
++    [dataTask resume];
 +}
 +
-+- ( void )postInLinkedin:(NSString*) visibility :(NSString*) authorURN :(void(^)(NSDictionary *response, NSError *error))completion{
++- ( void )postInLinkedin:(NSString*) visibility :(NSString*) textToPost :(void(^)(NSDictionary *response, NSError *error))completion{
 +    
-+//    TODO: MAKE A POST TO LINKEDIN
++    //    TODO: MAKE A POST TO LINKEDIN
 +    
 +    NSString *clientUrl = @"https://api.linkedin.com/v2/ugcPosts";
 +    
-+        NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:clientUrl]];
++    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:clientUrl]];
 +    
-+        NSString *mediaStr = @"";
-+//        NSData *mediaData = [mediaStr dataUsingEncoding:NSUTF8StringEncoding];
-+        NSString *postDataStr = [NSString stringWithFormat:@"lifecycleState=PUBLISHED""&specificContent=%@""&visibility=%@""&author=%@",mediaStr ,visibility, authorURN];
-+        NSData *data1 = [postDataStr dataUsingEncoding:NSUTF8StringEncoding];
 +    
-+        //Apply the data to the body
-+        [urlRequest setHTTPBody:data1];
 +    
-+        //create the Method "GET" or "POST"
-+        [urlRequest setHTTPMethod:@"POST"];
 +    
-+        [urlRequest addValue:[NSString stringWithFormat:@"2.0.0"] forHTTPHeaderField:@"X-Restli-Protocol-Version"];
 +    
-+        NSURLSession *session = [NSURLSession sharedSession];
-+        NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-+            if(httpResponse.statusCode == 200)
-+            {
-+                NSError *parseError = nil;
-+                NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
-+                completion(response, error);
-+            }
-+            else
-+            {
-+                NSLog(@"Error");
-+            }
-+        }];
-+        [dataTask resume];
++//    NSString *mediaStr = [NSString stringWithFormat:@"shareCommentary: {text:%@}",textToPost];
++//    //        NSData *mediaData = [mediaStr dataUsingEncoding:NSUTF8StringEncoding];
++//    NSString *postDataStr = [NSString stringWithFormat:@"lifecycleState=PUBLISHED""&specificContent=%@""&visibility=%@""&author=%@",mediaStr ,visibility, self.urn];
++//    NSData *data1 = [postDataStr dataUsingEncoding:NSUTF8StringEncoding];
++//
++//    //Apply the data to the body
++//    [urlRequest setHTTPBody:data1];
++    
++    
++    NSDictionary *textToPostDict = @{@"text":textToPost};
++    NSDictionary *jsonShareComentary = @{@"shareCommentary":textToPostDict , @"shareMediaCategory":@"NONE"};
++    NSDictionary *jsonMediaDict = @{@"com.linkedin.ugc.ShareContent":jsonShareComentary};
++    NSDictionary *visibilityDict = @{@"com.linkedin.ugc.MemberNetworkVisibility":visibility};
++    NSDictionary *jsonBodyDict = @{@"lifecycleState":@"PUBLISHED", @"visibility":visibilityDict, @"author":self.urn, @"specificContent":jsonMediaDict};
++    NSData *jsonBodyData = [NSJSONSerialization dataWithJSONObject:jsonBodyDict options:kNilOptions error:nil];
++    
++    //create the Method "GET" or "POST"
++    [urlRequest setHTTPMethod:@"POST"];
++    
++    [urlRequest addValue:[NSString stringWithFormat:@"2.0.0"] forHTTPHeaderField:@"X-Restli-Protocol-Version"];
++    [urlRequest addValue:[NSString stringWithFormat:@"Bearer %@", [self accessToken]] forHTTPHeaderField:@"Authorization"];
++    [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
++    [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
++    [urlRequest setHTTPBody:jsonBodyData];
++    
++    NSURLSession *session = [NSURLSession sharedSession];
++    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
++        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
++        if(httpResponse.statusCode == 201)
++        {
++            NSError *parseError = nil;
++            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
++            completion(response, error);
++        }
++        else
++        {
++            NSLog(@"Error");
++        }
++    }];
++    [dataTask resume];
  }
  
  @end
-diff --git a/cocoapods-patch-20220721-93933-70le9u/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m
+diff --git a/cocoapods-patch-20220722-32345-9qopif/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m
 index 3717848..86af984 100644
---- a/cocoapods-patch-20220721-93933-70le9u/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m
+--- a/cocoapods-patch-20220722-32345-9qopif/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m
 @@ -107,60 +107,46 @@
  - (void)getAccessToken:(NSString *)authorizationCode
@@ -458,9 +553,9 @@ index 3717848..86af984 100644
  }
 +
  @end
-diff --git a/cocoapods-patch-20220721-93933-70le9u/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.h b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.h
+diff --git a/cocoapods-patch-20220722-32345-9qopif/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.h b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.h
 index fa06ece..bb0e6ea 100644
---- a/cocoapods-patch-20220721-93933-70le9u/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.h
+--- a/cocoapods-patch-20220722-32345-9qopif/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.h
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.h
 @@ -13,5 +13,6 @@
  + (void)saveWithService:(NSString *)service data:(id)data;
@@ -469,9 +564,9 @@ index fa06ece..bb0e6ea 100644
 ++ (void)deleteAllItems;
  
  @end
-diff --git a/cocoapods-patch-20220721-93933-70le9u/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.m
+diff --git a/cocoapods-patch-20220722-32345-9qopif/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.m
 index d451fb0..2ed06d2 100644
---- a/cocoapods-patch-20220721-93933-70le9u/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.m
+--- a/cocoapods-patch-20220722-32345-9qopif/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.m
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.m
 @@ -50,4 +50,20 @@
      SecItemDelete((__bridge CFDictionaryRef)keychainQuery);

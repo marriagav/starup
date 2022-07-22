@@ -89,4 +89,9 @@
         }];
 }
 
++ (void)postTolinkedin: (NSString*) visibility :(NSString*) textToPost {
+    LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
+    [linkedIn postInLinkedin:visibility :textToPost :nil];
+}
+
 @end

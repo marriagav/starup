@@ -10,6 +10,7 @@
 #import "Algos.h"
 #import "MBProgressHUD.h"
 #import "Post.h"
+#import "Linkedin.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

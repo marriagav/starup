@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)getUserInfo;
 + (void)logoutFromLinkedin;
 + (void)checkIfUserHasLinkedin: (NSString*)username ;
++ (void)postTolinkedin: (NSString*) visibility :(NSString*) textToPost ;
 
 @end
 
