@@ -15,6 +15,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol DetailsViewControllerDelegate
+
+- (void)updateData;
+
+@end
+
 @interface DetailsViewController : UIViewController
 
 @property (strong, nonatomic) Starup *starup;
@@ -32,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray* ideators;
 @property (nonatomic, strong) NSMutableArray* sharks;
 @property (nonatomic, strong) NSMutableArray* hackers;
+@property (nonatomic, weak) id<DetailsViewControllerDelegate> delegate;
 
 @end
 
