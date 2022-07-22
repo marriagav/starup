@@ -25,6 +25,7 @@
     gestureRecognizer.cancelsTouchesInView = NO;
     // For the textfield placeholder to work
     self.captionOutlet.delegate=self;
+    self.hasLinkedin = YES;
 }
 
 - (void)setOutlets{
@@ -82,18 +83,45 @@
     self.typeHere.hidden=(textView.text.length>0);
 }
 
+- (void)initializeAlertController{
+    //    Create the alert controller for post errors
+    UIAlertController *LinkedinError = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                        message:@"Must authenticate with Linkedin"
+                                                                 preferredStyle:(UIAlertControllerStyleAlert)];
+    // create a cancel action
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Okay"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+        self.hasLinkedin = YES;
+    }];
+    // add the cancel action to the alertControllers
+    [LinkedinError addAction:cancelAction];
+    
+    if (!(self.hasLinkedin)){
+        [self presentViewController:LinkedinError animated:YES completion:nil];
+    }
+}
+
 #pragma mark - Network
 
 - (IBAction)makePost:(id)sender {
     if ([self.updateStatus isEqual:@""]){
-//        If no status selected
+        //        If no status selected
         self.updateStatus = @"Just a thought";
         self.updateImage = [UIImage imageNamed:@"thought-icon-6"];
     }
     else if ([self.updateStatus isEqual:@"Linkedin Post"]){
-//        Make post to likedin if the user wants to
-        [Linkedin postTolinkedin:@"CONNECTIONS" :self.captionOutlet.text];
+        //        Make post to likedin if the user wants to
+        [self checkIfUserHasLinkedin];
     }
+    else{
+        //    Make the post to Starup
+        [self makePostToStarup];
+    }
+}
+
+-(void)makePostToStarup{
+    //    Make the post to Starup
     //    Makes the call to post the post
     //    Shows progress hud
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -109,10 +137,32 @@
             [self.delegate didPost];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
-        // hides progress hud
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    }
+            // hides progress hud
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        }
     ];
+}
+
+- (void)checkIfUserHasLinkedin {
+    
+    PFQuery *query = [PFUser query];
+    [query whereKey:@"linkedinAuthentification" equalTo:@"True"];
+    [query whereKey:@"username" equalTo:PFUser.currentUser.username];
+    query.limit = 1;
+    [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
+        if (users != nil) {
+            if (users.count>0){
+                [Linkedin postTolinkedin:@"CONNECTIONS" :self.captionOutlet.text];
+                [self makePostToStarup];
+            }
+            else{
+                self.hasLinkedin=NO;
+                [self initializeAlertController];
+            }
+        } else {
+            NSLog(@"%@", error);
+        }
+    }];
 }
 
 #pragma mark - Navigation
