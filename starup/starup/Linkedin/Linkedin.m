@@ -70,4 +70,23 @@
     [linkedIn logout];
 }
 
++ (void)checkIfUserHasLinkedin: (NSString*)username {
+    PFQuery *query = [PFUser query];
+    [query whereKey:@"linkedinAuthentification" equalTo:@"True"];
+    [query whereKey:@"username" equalTo:username];
+    query.limit = 1;
+    [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
+            if (users != nil) {
+                if (users.count>0){
+                    [self getUserInfo];
+                }
+                else{
+                    nil;
+                }
+            } else {
+                NSLog(@"%@", error);
+            }
+        }];
+}
+
 @end

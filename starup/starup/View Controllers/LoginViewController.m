@@ -221,11 +221,14 @@
 }
 
 - (void)afterSuccessfullLogin{
-    // display view controller that needs to shown after successful login
-    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    UIViewController *nav = [storyboard instantiateViewControllerWithIdentifier:@"navBar"];
-    [nav setModalPresentationStyle:UIModalPresentationFullScreen];
-    [self.navigationController presentViewController:nav animated:YES completion:nil];
+    //     display homefeed view
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        UIViewController *nav = [storyboard instantiateViewControllerWithIdentifier:@"navBar"];
+        [nav setModalPresentationStyle:UIModalPresentationFullScreen];
+        [weakSelf.navigationController presentViewController:nav animated:YES completion:nil];
+    });
 }
 
 @end

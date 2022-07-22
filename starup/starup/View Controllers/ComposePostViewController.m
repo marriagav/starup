@@ -34,6 +34,10 @@
     //    Format the profile picture
     [Algos formatPictureWithRoundedEdges:self.imageView];
     //    Set the dropdown menu
+    UIAction *noStatus = [UIAction actionWithTitle:@"Select an update status" image:NULL identifier:NULL handler:^(UIAction* action){
+        self.updateStatus = @"Just a thought";
+        self.updateImage = [UIImage imageNamed:@"thought-icon-6"];
+    }];
     UIAction *postedStarup = [UIAction actionWithTitle:@"Posted a new Starup" image:NULL identifier:NULL handler:^(UIAction* action){
         self.updateStatus = @"Posted a new Starup";
         self.updateImage = [UIImage imageNamed:@"ideator-1"];
@@ -54,7 +58,7 @@
         self.updateStatus = @"Joined a Starup";
         self.updateImage = [UIImage imageNamed:@"hacker-1"];
     }];
-    UIMenu *menu = [[UIMenu alloc] menuByReplacingChildren:[NSArray arrayWithObjects:postedStarup, lookingStarupsJ, lookingStarupsI, investedStarup, joinedStarup, nil]];
+    UIMenu *menu = [[UIMenu alloc] menuByReplacingChildren:[NSArray arrayWithObjects:noStatus,postedStarup, lookingStarupsJ, lookingStarupsI, investedStarup, joinedStarup, nil]];
     self.dropdownOutlet.menu = menu;
     self.dropdownOutlet.showsMenuAsPrimaryAction = YES;
     self.dropdownOutlet.changesSelectionAsPrimaryAction= YES;
@@ -75,6 +79,10 @@
 #pragma mark - Network
 
 - (IBAction)makePost:(id)sender {
+    if ([self.updateStatus isEqual:@""]){
+        self.updateStatus = @"Just a thought";
+        self.updateImage = [UIImage imageNamed:@"thought-icon-6"];
+    }
     //    Makes the call to post the post
     //    Shows progress hud
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];

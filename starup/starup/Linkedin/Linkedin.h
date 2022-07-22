@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "LinkedinIOSHelper/LinkedInHelper.h"
+#import "Parse/Parse.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)isLinkedInAccessTokenValid;
 + (void)getUserInfo;
 + (void)logoutFromLinkedin;
++ (void)checkIfUserHasLinkedin: (NSString*)username ;
 
 @end
 

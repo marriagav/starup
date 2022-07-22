@@ -22,6 +22,7 @@
 - (void)setInstruction{
     if (self.newUser){
         self.instructionOutlet.text = @"Set your password";
+        self.passwordField.placeholder = @"Different from your Linkedin password...";
     }
     else{
         self.instructionOutlet.text = @"Enter your password";

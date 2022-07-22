@@ -220,7 +220,7 @@
 
 - (BOOL)checkIfArrayHasUser:(PFUser *)user :(NSMutableArray*)array{
     for (PFUser* collaborator in array){
-        if (collaborator.username == user.username){
+        if ([collaborator.username isEqual: user.username]){
             return YES;
         }
     }
