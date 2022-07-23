@@ -14,9 +14,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class Checkout;
-@protocol Checkout;
-
 @protocol InvestViewControllerDelegate
 
 - (void)didInvest;
@@ -38,8 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL hasError;
 @property (nonatomic, weak) id<InvestViewControllerDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIButton *investButton;
-- (Checkout *)returnSwiftClassInstance;
-- (id <Checkout>)returnInstanceAdoptingSwiftProtocol;
+@property (nonatomic) UISegmentedControl *segmentedControl;
 
 @end
 
