@@ -176,18 +176,6 @@
 - (void)startCheckout {
     [PPCheckout startWithPresentingViewController:self createOrder:^(PPCCreateOrderAction * action) {
         [self createOrderCallbackCreateOrderWithAction:action];
-//        switch (self.segmentedControl.selectedSegmentIndex) {
-//            case 0:
-//                // Checkout with order
-//                [self createOrderCallbackCreateOrderWithAction:action];
-//                break;
-//            case 1:
-//                // Checkout with orderID/ECToken/payToken
-//                [self createOrderCallbackSetOrderIDWithAction:action];
-//                break;
-//            default:
-//                break;
-//        }
     } onApprove:^(PPCApproval * approval) {
         [self onApproveCallbackWithApproval:approval];
     } onShippingChange:nil
@@ -196,17 +184,12 @@
     } onError:^(PPCErrorInfo * errorInfo) {
         [self onErrorCallbackWithErrorInfo:errorInfo];
     }];
-    
 }
-
 
 - (PPCOrderRequest*)createNewOrder {
     NSString *total = self.investOutlet.text;
     NSString *itemTotal = self.investOutlet.text;
     NSString *taxTotal = @"0";
-    
-//    PFUser *author = self.starup[@"author"];
-//    PPCPurchaseUnitPayee *payee = [[PPCPurchaseUnitPayee alloc] initWithEmailAddress:author[@"email"] merchantId:nil];
     
     NSString *description = [NSString stringWithFormat:@"Investment for starup: %@",self.starupName.text];
     PPCUnitAmount *itemTotalUnitAmount = [[PPCUnitAmount alloc] initWithCurrencyCode:PPCCurrencyCodeUsd
@@ -255,35 +238,6 @@
     }];
 }
 
-/// createOrder callback:
-/// This will be called when PayPalCheckout starts creating an order
-/// Use this if you want to create an order an get an order ID with PayPal Orders API by yourself
-//- (void)createOrderCallbackSetOrderIDWithAction:(PPCCreateOrderAction *)action {
-//    PPCOrderRequest *order = [self createNewOrder];
-//
-//    NSString *clientId = [PayPalAPI.shared clientId];
-//    FetchAccessTokenRequest *tokenRequest = [[FetchAccessTokenRequest alloc] initWith:clientId];
-//    [PayPalAPI.shared fetchAccessToken:tokenRequest completion:^(NSData *data, NSError *error) {
-//        if (data == nil) {
-//            NSLog(@"Fetch access token failed with no data.");
-//            return;
-//        }
-//
-//        AccessTokenResponse *tokenResponse = [[AccessTokenResponse alloc] initWithData:data];
-//        CreateOrderRequest *createOrderRequest = [[CreateOrderRequest alloc] initWithOrder:order accessToken:tokenResponse.accessToken];
-//
-//        [PayPalAPI.shared createOrder:createOrderRequest completion:^(NSData *data, NSError *error) {
-//            if (data == nil) {
-//                NSLog(@"Create order failed with no data.");
-//                return;
-//            }
-//
-//            CreateOrderResponse *orderResponse = [[CreateOrderResponse alloc] initWithData:data];
-//            [action setWithOrderId:orderResponse.orderId];
-//        }];
-//    }];
-//}
-
 /// onApprove callback: This will be called when checkout with PayPalCheckout is completed, you will need to handle authorizing or capturing the funds in this callback
 - (void)onApproveCallbackWithApproval:(PPCApproval *)approval {
     NSLog(@"%ld", (long)approval.data.intent);
@@ -328,12 +282,6 @@
 - (void)onErrorCallbackWithErrorInfo:(PPCErrorInfo *)errorInfo {
     NSLog(@"Checkout failed with error: %@", errorInfo.error.localizedDescription);
 }
-
-//NSString* const IntentToString[] = {
-//  [AUTHORIZE] = @"English",
-//  [CAPTURE]  = @"German",
-//  [CHINESE] = @"Chinese"
-//};
 
 #pragma mark - Navigation
 
