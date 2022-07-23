@@ -128,15 +128,41 @@
     }];
 }
 
+#pragma mark - PayPal
+
 - (IBAction)invest:(id)sender {
     [self initializeAlertController];
     if (!self.hasError){
         //        TODO: go to payment selection
+        [self configurePayPalCheckout];
         [self updateServerWithInvestment];
     }
     else{
         self.hasError = NO;
     }
+}
+
+- (void) configurePayPalCheckout{
+    [PPCheckout setCreateOrderCallback:^(PPCCreateOrderAction * order) {
+        
+        PPCPurchaseUnitAmount *amount = [[PPCPurchaseUnitAmount alloc] initWithCurrencyCode:PPCCurrencyCodeUsd value:self.investOutlet.text breakdown:nil];
+        PPCPurchaseUnitPayee *payee = [[PPCPurchaseUnitPayee alloc] initWithEmailAddress:self.starup[@"author"][@"email"] merchantId:nil];
+        PPCOrderPayer *payer = [[PPCOrderPayer alloc] initWithName:PFUser.currentUser[@"firstname"] emailAddress:PFUser.user.email payerId:nil phone:nil birthDate:nil taxInfo:nil address:nil];
+                                
+        NSString *description = [NSString stringWithFormat:@"Investment for starup: %@",self.starupName.text];
+        PPCUnitAmount *unitAmount = [[PPCUnitAmount alloc]initWithCurrencyCode:PPCCurrencyCodeUsd value:self.investOutlet.text];
+        PPCPurchaseUnitItem *itemBought = [[PPCPurchaseUnitItem alloc]initWithName:description unitAmount:unitAmount quantity:@"1" tax:nil itemDescription:description sku:nil category:PPCPurchaseUnitCategoryPhysicalGoods];
+        NSArray<PPCPurchaseUnitItem *> * itemArray = [[NSArray alloc] initWithObjects:itemBought, nil];
+        PPCPurchaseUnit *purchaseUnit = [[PPCPurchaseUnit alloc]initWithAmount:amount referenceId:nil payee:payee paymentInstruction:nil purchaseUnitDescription:description customId:nil invoiceId:nil softDescriptor:nil items:itemArray shipping:nil];
+        NSArray<PPCPurchaseUnit *> * unitArray = [[NSArray alloc] initWithObjects:purchaseUnit, nil];
+        PPCOrderRequest *orderRequest = [[PPCOrderRequest alloc]initWithIntent:PPCOrderIntentCapture purchaseUnits:unitArray processingInstruction:PPCOrderProcessingInstructionNone payer:payer applicationContext:nil];
+        PPCCreateOrderAction *orderAction = [[PPCCreateOrderAction alloc] init];
+        [orderAction createWithOrder:orderRequest completion:^(NSString * _Nullable) {
+            nil
+        }];
+    }];
+    
+    
 }
 
 #pragma mark - Navigation
