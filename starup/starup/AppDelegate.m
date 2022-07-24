@@ -25,8 +25,7 @@
     }];
     [Parse initializeWithConfiguration:config];
     
-//    PPCheckoutConfig *paypalConfig = [[PPCheckoutConfig alloc] initWithClientID:@"ARTf43soSWvHWiLlSmkNRLo2a3x3CdITh-QrFM0oG7xkk4tqr0cMbL5PGX21P_kOW0WgGxBd6_wFG4QH" returnUrl:@"com.starupcode.app://paypalpay" createOrder:nil onApprove:nil onShippingChange:nil onCancel:nil onError:nil environment:PPCEnvironmentSandbox];
-    PPCheckoutConfig *paypalConfig = [[PPCheckoutConfig alloc] initWithClientID:@"ARTf43soSWvHWiLlSmkNRLo2a3x3CdITh-QrFM0oG7xkk4tqr0cMbL5PGX21P_kOW0WgGxBd6_wFG4QH" createOrder:nil onApprove:nil onShippingChange:nil onCancel:nil onError:nil environment:PPCEnvironmentSandbox];
+    PPCheckoutConfig *paypalConfig = [[PPCheckoutConfig alloc] initWithClientID:@"ARTf43soSWvHWiLlSmkNRLo2a3x3CdITh-QrFM0oG7xkk4tqr0cMbL5PGX21P_kOW0WgGxBd6_wFG4QH" returnUrl:@"com.starupcode.app://paypalpay" createOrder:nil onApprove:nil onShippingChange:nil onCancel:nil onError:nil environment:PPCEnvironmentSandbox];
     [PPCheckout setConfig:paypalConfig];
     
     return YES;

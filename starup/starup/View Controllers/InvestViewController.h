@@ -9,7 +9,6 @@
 #import "Starup.h"
 #import "Collaborator.h"
 #import "MBProgressHUD.h"
-//#import "PayPalCheckout/PayPalCheckout-Swift.h"
 @import PayPalCheckout;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -35,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL hasError;
 @property (nonatomic, weak) id<InvestViewControllerDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIButton *investButton;
-@property (nonatomic) UISegmentedControl *segmentedControl;
+@property (nonatomic) NSMutableArray<PPCPurchaseUnitItem *> *items;
 
 @end
 

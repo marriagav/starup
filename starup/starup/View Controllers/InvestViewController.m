@@ -133,42 +133,11 @@
 - (IBAction)invest:(id)sender {
     [self initializeAlertController];
     if (!self.hasError){
-        //        TODO: go to payment selection
-//        [self configurePayPalCheckout];
         [self startCheckout];
-//        [self updateServerWithInvestment];
     }
     else{
         self.hasError = NO;
     }
-}
-
-- (void) configurePayPalCheckout{
-    [PPCheckout setCreateOrderCallback:^(PPCCreateOrderAction * order) {
-        PPCPurchaseUnitAmount *amount = [[PPCPurchaseUnitAmount alloc] initWithCurrencyCode:PPCCurrencyCodeUsd value:self.investOutlet.text breakdown:nil];
-        PPCPurchaseUnitPayee *payee = [[PPCPurchaseUnitPayee alloc] initWithEmailAddress:self.starup[@"author"][@"email"] merchantId:nil];
-        PPCOrderPayer *payer = [[PPCOrderPayer alloc] initWithName:PFUser.currentUser[@"firstname"] emailAddress:PFUser.user.email payerId:nil phone:nil birthDate:nil taxInfo:nil address:nil];
-        
-        NSString *description = [NSString stringWithFormat:@"Investment for starup: %@",self.starupName.text];
-        PPCUnitAmount *unitAmount = [[PPCUnitAmount alloc]initWithCurrencyCode:PPCCurrencyCodeUsd value:self.investOutlet.text];
-        PPCPurchaseUnitItem *itemBought = [[PPCPurchaseUnitItem alloc]initWithName:description unitAmount:unitAmount quantity:@"1" tax:nil itemDescription:description sku:nil category:PPCPurchaseUnitCategoryPhysicalGoods];
-        NSArray<PPCPurchaseUnitItem *> * itemArray = [[NSArray alloc] initWithObjects:itemBought, nil];
-        PPCPurchaseUnit *purchaseUnit = [[PPCPurchaseUnit alloc]initWithAmount:amount referenceId:nil payee:payee paymentInstruction:nil purchaseUnitDescription:description customId:nil invoiceId:nil softDescriptor:nil items:itemArray shipping:nil];
-        NSArray<PPCPurchaseUnit *> * unitArray = [[NSArray alloc] initWithObjects:purchaseUnit, nil];
-        PPCOrderRequest *orderRequest = [[PPCOrderRequest alloc]initWithIntent:PPCOrderIntentCapture purchaseUnits:unitArray processingInstruction:PPCOrderProcessingInstructionNone payer:payer applicationContext:nil];
-        PPCCreateOrderAction *orderAction = [PPCCreateOrderAction alloc];
-        [orderAction createWithOrder:orderRequest completion:^(NSString * request) {
-            nil;
-        }];
-    }];
-    
-    [PPCheckout setOnApproveCallback:^(PPCApproval * approval) {
-        [approval.actions captureOnComplete:^(PPCCaptureActionSuccess * success, NSError * error) {
-            NSLog(@"%@", success);
-            NSLog(@"%@", error);
-        }];
-    }];
-    
 }
 
 #pragma mark - PayPal
@@ -197,7 +166,7 @@
     PPCUnitAmount *taxTotalUnitAmount = [[PPCUnitAmount alloc] initWithCurrencyCode:PPCCurrencyCodeUsd
                                                                               value:taxTotal];
     
-    PPCPurchaseUnitItem *itemBought = [[PPCPurchaseUnitItem alloc]initWithName:description unitAmount:itemTotalUnitAmount quantity:@"1" tax:nil itemDescription:description sku:nil category:PPCPurchaseUnitCategoryPhysicalGoods];
+    PPCPurchaseUnitItem *itemBought = [[PPCPurchaseUnitItem alloc]initWithName:description unitAmount:itemTotalUnitAmount quantity:@"1" tax:nil itemDescription:description sku:nil category:PPCPurchaseUnitCategoryDigitalGoods];
     NSArray<PPCPurchaseUnitItem *> * itemArray = [[NSArray alloc] initWithObjects:itemBought, nil];
     
     PPCPurchaseUnitBreakdown *purchaseUnitBreakdown = [[PPCPurchaseUnitBreakdown alloc] initWithItemTotal:itemTotalUnitAmount
@@ -223,7 +192,7 @@
                                                                       items:itemArray
                                                                    shipping:nil];
     
-    PPCOrderRequest *order = [[PPCOrderRequest alloc] initWithIntent:PPCOrderIntentAuthorize purchaseUnits:@[purchaseUnit] processingInstruction:PPCOrderProcessingInstructionNone payer:nil applicationContext:nil];
+    PPCOrderRequest *order = [[PPCOrderRequest alloc] initWithIntent:PPCOrderIntentCapture purchaseUnits:@[purchaseUnit] processingInstruction:PPCOrderProcessingInstructionNone payer:nil applicationContext:nil];
     
     return order;
 }
@@ -240,37 +209,16 @@
 
 /// onApprove callback: This will be called when checkout with PayPalCheckout is completed, you will need to handle authorizing or capturing the funds in this callback
 - (void)onApproveCallbackWithApproval:(PPCApproval *)approval {
-    NSLog(@"%ld", (long)approval.data.intent);
     [approval.actions captureOnComplete:^(PPCCaptureActionSuccess *success, NSError *error) {
         if (error) {
             NSLog(@"Fail to capture order with error %@", error.localizedDescription);
         } else if (success) {
+            [self updateServerWithInvestment];
             NSLog(@"Capture order successfully");
         } else {
             NSLog(@"Capture order: No error and no success response");
         }
     }];
-//    if ([approval.data.intent isEqualToString:@"AUTHORIZE"]) {
-//        [approval.actions authorizeOnComplete:^(PPCAuthorizeActionSuccess *success, NSError *error) {
-//            if (error) {
-//                NSLog(@"Fail to authorize order with error %@", error.localizedDescription);
-//            } else if (success) {
-//                NSLog(@"Authorize order successfully");
-//            } else {
-//                NSLog(@"Authorize order: No error and no success response");
-//            }
-//        }];
-//    } else if ([approval.data.intent isEqualToString:@"CAPTURE"] || [approval.data.intent isEqualToString:@"SALE"]) {
-//        [approval.actions captureOnComplete:^(PPCCaptureActionSuccess *success, NSError *error) {
-//            if (error) {
-//                NSLog(@"Fail to capture order with error %@", error.localizedDescription);
-//            } else if (success) {
-//                NSLog(@"Capture order successfully");
-//            } else {
-//                NSLog(@"Capture order: No error and no success response");
-//            }
-//        }];
-//    }
 }
 
 /// onCancel callback: This will be called when users cancel checkout
