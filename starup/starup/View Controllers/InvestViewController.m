@@ -140,8 +140,6 @@
     }
 }
 
-#pragma mark - PayPal
-
 - (void)startCheckout {
     [PPCheckout startWithPresentingViewController:self createOrder:^(PPCCreateOrderAction * action) {
         [self createOrderCallbackCreateOrderWithAction:action];
@@ -162,7 +160,7 @@
     
     NSString *description = [NSString stringWithFormat:@"Investment for starup: %@",self.starupName.text];
     PPCUnitAmount *itemTotalUnitAmount = [[PPCUnitAmount alloc] initWithCurrencyCode:PPCCurrencyCodeUsd
-                                                                            value:itemTotal];
+                                                                               value:itemTotal];
     PPCUnitAmount *taxTotalUnitAmount = [[PPCUnitAmount alloc] initWithCurrencyCode:PPCCurrencyCodeUsd
                                                                               value:taxTotal];
     
