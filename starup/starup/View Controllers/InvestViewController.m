@@ -63,7 +63,7 @@
 - (void)_getPercentage: (float) amount {
     //    Calculate the percentage gained from investing x amount
     self.percentageToGet = amount * [self.totalPercent floatValue] / [self.goalInv floatValue];
-    self.percentageOutlet.text = [NSString stringWithFormat:@"%@%.02f", @"%", self.percentageToGet];
+    self.percentageOutlet.text = [NSString stringWithFormat:@"%@%.04f", @"%", self.percentageToGet];
 }
 
 - (void)textFieldDidChange :(UITextField *) textField{

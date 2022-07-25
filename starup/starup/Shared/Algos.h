@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)formatPictureWithRoundedEdges: (PFImageView *) image;
 + (NSString*)dateToString: (NSDate *) date;
 + (float)percentageWithNumbers: (double) current :(double) total;
++ (NSString*)firstObjectFromDict: (NSDictionary *) dict;
++ (NSString*)generateRandomString:(int)num;
 
 @end
 

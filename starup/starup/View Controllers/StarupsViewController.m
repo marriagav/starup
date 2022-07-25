@@ -7,7 +7,7 @@
 
 #import "StarupsViewController.h"
 
-@interface StarupsViewController () <ComposeStarupViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, starupCellDelegate>
+@interface StarupsViewController () <ComposeStarupViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, starupCellDelegate, DetailsViewControllerDelegate>
 
 @end
 
@@ -159,6 +159,10 @@ InfiniteScrollActivityView* _loadingMoreViewS;
     [self refreshDataWithNStarups:(int)self.starupsArray.count+1];
 }
 
+- (void)updateData{
+    [self refreshDataWithNStarups:(int)self.starupsArray.count];
+}
+
 - (void)starupCell:(StarupCell *) starupCell didTap: (Starup *)starup{
     // display details view controller
     UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
@@ -166,7 +170,9 @@ InfiniteScrollActivityView* _loadingMoreViewS;
     detailsStarupViewController.starup = starup;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:detailsStarupViewController];
     [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
-    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+    [self.navigationController presentViewController:navigationController animated:YES completion:^{
+        detailsStarupViewController.delegate = self;
+    }];
 }
 
 #pragma mark - Actions

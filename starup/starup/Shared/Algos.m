@@ -58,4 +58,22 @@
     return current/total;
 }
 
++ (NSString*)firstObjectFromDict: (NSDictionary *) dict{
+    id val = nil;
+    NSArray *values = [dict allValues];
+    if ([values count] != 0){
+        val = [values objectAtIndex:0];
+        return val;
+    }
+    return @"";
+}
+
++(NSString*)generateRandomString:(int)num {
+    NSMutableString* string = [NSMutableString stringWithCapacity:num];
+    for (int i = 0; i < num; i++) {
+        [string appendFormat:@"%C", (unichar)('a' + arc4random_uniform(26))];
+    }
+    return string;
+}
+
 @end

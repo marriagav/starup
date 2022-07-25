@@ -94,6 +94,7 @@
     newUser[@"firstname"] = self.firstNameField.text;
     newUser[@"lastname"] = self.lastNameField.text;
     newUser[@"role"] = self.roleField.text;
+    newUser[@"linkedinAuthentification"] = @"False";
     UIImage *image =  [UIImage imageNamed:@"profile_tab"];
     [newUser setObject:[Algos getPFFileFromImage:image] forKey: @"profileImage"];
     

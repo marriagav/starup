@@ -52,11 +52,13 @@
 }
 
 - (void)updateProgressBar{
-    NSNumber* currentInv = self.starup[@"currentInvestment"];
-    NSNumber* goalInv = self.starup[@"goalInvestment"];
-    self.progressString.text = [NSString stringWithFormat:@"%@$%@ / $%@", @"Progress: ", currentInv, goalInv];
-//    self.investmentProgressBar.progress = [Algos percentageWithNumbers:[currentInv floatValue] :[goalInv floatValue]];
-    [self.investmentProgressBar setProgress:[Algos percentageWithNumbers:[currentInv floatValue] :[goalInv floatValue]] animated:YES];
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSNumber* currentInv = self.starup[@"currentInvestment"];
+        NSNumber* goalInv = self.starup[@"goalInvestment"];
+        weakSelf.progressString.text = [NSString stringWithFormat:@"%@$%@ / $%@", @"Progress: ", currentInv, goalInv];
+        [weakSelf.investmentProgressBar setProgress:[Algos percentageWithNumbers:[currentInv floatValue] :[goalInv floatValue]] animated:YES];
+    });
 }
 
 #pragma mark - Network
@@ -77,6 +79,8 @@
             [self.sharksCollectionView reloadData];
             [self.ideatorsCollectionView reloadData];
             [self.hackersCollectionView reloadData];
+            //    Update ProgressBar
+            [self updateProgressBar];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -163,8 +167,6 @@
             self.sharks = [[NSMutableArray alloc] init];
             self.hackers = [[NSMutableArray alloc] init];
             [self refreshColletionViewData];
-            //    Update ProgressBar
-            [self updateProgressBar];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -175,6 +177,7 @@
 
 - (IBAction)goBack:(id)sender {
     // display starups view controller
+    [self.delegate updateData];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -8,6 +8,10 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import "LinkedinIOSHelper/LinkedInHelper.h"
+#import "AFNetworking/AFNetworking.h"
+#import "Algos.h"
+#import "PasswordViewController.h"
+#import "Linkedin.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,6 +20,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (strong, nonatomic) NSString *error;
+@property (strong, nonatomic) NSString *linkedinFName;
+@property (strong, nonatomic) NSString *linkedinLName;
+@property (strong, nonatomic) NSString *linkedinID;
+@property (strong, nonatomic) NSString *linkedinUsername;
+@property (strong, nonatomic) NSString *password;
+@property (strong, nonatomic) NSString *linkedinEmail;
+@property (strong, nonatomic) UIImage *imageLinkedin;
 
 @end
 

@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Parse/Parse.h"
+#import "Linkedin.h"
 
 @interface SceneDelegate : UIResponder <UIWindowSceneDelegate>
 

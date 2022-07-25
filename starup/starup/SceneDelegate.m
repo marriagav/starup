@@ -21,11 +21,10 @@
     //    Persistant sessions
     if (PFUser.currentUser) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        
+        [Linkedin checkIfUserHasLinkedin:PFUser.currentUser.username];
         self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"navBar"];
     }
 }
-
 
 - (void)sceneDidDisconnect:(UIScene *)scene {
     // Called as the scene is being released by the system.
