@@ -79,8 +79,6 @@
             [self.sharksCollectionView reloadData];
             [self.ideatorsCollectionView reloadData];
             [self.hackersCollectionView reloadData];
-            //    Update ProgressBar
-            [self updateProgressBar];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -167,6 +165,8 @@
             self.sharks = [[NSMutableArray alloc] init];
             self.hackers = [[NSMutableArray alloc] init];
             [self refreshColletionViewData];
+            //    Update ProgressBar
+            [self updateProgressBar];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }

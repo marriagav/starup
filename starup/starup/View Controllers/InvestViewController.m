@@ -34,8 +34,8 @@
 - (void)initializeAlertController{
     //    Create the alert controller for login errors
     UIAlertController *investError = [UIAlertController alertControllerWithTitle:@"Error"
-                                                                        message:@"Investment off limits, must be lowered"
-                                                                 preferredStyle:(UIAlertControllerStyleAlert)];
+                                                                         message:@"Investment off limits, must be lowered"
+                                                                  preferredStyle:(UIAlertControllerStyleAlert)];
     // create a cancel action
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Ok"
                                                            style:UIAlertActionStyleCancel
@@ -81,7 +81,7 @@
     //    Call to change the starup investment percent
     int newInvestment = [self.starup[@"currentInvestment"] intValue] + [self.investOutlet.text floatValue];
     
-//    If the user is already a shark, dont duplicate collaborator, only update their ownership
+    //    If the user is already a shark, dont duplicate collaborator, only update their ownership
     [self checkIfIsShark:newInvestment];
 }
 
@@ -118,7 +118,7 @@
             }];
         }
         else{
-//            Create collaborator and add to db
+            //            Create collaborator and add to db
             [Collaborator postCollaborator:@"Shark" withUser:PFUser.currentUser withStarup:self.starup withOwnership:[NSNumber numberWithFloat: self.percentageToGet] withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                 if (succeeded){
                     [self updateStarupInvestment:newInvestment];
@@ -128,15 +128,105 @@
     }];
 }
 
+#pragma mark - PayPal
+
 - (IBAction)invest:(id)sender {
     [self initializeAlertController];
     if (!self.hasError){
-        //        TODO: go to payment selection
-        [self updateServerWithInvestment];
+        [self startCheckout];
     }
     else{
         self.hasError = NO;
     }
+}
+
+- (void)startCheckout {
+    [PPCheckout startWithPresentingViewController:self createOrder:^(PPCCreateOrderAction * action) {
+        [self createOrderCallbackCreateOrderWithAction:action];
+    } onApprove:^(PPCApproval * approval) {
+        [self onApproveCallbackWithApproval:approval];
+    } onShippingChange:nil
+                                         onCancel:^{
+        [self onCancelCallback];
+    } onError:^(PPCErrorInfo * errorInfo) {
+        [self onErrorCallbackWithErrorInfo:errorInfo];
+    }];
+}
+
+- (PPCOrderRequest*)createNewOrder {
+    NSString *total = self.investOutlet.text;
+    NSString *itemTotal = self.investOutlet.text;
+    NSString *taxTotal = @"0";
+    
+    NSString *description = [NSString stringWithFormat:@"Investment for starup: %@",self.starupName.text];
+    PPCUnitAmount *itemTotalUnitAmount = [[PPCUnitAmount alloc] initWithCurrencyCode:PPCCurrencyCodeUsd
+                                                                               value:itemTotal];
+    PPCUnitAmount *taxTotalUnitAmount = [[PPCUnitAmount alloc] initWithCurrencyCode:PPCCurrencyCodeUsd
+                                                                              value:taxTotal];
+    
+    PPCPurchaseUnitItem *itemBought = [[PPCPurchaseUnitItem alloc]initWithName:description unitAmount:itemTotalUnitAmount quantity:@"1" tax:nil itemDescription:description sku:nil category:PPCPurchaseUnitCategoryDigitalGoods];
+    NSArray<PPCPurchaseUnitItem *> * itemArray = [[NSArray alloc] initWithObjects:itemBought, nil];
+    
+    PPCPurchaseUnitBreakdown *purchaseUnitBreakdown = [[PPCPurchaseUnitBreakdown alloc] initWithItemTotal:itemTotalUnitAmount
+                                                                                                 shipping:nil
+                                                                                                 handling:nil
+                                                                                                 taxTotal:taxTotalUnitAmount
+                                                                                                insurance:nil
+                                                                                         shippingDiscount:nil
+                                                                                                 discount:nil];
+    
+    PPCPurchaseUnitAmount *purchaseUnitAmount = [[PPCPurchaseUnitAmount alloc] initWithCurrencyCode:PPCCurrencyCodeUsd
+                                                                                              value:total
+                                                                                          breakdown:purchaseUnitBreakdown];
+    
+    PPCPurchaseUnit *purchaseUnit = [[PPCPurchaseUnit alloc] initWithAmount:purchaseUnitAmount
+                                                                referenceId:nil
+                                                                      payee:nil
+                                                         paymentInstruction:nil
+                                                    purchaseUnitDescription:description
+                                                                   customId:nil
+                                                                  invoiceId:nil
+                                                             softDescriptor:nil
+                                                                      items:itemArray
+                                                                   shipping:nil];
+    
+    PPCOrderRequest *order = [[PPCOrderRequest alloc] initWithIntent:PPCOrderIntentCapture purchaseUnits:@[purchaseUnit] processingInstruction:PPCOrderProcessingInstructionNone payer:nil applicationContext:nil];
+    
+    return order;
+}
+
+/// createOrder callback:
+/// This will be called when PayPalCheckout starts creating an order
+/// Use this if you want PayPalCheckout to create an order and get an order ID for you internally via PayPal Orders API
+- (void)createOrderCallbackCreateOrderWithAction:(PPCCreateOrderAction *)action {
+    PPCOrderRequest *order = [self createNewOrder];
+    [action createWithOrder:order completion:^(NSString *orderId) {
+        NSLog(@"Order created with orderId: %@", orderId);
+    }];
+}
+
+/// onApprove callback: This will be called when checkout with PayPalCheckout is completed, you will need to handle authorizing or capturing the funds in this callback
+- (void)onApproveCallbackWithApproval:(PPCApproval *)approval {
+    [approval.actions captureOnComplete:^(PPCCaptureActionSuccess *success, NSError *error) {
+        if (error) {
+            NSLog(@"Fail to capture order with error %@", error.localizedDescription);
+        } else if (success) {
+            [self updateServerWithInvestment];
+            NSLog(@"Capture order successfully");
+        } else {
+            NSLog(@"Capture order: No error and no success response");
+        }
+    }];
+}
+
+/// onCancel callback: This will be called when users cancel checkout
+- (void)onCancelCallback {
+    NSLog(@"Checkout cancelled");
+}
+
+/// onError callback: This will be call when an error occurs in the checkout session
+- (void)onErrorCallbackWithErrorInfo:(PPCErrorInfo *)errorInfo {
+    NSLog(@"Checkout failed with error: %@", errorInfo.error.localizedDescription);
 }
 
 #pragma mark - Navigation
