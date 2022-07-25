@@ -1001,11 +1001,11 @@
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vua-hH-uo6">
-                                                <rect key="frame" x="33" y="153" width="348" height="31"/>
+                                                <rect key="frame" x="33" y="153" width="348" height="38"/>
                                                 <color key="backgroundColor" systemColor="systemIndigoColor"/>
                                                 <color key="tintColor" systemColor="systemBackgroundColor"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Invest"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="Paypal_2014_logo (1)" imagePlacement="leading" title="Invest with PayPal" imagePadding="7"/>
                                                 <connections>
                                                     <action selector="invest:" destination="Gnj-LF-AN2" eventType="touchUpInside" id="Win-aS-aL9"/>
                                                 </connections>
@@ -1017,7 +1017,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G9j-yO-3rb">
-                                                <rect key="frame" x="0.0" y="192" width="414" height="625"/>
+                                                <rect key="frame" x="0.0" y="199" width="414" height="618"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Percentage you get:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0g9-Pu-Od3">
@@ -2401,6 +2401,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Paypal_2014_logo (1)" width="24" height="24"/>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="ideator-1" width="96" height="96"/>

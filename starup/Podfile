@@ -12,6 +12,7 @@ target 'starup' do
   pod 'DateTools'
   pod 'MBProgressHUD'
   pod 'LinkedinIOSHelper', '~> 1.0.9'
+  pod 'PayPalCheckout'
   
   plugin 'cocoapods-patch'
 

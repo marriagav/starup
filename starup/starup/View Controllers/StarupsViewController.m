@@ -91,6 +91,7 @@ InfiniteScrollActivityView* _loadingMoreViewS;
     //    Refreshes the tableview data with numberOfPosts posts
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Starup"];
+    [query includeKey:@"author"];
     [query orderByDescending:@"createdAt"];
     query.limit = numberOfStarups;
     
