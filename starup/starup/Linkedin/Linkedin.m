@@ -20,8 +20,6 @@
     // If user has already connected via linkedin in and access token is still valid then
     // No need to fetch authorizationCode and then accessToken again!
     
-#warning - To fetch user info  automatically without getting authorization code, accessToken must be still valid
-    
     if (linkedIn.isValidToken) {
         
         // So Fetch member info by elderyly access token
@@ -49,10 +47,15 @@
     
     linkedIn.showActivityIndicator = YES;
     
-#warning - Your LinkedIn App ClientId - ClientSecret - RedirectUrl
+    // Get the keys
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"../Keys" ofType:@"plist"];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
+    NSString *linkedinAPIid = [dict objectForKey:@"linkedinAppID"];
+    NSString *linkedinSecret = [dict objectForKey:@"linkedinSecret"];
+    
     [linkedIn requestMeWithSenderViewController:self
-                                       clientId:@"86j2dodya1oazo"         // Your App Client Id
-                                   clientSecret:@"t9WeE5hll2xaqXnL"         // Your App Client Secret
+                                       clientId:linkedinAPIid         // Your App Client Id
+                                   clientSecret:linkedinSecret       // Your App Client Secret
                                     redirectUrl:@"http://starupcode.com"         // Your App Redirect Url
                                     permissions:permissions
                                           state:@"authState"               // Your client state

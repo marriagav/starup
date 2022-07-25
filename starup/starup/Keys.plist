@@ -2,9 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>consumer_Key</key>
+	<key>parseAppID</key>
+	<string>yXSApxwi30fgyNO9IS2e8dh01qhsQkMglMncAGTC</string>
+	<key>parseClientKey</key>
+	<string>hmgHg9kr41kwOE09H7Au8XcvGLYiAb4TssbUagcA</string>
+	<key>paypalClientID</key>
+	<string>ARTf43soSWvHWiLlSmkNRLo2a3x3CdITh-QrFM0oG7xkk4tqr0cMbL5PGX21P_kOW0WgGxBd6_wFG4QH</string>
+	<key>linkedinAppID</key>
 	<string>86j2dodya1oazo</string>
-	<key>consumer_Secret</key>
+	<key>linkedinSecret</key>
 	<string>t9WeE5hll2xaqXnL</string>
 </dict>
 </plist>

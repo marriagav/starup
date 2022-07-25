@@ -16,16 +16,22 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    // Get the keys
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"../Keys" ofType:@"plist"];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
+    NSString *parseAPIid = [dict objectForKey:@"parseAppID"];
+    NSString *parseKey = [dict objectForKey:@"parseClientKey"];
+    NSString *paypalKey = [dict objectForKey:@"paypalClientID"];
+//    Set Parse configuration
     ParseClientConfiguration *config = [ParseClientConfiguration  configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
         
-        configuration.applicationId = @"yXSApxwi30fgyNO9IS2e8dh01qhsQkMglMncAGTC";
-        configuration.clientKey = @"hmgHg9kr41kwOE09H7Au8XcvGLYiAb4TssbUagcA";
+        configuration.applicationId = parseAPIid;
+        configuration.clientKey = parseKey;
         configuration.server = @"https://parseapi.back4app.com";
     }];
     [Parse initializeWithConfiguration:config];
-    
-    PPCheckoutConfig *paypalConfig = [[PPCheckoutConfig alloc] initWithClientID:@"ARTf43soSWvHWiLlSmkNRLo2a3x3CdITh-QrFM0oG7xkk4tqr0cMbL5PGX21P_kOW0WgGxBd6_wFG4QH" returnUrl:@"com.starupcode.app://paypalpay" createOrder:nil onApprove:nil onShippingChange:nil onCancel:nil onError:nil environment:PPCEnvironmentSandbox];
+//    Set PayPal configuration
+    PPCheckoutConfig *paypalConfig = [[PPCheckoutConfig alloc] initWithClientID:paypalKey returnUrl:@"com.starupcode.app://paypalpay" createOrder:nil onApprove:nil onShippingChange:nil onCancel:nil onError:nil environment:PPCEnvironmentSandbox];
     [PPCheckout setConfig:paypalConfig];
     
     return YES;
