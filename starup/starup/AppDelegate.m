@@ -38,7 +38,7 @@
 }
 
 
-#pragma mark - UISceneSession lifecycle
+#pragma mark - UISceneSession lifecycles
 
 
 - (UISceneConfiguration *)application:(UIApplication *)application configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession options:(UISceneConnectionOptions *)options {
