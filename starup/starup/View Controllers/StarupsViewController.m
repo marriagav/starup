@@ -112,6 +112,7 @@ InfiniteScrollActivityView* _loadingMoreViewS;
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Starup"];
     [query orderByDescending:@"createdAt"];
+    [query includeKey:@"author"];
     query.limit = 20;
 
     // fetch data asynchronously

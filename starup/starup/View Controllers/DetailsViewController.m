@@ -99,6 +99,42 @@
     }
 }
 
+
+- (void) checkIfConnectionExists: (PFUser *)user withCloseness:(int)closenesss{
+    //    checks if two users are already close, if they are, make their connection stronger, if theyre not, create a connection between them
+    PFQuery *query1 = [PFQuery queryWithClassName:@"UserConnection"];
+    [query1 whereKey:@"userOne" equalTo:PFUser.currentUser];
+    [query1 whereKey:@"userTwo" equalTo:user];
+
+    PFQuery *query2 = [PFQuery queryWithClassName:@"UserConnection"];
+    [query1 whereKey:@"userTwo" equalTo:PFUser.currentUser];
+    [query1 whereKey:@"userOne" equalTo:user];
+
+    PFQuery *find = [PFQuery orQueryWithSubqueries:@[query1,query2]];
+    [find includeKey:@"userOne"];
+    [find includeKey:@"userTwo"];
+    
+    [find getFirstObjectInBackgroundWithBlock: ^(PFObject *parseObject, NSError *error) {
+        if (parseObject){
+            float currCloseness = [parseObject[@"closeness"] floatValue];
+            parseObject[@"closeness"] = [NSNumber numberWithFloat: currCloseness+closenesss];
+            [parseObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded && closenesss==1){
+                    [self goToUserProfile:user];
+                }
+            }];
+        }
+        else{
+            //    Posts a user connection
+            [UserConnection postUserConnection:PFUser.currentUser withUserTwo:user withCloseness:@(closenesss) withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if (closenesss==1){
+                    [self goToUserProfile:user];
+                }
+            }];
+        }
+    }];
+}
+
 #pragma mark - CollectionView
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -144,18 +180,14 @@
 #pragma mark - Delegates
 
 - (void)profileCell:(profilesCollectionViewCell *) profileCell didTap: (PFUser *)user{
-    //    Goes to profile page when user taps on profile
-    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    ProfileViewController *profileViewController = [storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
-    // Pass the user
-    profileViewController.user = user;
-    [self presentViewController:navigationController animated:YES completion:nil];
+    //    Posts a user connection and goes to user profile
+    [self checkIfConnectionExists:user withCloseness:1];
 }
 
 - (void)didInvest{
-//    Update starup
+    //    Update starup
     PFQuery *query = [PFQuery queryWithClassName:@"Starup"];
+    [query includeKey:@"author"];
     [query whereKey:@"objectId" equalTo: self.starup.objectId];
     [query findObjectsInBackgroundWithBlock:^(NSArray *starups, NSError *error) {
         if (starups != nil) {
@@ -167,6 +199,8 @@
             [self refreshColletionViewData];
             //    Update ProgressBar
             [self updateProgressBar];
+            //    Update/make connection
+            [self checkIfConnectionExists:self.starup[@"author"] withCloseness:10];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -190,6 +224,16 @@
     // Pass the user
     investController.starup = self.starup;
     investController.delegate = self;
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+- (void)goToUserProfile: (PFUser *)user{
+    //    Goes to profile page when user taps on profile
+    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    ProfileViewController *profileViewController = [storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
+    // Pass the user
+    profileViewController.user = user;
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 

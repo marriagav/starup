@@ -13,6 +13,7 @@
 #import "AddCollaboratorViewController.h"
 #import "Collaborator.h"
 #import "profilesCollectionViewCell.h"
+#import "UserConnection.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

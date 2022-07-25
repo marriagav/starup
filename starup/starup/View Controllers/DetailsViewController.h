@@ -12,6 +12,7 @@
 #import "profilesCollectionViewCell.h"
 #import "ProfileViewController.h"
 #import "InvestViewController.h"
+#import "UserConnection.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

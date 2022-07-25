@@ -77,10 +77,8 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //    Dissables invest button so that the user cant spam it
     self.investButton.enabled = false;
-    
     //    Call to change the starup investment percent
     int newInvestment = [self.starup[@"currentInvestment"] intValue] + [self.investOutlet.text floatValue];
-    
     //    If the user is already a shark, dont duplicate collaborator, only update their ownership
     [self checkIfIsShark:newInvestment];
 }
@@ -100,7 +98,6 @@
 }
 
 - (void)checkIfIsShark: (int)newInvestment{
-    
     PFQuery *find = [PFQuery queryWithClassName:@"Collaborator"];
     [find includeKey:@"user"];
     [find includeKey:@"starup"];

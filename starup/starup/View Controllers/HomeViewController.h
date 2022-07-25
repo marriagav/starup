@@ -11,6 +11,7 @@
 #import "InfiniteScrollActivityView.h"
 #import "ComposePostViewController.h"
 #import "ProfileViewController.h"
+#import "UserConnection.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
