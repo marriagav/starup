@@ -88,10 +88,63 @@
     return 1;
 }
 
-//- (void) Dijkstra{
-//    for (UserConnection* vertex in self.weightedGraph){
+- (void) Dijkstra: (userNode *)source{
+    self.nodesQueue = [[NSMutableArray alloc] initWithArray:self.nodes];
+    source.distanceFromStart = 0;
+//    while ([queue count]>0){
 //
 //    }
-//}
+}
+
+- (userNode *) ExtractSmallest: (NSMutableArray *)nodes{
+    userNode *smallest = nodes[0];
+    for (userNode *node in nodes){
+        if (node.distanceFromStart < smallest.distanceFromStart){
+            smallest = node;
+        }
+    }
+    NSRange r;
+    r.location = 0;
+    r.length = [nodes indexOfObject:smallest];
+    [nodes removeObjectsInRange:r];
+    return smallest;
+}
+
+- (NSMutableArray *) AdjecentRemainingNodes: (userNode*) node {
+    NSMutableArray *adjecentNodes = [[NSMutableArray alloc] init];
+    for (usersEdge *edge in self.edges){
+        userNode *adjecent = nil;
+        if (edge.node1 == node){
+            adjecent = edge.node2;
+        }
+        else if (edge.node2 == node){
+            adjecent = edge.node1;
+        }
+        if (adjecent && [self contains:self.nodesQueue :adjecent]){
+            [adjecentNodes addObject:adjecent];
+        }
+    }
+    return adjecentNodes;
+}
+
+- (int) Distance: (userNode *)nodeOne :(userNode *)nodeTwo{
+    // Return distance between two connected nodes
+    for (usersEdge *edge in self.edges){
+        if ((edge.node1 == nodeOne && edge.node2 == nodeTwo) || (edge.node1 == nodeTwo && edge.node2 == nodeOne)){
+            return edge.closeness;
+        }
+    }
+    return -1;  // should never happen
+}
+
+- (BOOL) contains: (NSMutableArray *)nodes :(userNode *)nodeArg{
+//    Checks if a nodes array contain nodeArg
+    for (userNode *node in nodes){
+        if ([node isEqual: nodeArg]){
+            return YES;
+        }
+    }
+    return NO;
+}
 
 @end

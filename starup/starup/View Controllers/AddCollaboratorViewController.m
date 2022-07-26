@@ -134,6 +134,10 @@ InfiniteScrollActivityView* _loadingMoreViewA;
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
 //    Search usernames in the db
+//    TODO: search usernames in local graph
+//    TODO: IF none are found, search in the server
+//    TODO: only search after the user has stoped typing for 2 seconds
+//    TODO: categorize search results
     if (searchText.length != 0) {
         PFQuery *query = [PFUser query];
         [query whereKey:@"username" containsString:searchText];

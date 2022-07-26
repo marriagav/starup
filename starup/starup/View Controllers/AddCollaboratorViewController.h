@@ -9,6 +9,7 @@
 #import "Parse/Parse.h"
 #import "profileCell.h"
 #import "InfiniteScrollActivityView.h"
+#import "connectionsGraph.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

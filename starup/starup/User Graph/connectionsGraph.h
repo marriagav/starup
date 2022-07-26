@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (connectionsGraph *)sharedInstance;
 
 @property (nonatomic, strong) NSMutableArray *nodes;
+@property (nonatomic, strong) NSMutableArray *nodesQueue;
 @property (nonatomic, strong) NSMutableArray *edges;
 @property BOOL addedUser;
 
