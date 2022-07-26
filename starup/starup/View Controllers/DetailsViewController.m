@@ -122,7 +122,7 @@
                 if (succeeded && closenesss==1){
                     // Add connection to local graph
                     connectionsGraph *graph = [connectionsGraph sharedInstance];
-                    [graph addNode:user withSecondaryConnections:NO];
+                    [graph addNode:user];
                     [self goToUserProfile:user];
                 }
             }];
@@ -133,7 +133,7 @@
                 if (closenesss==1){
                     // Add connection to local graph
                     connectionsGraph *graph = [connectionsGraph sharedInstance];
-                    [graph addNode:user withSecondaryConnections:NO];
+                    [graph addNode:user];
                     [self goToUserProfile:user];
                 }
             }];

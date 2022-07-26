@@ -17,9 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableArray *nodes;
 @property (nonatomic, strong) NSMutableArray *edges;
+@property BOOL addedUser;
 
 - (void) fillGraphWithCloseConnections;
-- (void) addNode: (PFUser *)user withSecondaryConnections: (BOOL)withSecondary;
+- (void) addNode: (PFUser *)user;
 
 @end
 

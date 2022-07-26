@@ -24,17 +24,17 @@
 
 - (void) fillGraphWithCloseConnections{
     //    Fills the graph with the current users close connections
-    [self addNode:PFUser.currentUser withSecondaryConnections:YES];
+    [self addNode:PFUser.currentUser];
 }
 
 - (void) addSecondaryConnections{
     //    Adds secondary connections (connections of connections) to the local graph
     for (userNode *node in self.nodes){
-        [self addNode:node.user withSecondaryConnections:NO];
+        [self addNode:node.user];
     }
 }
 
-- (void) addNode: (PFUser *)user withSecondaryConnections: (BOOL)withSecondary{
+- (void) addNode: (PFUser *)user{
     //    Adds a node to the graph
     PFQuery *query1 = [PFQuery queryWithClassName:@"UserConnection"];
     [query1 whereKey:@"userOne" equalTo:user];
@@ -49,16 +49,15 @@
     // fetch data asynchronously
     [query3 findObjectsInBackgroundWithBlock:^(NSArray *edges, NSError *error) {
         if (edges != nil) {
+            self.addedUser = NO;
             for (UserConnection *edge in edges){
                 userNode *nodeOne = [self checkIfNodeExistsForUser:edge[@"userOne"]];
                 userNode *nodeTwo = [self checkIfNodeExistsForUser:edge[@"userTwo"]];
                 [self checkIfEdgeExistsForNodes:nodeOne :nodeTwo :[edge[@"closeness"] intValue]];
             }
-            if (withSecondary){
+            if ([self.nodes count]<400 && self.addedUser){
                 [self addSecondaryConnections];
             }
-            NSLog(@"%@", self.nodes);
-            NSLog(@"%@", self.edges);
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -73,6 +72,7 @@
     }
     userNode *node = [[userNode alloc]initWithUser:user];
     [self.nodes addObject:node];
+    self.addedUser = YES;
     return node;
 }
 
