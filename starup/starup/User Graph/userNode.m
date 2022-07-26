@@ -9,17 +9,17 @@
 
 @implementation userNode
 
-- (instancetype)initWithUser:(PFUser *)user withVertices:(NSMutableArray *)vertices{
+- (instancetype)initWithUser:(PFUser *)user{
     self = [super init];
     if (self){
         _user = user;
-        _vertices = vertices;
+        _distanceFromStart = INT_MAX;
     }
     return self;
 }
 
 - (instancetype)init {
-    self = [self initWithUser:[[PFUser alloc]init] withVertices:[[NSMutableArray alloc]init]];
+    self = [self initWithUser:[[PFUser alloc]init]];
     return self;
 }
 

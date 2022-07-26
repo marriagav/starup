@@ -14,6 +14,7 @@
 #import "Collaborator.h"
 #import "profilesCollectionViewCell.h"
 #import "UserConnection.h"
+#import "connectionsGraph.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

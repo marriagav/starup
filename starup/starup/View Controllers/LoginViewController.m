@@ -106,17 +106,17 @@
     [query whereKey:@"email" equalTo:self.linkedinEmail];
     query.limit = 1;
     [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
-            if (users != nil) {
-                if (users.count>0){
-                    [self requestUserPassword:NO];
-                }
-                else{
-                    [self requestUserPassword:YES];
-                }
-            } else {
-                NSLog(@"%@", error);
+        if (users != nil) {
+            if (users.count>0){
+                [self requestUserPassword:NO];
             }
-        }];
+            else{
+                [self requestUserPassword:YES];
+            }
+        } else {
+            NSLog(@"%@", error);
+        }
+    }];
 }
 
 #pragma mark - Actions
@@ -224,6 +224,10 @@
     //     display homefeed view
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
+        //    Set graph
+        connectionsGraph *graph = [connectionsGraph sharedInstance];
+        [graph fillGraphWithCloseConnections];
+        //    Change window to homefeed
         UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
         UIViewController *nav = [storyboard instantiateViewControllerWithIdentifier:@"navBar"];
         [nav setModalPresentationStyle:UIModalPresentationFullScreen];

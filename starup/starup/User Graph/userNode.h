@@ -14,9 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface userNode : NSObject
 
 @property (nonatomic, strong) PFUser *user;
+@property (nonatomic, strong) userNode *previous;
+@property int distanceFromStart;
 @property (nonatomic, strong) NSMutableArray *vertices;
 
-- (instancetype)initWithUser:(PFUser *)user withVertices:(NSMutableArray *)vertices;
+- (instancetype)initWithUser:(PFUser *)user;
 
 @end
 

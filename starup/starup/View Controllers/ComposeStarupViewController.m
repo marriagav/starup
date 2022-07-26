@@ -173,8 +173,8 @@
     [query1 whereKey:@"userTwo" equalTo:user];
 
     PFQuery *query2 = [PFQuery queryWithClassName:@"UserConnection"];
-    [query1 whereKey:@"userTwo" equalTo:PFUser.currentUser];
-    [query1 whereKey:@"userOne" equalTo:user];
+    [query2 whereKey:@"userTwo" equalTo:PFUser.currentUser];
+    [query2 whereKey:@"userOne" equalTo:user];
 
     PFQuery *find = [PFQuery orQueryWithSubqueries:@[query1,query2]];
     [find includeKey:@"userOne"];
@@ -184,11 +184,18 @@
         if (parseObject){
             float currCloseness = [parseObject[@"closeness"] floatValue];
             parseObject[@"closeness"] = [NSNumber numberWithFloat: currCloseness+closenesss];
-            [parseObject saveInBackgroundWithBlock:nil];
+            [parseObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                // Add connection to local graph
+                connectionsGraph *graph = [connectionsGraph sharedInstance];
+                [graph addNode:user withSecondaryConnections:NO];
+            }];
         }
         else{
             //    Posts a user connection
             [UserConnection postUserConnection:PFUser.currentUser withUserTwo:user withCloseness:@(closenesss) withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                // Add connection to local graph
+                connectionsGraph *graph = [connectionsGraph sharedInstance];
+                [graph addNode:user withSecondaryConnections:NO];
             }];
         }
     }];

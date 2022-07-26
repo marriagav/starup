@@ -22,6 +22,9 @@
     if (PFUser.currentUser) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         [Linkedin checkIfUserHasLinkedin:PFUser.currentUser.username];
+        //    Set graph
+        connectionsGraph *graph = [connectionsGraph sharedInstance];
+        [graph fillGraphWithCloseConnections];
         self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"navBar"];
     }
 }

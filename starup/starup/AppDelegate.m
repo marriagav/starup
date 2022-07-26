@@ -6,7 +6,6 @@
 //
 
 #import "AppDelegate.h"
-#import "Parse/Parse.h"
 
 @interface AppDelegate ()
 
@@ -33,7 +32,6 @@
 //    Set PayPal configuration
     PPCheckoutConfig *paypalConfig = [[PPCheckoutConfig alloc] initWithClientID:paypalKey returnUrl:@"com.starupcode.app://paypalpay" createOrder:nil onApprove:nil onShippingChange:nil onCancel:nil onError:nil environment:PPCEnvironmentSandbox];
     [PPCheckout setConfig:paypalConfig];
-    
     return YES;
 }
 
