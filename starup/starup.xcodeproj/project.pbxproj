@@ -39,6 +39,8 @@
 		D450F1EF287C9F400000F5D1 /* Algos.m in Sources */ = {isa = PBXBuildFile; fileRef = D450F1EE287C9F400000F5D1 /* Algos.m */; };
 		D450F1F5287CCC040000F5D1 /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = D450F1F4287CCC040000F5D1 /* Post.m */; };
 		D458E85F288F130B004DF020 /* UserConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = D458E85E288F130B004DF020 /* UserConnection.m */; };
+		D458E862288F4E74004DF020 /* userNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D458E861288F4E74004DF020 /* userNode.m */; };
+		D458E866288F5954004DF020 /* connectionsGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = D458E865288F5954004DF020 /* connectionsGraph.m */; };
 		D4ABAA4E2888C75F00EF3B8A /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4ABAA4D2888C75F00EF3B8A /* PasswordViewController.m */; };
 		D4CDEA4E2878A37C00495426 /* PostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CDEA4D2878A37C00495426 /* PostCell.m */; };
 		D4CDEA512878AB7100495426 /* StarupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CDEA502878AB7100495426 /* StarupCell.m */; };
@@ -129,6 +131,10 @@
 		D450F1F4287CCC040000F5D1 /* Post.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
 		D458E85D288F130B004DF020 /* UserConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserConnection.h; sourceTree = "<group>"; };
 		D458E85E288F130B004DF020 /* UserConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserConnection.m; sourceTree = "<group>"; };
+		D458E860288F4E74004DF020 /* userNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = userNode.h; sourceTree = "<group>"; };
+		D458E861288F4E74004DF020 /* userNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = userNode.m; sourceTree = "<group>"; };
+		D458E864288F5954004DF020 /* connectionsGraph.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = connectionsGraph.h; sourceTree = "<group>"; };
+		D458E865288F5954004DF020 /* connectionsGraph.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = connectionsGraph.m; sourceTree = "<group>"; };
 		D4ABAA4C2888C75F00EF3B8A /* PasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordViewController.h; sourceTree = "<group>"; };
 		D4ABAA4D2888C75F00EF3B8A /* PasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PasswordViewController.m; sourceTree = "<group>"; };
 		D4CDEA4C2878A37C00495426 /* PostCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostCell.h; sourceTree = "<group>"; };
@@ -329,6 +335,10 @@
 		D458E85C288F1219004DF020 /* User Graph */ = {
 			isa = PBXGroup;
 			children = (
+				D458E860288F4E74004DF020 /* userNode.h */,
+				D458E861288F4E74004DF020 /* userNode.m */,
+				D458E864288F5954004DF020 /* connectionsGraph.h */,
+				D458E865288F5954004DF020 /* connectionsGraph.m */,
 			);
 			path = "User Graph";
 			sourceTree = "<group>";
@@ -582,6 +592,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4CDEA512878AB7100495426 /* StarupCell.m in Sources */,
+				D458E866288F5954004DF020 /* connectionsGraph.m in Sources */,
 				D40045B9287CE69D001EB588 /* InfiniteScrollActivityView.m in Sources */,
 				D41A9BCB287600D90038852B /* ComposeStarupViewController.m in Sources */,
 				D41A9BCE287600F10038852B /* StarupsViewController.m in Sources */,
@@ -599,6 +610,7 @@
 				D41A9B8E2875F0DB0038852B /* main.m in Sources */,
 				D40045C2287F443C001EB588 /* EditProfileViewController.m in Sources */,
 				D40045C92881D3F4001EB588 /* Collaborator.m in Sources */,
+				D458E862288F4E74004DF020 /* userNode.m in Sources */,
 				D41A9BD1287609210038852B /* RegisterViewController.m in Sources */,
 				D40045BF287F2E1D001EB588 /* profileCell.m in Sources */,
 				D41A9B802875F0DA0038852B /* SceneDelegate.m in Sources */,
