@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) addNode: (PFUser *)user;
 - (NSMutableArray *) GetCloseUsersWithSubstring: (NSString *)searchParameter withNumberOfUsers:(int)numOfUsers;
 - (NSMutableArray *) GetDeepUsersWithSubstring: (NSString *)searchParameter withNumberOfUsers:(int)numOfUsers;
+- (void) resetGraph;
 
 @end
 

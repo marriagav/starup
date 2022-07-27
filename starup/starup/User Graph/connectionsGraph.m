@@ -93,6 +93,11 @@
     return 1;
 }
 
+- (void) resetGraph{
+    [self.nodes removeAllObjects];
+    [self.edges removeAllObjects];
+}
+
 #pragma mark Search
 
 - (NSMutableArray *) GetCloseUsersWithSubstring: (NSString *)searchParameter withNumberOfUsers:(int)numOfUsers{

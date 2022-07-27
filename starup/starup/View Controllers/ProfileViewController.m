@@ -103,6 +103,9 @@ InfiniteScrollActivityView* _loadingMoreViewP;
         }
         else{
             [Linkedin logoutFromLinkedin];
+            // Add connection to local graph
+            connectionsGraph *graph = [connectionsGraph sharedInstance];
+            [graph resetGraph];
             UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
             UIViewController *nav = [storyboard instantiateViewControllerWithIdentifier:@"loginView"];
             [nav setModalPresentationStyle:UIModalPresentationFullScreen];
