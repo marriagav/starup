@@ -20,6 +20,8 @@
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
     //    Persistant sessions
     if (PFUser.currentUser) {
+        UIStoryboard *loadingScreen = [UIStoryboard storyboardWithName:@"LaunchScreen" bundle:nil];
+        self.window.rootViewController = [loadingScreen instantiateViewControllerWithIdentifier:@"launchScreen"];
         [Linkedin checkIfUserHasLinkedin:PFUser.currentUser.username];
         __weak typeof(self) weakSelf = self;
         dispatch_async(dispatch_get_main_queue(), ^{
