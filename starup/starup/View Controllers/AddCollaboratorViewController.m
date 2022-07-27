@@ -138,19 +138,22 @@ InfiniteScrollActivityView* _loadingMoreViewA;
 //    TODO: IF none are found, search in the server
 //    TODO: only search after the user has stoped typing for 2 seconds
 //    TODO: categorize search results
-    if (searchText.length != 0) {
-        PFQuery *query = [PFUser query];
-        [query whereKey:@"username" containsString:searchText];
-        query.limit = 20;
-        [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
-                if (users != nil) {
-                    self.userArray = (NSMutableArray *) users;
-                } else {
-                    NSLog(@"%@", error.localizedDescription);
-                }
-        }];
-    }
+    connectionsGraph *graph = [connectionsGraph sharedInstance];
+    self.userArray = [graph GetUsersWithSubstring:searchText];
     [self.tableView reloadData];
+//    if (searchText.length != 0) {
+//        PFQuery *query = [PFUser query];
+//        [query whereKey:@"username" containsString:searchText];
+//        query.limit = 20;
+//        [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
+//                if (users != nil) {
+//                    self.userArray = (NSMutableArray *) users;
+//                } else {
+//                    NSLog(@"%@", error.localizedDescription);
+//                }
+//        }];
+//    }
+//    [self.tableView reloadData];
 }
 
 #pragma mark - Navigation

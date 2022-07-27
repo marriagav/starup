@@ -18,10 +18,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray *nodes;
 @property (nonatomic, strong) NSMutableArray *nodesQueue;
 @property (nonatomic, strong) NSMutableArray *edges;
+@property (nonatomic, strong) NSMutableArray *searchResults;
 @property BOOL addedUser;
 
 - (void) fillGraphWithCloseConnections;
 - (void) addNode: (PFUser *)user;
+- (NSMutableArray *) GetUsersWithSubstring: (NSString *)searchParameter;
 
 @end
 
