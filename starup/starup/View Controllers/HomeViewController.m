@@ -174,7 +174,7 @@ InfiniteScrollActivityView* _loadingMoreView;
                 if (succeeded){
                     // Add connection to local graph
                     connectionsGraph *graph = [connectionsGraph sharedInstance];
-                    [graph addNode:user :nil];
+                    [graph addUserToGraph:user :nil];
                     [self goToUserProfile:user];
                 }
             }];
@@ -184,7 +184,7 @@ InfiniteScrollActivityView* _loadingMoreView;
             [UserConnection postUserConnection:PFUser.currentUser withUserTwo:user withCloseness:@(closenesss) withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                     // Add connection to local graph
                     connectionsGraph *graph = [connectionsGraph sharedInstance];
-                    [graph addNode:user :nil];
+                    [graph addUserToGraph:user :nil];
                     [self goToUserProfile:user];
             }];
         }

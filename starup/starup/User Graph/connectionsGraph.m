@@ -39,6 +39,19 @@
        });
 }
 
+- (void) addUserToGraph: (PFUser *)user :(void (^ __nullable)(NSError * _Nullable error))completion {
+    //    Fills the graph with the users close connections
+    self.serviceGroup = dispatch_group_create();
+    __weak __typeof(self) weakSelf = self;
+    dispatch_group_enter(self.serviceGroup);
+    [self addNode:user :^(NSError * _Nonnull error) {
+        dispatch_group_leave(weakSelf.serviceGroup);
+    }];
+    dispatch_group_notify(self.serviceGroup,dispatch_get_main_queue(),^{
+           // Now call the final completion block
+       });
+}
+
 - (void) addSecondaryConnections{
     //    Adds secondary connections (connections of connections) to the local graph
     for (userNode *node in self.nodes){

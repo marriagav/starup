@@ -7,7 +7,7 @@
 
 #import "ProfileViewController.h"
 
-@interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditProfileViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, starupCollectionViewCellDelegate>
+@interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditProfileViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, starupCollectionViewCellDelegate, UISearchBarDelegate>
 
 @end
 
@@ -37,6 +37,8 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     // Initialize a UIRefreshControlBottom
     self.currentMax = 20;
     [self _initializeRefreshControlB];
+    //    Initialize search bar
+    [self setSearchBar];
 }
 
 - (void)setOutlets{
@@ -47,6 +49,15 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     [self.profilePicture loadInBackground];
     //    Format the profile picture
     [Algos formatPictureWithRoundedEdges:self.profilePicture];
+}
+
+- (void)setSearchBar {
+    self.searchBar = [[UISearchBar alloc] init];
+    [self.searchBar sizeToFit];
+    self.navigationItem.titleView = self.searchBar;
+    self.searchBar.delegate = self;
+    self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.searchBar.placeholder = @"Search by username...";
 }
 
 - (void)prepAccordingToUser{
@@ -333,8 +344,6 @@ InfiniteScrollActivityView* _loadingMoreViewP;
 
 #pragma mark - CollectionView
 
-//TODO: setup collection view
-
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.collaboratorArray.count;
 }
@@ -347,6 +356,24 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     cell.collaborator = collaborator;
     cell.delegate = self;
     return cell;
+}
+
+#pragma mark - SearchBar
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    self.searchBar.showsCancelButton = YES;
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    self.searchBar.showsCancelButton = NO;
+    self.searchBar.text = @"";
+    [self.searchBar resignFirstResponder];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    // to limit network activity, reload half a second after last key press.
+//    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(searchForSubstring:) object:searchText];
+//    [self performSelector:@selector(searchForSubstring:) withObject:searchText afterDelay:0.5];
 }
 
 @end
