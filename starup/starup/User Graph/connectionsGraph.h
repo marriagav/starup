@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "userNode.h"
 #import "usersEdge.h"
+#import "Algos.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,7 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) fillGraphWithCloseConnections;
 - (void) addNode: (PFUser *)user;
-- (NSMutableArray *) GetUsersWithSubstring: (NSString *)searchParameter;
+- (NSMutableArray *) GetCloseUsersWithSubstring: (NSString *)searchParameter withNumberOfUsers:(int)numOfUsers;
+- (NSMutableArray *) GetDeepUsersWithSubstring: (NSString *)searchParameter withNumberOfUsers:(int)numOfUsers;
 
 @end
 

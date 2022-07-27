@@ -76,4 +76,13 @@
     return string;
 }
 
++(BOOL)userInArray:(PFUser *)user1 withArray:(NSMutableArray *)array{
+    for (PFUser* user in array){
+        if ([user.username isEqual:user1.username]){
+            return YES;
+        }
+    }
+    return NO;
+}
+
 @end

@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (float)percentageWithNumbers: (double) current :(double) total;
 + (NSString*)firstObjectFromDict: (NSDictionary *) dict;
 + (NSString*)generateRandomString:(int)num;
++(BOOL)userInArray:(PFUser *)user1 withArray:(NSMutableArray *)array;
 
 @end
 

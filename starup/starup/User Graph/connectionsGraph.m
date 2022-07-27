@@ -61,6 +61,7 @@
             if ([self.nodes count]<400 && self.addedUser){
                 [self addSecondaryConnections];
             }
+            [self Dijkstra:[self checkIfNodeExistsForUser:PFUser.currentUser]];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -69,6 +70,7 @@
 
 - (userNode*) checkIfNodeExistsForUser: (PFUser *)user{
     for (userNode *node in self.nodes){
+        node.distanceFromStart = INT_MAX;
         if ([node.user[@"username"] isEqual:user.username]){
             return node;
         }
@@ -91,20 +93,78 @@
     return 1;
 }
 
+#pragma mark Search
+
+- (NSMutableArray *) GetCloseUsersWithSubstring: (NSString *)searchParameter withNumberOfUsers:(int)numOfUsers{
+    [self.searchResults removeAllObjects];
+    int count = 0;
+    if ([searchParameter isEqual:@""]){
+        for (userNode *node in self.nodes){
+            if (count == numOfUsers){
+                return self.searchResults;
+            }
+            [self.searchResults addObject:node.user];
+            count+=1;
+        }
+    }
+    else {
+        for (userNode *node in self.nodes){
+            if ([node.user.username containsString:searchParameter] || [node.user[@"firstame"] containsString:searchParameter] || [node.user[@"lastname"] containsString:searchParameter]){
+                if (count == numOfUsers){
+                    return self.searchResults;
+                }
+                [self.searchResults addObject:node.user];
+                count+=1;
+            }
+        }
+    }
+    return self.searchResults;
+}
+
+- (NSMutableArray *) GetDeepUsersWithSubstring: (NSString *)searchParameter withNumberOfUsers:(int)numOfUsers{
+    int count = 0;
+    NSMutableArray *subarray = [self.nodes mutableCopy];
+    for (userNode *node in self.nodes){
+        if ([Algos userInArray:node.user withArray:self.searchResults]){
+            [subarray removeObject:node];
+        }
+    }
+    [self.searchResults removeAllObjects];
+    if ([searchParameter isEqual:@""]){
+        for (userNode *node in subarray){
+            if (count == numOfUsers){
+                return self.searchResults;
+            }
+            [self.searchResults addObject:node.user];
+            count+=1;
+        }
+    }
+    else {
+        for (userNode *node in subarray){
+            if ([node.user.username containsString:searchParameter] || [node.user[@"firstame"] containsString:searchParameter] || [node.user[@"lastname"] containsString:searchParameter]){
+                if (count == numOfUsers){
+                    return self.searchResults;
+                }
+                [self.searchResults addObject:node.user];
+                count+=1;
+            }
+        }
+    }
+    return self.searchResults;
+}
+
 #pragma mark Dijkstra
 
-- (NSMutableArray *) GetUsersWithSubstring: (NSString *)searchParameter{
-    [self.searchResults removeAllObjects];
-    userNode *current = [self checkIfNodeExistsForUser:PFUser.currentUser];
-    [self Dijkstra:current];
-    //    while (current!= nil){
-    //        if ([current.user.username containsString:searchParameter]){
-    //            NSLog(@"%@", current.user.username);
-    //            [self.searchResults addObject:current.user];
-    //        }
-    //        current = current.previous;
-    //    }
-    return self.searchResults;
+- (void) SortGraphWithDistances{
+    [self.nodes sortUsingComparator:^NSComparisonResult(userNode* node1, userNode* node2) {
+        if (node1.distanceFromStart > node2.distanceFromStart) {
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+        if (node1.distanceFromStart < node2.distanceFromStart) {
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        return (NSComparisonResult)NSOrderedSame;
+    }];
 }
 
 - (void) Dijkstra: (userNode *)source{
@@ -122,6 +182,8 @@
         }
         adjecentNodes = nil;
     }
+    [self.nodesQueue removeAllObjects];
+    [self SortGraphWithDistances];
 }
 
 - (userNode *) ExtractSmallest{
@@ -174,52 +236,5 @@
     }
     return NO;
 }
-
-//- (NSMutableArray *) quickSort: (NSMutableArray *)toSort{
-//
-//    int intLength = toSort.count;
-//    if (intLength == 0){
-//        return toSort;
-//    }
-//    else if (intLength == 1){
-//        return toSort;
-//    }else if (intLength==2){
-//        if ([toSort[0] doubleValue] <= [toSort[1] doubleValue]) {
-//            return toSort;
-//        }else{
-//            NSNumber *temp = [toSort objectAtIndex:0];
-//            [toSort replaceObjectAtIndex:0 withObject:[toSort objectAtIndex:1]];
-//            [toSort replaceObjectAtIndex:1 withObject:temp];
-//            return toSort;
-//        }
-//    }
-//
-//    int r = arc4random_uniform(intLength);
-//    double pivot = [[toSort objectAtIndex:r] doubleValue];
-//
-//    NSMutableArray *lowArray = [NSMutableArray array];
-//    NSMutableArray *highArray = [NSMutableArray array];
-//    NSMutableArray *equalArray = [NSMutableArray array];
-//    for(int i = 0; i < intLength; i++){
-//        double arrayMember = [[toSort objectAtIndex:i] doubleValue];
-//        if (arrayMember < pivot) {
-//            [lowArray addObject:[NSNumber numberWithDouble:arrayMember]];
-//        }else if (arrayMember > pivot){
-//            [highArray addObject:[NSNumber numberWithDouble:arrayMember]];
-//        }else{
-//            [equalArray addObject:[NSNumber numberWithDouble:arrayMember]];
-//        }
-//    }
-//
-//    NSMutableArray *returnLeft = [self quickSort:lowArray];
-//    NSMutableArray *returnRight = [self quickSort:highArray];
-//
-//    NSMutableArray *returnArray = returnLeft;
-//    [returnArray addObjectsFromArray:equalArray];
-//    [returnArray addObjectsFromArray:returnRight];
-//
-//    return returnArray;
-//
-//}
 
 @end
