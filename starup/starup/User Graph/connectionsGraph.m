@@ -25,20 +25,34 @@
 
 #pragma mark Fill the graph
 
-- (void) fillGraphWithCloseConnections{
+- (void) fillGraphWithCloseConnections :(void (^ __nullable)(NSError * _Nullable error))completion {
     //    Fills the graph with the current users close connections
-    [self addNode:PFUser.currentUser];
+    self.serviceGroup = dispatch_group_create();
+    __weak __typeof(self) weakSelf = self;
+    dispatch_group_enter(self.serviceGroup);
+    [self addNode:PFUser.currentUser :^(NSError * _Nonnull error) {
+        dispatch_group_leave(weakSelf.serviceGroup);
+    }];
+    dispatch_group_notify(self.serviceGroup,dispatch_get_main_queue(),^{
+           // Now call the final completion block
+           completion(nil);
+       });
 }
 
 - (void) addSecondaryConnections{
     //    Adds secondary connections (connections of connections) to the local graph
     for (userNode *node in self.nodes){
-        [self addNode:node.user];
+        dispatch_group_enter(self.serviceGroup);
+        __weak __typeof(self) weakSelf = self;
+        [self addNode:node.user :^(NSError * _Nonnull error) {
+            dispatch_group_leave(weakSelf.serviceGroup);
+        }];
     }
 }
 
-- (void) addNode: (PFUser *)user{
+- (void) addNode: (PFUser *)user :(void (^ __nullable)(NSError * _Nullable error))completion{
     //    Adds a node to the graph
+    
     PFQuery *query1 = [PFQuery queryWithClassName:@"UserConnection"];
     [query1 whereKey:@"userOne" equalTo:user];
     
@@ -62,6 +76,7 @@
                 [self addSecondaryConnections];
             }
             [self Dijkstra:[self checkIfNodeExistsForUser:PFUser.currentUser]];
+            completion(nil);
         } else {
             NSLog(@"%@", error.localizedDescription);
         }

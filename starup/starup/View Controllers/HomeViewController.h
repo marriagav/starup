@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *postArray;
+@property (strong, nonatomic) NSMutableArray *closeConnectionsArray;
 @property (nonatomic) int currentMax;
 
 @end

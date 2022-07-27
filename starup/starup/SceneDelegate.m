@@ -20,12 +20,16 @@
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
     //    Persistant sessions
     if (PFUser.currentUser) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         [Linkedin checkIfUserHasLinkedin:PFUser.currentUser.username];
-        //    Set graph
-        connectionsGraph *graph = [connectionsGraph sharedInstance];
-        [graph fillGraphWithCloseConnections];
-        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"navBar"];
+        __weak typeof(self) weakSelf = self;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //    Set graph
+            connectionsGraph *graph = [connectionsGraph sharedInstance];
+            [graph fillGraphWithCloseConnections:^(NSError * _Nullable error) {
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                weakSelf.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"navBar"];
+            }];
+        });
     }
 }
 

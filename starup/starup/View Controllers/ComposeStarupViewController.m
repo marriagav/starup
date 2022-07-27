@@ -187,7 +187,7 @@
             [parseObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 // Add connection to local graph
                 connectionsGraph *graph = [connectionsGraph sharedInstance];
-                [graph addNode:user];
+                [graph addNode:user :nil];
             }];
         }
         else{
@@ -195,7 +195,7 @@
             [UserConnection postUserConnection:PFUser.currentUser withUserTwo:user withCloseness:@(closenesss) withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                 // Add connection to local graph
                 connectionsGraph *graph = [connectionsGraph sharedInstance];
-                [graph addNode:user];
+                [graph addNode:user :nil];
             }];
         }
     }];

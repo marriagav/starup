@@ -24,13 +24,13 @@ InfiniteScrollActivityView* _loadingMoreView;
     //  Initiallize delegate and datasource of the tableview to self
     self.tableView.dataSource=self;
     self.tableView.delegate=self;
+    self.closeConnectionsArray = [[NSMutableArray alloc] init];
     [self refreshDataWithNPosts:20];
     // Initialize a UIRefreshControl
     [self _initializeRefreshControl];
     // Initialize a UIRefreshControlBottom
     self.currentMax = 20;
     [self _initializeRefreshControlB];
-    
 }
 
 #pragma mark - QualityOfLife
@@ -88,44 +88,68 @@ InfiniteScrollActivityView* _loadingMoreView;
 
 #pragma mark - Network
 
-- (void)refreshDataWithNPosts:(int) numberOfPosts {
-    //    Refreshes the tableview data with numberOfPosts posts
-    // construct query
+- (void)buildCloseConnectionsArray{
+    connectionsGraph *graph = [connectionsGraph sharedInstance];
+    for (userNode* node in graph.nodes){
+        [self.closeConnectionsArray addObject:node.user];
+    }
+}
+
+- (void)addCloseConnectionsPosts: (int) numberOfPosts :(UIRefreshControl *)refreshControl{
+    //    Refreshes the tableview data with numberOfPosts posts from close connections
+    [self buildCloseConnectionsArray];
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"author"];
+    [query whereKey:@"author" containedIn:self.closeConnectionsArray];
     query.limit = numberOfPosts;
     
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (posts != nil) {
             self.postArray = (NSMutableArray *) posts;
+            int postsLeftToadd = numberOfPosts - (int)[posts count];
+            if (postsLeftToadd>=1){
+                [self addNotCloseConnectionsPosts:postsLeftToadd :refreshControl];
+            }
             [self.tableView reloadData];
+            [refreshControl endRefreshing];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
     }];
+}
+
+- (void)addNotCloseConnectionsPosts: (int)numberOfPosts :(UIRefreshControl *)refreshControl{
+    // construct query
+    PFQuery *query = [PFQuery queryWithClassName:@"Post"];
+    [query orderByDescending:@"createdAt"];
+    [query includeKey:@"author"];
+    [query whereKey:@"author" notContainedIn:self.closeConnectionsArray];
+    query.limit = numberOfPosts;
     
+    // fetch data asynchronously
+    [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
+        if (posts != nil) {
+            [self.postArray addObjectsFromArray:(NSMutableArray *) posts];
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+        if (refreshControl){
+            [refreshControl endRefreshing];
+        }
+    }];
+}
+
+- (void)refreshDataWithNPosts:(int) numberOfPosts {
+    [self addCloseConnectionsPosts:numberOfPosts :nil];
 }
 
 - (void)_beginRefresh:(UIRefreshControl *)refreshControl {
 //    Refreshes the data using the UIRefreshControl
     // construct query
-    PFQuery *query = [PFQuery queryWithClassName:@"Post"];
-    [query orderByDescending:@"createdAt"];
-    [query includeKey:@"author"];
-    query.limit = 20;
-
-    // fetch data asynchronously
-    [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
-        if (posts != nil) {
-            self.postArray = (NSMutableArray *) posts;
-            [self.tableView reloadData];
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-        }
-        [refreshControl endRefreshing];
-    }];
+    [self addCloseConnectionsPosts:20 :refreshControl];
 }
 
 - (void) checkIfConnectionExists: (PFUser *)user withCloseness:(int)closenesss{
@@ -150,7 +174,7 @@ InfiniteScrollActivityView* _loadingMoreView;
                 if (succeeded){
                     // Add connection to local graph
                     connectionsGraph *graph = [connectionsGraph sharedInstance];
-                    [graph addNode:user];
+                    [graph addNode:user :nil];
                     [self goToUserProfile:user];
                 }
             }];
@@ -160,7 +184,7 @@ InfiniteScrollActivityView* _loadingMoreView;
             [UserConnection postUserConnection:PFUser.currentUser withUserTwo:user withCloseness:@(closenesss) withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                     // Add connection to local graph
                     connectionsGraph *graph = [connectionsGraph sharedInstance];
-                    [graph addNode:user];
+                    [graph addNode:user :nil];
                     [self goToUserProfile:user];
             }];
         }

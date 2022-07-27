@@ -226,12 +226,13 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         //    Set graph
         connectionsGraph *graph = [connectionsGraph sharedInstance];
-        [graph fillGraphWithCloseConnections];
-        //    Change window to homefeed
-        UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        UIViewController *nav = [storyboard instantiateViewControllerWithIdentifier:@"navBar"];
-        [nav setModalPresentationStyle:UIModalPresentationFullScreen];
-        [weakSelf.navigationController presentViewController:nav animated:YES completion:nil];
+        [graph fillGraphWithCloseConnections:^(NSError * _Nullable error) {
+            //    Change window to homefeed
+            UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            UIViewController *nav = [storyboard instantiateViewControllerWithIdentifier:@"navBar"];
+            [nav setModalPresentationStyle:UIModalPresentationFullScreen];
+            [weakSelf.navigationController presentViewController:nav animated:YES completion:nil];
+        }];
     });
 }
 
