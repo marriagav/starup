@@ -24,11 +24,11 @@ InfiniteScrollActivityView* _loadingMoreViewA;
     //  Initiallize delegate and datasource of the tableview to self
     self.tableView.dataSource=self;
     self.tableView.delegate=self;
-//    Initialize the user matrix
+    //    Initialize the user matrix
     [self initializeMatrix];
     [self.tableView reloadData];
     [self refreshDataWithNUsers:20];
-//    Initialize search bar
+    //    Initialize search bar
     [self setSearchBar];
     // Initialize a UIRefreshControlBottom
     [self _initializeRefreshControlB];
@@ -57,7 +57,7 @@ InfiniteScrollActivityView* _loadingMoreViewA;
 #pragma mark - QualityOfLife
 
 - (void)_initializeRefreshControlB{
-//    Initialices and inserts the refresh control
+    //    Initialices and inserts the refresh control
     // Set up Infinite Scroll loading indicator
     CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
     _loadingMoreViewA = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
@@ -108,9 +108,10 @@ InfiniteScrollActivityView* _loadingMoreViewA;
     self.userMatrix[1] = [[graph GetDeepUsersWithSubstring:@"" withNumberOfUsers:5] mutableCopy];
     [self.tableView reloadData];
     // construct query
-    PFQuery *query = [PFUser query];
-    query.limit = numberOfUsers;
-    [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
+    if ([self.userMatrix[0] count]<3 || [self.userMatrix[1] count]<3){
+        PFQuery *query = [PFUser query];
+        query.limit = numberOfUsers;
+        [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
             if (users != nil) {
                 [self.userMatrix[2] removeAllObjects];
                 for (PFUser* user in users){
@@ -123,6 +124,7 @@ InfiniteScrollActivityView* _loadingMoreViewA;
                 NSLog(@"%@", error.localizedDescription);
             }
         }];
+    }
 }
 
 #pragma mark - TableView
@@ -130,7 +132,7 @@ InfiniteScrollActivityView* _loadingMoreViewA;
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UILabel *label = [[UILabel alloc]init];
     if (section == 0){
-        label.text = @"Connections";
+        label.text = @"Recommended";
     }
     else if (section == 1){
         label.text = @"You may know";
@@ -160,7 +162,7 @@ InfiniteScrollActivityView* _loadingMoreViewA;
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     //    initialize cell (profileCell) to a reusable cell using the PostCell identifier
     profileCell *cell = [tableView
-                      dequeueReusableCellWithIdentifier: @"profileCell"];
+                         dequeueReusableCellWithIdentifier: @"profileCell"];
     //    get the user and assign it to the cell
     PFUser *user = self.userMatrix[indexPath.section][indexPath.row];
     cell.user=user;
@@ -181,34 +183,52 @@ InfiniteScrollActivityView* _loadingMoreViewA;
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-//    Search usernames in the db
-//    TODO: only search after the user has stoped typing for 1 seconds
-    if (searchText.length != 0) {
-//        Refresh local connections
-        connectionsGraph *graph = [connectionsGraph sharedInstance];
-        self.userMatrix[0] = [[graph GetCloseUsersWithSubstring:searchText withNumberOfUsers:5] mutableCopy];
-        [self.tableView reloadData];
-        self.userMatrix[1] = [[graph GetDeepUsersWithSubstring:searchText withNumberOfUsers:5] mutableCopy];
-        [self.tableView reloadData];
-//        Refresh server connections
-        PFQuery *query = [PFUser query];
-        [query whereKey:@"username" containsString:searchText];
-        query.limit = 20;
-        [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
-                if (users != nil) {
-                    [self.userMatrix[2] removeAllObjects];
-                    for (PFUser* user in users){
-                        if ((!([Algos userInArray:user withArray:self.userMatrix[0]]))&&(!([Algos userInArray:user withArray:self.userMatrix[1]]))){
-                            [self.userMatrix[2] addObject:user];
-                        }
-                    }
-                    [self.tableView reloadData];
-                } else {
-                    NSLog(@"%@", error.localizedDescription);
-                }
-        }];
+    // to limit network activity, reload half a second after last key press.
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(searchForSubstring:) object:searchText];
+    [self performSelector:@selector(searchForSubstring:) withObject:searchText afterDelay:0.5];
+}
+
+#pragma mark - Search
+-(void)searchForSubstring: (NSString *)searchText {
+    [self localCloseSearch:searchText];
+    [self localDeepSearch:searchText];
+    if ([self.userMatrix[0] count]<1 || [self.userMatrix[1] count]<1){
+        [self serverSearch:searchText];
     }
+}
+
+- (void) localCloseSearch: (NSString *)searchText {
+    //        Refresh local connections
+    connectionsGraph *graph = [connectionsGraph sharedInstance];
+    self.userMatrix[0] = [[graph GetCloseUsersWithSubstring:searchText withNumberOfUsers:5] mutableCopy];
     [self.tableView reloadData];
+}
+
+- (void) localDeepSearch: (NSString *)searchText {
+    //        Refresh local connections
+    connectionsGraph *graph = [connectionsGraph sharedInstance];
+    self.userMatrix[1] = [[graph GetDeepUsersWithSubstring:searchText withNumberOfUsers:5] mutableCopy];
+    [self.tableView reloadData];
+}
+
+-(void) serverSearch: (NSString *)searchText{
+    //        Refresh server connections
+    PFQuery *query = [PFUser query];
+    [query whereKey:@"username" containsString:searchText];
+    query.limit = 20;
+    [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
+        if (users != nil) {
+            [self.userMatrix[2] removeAllObjects];
+            for (PFUser* user in users){
+                if ((!([Algos userInArray:user withArray:self.userMatrix[0]]))&&(!([Algos userInArray:user withArray:self.userMatrix[1]]))){
+                    [self.userMatrix[2] addObject:user];
+                }
+            }
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
 }
 
 #pragma mark - Navigation
