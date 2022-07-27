@@ -138,7 +138,12 @@ InfiniteScrollActivityView* _loadingMoreViewA;
     else if (section == 2){
         label.text = @"Discover";
     }
+    label.font = [UIFont boldSystemFontOfSize:14];
     return label;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 34;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
