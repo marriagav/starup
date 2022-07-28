@@ -18,8 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property int closeness;
 @property (nonatomic, strong) NSMutableArray *vertices;
 
-- (instancetype)initWithNodes:(UserNode *)node1:(UserNode *)node2
-                             :(int)closeness;
+- (instancetype)initWithNodes:(UserNode *)node1 node2:(UserNode *)node2
+                    closeness:(int)closeness;
 
 @end
 

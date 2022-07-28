@@ -133,7 +133,7 @@
             return 0;
         }
     }
-    UsersEdge *edgeToAdd = [[UsersEdge alloc] initWithNodes:nodeOne:nodeTwo:closeness];
+    UsersEdge *edgeToAdd = [[UsersEdge alloc] initWithNodes:nodeOne node2:nodeTwo closeness:closeness];
     [self.edges addObject:edgeToAdd];
     return 1;
 }

@@ -10,8 +10,8 @@
 
 @implementation UsersEdge
 
-- (instancetype)initWithNodes:(UserNode *)node1:(UserNode *)node2
-                             :(int)closeness
+- (instancetype)initWithNodes:(UserNode *)node1 node2:(UserNode *)node2
+                    closeness:(int)closeness
 {
     self = [super init];
     if (self) {
@@ -24,7 +24,7 @@
 
 - (instancetype)init
 {
-    self = [self initWithNodes:[[UserNode alloc] init]:[[UserNode alloc] init]:0];
+    self = [self initWithNodes:[[UserNode alloc] init] node2:[[UserNode alloc] init] closeness:0];
     return self;
 }
 

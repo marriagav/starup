@@ -103,7 +103,7 @@ InfiniteScrollActivityView *_loadingMoreView;
     }
 }
 
-- (void)addCloseConnectionsPosts:(int)numberOfPosts:(UIRefreshControl *)refreshControl
+- (void)addCloseConnectionsPosts:(int)numberOfPosts withRefreshControl:(UIRefreshControl *)refreshControl
 {
     //    Refreshes the tableview data with numberOfPosts posts from close connections
     [self buildCloseConnectionsArray];
@@ -119,7 +119,7 @@ InfiniteScrollActivityView *_loadingMoreView;
             self.postArray = (NSMutableArray *)posts;
             int postsLeftToadd = numberOfPosts - (int)[posts count];
             if (postsLeftToadd >= 1) {
-                [self addNotCloseConnectionsPosts:postsLeftToadd:refreshControl];
+                [self addNotCloseConnectionsPosts:postsLeftToadd withRefreshControl:refreshControl];
             }
             [self.tableView reloadData];
             [refreshControl endRefreshing];
@@ -129,7 +129,7 @@ InfiniteScrollActivityView *_loadingMoreView;
     }];
 }
 
-- (void)addNotCloseConnectionsPosts:(int)numberOfPosts:(UIRefreshControl *)refreshControl
+- (void)addNotCloseConnectionsPosts:(int)numberOfPosts withRefreshControl:(UIRefreshControl *)refreshControl
 {
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
@@ -154,14 +154,14 @@ InfiniteScrollActivityView *_loadingMoreView;
 
 - (void)refreshDataWithNPosts:(int)numberOfPosts
 {
-    [self addCloseConnectionsPosts:numberOfPosts:nil];
+    [self addCloseConnectionsPosts:numberOfPosts withRefreshControl:nil];
 }
 
 - (void)beginRefresh:(UIRefreshControl *)refreshControl
 {
     //    Refreshes the data using the UIRefreshControl
     // construct query
-    [self addCloseConnectionsPosts:20:refreshControl];
+    [self addCloseConnectionsPosts:20 withRefreshControl:refreshControl];
 }
 
 - (void)checkIfConnectionExists:(PFUser *)user withCloseness:(int)closenesss
