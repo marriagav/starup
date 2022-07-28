@@ -142,11 +142,11 @@ InfiniteScrollActivityView *_loadingMoreViewA;
 {
     UILabel *label = [[UILabel alloc] init];
     if (section == 0) {
-        label.text = @"Recommended";
+        label.text = @"     Recommended";
     } else if (section == 1) {
-        label.text = @"You may know";
+        label.text = @"     You may know";
     } else if (section == 2) {
-        label.text = @"Discover";
+        label.text = @"     Discover";
     }
     label.font = [UIFont boldSystemFontOfSize:14];
     return label;

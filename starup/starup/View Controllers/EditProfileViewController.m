@@ -28,6 +28,7 @@
     gestureRecognizer.cancelsTouchesInView = NO;
     // For the textfield placeholder to work
     self.userBio.delegate = self;
+    self.typeHere.hidden = (self.userBio.text.length > 0);
 }
 
 - (void)setOutlets
