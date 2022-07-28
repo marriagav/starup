@@ -12,6 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface ConnectionsGraph : NSObject
 
 + (ConnectionsGraph *)sharedInstance;
@@ -23,11 +24,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL addedUser;
 @property dispatch_group_t serviceGroup;
 
-- (void) fillGraphWithCloseConnections :(void (^ __nullable)(NSError * _Nullable error))completion;
-- (void) addUserToGraph: (PFUser *)user :(void (^ __nullable)(NSError * _Nullable error))completion;
-- (NSMutableArray *) GetCloseUsersWithSubstring: (NSString *)searchParameter withNumberOfUsers:(int)numOfUsers;
-- (NSMutableArray *) GetDeepUsersWithSubstring: (NSString *)searchParameter withNumberOfUsers:(int)numOfUsers;
-- (void) resetGraph;
+- (void)fillGraphWithCloseConnections:(void (^__nullable)(NSError *_Nullable error))completion;
+- (void)addUserToGraph:(PFUser *)user:(void (^__nullable)(NSError *_Nullable error))completion;
+- (NSMutableArray *)GetCloseUsersWithSubstring:(NSString *)searchParameter withNumberOfUsers:(int)numOfUsers;
+- (NSMutableArray *)GetDeepUsersWithSubstring:(NSString *)searchParameter withNumberOfUsers:(int)numOfUsers;
+- (void)resetGraph;
 
 @end
 

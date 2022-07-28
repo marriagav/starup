@@ -7,6 +7,7 @@
 
 #import "Starup.h"
 
+
 @implementation Starup
 
 @dynamic starupID;
@@ -22,13 +23,15 @@
 @dynamic starupImage;
 @dynamic currentInvestment;
 
-+ (nonnull NSString *)parseClassName {
++ (nonnull NSString *)parseClassName
+{
     return @"Starup";
 }
 
-+ (void) postStarup: ( NSString * _Nullable )starupName withCategory: ( NSString * _Nullable )starupCategory withDescription: ( NSString * _Nullable )starupDescription withImage:( UIImage * _Nullable )starupImage withOperationSince: ( NSDate * _Nullable )operatingSince withSales: ( int )sales withGoalInvestment: ( int )goalInvestment withPercentageToGive: ( int )percentageToGive withCompletion: (void (^)(Starup *starup, NSError *error))completion {
-//    Method to set the properties of the starup
-    Starup *newStarup= [[Starup alloc]initWithClassName:@"Starup"];
++ (void)postStarup:(NSString *_Nullable)starupName withCategory:(NSString *_Nullable)starupCategory withDescription:(NSString *_Nullable)starupDescription withImage:(UIImage *_Nullable)starupImage withOperationSince:(NSDate *_Nullable)operatingSince withSales:(int)sales withGoalInvestment:(int)goalInvestment withPercentageToGive:(int)percentageToGive withCompletion:(void (^)(Starup *starup, NSError *error))completion
+{
+    //    Method to set the properties of the starup
+    Starup *newStarup = [[Starup alloc] initWithClassName:@"Starup"];
     newStarup.starupImage = [Algos getPFFileFromImage:starupImage];
     newStarup.author = [PFUser currentUser];
     newStarup.starupName = starupName;
@@ -36,10 +39,10 @@
     newStarup.starupDescription = starupDescription;
     newStarup.operatingSince = operatingSince;
     newStarup.sales = sales;
-    newStarup.goalInvestment= goalInvestment;
+    newStarup.goalInvestment = goalInvestment;
     newStarup.currentInvestment = 0;
     newStarup.percentageToGive = percentageToGive;
-    [newStarup saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+    [newStarup saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
         completion(newStarup, error);
     }];
 }

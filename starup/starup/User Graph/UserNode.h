@@ -11,6 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface UserNode : NSObject
 
 @property (nonatomic, strong) PFUser *user;

@@ -7,11 +7,13 @@
 
 #import "ConnectionsGraph.h"
 
+
 @implementation ConnectionsGraph
 
 #pragma mark Initialize
 
-+ ( ConnectionsGraph * )sharedInstance {
++ (ConnectionsGraph *)sharedInstance
+{
     static dispatch_once_t predicate;
     static ConnectionsGraph *sharedInstance = nil;
     dispatch_once(&predicate, ^{
@@ -25,70 +27,79 @@
 
 #pragma mark Fill the graph
 
-- (void) fillGraphWithCloseConnections :(void (^ __nullable)(NSError * _Nullable error))completion {
+- (void)fillGraphWithCloseConnections:(void (^__nullable)(NSError *_Nullable error))completion
+{
     //    Fills the graph with the current users close connections
     self.serviceGroup = dispatch_group_create();
     __weak __typeof(self) weakSelf = self;
     dispatch_group_enter(self.serviceGroup);
-    [weakSelf addNode:PFUser.currentUser :YES :^(NSError * _Nonnull error) {
+    [weakSelf addNode:PFUser.currentUser:YES:^(NSError *_Nonnull error) {
         dispatch_group_leave(weakSelf.serviceGroup);
     }];
-    dispatch_group_notify(self.serviceGroup,dispatch_get_main_queue(),^{
-           // Now call the final completion block
-           completion(nil);
-       });
+    dispatch_group_notify(self.serviceGroup, dispatch_get_main_queue(), ^{
+        // Now call the final completion block
+        completion(nil);
+    });
 }
 
-- (void) addUserToGraph: (PFUser *)user :(void (^ __nullable)(NSError * _Nullable error))completion {
+- (void)addUserToGraph:(PFUser *)user:(void (^__nullable)(NSError *_Nullable error))completion
+{
     //    Fills the graph with the users close connections
-    [self addNode:user :NO :^(NSError * _Nonnull error) {nil;}];
+    [self addNode:user:NO:^(NSError *_Nonnull error) {
+        nil;
+    }];
 }
 
-- (void) addSecondaryConnectionsLoading{
+- (void)addSecondaryConnectionsLoading
+{
     //    Adds secondary connections (connections of connections) to the local graph
-    for (UserNode *node in self.nodes){
+    for (UserNode *node in self.nodes) {
         dispatch_group_enter(self.serviceGroup);
         __weak __typeof(self) weakSelf = self;
-        [self addNode:node.user :YES :^(NSError * _Nonnull error) {
+        [self addNode:node.user:YES:^(NSError *_Nonnull error) {
             dispatch_group_leave(weakSelf.serviceGroup);
         }];
     }
 }
 
-- (void) addSecondaryConnectionsNotLoading{
+- (void)addSecondaryConnectionsNotLoading
+{
     //    Adds secondary connections (connections of connections) to the local graph
-    for (UserNode *node in self.nodes){
-        [self addNode:node.user :NO :^(NSError * _Nonnull error) {nil;}];
+    for (UserNode *node in self.nodes) {
+        [self addNode:node.user:NO:^(NSError *_Nonnull error) {
+            nil;
+        }];
     }
 }
 
-- (void) addNode: (PFUser *)user :(BOOL)loading :(void (^ __nullable)(NSError * _Nullable error))completion{
+- (void)addNode:(PFUser *)user:(BOOL)loading
+               :(void (^__nullable)(NSError *_Nullable error))completion
+{
     //    Adds a node to the graph
-    
+
     PFQuery *query1 = [PFQuery queryWithClassName:@"UserConnection"];
     [query1 whereKey:@"userOne" equalTo:user];
-    
+
     PFQuery *query2 = [PFQuery queryWithClassName:@"UserConnection"];
     [query2 whereKey:@"userTwo" equalTo:user];
-    
-    PFQuery *query3 = [PFQuery orQueryWithSubqueries:@[query1,query2]];
+
+    PFQuery *query3 = [PFQuery orQueryWithSubqueries:@[ query1, query2 ]];
     [query3 includeKey:@"userOne"];
     [query3 includeKey:@"userTwo"];
-    
+
     //  fetch data asynchronously
     [query3 findObjectsInBackgroundWithBlock:^(NSArray *edges, NSError *error) {
         if (edges != nil) {
             self.addedUser = NO;
-            for (UserConnection *edge in edges){
+            for (UserConnection *edge in edges) {
                 UserNode *nodeOne = [self checkIfNodeExistsForUser:edge[@"userOne"]];
                 UserNode *nodeTwo = [self checkIfNodeExistsForUser:edge[@"userTwo"]];
-                [self checkIfEdgeExistsForNodes:nodeOne :nodeTwo :-[edge[@"closeness"] intValue]];
+                [self checkIfEdgeExistsForNodes:nodeOne:nodeTwo:-[edge[@"closeness"] intValue]];
             }
-            if ([self.nodes count]<400 && self.addedUser){
-                if (loading){
+            if ([self.nodes count] < 400 && self.addedUser) {
+                if (loading) {
                     [self addSecondaryConnectionsLoading];
-                }
-                else {
+                } else {
                     [self addSecondaryConnectionsNotLoading];
                 }
             }
@@ -100,90 +111,94 @@
     }];
 }
 
-- (UserNode*) checkIfNodeExistsForUser: (PFUser *)user{
-    for (UserNode *node in self.nodes){
+- (UserNode *)checkIfNodeExistsForUser:(PFUser *)user
+{
+    for (UserNode *node in self.nodes) {
         node.distanceFromStart = INT_MAX;
-        if ([node.user[@"username"] isEqual:user.username]){
+        if ([node.user[@"username"] isEqual:user.username]) {
             return node;
         }
     }
-    UserNode *node = [[UserNode alloc]initWithUser:user];
+    UserNode *node = [[UserNode alloc] initWithUser:user];
     [self.nodes addObject:node];
     self.addedUser = YES;
     return node;
 }
 
-- (int) checkIfEdgeExistsForNodes: (UserNode *)nodeOne :(UserNode *)nodeTwo :(int)closeness{
-    for (UsersEdge *edge in self.edges){
-        if (edge.node1 == nodeOne && edge.node2 == nodeTwo){
+- (int)checkIfEdgeExistsForNodes:(UserNode *)nodeOne:(UserNode *)nodeTwo
+                                :(int)closeness
+{
+    for (UsersEdge *edge in self.edges) {
+        if (edge.node1 == nodeOne && edge.node2 == nodeTwo) {
             edge.closeness = closeness;
             return 0;
         }
     }
-    UsersEdge *edgeToAdd = [[UsersEdge alloc]initWithNodes:nodeOne :nodeTwo :closeness];
+    UsersEdge *edgeToAdd = [[UsersEdge alloc] initWithNodes:nodeOne:nodeTwo:closeness];
     [self.edges addObject:edgeToAdd];
     return 1;
 }
 
-- (void) resetGraph{
+- (void)resetGraph
+{
     [self.nodes removeAllObjects];
     [self.edges removeAllObjects];
 }
 
 #pragma mark Search
 
-- (NSMutableArray *) GetCloseUsersWithSubstring: (NSString *)searchParameter withNumberOfUsers:(int)numOfUsers{
+- (NSMutableArray *)GetCloseUsersWithSubstring:(NSString *)searchParameter withNumberOfUsers:(int)numOfUsers
+{
     [self.searchResults removeAllObjects];
     int count = 0;
-    if ([searchParameter isEqual:@""]){
-        for (UserNode *node in self.nodes){
-            if (count == numOfUsers){
+    if ([searchParameter isEqual:@""]) {
+        for (UserNode *node in self.nodes) {
+            if (count == numOfUsers) {
                 return self.searchResults;
             }
             [self.searchResults addObject:node.user];
-            count+=1;
+            count += 1;
         }
-    }
-    else {
-        for (UserNode *node in self.nodes){
-            if ([node.user.username containsString:searchParameter] || [node.user[@"firstame"] containsString:searchParameter] || [node.user[@"lastname"] containsString:searchParameter]){
-                if (count == numOfUsers){
+    } else {
+        for (UserNode *node in self.nodes) {
+            if ([node.user.username containsString:searchParameter] || [node.user[@"firstame"] containsString:searchParameter] || [node.user[@"lastname"] containsString:searchParameter]) {
+                if (count == numOfUsers) {
                     return self.searchResults;
                 }
                 [self.searchResults addObject:node.user];
-                count+=1;
+                count += 1;
             }
         }
     }
     return self.searchResults;
 }
 
-- (NSMutableArray *) GetDeepUsersWithSubstring: (NSString *)searchParameter withNumberOfUsers:(int)numOfUsers{
+- (NSMutableArray *)GetDeepUsersWithSubstring:(NSString *)searchParameter withNumberOfUsers:(int)numOfUsers
+{
     int count = 0;
     NSMutableArray *subarray = [self.nodes mutableCopy];
-    for (UserNode *node in self.nodes){
-        if ([Algos userInArray:node.user withArray:self.searchResults]){
+    for (UserNode *node in self.nodes) {
+        if ([Algos userInArray:node.user withArray:self.searchResults]) {
             [subarray removeObject:node];
         }
     }
     [self.searchResults removeAllObjects];
-    if ([searchParameter isEqual:@""]){
-        for (UserNode *node in subarray){
-            if (count == numOfUsers){
+    if ([searchParameter isEqual:@""]) {
+        for (UserNode *node in subarray) {
+            if (count == numOfUsers) {
                 return self.searchResults;
             }
             [self.searchResults addObject:node.user];
-            count+=1;
+            count += 1;
         }
-    }
-    else {
-        for (UserNode *node in subarray){
-            if ([node.user.username containsString:searchParameter] || [node.user[@"firstame"] containsString:searchParameter] || [node.user[@"lastname"] containsString:searchParameter]){
-                if (count == numOfUsers){
+    } else {
+        for (UserNode *node in subarray) {
+            if ([node.user.username containsString:searchParameter] || [node.user[@"firstame"] containsString:searchParameter] || [node.user[@"lastname"] containsString:searchParameter]) {
+                if (count == numOfUsers) {
                     return self.searchResults;
                 }
                 [self.searchResults addObject:node.user];
-                count+=1;
+                count += 1;
             }
         }
     }
@@ -192,8 +207,9 @@
 
 #pragma mark Dijkstra
 
-- (void) SortGraphWithDistances{
-    [self.nodes sortUsingComparator:^NSComparisonResult(UserNode* node1, UserNode* node2) {
+- (void)SortGraphWithDistances
+{
+    [self.nodes sortUsingComparator:^NSComparisonResult(UserNode *node1, UserNode *node2) {
         if (node1.distanceFromStart > node2.distanceFromStart) {
             return (NSComparisonResult)NSOrderedDescending;
         }
@@ -204,15 +220,16 @@
     }];
 }
 
-- (void) Dijkstra: (UserNode *)source{
+- (void)Dijkstra:(UserNode *)source
+{
     self.nodesQueue = [[NSMutableArray alloc] initWithArray:self.nodes];
     source.distanceFromStart = 0;
-    while ([self.nodesQueue count]>0){
+    while ([self.nodesQueue count] > 0) {
         UserNode *smallest = [self ExtractSmallest];
         NSMutableArray *adjecentNodes = [self AdjecentRemainingNodes:smallest];
-        for (UserNode *adjecentNode in adjecentNodes){
-            int distance = [self Distance:smallest :adjecentNode] + smallest.distanceFromStart;
-            if (distance < adjecentNode.distanceFromStart){
+        for (UserNode *adjecentNode in adjecentNodes) {
+            int distance = [self Distance:smallest:adjecentNode] + smallest.distanceFromStart;
+            if (distance < adjecentNode.distanceFromStart) {
                 adjecentNode.distanceFromStart = distance;
                 adjecentNode.previous = smallest;
             }
@@ -223,51 +240,54 @@
     [self SortGraphWithDistances];
 }
 
-- (UserNode *) ExtractSmallest{
+- (UserNode *)ExtractSmallest
+{
     UserNode *smallest = self.nodesQueue[0];
-    for (UserNode *node in self.nodesQueue){
-        if (node.distanceFromStart < smallest.distanceFromStart){
+    for (UserNode *node in self.nodesQueue) {
+        if (node.distanceFromStart < smallest.distanceFromStart) {
             smallest = node;
         }
     }
     NSRange r;
     r.location = 0;
-    r.length = [self.nodesQueue indexOfObject:smallest]+1;
+    r.length = [self.nodesQueue indexOfObject:smallest] + 1;
     [self.nodesQueue removeObjectsInRange:r];
     return smallest;
 }
 
-- (NSMutableArray *) AdjecentRemainingNodes: (UserNode*) node {
+- (NSMutableArray *)AdjecentRemainingNodes:(UserNode *)node
+{
     NSMutableArray *adjecentNodes = [[NSMutableArray alloc] init];
-    for (UsersEdge *edge in self.edges){
+    for (UsersEdge *edge in self.edges) {
         UserNode *adjecent = nil;
-        if (edge.node1 == node){
+        if (edge.node1 == node) {
             adjecent = edge.node2;
-        }
-        else if (edge.node2 == node){
+        } else if (edge.node2 == node) {
             adjecent = edge.node1;
         }
-        if (adjecent && [self contains:self.nodesQueue :adjecent]){
+        if (adjecent && [self contains:self.nodesQueue:adjecent]) {
             [adjecentNodes addObject:adjecent];
         }
     }
     return adjecentNodes;
 }
 
-- (int) Distance: (UserNode *)nodeOne :(UserNode *)nodeTwo{
+- (int)Distance:(UserNode *)nodeOne:(UserNode *)nodeTwo
+{
     // Return distance between two connected nodes
-    for (UsersEdge *edge in self.edges){
-        if ((edge.node1 == nodeOne && edge.node2 == nodeTwo) || (edge.node1 == nodeTwo && edge.node2 == nodeOne)){
+    for (UsersEdge *edge in self.edges) {
+        if ((edge.node1 == nodeOne && edge.node2 == nodeTwo) || (edge.node1 == nodeTwo && edge.node2 == nodeOne)) {
             return edge.closeness;
         }
     }
-    return -1;  // should never happen
+    return -1; // should never happen
 }
 
-- (BOOL) contains: (NSMutableArray *)nodes :(UserNode *)nodeArg{
+- (BOOL)contains:(NSMutableArray *)nodes:(UserNode *)nodeArg
+{
     //    Checks if a nodes array contain nodeArg
-    for (UserNode *node in nodes){
-        if ([node isEqual: nodeArg]){
+    for (UserNode *node in nodes) {
+        if ([node isEqual:nodeArg]) {
             return YES;
         }
     }

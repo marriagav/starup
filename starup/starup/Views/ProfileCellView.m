@@ -7,22 +7,26 @@
 
 #import "ProfileCellView.h"
 
+
 @implementation ProfileCellView
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     [super awakeFromNib];
     // Initialization code
     [Algos formatPictureWithRoundedEdges:self.profilePicture];
     [self _cellGestureRecognizer];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
     [super setSelected:selected animated:animated];
     // Configure the view for the selected state
 }
 
-- (void)setUser:(PFUser *)user {
-//    Setter for the cell
+- (void)setUser:(PFUser *)user
+{
+    //    Setter for the cell
     _user = user;
     self.profilePicture.file = self.user[@"profileImage"];
     [self.profilePicture loadInBackground];
@@ -30,14 +34,16 @@
     self.username.text = [NSString stringWithFormat:@"%@%@", @"@", self.user[@"username"]];
 }
 
-- (void) didTapCell:(UITapGestureRecognizer *)sender{
-//    Gets called when the user taps on the user profile
+- (void)didTapCell:(UITapGestureRecognizer *)sender
+{
+    //    Gets called when the user taps on the user profile
     [self.delegate profileCell:self didTap:self.user];
 }
 
-- (void)_cellGestureRecognizer{
-//    Method to set up a tap gesture recognizer for the profile picture
-    UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapCell:)];
+- (void)_cellGestureRecognizer
+{
+    //    Method to set up a tap gesture recognizer for the profile picture
+    UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapCell:)];
     [self addGestureRecognizer:profileTapGestureRecognizer];
     [self setUserInteractionEnabled:YES];
 }

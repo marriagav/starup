@@ -10,6 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface UsersEdge : NSObject
 
 @property (nonatomic, strong) UserNode *node1;
@@ -17,7 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property int closeness;
 @property (nonatomic, strong) NSMutableArray *vertices;
 
-- (instancetype)initWithNodes:(UserNode *)node1 :(UserNode *)node2 :(int)closeness;
+- (instancetype)initWithNodes:(UserNode *)node1:(UserNode *)node2
+                             :(int)closeness;
 
 @end
 

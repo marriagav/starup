@@ -7,9 +7,11 @@
 
 #import "ProfileViewController.h"
 
+
 @interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditProfileViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, StarupCollectionCellViewDelegate, UISearchResultsUpdating, ResultsViewControllerDelegate>
 
 @end
+
 
 @implementation ProfileViewController
 
@@ -17,13 +19,14 @@
 
 // Helper variables
 bool _isMoreDataLoadingP = false;
-InfiniteScrollActivityView* _loadingMoreViewP;
+InfiniteScrollActivityView *_loadingMoreViewP;
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     //  Initiallize delegate and datasource of the tableview and collectionview to self
-    self.tableView.dataSource=self;
-    self.tableView.delegate=self;
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     //    Configuration that deppends on which users profile youre accessing
@@ -39,7 +42,8 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     [self _initializeRefreshControlB];
 }
 
-- (void)setOutlets{
+- (void)setOutlets
+{
     //    Set the outlets for the profile
     [self setUserTextProperties];
     //  Set the profile picture
@@ -49,8 +53,9 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     [Algos formatPictureWithRoundedEdges:self.profilePicture];
 }
 
-- (void)setSearchControl{
-    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+- (void)setSearchControl
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ResultsViewController *resultsViewController = [storyboard instantiateViewControllerWithIdentifier:@"resultsVC"];
     resultsViewController.delegate = self;
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:resultsViewController];
@@ -62,64 +67,66 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     self.navigationItem.hidesSearchBarWhenScrolling = NO;
 }
 
-- (void)prepAccordingToUser{
+- (void)prepAccordingToUser
+{
     //    Case when the profile view is accessed through the nav bar
-    if (self.user == nil){
+    if (self.user == nil) {
         //    Initialize search bar
         [self setSearchControl];
     }
-    if (self.user == nil || self.user.username==PFUser.currentUser.username){
+    if (self.user == nil || self.user.username == PFUser.currentUser.username) {
         //  Can only edit the profile if it is your profile
         self.user = PFUser.currentUser;
         //    Set the dropdown menu
         [self setDropDownMenu];
-    }
-    else {
+    } else {
         // When in someone elses profile page
         [self.editProfileButton removeFromSuperview];
     }
 }
 
-- (void)setUserTextProperties{
+- (void)setUserTextProperties
+{
     self.username.text = [NSString stringWithFormat:@"%@%@", @"@", self.user.username];
     self.profileName.text = [NSString stringWithFormat:@"%@ %@", self.user[@"firstname"], self.user[@"lastname"]];
     self.profileBio.text = self.user[@"userBio"];
     self.profileRole.text = self.user[@"role"];
 }
 
-- (void)setDropDownMenu{
-    UIAction *editPicture = [UIAction actionWithTitle:@"Change profile picture" image:NULL identifier:NULL handler:^(UIAction* action){
+- (void)setDropDownMenu
+{
+    UIAction *editPicture = [UIAction actionWithTitle:@"Change profile picture" image:NULL identifier:NULL handler:^(UIAction *action) {
         [self changeProfileImage];
     }];
-    UIAction *editDetails = [UIAction actionWithTitle:@"Change my details" image:NULL identifier:NULL handler:^(UIAction* action){
+    UIAction *editDetails = [UIAction actionWithTitle:@"Change my details" image:NULL identifier:NULL handler:^(UIAction *action) {
         // display register view controller
         [self editProfileDetailsOnClick];
     }];
-    UIAction *logOut = [UIAction actionWithTitle:@"Log out" image:NULL identifier:NULL handler:^(UIAction* action){
+    UIAction *logOut = [UIAction actionWithTitle:@"Log out" image:NULL identifier:NULL handler:^(UIAction *action) {
         // log out user
         [self logOutUser];
     }];
     UIMenu *menu = [[UIMenu alloc] menuByReplacingChildren:[NSArray arrayWithObjects:editPicture, editDetails, logOut, nil]];
-    
+
     self.editProfileButton.menu = menu;
     self.editProfileButton.showsMenuAsPrimaryAction = YES;
 }
 
 #pragma mark - Navigation
 
-- (void)logOutUser{
+- (void)logOutUser
+{
     //    Call to log out the user
-    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+    [PFUser logOutInBackgroundWithBlock:^(NSError *_Nullable error) {
         // PFUser.current() will now be nil
-        if (error){
+        if (error) {
             NSLog(@"%@", error);
-        }
-        else{
+        } else {
             [Linkedin logoutFromLinkedin];
             // Add connection to local graph
             ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
             [graph resetGraph];
-            UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             UIViewController *nav = [storyboard instantiateViewControllerWithIdentifier:@"loginView"];
             [nav setModalPresentationStyle:UIModalPresentationFullScreen];
             [self.navigationController presentViewController:nav animated:YES completion:nil];
@@ -128,9 +135,10 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     }];
 }
 
-- (void)editProfileDetailsOnClick{
+- (void)editProfileDetailsOnClick
+{
     //     display edit profile view
-    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     EditProfileViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"editVCNoNav"];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
     [self.navigationController presentViewController:navigationController animated:YES completion:^{
@@ -139,36 +147,38 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     }];
 }
 
-- (void)changeProfileImage{
+- (void)changeProfileImage
+{
     //    Creates and opens an UIImagePickerController when the user taps the user image
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
-    
+
     imagePickerVC.delegate = self;
     imagePickerVC.allowsEditing = YES;
-    
+
     imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    
+
     [self presentViewController:imagePickerVC animated:YES completion:nil];
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info
+{
     // Get the image captured by the UIImagePickerController
     UIImage *editedImage = info[UIImagePickerControllerEditedImage];
-    
+
     // Resize the image
-    UIImage *resizedImage = [Algos imageWithImage:editedImage scaledToWidth: 414];
-    
+    UIImage *resizedImage = [Algos imageWithImage:editedImage scaledToWidth:414];
+
     self.profilePicture.image = resizedImage;
     [self changeProfilePicture];
-    
+
     // Dismiss UIImagePickerController to go back to your original view controller
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)goToUserProfile: (PFUser *)user{
+- (void)goToUserProfile:(PFUser *)user
+{
     //    Goes to profile page when user taps on profile
-    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ProfileViewController *profileViewController = [storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
     // Pass the user
     profileViewController.user = user;
@@ -177,53 +187,57 @@ InfiniteScrollActivityView* _loadingMoreViewP;
 
 #pragma mark - Delegates
 
-- (void)didEdit{
+- (void)didEdit
+{
     //    Gets called when the user presses the "update" button on the "editProfile" view, this controller functions as a delegate of the former
     //    Updates the outlets for the profile
     [self setUserTextProperties];
 }
 
-- (void)starupCell:(StarupCollectionCellView *) starupCell didTap: (Starup *)starup{
+- (void)starupCell:(StarupCollectionCellView *)starupCell didTap:(Starup *)starup
+{
     // display details view controller
-    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     DetailsViewController *detailsStarupViewController = [storyboard instantiateViewControllerWithIdentifier:@"detailsNoNav"];
     detailsStarupViewController.starup = starup;
     [self.navigationController pushViewController:detailsStarupViewController animated:YES];
 }
 
-- (void) didTapUser:(PFUser *)user{
+- (void)didTapUser:(PFUser *)user
+{
     [self checkIfConnectionExists:user withCloseness:1];
     [self goToUserProfile:user];
 }
 
 #pragma mark - Network
 
-- (void)changeProfilePicture{
+- (void)changeProfilePicture
+{
     //    Call to change the profile picture in the DB
-    [self.user setObject:[Algos getPFFileFromImage:self.profilePicture.image] forKey: @"profileImage"];
-    [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if(error){
+    [self.user setObject:[Algos getPFFileFromImage:self.profilePicture.image] forKey:@"profileImage"];
+    [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
+        if (error) {
             NSLog(@"%@", error.localizedDescription);
-        }
-        else{
+        } else {
             [self refreshDataWithNPosts:20];
         }
     }];
 }
 
-- (void)refreshDataWithNPosts:(int) numberOfPosts {
+- (void)refreshDataWithNPosts:(int)numberOfPosts
+{
     //    Refreshes the tableview data with numberOfPosts posts
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"author"];
-    [query whereKey:@"author" equalTo: self.user];
+    [query whereKey:@"author" equalTo:self.user];
     query.limit = numberOfPosts;
-    
+
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (posts != nil) {
-            self.postArray = (NSMutableArray *) posts;
+            self.postArray = (NSMutableArray *)posts;
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -231,19 +245,20 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     }];
 }
 
-- (void)refreshColletionViewData{
+- (void)refreshColletionViewData
+{
     //    Refreshes the collection view data
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Collaborator"];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"user"];
     [query includeKey:@"starup"];
-    [query whereKey:@"user" equalTo: self.user];
-    
+    [query whereKey:@"user" equalTo:self.user];
+
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *collaborators, NSError *error) {
         if (collaborators != nil) {
-            self.collaboratorArray = (NSMutableArray *) collaborators;
+            self.collaboratorArray = (NSMutableArray *)collaborators;
             [self.collectionView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -251,20 +266,21 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     }];
 }
 
-- (void)_beginRefresh:(UIRefreshControl *)refreshControl {
+- (void)_beginRefresh:(UIRefreshControl *)refreshControl
+{
     //    Refreshes the data using the UIRefreshControl
     [self refreshColletionViewData];
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"author"];
-    [query whereKey:@"author" equalTo: self.user];
+    [query whereKey:@"author" equalTo:self.user];
     query.limit = 20;
-    
+
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (posts != nil) {
-            self.postArray = (NSMutableArray *) posts;
+            self.postArray = (NSMutableArray *)posts;
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -273,7 +289,8 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     }];
 }
 
-- (void) checkIfConnectionExists: (PFUser *)user withCloseness:(int)closenesss{
+- (void)checkIfConnectionExists:(PFUser *)user withCloseness:(int)closenesss
+{
     //    checks if two users are already close, if they are, make their connection stronger, if theyre not, create a connection between them
     PFQuery *query1 = [PFQuery queryWithClassName:@"UserConnection"];
     [query1 whereKey:@"userOne" equalTo:PFUser.currentUser];
@@ -283,28 +300,27 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     [query2 whereKey:@"userTwo" equalTo:PFUser.currentUser];
     [query2 whereKey:@"userOne" equalTo:user];
 
-    PFQuery *find = [PFQuery orQueryWithSubqueries:@[query1,query2]];
+    PFQuery *find = [PFQuery orQueryWithSubqueries:@[ query1, query2 ]];
     [find includeKey:@"userOne"];
     [find includeKey:@"userTwo"];
-    
-    [find getFirstObjectInBackgroundWithBlock: ^(PFObject *parseObject, NSError *error) {
-        if (parseObject){
+
+    [find getFirstObjectInBackgroundWithBlock:^(PFObject *parseObject, NSError *error) {
+        if (parseObject) {
             float currCloseness = [parseObject[@"closeness"] floatValue];
-            parseObject[@"closeness"] = [NSNumber numberWithFloat: currCloseness+closenesss];
-            [parseObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                if (succeeded){
+            parseObject[@"closeness"] = [NSNumber numberWithFloat:currCloseness + closenesss];
+            [parseObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
+                if (succeeded) {
                     // Add connection to local graph
                     ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
-                    [graph addUserToGraph:user :nil];
+                    [graph addUserToGraph:user:nil];
                 }
             }];
-        }
-        else{
+        } else {
             //    Posts a user connection
-            [UserConnection postUserConnection:PFUser.currentUser withUserTwo:user withCloseness:@(closenesss) withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-                    // Add connection to local graph
-                    ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
-                    [graph addUserToGraph:user :nil];
+            [UserConnection postUserConnection:PFUser.currentUser withUserTwo:user withCloseness:@(closenesss) withCompletion:^(BOOL succeeded, NSError *_Nullable error) {
+                // Add connection to local graph
+                ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
+                [graph addUserToGraph:user:nil];
             }];
         }
     }];
@@ -312,53 +328,57 @@ InfiniteScrollActivityView* _loadingMoreViewP;
 
 #pragma mark - QualityOfLife
 
-- (void)_initializeRefreshControl{
+- (void)_initializeRefreshControl
+{
     //    Initialices and inserts the refresh control
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(_beginRefresh:) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:refreshControl atIndex:0];
 }
 
-- (void)_initializeRefreshControlB{
+- (void)_initializeRefreshControlB
+{
     //    Initialices and inserts the refresh control
     // Set up Infinite Scroll loading indicator
     CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
     _loadingMoreViewP = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
     _loadingMoreViewP.hidden = true;
     [self.tableView addSubview:_loadingMoreViewP];
-    
+
     UIEdgeInsets insets = self.tableView.contentInset;
     insets.bottom += InfiniteScrollActivityView.defaultHeight;
     self.tableView.contentInset = insets;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if(!_isMoreDataLoadingP){
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (!_isMoreDataLoadingP) {
         // Calculate the position of one screen length before the bottom of the results
         int scrollViewContentHeight = self.tableView.contentSize.height;
         int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
-        
+
         // When the user has scrolled past the threshold, start requesting
-        if(scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
+        if (scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
             _isMoreDataLoadingP = true;
-            
+
             // Update position of loadingMoreView, and start loading indicator
             CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
             _loadingMoreViewP.frame = frame;
             [_loadingMoreViewP startAnimating];
-            
+
             // Code to load more results
             [self loadMoreData];
         }
     }
 }
 
-- (void)loadMoreData{
+- (void)loadMoreData
+{
     //    Adds 20 more posts to the tableView, for infinte scrolling
-    if ([self.postArray count]>=self.currentMax){
-        self.currentMax+=20;
+    if ([self.postArray count] >= self.currentMax) {
+        self.currentMax += 20;
         int postsToAdd = (int)[self.postArray count] + 20;
-        [self refreshDataWithNPosts: postsToAdd];
+        [self refreshDataWithNPosts:postsToAdd];
     }
     [_loadingMoreViewP stopAnimating];
 }
@@ -366,38 +386,43 @@ InfiniteScrollActivityView* _loadingMoreViewP;
 #pragma mark - TableView
 
 - (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section {
+    numberOfRowsInSection:(NSInteger)section
+{
     //    return amount of posts in the postArray
     return self.postArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     //    initialize cell (PostCell) to a reusable cell using the PostCell identifier
     PostCellView *cell = [tableView
-                      dequeueReusableCellWithIdentifier: @"PostCell"];
+        dequeueReusableCellWithIdentifier:@"PostCell"];
     //    get the post and assign it to the cell
     Post *post = self.postArray[indexPath.row];
-    cell.post=post;
+    cell.post = post;
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
     //    Calls load more data when scrolling reaches bottom of the tableView
-    if(indexPath.row + 1 == [self.postArray count]){
+    if (indexPath.row + 1 == [self.postArray count]) {
         [self loadMoreData];
     }
 }
 
 #pragma mark - CollectionView
 
-- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     return self.collaboratorArray.count;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     StarupCollectionCellView *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"starupCollectionViewCell" forIndexPath:indexPath];
-    
+
     //    get the collaborator and and assign it to the cell
     Collaborator *collaborator = self.collaboratorArray[indexPath.row];
     cell.collaborator = collaborator;
@@ -407,7 +432,8 @@ InfiniteScrollActivityView* _loadingMoreViewP;
 
 #pragma mark - Search Controller
 
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController{
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+{
     NSString *searchString = searchController.searchBar.text;
     ResultsViewController *resultsVC = (ResultsViewController *)searchController.searchResultsController;
     resultsVC.delegate = self;

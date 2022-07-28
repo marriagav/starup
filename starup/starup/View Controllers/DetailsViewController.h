@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
 @interface DetailsViewController : UIViewController
 
 @property (strong, nonatomic) Starup *starup;
@@ -37,9 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UICollectionView *sharksCollectionView;
 @property (weak, nonatomic) IBOutlet UIProgressView *investmentProgressBar;
 @property (weak, nonatomic) IBOutlet UILabel *progressString;
-@property (nonatomic, strong) NSMutableArray* ideators;
-@property (nonatomic, strong) NSMutableArray* sharks;
-@property (nonatomic, strong) NSMutableArray* hackers;
+@property (nonatomic, strong) NSMutableArray *ideators;
+@property (nonatomic, strong) NSMutableArray *sharks;
+@property (nonatomic, strong) NSMutableArray *hackers;
 @property (nonatomic, weak) id<DetailsViewControllerDelegate> delegate;
 
 @end

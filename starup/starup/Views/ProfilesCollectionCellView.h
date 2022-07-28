@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol ProfilesCollectionCellViewDelegate;
 
+
 @interface ProfilesCollectionCellView : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet PFImageView *profilePicture;
@@ -26,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol ProfilesCollectionCellViewDelegate
 
-- (void)profileCell:(ProfilesCollectionCellView *) profileCell didTap: (PFUser *)user;
+- (void)profileCell:(ProfilesCollectionCellView *)profileCell didTap:(PFUser *)user;
 
 @end
 

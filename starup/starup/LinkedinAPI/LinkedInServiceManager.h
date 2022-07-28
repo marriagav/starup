@@ -10,6 +10,7 @@
 #import <Foundation/Foundation.h>
 #import <LinkedinIOSHelper/LinkedInIOSFields.h>
 
+
 @interface LinkedInServiceManager : NSObject
 
 /*!

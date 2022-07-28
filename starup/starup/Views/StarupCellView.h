@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol StarupCellViewDelegate;
 
+
 @interface StarupCellView : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *starupName;
@@ -34,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol StarupCellViewDelegate
 
-- (void)starupCell:(StarupCellView *) starupCell didTap: (Starup *)starup;
+- (void)starupCell:(StarupCellView *)starupCell didTap:(Starup *)starup;
 
 @end
 

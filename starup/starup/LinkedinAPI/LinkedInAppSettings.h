@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface LinkedInAppSettings : NSObject
 
 - (instancetype)initWithClientSecret:(NSString *)clientSecret
@@ -60,7 +61,7 @@
 
 @property (nonatomic, copy) NSString *grantedAccessString;
 
-@property(nonatomic, copy) NSString *state;
+@property (nonatomic, copy) NSString *state;
 
 
 @property (nonatomic, strong) NSArray *grantedAccess;

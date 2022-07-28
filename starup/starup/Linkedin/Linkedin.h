@@ -11,13 +11,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface Linkedin : NSObject
 
 + (BOOL)isLinkedInAccessTokenValid;
 + (void)getUserInfo;
 + (void)logoutFromLinkedin;
-+ (void)checkIfUserHasLinkedin: (NSString*)username ;
-+ (void)postTolinkedin: (NSString*) visibility :(NSString*) textToPost ;
++ (void)checkIfUserHasLinkedin:(NSString *)username;
++ (void)postTolinkedin:(NSString *)visibility:(NSString *)textToPost;
 
 @end
 

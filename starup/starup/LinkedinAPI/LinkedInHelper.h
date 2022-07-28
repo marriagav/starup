@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <LinkedinIOSHelper/LinkedInIOSFields.h>
 
+
 @interface LinkedInHelper : NSObject
 
 /*!
@@ -36,16 +37,16 @@
                               redirectUrl:(NSString *)redirectUrl
                               permissions:(NSArray *)permissions
                                     state:(NSString *)state
-                          successUserInfo:( void (^) (NSDictionary *userInfo) )successUserInfo
-                        failUserInfoBlock:( void (^) (NSError *error))failure;
+                          successUserInfo:(void (^)(NSDictionary *userInfo))successUserInfo
+                        failUserInfoBlock:(void (^)(NSError *error))failure;
 
 /*!
  * @brief  Fetchs user information if access token is still valid. In this case user does not have to input their username and password informations to login again
  * @param successUserInfo Returns successful user info which are requested via grantedAccess
  * @param failure Returns the failure statement of connection
  */
-- (void)autoFetchUserInfoWithSuccess:( void (^) (NSDictionary *userInfo) )successUserInfo
-                        failUserInfo:( void (^) (NSError *error))failure;
+- (void)autoFetchUserInfoWithSuccess:(void (^)(NSDictionary *userInfo))successUserInfo
+                        failUserInfo:(void (^)(NSError *error))failure;
 
 /*!
  * @brief Refreshing the Access Token (Because accessToken comes from Linkedin has expiration date and for now 60 days)
@@ -57,8 +58,8 @@
                            redirectUrl:(NSString *)redirectUrl
                            permissions:(NSArray *)permissions
                                  state:(NSString *)state
-                               success:(void (^) (NSString *accessToken))success
-                              failure:(void (^) (NSError *err) )failure;
+                               success:(void (^)(NSString *accessToken))success
+                               failure:(void (^)(NSError *err))failure;
 
 /*!
  * @brief Cancel Button's text while getting AuthorizationCode via webview

@@ -7,15 +7,18 @@
 
 #import "RegisterViewController.h"
 
+
 @interface RegisterViewController ()
 
 @end
+
 
 @implementation RegisterViewController
 
 #pragma mark - Initialization
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Add gesture recognizer to dissmiss keyboard when clicking on screen
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
@@ -28,12 +31,14 @@
 
 #pragma mark - QualityOfLife
 
-- (void)dismissKeyboard{
+- (void)dismissKeyboard
+{
     //    Dissmiss the keyboard
     [self.view endEditing:YES];
 }
 
-- (void)initializeAlertController{
+- (void)initializeAlertController
+{
     //    Create the alert controller for register errors
     UIAlertController *registerError = [UIAlertController alertControllerWithTitle:@"Error"
                                                                            message:self.error
@@ -45,35 +50,35 @@
     // create a cancel action
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Try Again"
                                                            style:UIAlertActionStyleCancel
-                                                         handler:^(UIAlertAction * _Nonnull action) {
-        // handle try again response here. Doing nothing will dismiss the view.
-    }];
+                                                         handler:^(UIAlertAction *_Nonnull action){
+                                                             // handle try again response here. Doing nothing will dismiss the view.
+                                                         }];
     // create an ok action
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok"
                                                        style:UIAlertActionStyleCancel
-                                                     handler:^(UIAlertAction * _Nonnull action) {
-        //Logout the user
-        [PFUser logOutInBackground];
-        // display the login view controller to ensure email verification
-        UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"loginNoNav"];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
-        [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
-        [self.navigationController presentViewController:navigationController animated:YES completion:^{
-            //                            Pass the username so that the user doesnt need to type again
-            loginViewController.usernameField.text = self.usernameField.text;
-        }];
-    }];
+                                                     handler:^(UIAlertAction *_Nonnull action) {
+                                                         //Logout the user
+                                                         [PFUser logOutInBackground];
+                                                         // display the login view controller to ensure email verification
+                                                         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                                                         LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"loginNoNav"];
+                                                         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+                                                         [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
+                                                         [self.navigationController presentViewController:navigationController animated:YES completion:^{
+                                                             //                            Pass the username so that the user doesnt need to type again
+                                                             loginViewController.usernameField.text = self.usernameField.text;
+                                                         }];
+                                                     }];
     // add the cancel action to the alertControllers
     [registerError addAction:cancelAction];
     [emailVerify addAction:okAction];
-    
-    if (![self.error isEqual:@""]){
+
+    if (![self.error isEqual:@""]) {
         [self presentViewController:registerError animated:YES completion:^{
             self.error = @"";
         }];
     }
-    if (![self.correctLogin isEqual:@""]){
+    if (![self.correctLogin isEqual:@""]) {
         [self presentViewController:emailVerify animated:YES completion:^{
             self.correctLogin = @"";
         }];
@@ -82,11 +87,12 @@
 
 #pragma mark - Network
 
-- (void)registerUser {
+- (void)registerUser
+{
     //    Method that registers the user
     // initialize a user object
     PFUser *newUser = [PFUser user];
-    
+
     // set user properties
     newUser.username = self.usernameField.text;
     newUser.password = self.passwordField.text;
@@ -95,11 +101,11 @@
     newUser[@"lastname"] = self.lastNameField.text;
     newUser[@"role"] = self.roleField.text;
     newUser[@"linkedinAuthentification"] = @"False";
-    UIImage *image =  [UIImage imageNamed:@"profile_tab"];
-    [newUser setObject:[Algos getPFFileFromImage:image] forKey: @"profileImage"];
-    
+    UIImage *image = [UIImage imageNamed:@"profile_tab"];
+    [newUser setObject:[Algos getPFFileFromImage:image] forKey:@"profileImage"];
+
     // call sign up function on the object
-    [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
+    [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (error != nil) {
             NSLog(@"Error: %@", error.localizedDescription);
             //    Initialize alert controller in case of errors
@@ -109,14 +115,14 @@
             NSLog(@"User registered successfully");
             self.correctLogin = @"YES";
             [self initializeAlertController];
-            
         }
     }];
 }
 
 #pragma mark - Actions
 
-- (IBAction)registerOnClick:(id)sender {
+- (IBAction)registerOnClick:(id)sender
+{
     [self registerUser];
 }
 

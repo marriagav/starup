@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol ProfileCellViewDelegate;
 
+
 @interface ProfileCellView : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet PFImageView *profilePicture;
@@ -29,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol ProfileCellViewDelegate
 
-- (void)profileCell:(ProfileCellView *) profileCell didTap: (PFUser *)user;
+- (void)profileCell:(ProfileCellView *)profileCell didTap:(PFUser *)user;
 
 @end
 

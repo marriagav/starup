@@ -19,13 +19,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
 @interface ResultsViewController : UIViewController
 
 @property (strong, nonatomic) NSMutableArray<NSMutableArray *> *userMatrix;
 @property (nonatomic, weak) id<ResultsViewControllerDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-- (void) searchForSubstring: (NSString *)searchText;
+- (void)searchForSubstring:(NSString *)searchText;
 
 @end
 

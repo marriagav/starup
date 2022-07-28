@@ -7,6 +7,7 @@
 
 #import "UserConnection.h"
 
+
 @implementation UserConnection
 
 @dynamic userConnectionID;
@@ -16,17 +17,19 @@
 @dynamic userTwo;
 @dynamic closeness;
 
-+ (nonnull NSString *)parseClassName {
++ (nonnull NSString *)parseClassName
+{
     return @"UserConnection";
 }
 
-+ (void) postUserConnection: (PFUser* _Nullable) userOne withUserTwo: (PFUser* _Nullable) userTwo withCloseness: (NSNumber* _Nullable) closeness withCompletion: (PFBooleanResultBlock  _Nullable)completion{
++ (void)postUserConnection:(PFUser *_Nullable)userOne withUserTwo:(PFUser *_Nullable)userTwo withCloseness:(NSNumber *_Nullable)closeness withCompletion:(PFBooleanResultBlock _Nullable)completion
+{
     //    Method to set the properties of the collaborator
-    UserConnection *newConnection= [[UserConnection alloc]initWithClassName:@"UserConnection"];
+    UserConnection *newConnection = [[UserConnection alloc] initWithClassName:@"UserConnection"];
     newConnection.userOne = userOne;
     newConnection.userTwo = userTwo;
-    newConnection.closeness= closeness;
-    [newConnection saveInBackgroundWithBlock: completion];
+    newConnection.closeness = closeness;
+    [newConnection saveInBackgroundWithBlock:completion];
 }
 
 @end

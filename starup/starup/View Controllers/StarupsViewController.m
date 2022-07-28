@@ -7,9 +7,11 @@
 
 #import "StarupsViewController.h"
 
+
 @interface StarupsViewController () <ComposeStarupViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, StarupCellViewDelegate, DetailsViewControllerDelegate>
 
 @end
+
 
 @implementation StarupsViewController
 
@@ -17,13 +19,14 @@
 
 // Helper variables
 bool _isMoreDataLoadingS = false;
-InfiniteScrollActivityView* _loadingMoreViewS;
+InfiniteScrollActivityView *_loadingMoreViewS;
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     //  Initiallize delegate and datasource of the tableview to self
-    self.tableView.dataSource=self;
-    self.tableView.delegate=self;
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
     [self refreshDataWithNStarups:20];
     // Initialize a UIRefreshControl
     [self _initializeRefreshControl];
@@ -34,81 +37,86 @@ InfiniteScrollActivityView* _loadingMoreViewS;
 
 #pragma mark - QualityOfLife
 
-- (void)_initializeRefreshControl{
-//    Initialices and inserts the refresh control
+- (void)_initializeRefreshControl
+{
+    //    Initialices and inserts the refresh control
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(_beginRefresh:) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:refreshControl atIndex:0];
 }
 
-- (void)_initializeRefreshControlB{
-//    Initialices and inserts the refresh control
+- (void)_initializeRefreshControlB
+{
+    //    Initialices and inserts the refresh control
     // Set up Infinite Scroll loading indicator
     CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
     _loadingMoreViewS = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
     _loadingMoreViewS.hidden = true;
     [self.tableView addSubview:_loadingMoreViewS];
-    
+
     UIEdgeInsets insets = self.tableView.contentInset;
     insets.bottom += InfiniteScrollActivityView.defaultHeight;
     self.tableView.contentInset = insets;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if(!_isMoreDataLoadingS){
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (!_isMoreDataLoadingS) {
         // Calculate the position of one screen length before the bottom of the results
         int scrollViewContentHeight = self.tableView.contentSize.height;
         int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
-        
+
         // When the user has scrolled past the threshold, start requesting
-        if(scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
+        if (scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
             _isMoreDataLoadingS = true;
-            
+
             // Update position of loadingMoreView, and start loading indicator
             CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
             _loadingMoreViewS.frame = frame;
             [_loadingMoreViewS startAnimating];
-            
+
             // Code to load more results
             [self loadMoreData];
         }
     }
 }
 
-- (void)loadMoreData{
+- (void)loadMoreData
+{
     //    Adds 20 more posts to the tableView, for infinte scrolling
-    if ([self.starupsArray count]>=self.currentMax){
-        self.currentMax+=20;
+    if ([self.starupsArray count] >= self.currentMax) {
+        self.currentMax += 20;
         int postsToAdd = (int)[self.starupsArray count] + 20;
-        [self refreshDataWithNStarups: postsToAdd];
+        [self refreshDataWithNStarups:postsToAdd];
     }
     [_loadingMoreViewS stopAnimating];
 }
 
 #pragma mark - Network
 
-- (void)refreshDataWithNStarups:(int) numberOfStarups {
+- (void)refreshDataWithNStarups:(int)numberOfStarups
+{
     //    Refreshes the tableview data with numberOfPosts posts
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Starup"];
     [query includeKey:@"author"];
     [query orderByDescending:@"createdAt"];
     query.limit = numberOfStarups;
-    
+
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *starups, NSError *error) {
         if (starups != nil) {
-            self.starupsArray = (NSMutableArray *) starups;
+            self.starupsArray = (NSMutableArray *)starups;
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
     }];
-    
 }
 
-- (void)_beginRefresh:(UIRefreshControl *)refreshControl {
-//    Refreshes the data using the UIRefreshControl
+- (void)_beginRefresh:(UIRefreshControl *)refreshControl
+{
+    //    Refreshes the data using the UIRefreshControl
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Starup"];
     [query orderByDescending:@"createdAt"];
@@ -118,7 +126,7 @@ InfiniteScrollActivityView* _loadingMoreViewS;
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *starups, NSError *error) {
         if (starups != nil) {
-            self.starupsArray = (NSMutableArray *) starups;
+            self.starupsArray = (NSMutableArray *)starups;
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -130,16 +138,18 @@ InfiniteScrollActivityView* _loadingMoreViewS;
 #pragma mark - TableView
 
 - (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section {
+    numberOfRowsInSection:(NSInteger)section
+{
     //    return amount of posts in the postArray
     return self.starupsArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     //    initialize cell (StarupCell) to a reusable cell using the StarupCell identifier
     StarupCellView *cell = [tableView
-                      dequeueReusableCellWithIdentifier: @"StarupCell"];
+        dequeueReusableCellWithIdentifier:@"StarupCell"];
     //    get the starup and assign it to the cell
     Starup *starup = self.starupsArray[indexPath.row];
     cell.starup = starup;
@@ -147,27 +157,31 @@ InfiniteScrollActivityView* _loadingMoreViewS;
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
     //    Calls load more data when scrolling reaches bottom of the tableView
-    if(indexPath.row + 1 == [self.starupsArray count]){
+    if (indexPath.row + 1 == [self.starupsArray count]) {
         [self loadMoreData];
     }
 }
 
 #pragma mark - Delegates
 
-- (void)didPost{
+- (void)didPost
+{
     //    Gets called when the user presses the "share" button on the "ComposePost" view, this controller functions as a delegate of the former
-    [self refreshDataWithNStarups:(int)self.starupsArray.count+1];
+    [self refreshDataWithNStarups:(int)self.starupsArray.count + 1];
 }
 
-- (void)updateData{
+- (void)updateData
+{
     [self refreshDataWithNStarups:(int)self.starupsArray.count];
 }
 
-- (void)starupCell:(StarupCellView *) starupCell didTap: (Starup *)starup{
+- (void)starupCell:(StarupCellView *)starupCell didTap:(Starup *)starup
+{
     // display details view controller
-    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     DetailsViewController *detailsStarupViewController = [storyboard instantiateViewControllerWithIdentifier:@"detailsNoNav"];
     detailsStarupViewController.starup = starup;
     detailsStarupViewController.delegate = self;
@@ -176,9 +190,10 @@ InfiniteScrollActivityView* _loadingMoreViewS;
 
 #pragma mark - Actions
 
-- (IBAction)composeAStarup:(id)sender {
+- (IBAction)composeAStarup:(id)sender
+{
     // display compose post view controller
-    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ComposeStarupViewController *composeStarupViewController = [storyboard instantiateViewControllerWithIdentifier:@"composeSNoNav"];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:composeStarupViewController];
     [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];

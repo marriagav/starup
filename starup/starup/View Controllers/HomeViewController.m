@@ -7,9 +7,11 @@
 
 #import "HomeViewController.h"
 
+
 @interface HomeViewController () <UITableViewDataSource, UITableViewDelegate, PostCellViewDelegate, ComposePostViewControllerDelegate>
 
 @end
+
 
 @implementation HomeViewController
 
@@ -17,13 +19,14 @@
 
 // Helper variables
 bool _isMoreDataLoading = false;
-InfiniteScrollActivityView* _loadingMoreView;
+InfiniteScrollActivityView *_loadingMoreView;
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     //  Initiallize delegate and datasource of the tableview to self
-    self.tableView.dataSource=self;
-    self.tableView.delegate=self;
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
     self.closeConnectionsArray = [[NSMutableArray alloc] init];
     [self refreshDataWithNPosts:20];
     // Initialize a UIRefreshControl
@@ -35,67 +38,73 @@ InfiniteScrollActivityView* _loadingMoreView;
 
 #pragma mark - QualityOfLife
 
-- (void)_initializeRefreshControl{
-//    Initialices and inserts the refresh control
+- (void)_initializeRefreshControl
+{
+    //    Initialices and inserts the refresh control
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(_beginRefresh:) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:refreshControl atIndex:0];
 }
 
-- (void)_initializeRefreshControlB{
-//    Initialices and inserts the refresh control
+- (void)_initializeRefreshControlB
+{
+    //    Initialices and inserts the refresh control
     // Set up Infinite Scroll loading indicator
     CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
     _loadingMoreView = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
     _loadingMoreView.hidden = true;
     [self.tableView addSubview:_loadingMoreView];
-    
+
     UIEdgeInsets insets = self.tableView.contentInset;
     insets.bottom += InfiniteScrollActivityView.defaultHeight;
     self.tableView.contentInset = insets;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if(!_isMoreDataLoading){
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (!_isMoreDataLoading) {
         // Calculate the position of one screen length before the bottom of the results
         int scrollViewContentHeight = self.tableView.contentSize.height;
         int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
-        
+
         // When the user has scrolled past the threshold, start requesting
-        if(scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
+        if (scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
             _isMoreDataLoading = true;
-            
+
             // Update position of loadingMoreView, and start loading indicator
             CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
             _loadingMoreView.frame = frame;
             [_loadingMoreView startAnimating];
-            
+
             // Code to load more results
             [self loadMoreData];
         }
     }
 }
 
-- (void)loadMoreData{
+- (void)loadMoreData
+{
     //    Adds 20 more posts to the tableView, for infinte scrolling
-    if ([self.postArray count]>=self.currentMax){
-        self.currentMax+=20;
+    if ([self.postArray count] >= self.currentMax) {
+        self.currentMax += 20;
         int postsToAdd = (int)[self.postArray count] + 20;
-        [self refreshDataWithNPosts: postsToAdd];
+        [self refreshDataWithNPosts:postsToAdd];
     }
     [_loadingMoreView stopAnimating];
 }
 
 #pragma mark - Network
 
-- (void)buildCloseConnectionsArray{
+- (void)buildCloseConnectionsArray
+{
     ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
-    for (UserNode* node in graph.nodes){
+    for (UserNode *node in graph.nodes) {
         [self.closeConnectionsArray addObject:node.user];
     }
 }
 
-- (void)addCloseConnectionsPosts: (int) numberOfPosts :(UIRefreshControl *)refreshControl{
+- (void)addCloseConnectionsPosts:(int)numberOfPosts:(UIRefreshControl *)refreshControl
+{
     //    Refreshes the tableview data with numberOfPosts posts from close connections
     [self buildCloseConnectionsArray];
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
@@ -103,14 +112,14 @@ InfiniteScrollActivityView* _loadingMoreView;
     [query includeKey:@"author"];
     [query whereKey:@"author" containedIn:self.closeConnectionsArray];
     query.limit = numberOfPosts;
-    
+
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (posts != nil) {
-            self.postArray = (NSMutableArray *) posts;
+            self.postArray = (NSMutableArray *)posts;
             int postsLeftToadd = numberOfPosts - (int)[posts count];
-            if (postsLeftToadd>=1){
-                [self addNotCloseConnectionsPosts:postsLeftToadd :refreshControl];
+            if (postsLeftToadd >= 1) {
+                [self addNotCloseConnectionsPosts:postsLeftToadd:refreshControl];
             }
             [self.tableView reloadData];
             [refreshControl endRefreshing];
@@ -120,39 +129,43 @@ InfiniteScrollActivityView* _loadingMoreView;
     }];
 }
 
-- (void)addNotCloseConnectionsPosts: (int)numberOfPosts :(UIRefreshControl *)refreshControl{
+- (void)addNotCloseConnectionsPosts:(int)numberOfPosts:(UIRefreshControl *)refreshControl
+{
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Post"];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"author"];
     [query whereKey:@"author" notContainedIn:self.closeConnectionsArray];
     query.limit = numberOfPosts;
-    
+
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (posts != nil) {
-            [self.postArray addObjectsFromArray:(NSMutableArray *) posts];
+            [self.postArray addObjectsFromArray:(NSMutableArray *)posts];
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
-        if (refreshControl){
+        if (refreshControl) {
             [refreshControl endRefreshing];
         }
     }];
 }
 
-- (void)refreshDataWithNPosts:(int) numberOfPosts {
-    [self addCloseConnectionsPosts:numberOfPosts :nil];
+- (void)refreshDataWithNPosts:(int)numberOfPosts
+{
+    [self addCloseConnectionsPosts:numberOfPosts:nil];
 }
 
-- (void)_beginRefresh:(UIRefreshControl *)refreshControl {
-//    Refreshes the data using the UIRefreshControl
+- (void)_beginRefresh:(UIRefreshControl *)refreshControl
+{
+    //    Refreshes the data using the UIRefreshControl
     // construct query
-    [self addCloseConnectionsPosts:20 :refreshControl];
+    [self addCloseConnectionsPosts:20:refreshControl];
 }
 
-- (void) checkIfConnectionExists: (PFUser *)user withCloseness:(int)closenesss{
+- (void)checkIfConnectionExists:(PFUser *)user withCloseness:(int)closenesss
+{
     //    checks if two users are already close, if they are, make their connection stronger, if theyre not, create a connection between them
     PFQuery *query1 = [PFQuery queryWithClassName:@"UserConnection"];
     [query1 whereKey:@"userOne" equalTo:PFUser.currentUser];
@@ -162,28 +175,27 @@ InfiniteScrollActivityView* _loadingMoreView;
     [query2 whereKey:@"userTwo" equalTo:PFUser.currentUser];
     [query2 whereKey:@"userOne" equalTo:user];
 
-    PFQuery *find = [PFQuery orQueryWithSubqueries:@[query1,query2]];
+    PFQuery *find = [PFQuery orQueryWithSubqueries:@[ query1, query2 ]];
     [find includeKey:@"userOne"];
     [find includeKey:@"userTwo"];
-    
-    [find getFirstObjectInBackgroundWithBlock: ^(PFObject *parseObject, NSError *error) {
-        if (parseObject){
+
+    [find getFirstObjectInBackgroundWithBlock:^(PFObject *parseObject, NSError *error) {
+        if (parseObject) {
             float currCloseness = [parseObject[@"closeness"] floatValue];
-            parseObject[@"closeness"] = [NSNumber numberWithFloat: currCloseness+closenesss];
-            [parseObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                if (succeeded){
+            parseObject[@"closeness"] = [NSNumber numberWithFloat:currCloseness + closenesss];
+            [parseObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
+                if (succeeded) {
                     // Add connection to local graph
                     ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
-                    [graph addUserToGraph:user :nil];
+                    [graph addUserToGraph:user:nil];
                 }
             }];
-        }
-        else{
+        } else {
             //    Posts a user connection
-            [UserConnection postUserConnection:PFUser.currentUser withUserTwo:user withCloseness:@(closenesss) withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-                    // Add connection to local graph
-                    ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
-                    [graph addUserToGraph:user :nil];
+            [UserConnection postUserConnection:PFUser.currentUser withUserTwo:user withCloseness:@(closenesss) withCompletion:^(BOOL succeeded, NSError *_Nullable error) {
+                // Add connection to local graph
+                ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
+                [graph addUserToGraph:user:nil];
             }];
         }
     }];
@@ -191,49 +203,55 @@ InfiniteScrollActivityView* _loadingMoreView;
 
 #pragma mark - TableView
 
-- (NSInteger)tableView:(UITableView *)tableView 
- numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView
+    numberOfRowsInSection:(NSInteger)section
+{
     //    return amount of posts in the postArray
     return self.postArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     //    initialize cell (PostCell) to a reusable cell using the PostCell identifier
     PostCellView *cell = [tableView
-                      dequeueReusableCellWithIdentifier: @"PostCell"];
+        dequeueReusableCellWithIdentifier:@"PostCell"];
     //    get the post and delegate and assign it to the cell
     Post *post = self.postArray[indexPath.row];
-    cell.post=post;
+    cell.post = post;
     cell.delegate = self;
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
     //    Calls load more data when scrolling reaches bottom of the tableView
-    if(indexPath.row + 1 == [self.postArray count]){
+    if (indexPath.row + 1 == [self.postArray count]) {
         [self loadMoreData];
     }
 }
 
 #pragma mark - Delegates
 
-- (void)didPost{
+- (void)didPost
+{
     //    Gets called when the user presses the "share" button on the "ComposePost" view, this controller functions as a delegate of the former
-    [self refreshDataWithNPosts:(int)self.postArray.count+1];
+    [self refreshDataWithNPosts:(int)self.postArray.count + 1];
 }
 
-- (void)postCell:(PostCellView *)postCell didTap:(PFUser *)user{
-//    Posts a user connection and goes to user profile
+- (void)postCell:(PostCellView *)postCell didTap:(PFUser *)user
+{
+    //    Posts a user connection and goes to user profile
     [self checkIfConnectionExists:user withCloseness:1];
     [self goToUserProfile:user];
 }
 
 #pragma mark - Actions
 
-- (IBAction)composeAPost:(id)sender {
+- (IBAction)composeAPost:(id)sender
+{
     // display compose post view controller
-    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ComposePostViewController *postViewController = [storyboard instantiateViewControllerWithIdentifier:@"composeNoNav"];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:postViewController];
     [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
@@ -245,9 +263,10 @@ InfiniteScrollActivityView* _loadingMoreView;
 
 #pragma mark - Navigation
 
-- (void)goToUserProfile: (PFUser *)user{
+- (void)goToUserProfile:(PFUser *)user
+{
     //    Goes to profile page when user taps on profile
-    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ProfileViewController *profileViewController = [storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
     // Pass the user
     profileViewController.user = user;

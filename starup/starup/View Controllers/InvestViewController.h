@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
 @interface InvestViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITextField *investOutlet;
@@ -27,8 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) Collaborator *collaborator;
 @property float percentageToGet;
 @property float maxInvestment;
-@property (strong, nonatomic) NSNumber* goalInv;
-@property (strong, nonatomic) NSNumber* totalPercent;
+@property (strong, nonatomic) NSNumber *goalInv;
+@property (strong, nonatomic) NSNumber *totalPercent;
 @property (weak, nonatomic) IBOutlet UILabel *starupName;
 @property (weak, nonatomic) IBOutlet UILabel *maxInvestOutlet;
 @property BOOL hasError;

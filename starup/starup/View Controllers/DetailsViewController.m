@@ -7,15 +7,18 @@
 
 #import "DetailsViewController.h"
 
+
 @interface DetailsViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ProfilesCollectionCellViewDelegate, InvestViewControllerDelegate>
 
 @end
+
 
 @implementation DetailsViewController
 
 #pragma mark - Initialization
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     //    Initialize Arrays
     self.ideators = [[NSMutableArray alloc] init];
@@ -32,7 +35,8 @@
     [self refreshColletionViewData];
 }
 
-- (void)_setUpLabels {
+- (void)_setUpLabels
+{
     //    Sets up the labels of the details view
     self.starupName.text = self.starup[@"starupName"];
     self.starupCategory.text = [self.starup[@"starupCategory"] capitalizedString];
@@ -45,33 +49,36 @@
     [self setProgressBar];
 }
 
-- (void)setProgressBar{
+- (void)setProgressBar
+{
     CGAffineTransform transform = CGAffineTransformMakeScale(1.0f, 7.0f);
     self.investmentProgressBar.transform = transform;
     [self updateProgressBar];
 }
 
-- (void)updateProgressBar{
+- (void)updateProgressBar
+{
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSNumber* currentInv = self.starup[@"currentInvestment"];
-        NSNumber* goalInv = self.starup[@"goalInvestment"];
+        NSNumber *currentInv = self.starup[@"currentInvestment"];
+        NSNumber *goalInv = self.starup[@"goalInvestment"];
         weakSelf.progressString.text = [NSString stringWithFormat:@"%@$%@ / $%@", @"Progress: ", currentInv, goalInv];
-        [weakSelf.investmentProgressBar setProgress:[Algos percentageWithNumbers:[currentInv floatValue] :[goalInv floatValue]] animated:YES];
+        [weakSelf.investmentProgressBar setProgress:[Algos percentageWithNumbers:[currentInv floatValue]:[goalInv floatValue]] animated:YES];
     });
 }
 
 #pragma mark - Network
 
-- (void)refreshColletionViewData{
+- (void)refreshColletionViewData
+{
     //    Refreshes the collection view data
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Collaborator"];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"user"];
     [query includeKey:@"starup"];
-    [query whereKey:@"starup" equalTo: self.starup];
-    
+    [query whereKey:@"starup" equalTo:self.starup];
+
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *collaborators, NSError *error) {
         if (collaborators != nil) {
@@ -85,22 +92,22 @@
     }];
 }
 
-- (void) addDependingOnUserType:(NSArray*)collaborators{
-    for (Collaborator* collaborator in collaborators){
-        if ([collaborator[@"typeOfUser"] isEqual: @"Ideator"]){
-            [self.ideators addObject: collaborator[@"user"]];
-        }
-        else if ([collaborator[@"typeOfUser"] isEqual: @"Shark"]){
-            [self.sharks addObject: collaborator[@"user"]];
-        }
-        else if ([collaborator[@"typeOfUser"] isEqual: @"Hacker"]){
-            [self.hackers addObject: collaborator[@"user"]];
+- (void)addDependingOnUserType:(NSArray *)collaborators
+{
+    for (Collaborator *collaborator in collaborators) {
+        if ([collaborator[@"typeOfUser"] isEqual:@"Ideator"]) {
+            [self.ideators addObject:collaborator[@"user"]];
+        } else if ([collaborator[@"typeOfUser"] isEqual:@"Shark"]) {
+            [self.sharks addObject:collaborator[@"user"]];
+        } else if ([collaborator[@"typeOfUser"] isEqual:@"Hacker"]) {
+            [self.hackers addObject:collaborator[@"user"]];
         }
     }
 }
 
 
-- (void) checkIfConnectionExists: (PFUser *)user withCloseness:(int)closenesss{
+- (void)checkIfConnectionExists:(PFUser *)user withCloseness:(int)closenesss
+{
     //    checks if two users are already close, if they are, make their connection stronger, if theyre not, create a connection between them
     PFQuery *query1 = [PFQuery queryWithClassName:@"UserConnection"];
     [query1 whereKey:@"userOne" equalTo:PFUser.currentUser];
@@ -110,29 +117,28 @@
     [query2 whereKey:@"userTwo" equalTo:PFUser.currentUser];
     [query2 whereKey:@"userOne" equalTo:user];
 
-    PFQuery *find = [PFQuery orQueryWithSubqueries:@[query1,query2]];
+    PFQuery *find = [PFQuery orQueryWithSubqueries:@[ query1, query2 ]];
     [find includeKey:@"userOne"];
     [find includeKey:@"userTwo"];
-    
-    [find getFirstObjectInBackgroundWithBlock: ^(PFObject *parseObject, NSError *error) {
-        if (parseObject){
+
+    [find getFirstObjectInBackgroundWithBlock:^(PFObject *parseObject, NSError *error) {
+        if (parseObject) {
             float currCloseness = [parseObject[@"closeness"] floatValue];
-            parseObject[@"closeness"] = [NSNumber numberWithFloat: currCloseness+closenesss];
-            [parseObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                if (succeeded && closenesss==1){
+            parseObject[@"closeness"] = [NSNumber numberWithFloat:currCloseness + closenesss];
+            [parseObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
+                if (succeeded && closenesss == 1) {
                     // Add connection to local graph
                     ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
-                    [graph addUserToGraph:user :nil];
+                    [graph addUserToGraph:user:nil];
                 }
             }];
-        }
-        else{
+        } else {
             //    Posts a user connection
-            [UserConnection postUserConnection:PFUser.currentUser withUserTwo:user withCloseness:@(closenesss) withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-                if (closenesss==1){
+            [UserConnection postUserConnection:PFUser.currentUser withUserTwo:user withCloseness:@(closenesss) withCompletion:^(BOOL succeeded, NSError *_Nullable error) {
+                if (closenesss == 1) {
                     // Add connection to local graph
                     ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
-                    [graph addUserToGraph:user :nil];
+                    [graph addUserToGraph:user:nil];
                 }
             }];
         }
@@ -141,41 +147,39 @@
 
 #pragma mark - CollectionView
 
-- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    if (collectionView == self.sharksCollectionView){
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    if (collectionView == self.sharksCollectionView) {
         //    get the amount of sharks
         return self.sharks.count;
-    }
-    else if (collectionView == self.ideatorsCollectionView){
+    } else if (collectionView == self.ideatorsCollectionView) {
         //    get the amount of ideators
         return self.ideators.count;
-    }
-    else if (collectionView == self.hackersCollectionView){
+    } else if (collectionView == self.hackersCollectionView) {
         //    get the amount of hackers
         return self.hackers.count;
     }
     return 0;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     ProfilesCollectionCellView *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"profilesCollectionViewCell" forIndexPath:indexPath];
-    
-    if (collectionView == self.sharksCollectionView){
+
+    if (collectionView == self.sharksCollectionView) {
         //    get the shark and and assign it to the cell
         PFUser *user = self.sharks[indexPath.row];
-        cell.user=user;
+        cell.user = user;
         cell.delegate = self;
-    }
-    else if (collectionView == self.ideatorsCollectionView){
+    } else if (collectionView == self.ideatorsCollectionView) {
         //    get the ideator and and assign it to the cell
         PFUser *user = self.ideators[indexPath.row];
-        cell.user=user;
+        cell.user = user;
         cell.delegate = self;
-    }
-    else if (collectionView == self.hackersCollectionView){
+    } else if (collectionView == self.hackersCollectionView) {
         //    get the hacker and and assign it to the cell
         PFUser *user = self.hackers[indexPath.row];
-        cell.user=user;
+        cell.user = user;
         cell.delegate = self;
     }
     return cell;
@@ -183,17 +187,19 @@
 
 #pragma mark - Delegates
 
-- (void)profileCell:(ProfilesCollectionCellView *) profileCell didTap: (PFUser *)user{
+- (void)profileCell:(ProfilesCollectionCellView *)profileCell didTap:(PFUser *)user
+{
     //    Posts a user connection and goes to user profile
     [self checkIfConnectionExists:user withCloseness:1];
     [self goToUserProfile:user];
 }
 
-- (void)didInvest{
+- (void)didInvest
+{
     //    Update starup
     PFQuery *query = [PFQuery queryWithClassName:@"Starup"];
     [query includeKey:@"author"];
-    [query whereKey:@"objectId" equalTo: self.starup.objectId];
+    [query whereKey:@"objectId" equalTo:self.starup.objectId];
     [query findObjectsInBackgroundWithBlock:^(NSArray *starups, NSError *error) {
         if (starups != nil) {
             self.starup = starups[0];
@@ -214,9 +220,10 @@
 
 #pragma mark - Navigation
 
-- (IBAction)goToInvestments:(id)sender {
+- (IBAction)goToInvestments:(id)sender
+{
     //    Goes to investments page
-    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     InvestViewController *investController = [storyboard instantiateViewControllerWithIdentifier:@"investmentsVC"];
     // Pass the user
     investController.starup = self.starup;
@@ -224,9 +231,10 @@
     [self.navigationController pushViewController:investController animated:YES];
 }
 
-- (void)goToUserProfile: (PFUser *)user{
+- (void)goToUserProfile:(PFUser *)user
+{
     //    Goes to profile page when user taps on profile
-    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ProfileViewController *profileViewController = [storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
     // Pass the user
     profileViewController.user = user;

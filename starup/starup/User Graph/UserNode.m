@@ -7,19 +7,22 @@
 
 #import "UserNode.h"
 
+
 @implementation UserNode
 
-- (instancetype)initWithUser:(PFUser *)user{
+- (instancetype)initWithUser:(PFUser *)user
+{
     self = [super init];
-    if (self){
+    if (self) {
         _user = user;
         _distanceFromStart = INT_MAX;
     }
     return self;
 }
 
-- (instancetype)init {
-    self = [self initWithUser:[[PFUser alloc]init]];
+- (instancetype)init
+{
+    self = [self initWithUser:[[PFUser alloc] init]];
     return self;
 }
 
