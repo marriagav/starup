@@ -9,6 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface InfiniteScrollActivityView : UIView
 
 @property (class, nonatomic, readonly) CGFloat defaultHeight;

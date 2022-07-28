@@ -12,6 +12,7 @@
 #import <LinkedinIOSHelper/LinkedInConnectionHandler.h>
 #import <LinkedinIOSHelper/LinkedinSimpleKeychain.h>
 
+
 @interface LinkedInHelper ()
 
 @property (nonatomic, strong) LinkedInServiceManager *service;
@@ -68,17 +69,18 @@
 
 @end
 
+
 @implementation LinkedInHelper
 
-NSString * StringOrEmpty(NSString *string) {
-    
+NSString *StringOrEmpty(NSString *string)
+{
     return string.length ? string : @"";
 }
 
 #pragma mark - Initialize -
 
-+ ( LinkedInHelper * )sharedInstance {
-    
++ (LinkedInHelper *)sharedInstance
+{
     static dispatch_once_t predicate;
     static LinkedInHelper *sharedInstance = nil;
     dispatch_once(&predicate, ^{
@@ -90,11 +92,13 @@ NSString * StringOrEmpty(NSString *string) {
 
 #pragma mark - Token is Valid Or Not -
 
-- (BOOL)isValidToken {
+- (BOOL)isValidToken
+{
     return [self.service validToken];
 }
 
-- (NSString *)accessToken {
+- (NSString *)accessToken
+{
     return self.service.accessToken;
 }
 
@@ -106,15 +110,15 @@ NSString * StringOrEmpty(NSString *string) {
                               redirectUrl:(NSString *)redirectUrl
                               permissions:(NSArray *)permissions
                                     state:(NSString *)state
-                          successUserInfo:( void (^) (NSDictionary *userInfo) )successUserInfo
-                        failUserInfoBlock:( void (^) (NSError *error))failure {
-    
+                          successUserInfo:(void (^)(NSDictionary *userInfo))successUserInfo
+                        failUserInfoBlock:(void (^)(NSError *error))failure
+{
     self.clientId = clientId;
     self.clientSecret = clientSecret;
     self.applicationWithRedirectURL = redirectUrl;
     self.permissions = permissions;
     self.sender = sender;
-    
+
     NSString *lclState = state.length ? state : @"DCEEFWF45453sdffef424";
     self.service = [LinkedInServiceManager serviceForPresentingViewController:_sender
                                                              cancelButtonText:self.cancelButtonText
@@ -123,47 +127,44 @@ NSString * StringOrEmpty(NSString *string) {
                                                                                                                 redirectUrl:_applicationWithRedirectURL
                                                                                                                 permissions:_permissions
                                                                                                                       state:lclState]];
-    
+
     self.service.showActivityIndicator = self.showActivityIndicator;
-    
+
     _userInfoSuccessBlock = successUserInfo;
     _dismissFailBlock = failure;
-    
+
     __weak typeof(self) weakSelf = self;
-    
+
     [self.service getAuthorizationCode:^(NSString *code) {
-        
         [self.service getAccessToken:code
-                             success:^(NSDictionary *accessTokenData) {
-                                 [weakSelf requestMeWithToken];
-                             }
-                             failure:^(NSError *error) {
-                                 // Quering accessToken failed
-                                 weakSelf.dismissFailBlock(error);
-                             }
-         ];
+            success:^(NSDictionary *accessTokenData) {
+                [weakSelf requestMeWithToken];
+            }
+            failure:^(NSError *error) {
+                // Quering accessToken failed
+                weakSelf.dismissFailBlock(error);
+            }];
     }
-                                cancel:^{
-                                    // Authorization was cancelled by user
-                                    weakSelf.dismissFailBlock([NSError errorWithDomain:@"com.linkedinioshelper"
-                                                                              code:-5
-                                                                          userInfo:@{NSLocalizedDescriptionKey:@"Authorization was cancelled by user" }]);
-                                }
-                               failure:^(NSError *error) {
-                                   // Authorization failed
-                                   weakSelf.dismissFailBlock(error);
-                               }
-     ];
+        cancel:^{
+            // Authorization was cancelled by user
+            weakSelf.dismissFailBlock([NSError errorWithDomain:@"com.linkedinioshelper"
+                                                          code:-5
+                                                      userInfo:@{NSLocalizedDescriptionKey : @"Authorization was cancelled by user"}]);
+        }
+        failure:^(NSError *error) {
+            // Authorization failed
+            weakSelf.dismissFailBlock(error);
+        }];
 }
 
 #pragma mark - AutoLogin -
 
-- (void)autoFetchUserInfoWithSuccess:( void (^) (NSDictionary *userInfo) )successUserInfo
-                        failUserInfo:( void (^) (NSError *error))failure {
-    
+- (void)autoFetchUserInfoWithSuccess:(void (^)(NSDictionary *userInfo))successUserInfo
+                        failUserInfo:(void (^)(NSError *error))failure
+{
     _userInfoSuccessBlock = successUserInfo;
     _dismissFailBlock = failure;
-    
+
     if (self.isValidToken) {
         _accessToken = self.service.accessToken;
         [self requestMeWithToken];
@@ -177,15 +178,14 @@ NSString * StringOrEmpty(NSString *string) {
                            redirectUrl:(NSString *)redirectUrl
                            permissions:(NSArray *)permissions
                                  state:(NSString *)state
-                               success:(void (^) (NSString *accessToken))success
-                              failure:(void (^) (NSError *err) )failure {
-    
-    
+                               success:(void (^)(NSString *accessToken))success
+                               failure:(void (^)(NSError *err))failure
+{
     self.clientId = clientId;
     self.clientSecret = clientSecret;
     self.applicationWithRedirectURL = redirectUrl;
     self.permissions = permissions;
-    
+
     NSString *lclState = state.length ? state : @"DCEEFWF45453sdffef424";
     self.service = [LinkedInServiceManager serviceForPresentingViewController:_sender
                                                              cancelButtonText:self.cancelButtonText
@@ -194,27 +194,26 @@ NSString * StringOrEmpty(NSString *string) {
                                                                                                                 redirectUrl:_applicationWithRedirectURL
                                                                                                                 permissions:_permissions
                                                                                                                       state:lclState]];
-    
+
     self.service.showActivityIndicator = self.showActivityIndicator;
-    
+
     __weak typeof(self) weakSelf = self;
-    
+
     NSString *authCode = self.service.authorizationCode.length ? self.service.authorizationCode : [LinkedinSimpleKeychain loadWithService:LINKEDIN_AUTHORIZATION_CODE];
 
     [self.service getAccessToken:authCode
-                         success:^(NSDictionary *accessTokenData) {
-                             weakSelf.accessToken = accessTokenData[@"access_token"];
-                             success(weakSelf.accessToken);
-                         }
-                         failure:^(NSError *error) {
-                             // Quering accessToken failed
-                             failure(error);
-                         }
-     ];
+        success:^(NSDictionary *accessTokenData) {
+            weakSelf.accessToken = accessTokenData[@"access_token"];
+            success(weakSelf.accessToken);
+        }
+        failure:^(NSError *error) {
+            // Quering accessToken failed
+            failure(error);
+        }];
 }
 
-- (void)logout {
-    
+- (void)logout
+{
     [LinkedinSimpleKeychain deleteObjectWithService:LINKEDIN_TOKEN_KEY];
     [LinkedinSimpleKeychain deleteObjectWithService:LINKEDIN_AUTHORIZATION_CODE];
     [LinkedinSimpleKeychain deleteObjectWithService:LINKEDIN_EXPIRATION_KEY];
@@ -223,71 +222,67 @@ NSString * StringOrEmpty(NSString *string) {
 
 #pragma mark - Request Me Via Access Token -
 
-- (NSString *)prepareUrlForMe {
-    
+- (NSString *)prepareUrlForMe
+{
     if (!_customSubPermissions.length) {
         _customSubPermissions = self.service.settings.subPermissions.length ? self.service.settings.subPermissions : [[NSUserDefaults standardUserDefaults] objectForKey:KSUBPERMISSONS];
     }
-    
+
     NSAssert(_customSubPermissions, @"Sub Permissions can not be null !!");
-    
+
     return [[NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~:(%@)?oauth2_access_token=%@&format=json", _customSubPermissions, [self accessToken]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
-- ( void )requestMeWithToken {
-    
+- (void)requestMeWithToken
+{
     NSString *clientUrl = [self prepareUrlForMe];
-    
+
     __weak typeof(self) weakSelf = self;
-    
+
     LinkedInConnectionHandler *connection = [[LinkedInConnectionHandler alloc] initWithURL:[NSURL URLWithString:clientUrl]
-                                                                                      type:GET
-                                                                                  postData:nil
-                                                                                   success:^(NSDictionary *response) {
-                                                                                       
-                                                                                       NSString *title = @"";
-                                                                                       NSString *companyName = @"";
-                                                                                       NSString *emailAddress = StringOrEmpty(response[ @"emailAddress" ]);
-                                                                                       NSString *photo        = StringOrEmpty(response[ @"pictureUrl" ]);
-                                                                                       NSString *industry     = StringOrEmpty(response[ @"industry" ]);
-                                                                                       
-                                                                                       NSDictionary *dictionary = response[ @"positions" ];
-                                                                                       if ( dictionary[@"values"] ) {
-                                                                                           NSArray *values = dictionary[@"values"];
-                                                                                           
-                                                                                           if ( values.count ) {
-                                                                                               NSDictionary *company = values[0];
-                                                                                               title = company[ @"title" ];
-                                                                                               if ( company[ @"company" ] ) {
-                                                                                                   NSDictionary *companyDic = company[ @"company" ];
-                                                                                                   companyName              = companyDic[ @"name" ];
-                                                                                               }
-                                                                                           }
-                                                                                       }
-                                                                                       
-                                                                                       weakSelf.emailAddress  = emailAddress;
-                                                                                       weakSelf.industry      = industry;
-                                                                                       weakSelf.title         = StringOrEmpty(title);
-                                                                                       weakSelf.photo         = photo;
-                                                                                       weakSelf.companyName   = StringOrEmpty(companyName);
-                                                                                       
-                                                                                       NSAssert(weakSelf.userInfoSuccessBlock, @"SHOULD SET USER INFO SUCCESS BLOCK!");
-                                                                                       if (weakSelf.userInfoSuccessBlock) {
-                                                                                           weakSelf.userInfoSuccessBlock(response);
-                                                                                       }
-                                                                                       
-                                                                                   }
-                                                                                    cancel:^{
-                                                                                        NSLog(@"Cancelled");
-                                                                                    }
-                                                                                   failure:^(NSError *err) {
-                                                                                       
-                                                                                       NSAssert(weakSelf.dismissFailBlock, @"SHOULD SET USER INFO FAIL BLOCK!");
-                                                                                       if (weakSelf.dismissFailBlock) {
-                                                                                           weakSelf.dismissFailBlock(err);
-                                                                                       }
-                                                                                   }
-                                             ];
+        type:GET
+        postData:nil
+        success:^(NSDictionary *response) {
+            NSString *title = @"";
+            NSString *companyName = @"";
+            NSString *emailAddress = StringOrEmpty(response[@"emailAddress"]);
+            NSString *photo = StringOrEmpty(response[@"pictureUrl"]);
+            NSString *industry = StringOrEmpty(response[@"industry"]);
+
+            NSDictionary *dictionary = response[@"positions"];
+            if (dictionary[@"values"]) {
+                NSArray *values = dictionary[@"values"];
+
+                if (values.count) {
+                    NSDictionary *company = values[0];
+                    title = company[@"title"];
+                    if (company[@"company"]) {
+                        NSDictionary *companyDic = company[@"company"];
+                        companyName = companyDic[@"name"];
+                    }
+                }
+            }
+
+            weakSelf.emailAddress = emailAddress;
+            weakSelf.industry = industry;
+            weakSelf.title = StringOrEmpty(title);
+            weakSelf.photo = photo;
+            weakSelf.companyName = StringOrEmpty(companyName);
+
+            NSAssert(weakSelf.userInfoSuccessBlock, @"SHOULD SET USER INFO SUCCESS BLOCK!");
+            if (weakSelf.userInfoSuccessBlock) {
+                weakSelf.userInfoSuccessBlock(response);
+            }
+        }
+        cancel:^{
+            NSLog(@"Cancelled");
+        }
+        failure:^(NSError *err) {
+            NSAssert(weakSelf.dismissFailBlock, @"SHOULD SET USER INFO FAIL BLOCK!");
+            if (weakSelf.dismissFailBlock) {
+                weakSelf.dismissFailBlock(err);
+            }
+        }];
     [connection start];
 }
 

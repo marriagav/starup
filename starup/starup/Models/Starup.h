@@ -10,6 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface Starup : PFObject
 
 @property (nonatomic, strong) NSString *starupID;
@@ -25,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) PFFileObject *starupImage;
 @property (nonatomic, strong) NSString *starupDescription;
 
-+ (void) postStarup: ( NSString * _Nullable )starupName withCategory: ( NSString * _Nullable )starupCategory withDescription: ( NSString * _Nullable )starupDescription withImage:( UIImage * _Nullable )starupImage withOperationSince: ( NSDate * _Nullable )operatingSince withSales: ( int )sales withGoalInvestment: ( int )goalInvestment withPercentageToGive: ( int )percentageToGive withCompletion: (void (^)(Starup *starup, NSError *error))completion;
++ (void)postStarup:(NSString *_Nullable)starupName withCategory:(NSString *_Nullable)starupCategory withDescription:(NSString *_Nullable)starupDescription withImage:(UIImage *_Nullable)starupImage withOperationSince:(NSDate *_Nullable)operatingSince withSales:(int)sales withGoalInvestment:(int)goalInvestment withPercentageToGive:(int)percentageToGive withCompletion:(void (^)(Starup *starup, NSError *error))completion;
 
 @end
 

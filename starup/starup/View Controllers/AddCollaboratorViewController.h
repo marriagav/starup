@@ -7,8 +7,9 @@
 
 #import <UIKit/UIKit.h>
 #import "Parse/Parse.h"
-#import "profileCell.h"
+#import "ProfileCellView.h"
 #import "InfiniteScrollActivityView.h"
+#import "ConnectionsGraph.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,10 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
 @interface AddCollaboratorViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSMutableArray *userArray;
+@property (strong, nonatomic) NSMutableArray<NSMutableArray *> *userMatrix;
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) NSString *typeOfUserToAdd;
 @property (nonatomic, weak) id<AddCollaboratorViewControllerDelegate> delegate;

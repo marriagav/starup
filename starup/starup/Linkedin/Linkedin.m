@@ -7,23 +7,22 @@
 
 #import "Linkedin.h"
 
+
 @implementation Linkedin
 
-+ (BOOL)isLinkedInAccessTokenValid {
++ (BOOL)isLinkedInAccessTokenValid
+{
     return [LinkedInHelper sharedInstance].isValidToken;
 }
 
-+ (void)getUserInfo {
-    
++ (void)getUserInfo
+{
     LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
-    
+
     // If user has already connected via linkedin in and access token is still valid then
     // No need to fetch authorizationCode and then accessToken again!
-    
-#warning - To fetch user info  automatically without getting authorization code, accessToken must be still valid
-    
+
     if (linkedIn.isValidToken) {
-        
         // So Fetch member info by elderyly access token
         [linkedIn autoFetchUserInfoWithSuccess:^(NSDictionary *userInfo) {
             // Whole User Info
@@ -31,67 +30,72 @@
         } failUserInfo:^(NSError *error) {
             NSLog(@"error : %@", error.userInfo.description);
         }];
-    }
-    else{
+    } else {
         [self fetchUserInformations];
     }
 }
 
-+ (void)fetchUserInformations {
-    
++ (void)fetchUserInformations
+{
     LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
-    
+
     linkedIn.cancelButtonText = @"Close"; // Or any other language But Default is Close
-    
-    NSArray *permissions = @[@(ContactInfo),
-                             @(EmailAddress),
-                             @(Share)];
-    
+
+    NSArray *permissions = @[ @(ContactInfo),
+                              @(EmailAddress),
+                              @(Share) ];
+
     linkedIn.showActivityIndicator = YES;
-    
-#warning - Your LinkedIn App ClientId - ClientSecret - RedirectUrl
+
+    // Get the keys
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"../Keys" ofType:@"plist"];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
+    NSString *linkedinAPIid = [dict objectForKey:@"linkedinAppID"];
+    NSString *linkedinSecret = [dict objectForKey:@"linkedinSecret"];
+
     [linkedIn requestMeWithSenderViewController:self
-                                       clientId:@"86j2dodya1oazo"         // Your App Client Id
-                                   clientSecret:@"t9WeE5hll2xaqXnL"         // Your App Client Secret
-                                    redirectUrl:@"http://starupcode.com"         // Your App Redirect Url
-                                    permissions:permissions
-                                          state:@"authState"               // Your client state
-                                successUserInfo:^(NSDictionary *userInfo) {
-        NSLog(@"user Info : %@", userInfo);
-    }
-                              failUserInfoBlock:^(NSError *error) {
-        NSLog(@"error : %@", error.userInfo.description);
-    }
-    ];
+        clientId:linkedinAPIid               // Your App Client Id
+        clientSecret:linkedinSecret          // Your App Client Secret
+        redirectUrl:@"http://starupcode.com" // Your App Redirect Url
+        permissions:permissions
+        state:@"authState" // Your client state
+        successUserInfo:^(NSDictionary *userInfo) {
+            NSLog(@"user Info : %@", userInfo);
+        }
+        failUserInfoBlock:^(NSError *error) {
+            NSLog(@"error : %@", error.userInfo.description);
+        }];
 }
 
-+ (void)logoutFromLinkedin{
++ (void)logoutFromLinkedin
+{
     LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
     [linkedIn logout];
 }
 
-+ (void)checkIfUserHasLinkedin: (NSString*)username {
++ (void)checkIfUserHasLinkedin:(NSString *)username
+{
     PFQuery *query = [PFUser query];
     [query whereKey:@"linkedinAuthentification" equalTo:@"True"];
     [query whereKey:@"username" equalTo:username];
     query.limit = 1;
     [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
-            if (users != nil) {
-                if (users.count>0){
-                    [self getUserInfo];
-                }
-                else{
-                    nil;
-                }
+        if (users != nil) {
+            if (users.count > 0) {
+                [self getUserInfo];
             } else {
-                NSLog(@"%@", error);
+                nil;
             }
-        }];
+        } else {
+            NSLog(@"%@", error);
+        }
+    }];
 }
 
-+ (void)postTolinkedin: (NSString*) visibility :(NSString*) textToPost {
++ (void)postTolinkedin:(NSString *)visibility withTextToPost:(NSString *)textToPost
+{
     LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
-    [linkedIn postInLinkedin:visibility :textToPost :nil];
+    [linkedIn postInLinkedin:visibility:textToPost:nil];
 }
 
 @end

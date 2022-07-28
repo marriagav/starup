@@ -5,51 +5,55 @@
 //  Created by Miguel Arriaga Velasco on 7/15/22.
 //
 
-#import "starupCollectionViewCell.h"
+#import "StarupCollectionCellView.h"
 
-@implementation starupCollectionViewCell
 
-- (void)awakeFromNib {
+@implementation StarupCollectionCellView
+
+- (void)awakeFromNib
+{
     [super awakeFromNib];
     // Initialization code
-    [self _cellGestureRecognizer];
+    [self cellGestureRecognizer];
 }
 
-- (void)setCollaborator:(Collaborator *)collaborator{
-//    Setter for the collaborator
+- (void)setCollaborator:(Collaborator *)collaborator
+{
+    //    Setter for the collaborator
     _collaborator = collaborator;
     self.starupName.text = self.collaborator[@"starup"][@"starupName"];
     self.userRoleText = self.collaborator[@"typeOfUser"];
     [self setImageFromText];
 }
 
-- (void)setImageFromText{
-    if ([self.userRoleText isEqual:@"Ideator"]){
+- (void)setImageFromText
+{
+    if ([self.userRoleText isEqual:@"Ideator"]) {
         //  Set the profile picture
         self.userRoleImage.image = [UIImage imageNamed:@"ideator-1"];
-    }
-    else if ([self.userRoleText isEqual:@"Shark"]){
+    } else if ([self.userRoleText isEqual:@"Shark"]) {
         //  Set the profile picture
         self.userRoleImage.image = [UIImage imageNamed:@"shark-1"];
-    }
-    else if ([self.userRoleText isEqual:@"Hacker"]){
+    } else if ([self.userRoleText isEqual:@"Hacker"]) {
         //  Set the profile picture
         self.userRoleImage.image = [UIImage imageNamed:@"hacker-1"];
     }
     //    Format the profile picture
-    self.userRoleImage.layer.cornerRadius = self.userRoleImage.frame.size.height/2;
+    self.userRoleImage.layer.cornerRadius = self.userRoleImage.frame.size.height / 2;
     self.userRoleImage.layer.borderWidth = 0;
-    self.userRoleImage.clipsToBounds=YES;
+    self.userRoleImage.clipsToBounds = YES;
 }
 
-- (void) didTapCell:(UITapGestureRecognizer *)sender{
-//    Gets called when the user taps on the starup
+- (void)didTapCell:(UITapGestureRecognizer *)sender
+{
+    //    Gets called when the user taps on the starup
     [self.delegate starupCell:self didTap:self.collaborator[@"starup"]];
 }
 
-- (void)_cellGestureRecognizer{
-//    Method to set up a tap gesture recognizer for the cell
-    UITapGestureRecognizer *cellTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapCell:)];
+- (void)cellGestureRecognizer
+{
+    //    Method to set up a tap gesture recognizer for the cell
+    UITapGestureRecognizer *cellTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapCell:)];
     [self addGestureRecognizer:cellTapGestureRecognizer];
     [self setUserInteractionEnabled:YES];
 }

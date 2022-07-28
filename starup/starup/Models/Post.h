@@ -10,6 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface Post : PFObject
 
 @property (nonatomic, strong) NSString *postID;
@@ -22,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSNumber *commentCount;
 
 
-+ (void) postUserStatus: ( NSString * _Nullable )updateStatus withCaption: ( NSString * _Nullable )contentOfPost withImage:( UIImage * _Nullable )statusImage withCompletion: (PFBooleanResultBlock  _Nullable)completion;
++ (void)postUserStatus:(NSString *_Nullable)updateStatus withCaption:(NSString *_Nullable)contentOfPost withImage:(UIImage *_Nullable)statusImage withCompletion:(PFBooleanResultBlock _Nullable)completion;
 
 @end
 

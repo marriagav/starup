@@ -12,7 +12,9 @@
 #import "Starup.h"
 #import "AddCollaboratorViewController.h"
 #import "Collaborator.h"
-#import "profilesCollectionViewCell.h"
+#import "ProfilesCollectionCellView.h"
+#import "UserConnection.h"
+#import "ConnectionsGraph.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)didPost;
 
 @end
+
 
 @interface ComposeStarupViewController : UIViewController
 
@@ -35,9 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextView *descriptionOutlet;
 @property (weak, nonatomic) IBOutlet PFImageView *starupImage;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
-@property (nonatomic, strong) NSMutableArray* ideators;
-@property (nonatomic, strong) NSMutableArray* sharks;
-@property (nonatomic, strong) NSMutableArray* hackers;
+@property (nonatomic, strong) NSMutableArray *ideators;
+@property (nonatomic, strong) NSMutableArray *sharks;
+@property (nonatomic, strong) NSMutableArray *hackers;
 @property (weak, nonatomic) IBOutlet UIButton *addCollaborator;
 @property (weak, nonatomic) IBOutlet UICollectionView *sharksCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *ideatorsCollectionView;

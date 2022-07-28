@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
 @interface EditProfileViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameOutlet;

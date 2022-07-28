@@ -15,6 +15,12 @@ Original App Design Project
 `git clone git@github.com:marriagav/starup.git`
 2. Install the project dependencies by going to the `starup` directory with the command `cd starup` and then running the command `pod install`
 3. Open the project in xcode by running the command `open starup.xcworkspace/`
+4. Add the Keys.plist file to the project, with the following keys of the API's (their values are also needed):
+    - parseAppID
+    - parseClientKey
+    - paypalClientID
+    - linkedinAppID
+    - linkedinSecret
 4. Run the project from xcode
 
 ## Overview
@@ -46,14 +52,16 @@ Starup is an application that allows startups to connect with investors and inde
 * Persistent storage of users session
 * Profile view: clicking on a user to see their profile
 * Being able to see what other people are posting and make posts yourself
-* Invest in a starup
+* Invest in a starup with Paypal
+* Connecting the app to the Linkedin API.
+* Search bar to filter users when adding them to a Starup
 
 **Optional Nice-to-have Stories**
 
-* Connecting the app to the Linkedin API.
 * Search bar to filter startups
 * Search bar to filter posts
-* Edit starups to add collaborators to them
+* Edit starups to add new collaborators to them
+* Messaging functionality
 
 ### 2. Screen Archetypes
 
@@ -64,22 +72,21 @@ Starup is an application that allows startups to connect with investors and inde
 * Home feed
    * Being able to see what other people are posting (statuses)
    * Search bar to filter posts
-* Compse post feed
+* Compse post
    * Being able to make a status post
 * Starups tab
    * Being able to navigate startups
 * Details tab
    * Being able to see more information about a startup
-* Invest/contact tab
-    * Invest or contact a specifi starup
+   * See the current investment of the starup
+* Invest tab
+    * Select amount to invest and invest
+    * Invest on a specific starup
 * Compose starup 
     * Post a new startup
 * Profile tab
     * See and edit your profile
     * See other profiles
-* Invest/contact tab
-    * See the current investment of the starup
-    * Select amount to invest and invest
 
 ### 3. Navigation
 
@@ -105,7 +112,7 @@ Starup is an application that allows startups to connect with investors and inde
     * Starups tab
 * Details tab
     * Profile tab (tap on profile pictures)
-    * Invest/contact tab (tap on invest/contact button)
+    * Invest tab (tap on invest button)
 * Profile tab
     * Details tab (tap on starup)
 
@@ -148,7 +155,6 @@ Starup is an application that allows startups to connect with investors and inde
 [Prototype](https://www.figma.com/proto/my8dsbhEzQgZEqM46oi4gx/Untitled?node-id=2%3A2&scaling=scale-down&page-id=0%3A1&starting-point-node-id=2%3A2&show-proto-sidebar=1)
 
 ## Schema 
-[This section will be completed in Unit 9]
 
 ### Models
 
@@ -188,7 +194,6 @@ Starup is an application that allows startups to connect with investors and inde
 | starupCategory     | string       | category of the starup (for example: software, design, etc.)      |
 | operatingSince     | DateTime       | Date when the starup started operating      |
 | sales     | number       | amount of money that the starup has generated in USD      |
-| collaborators     | array of pointers to collaborator       | collaborators that participate in that starup      |
 | goalInvestment     | number       | goal investment amount in usd      |
 | currentInvestment     | number       | current investment amount in usd      |
 | ownershipPercentForInvestment     | number       | percentage of the company to give in exchange for the goal investment amount      |
@@ -202,6 +207,16 @@ Starup is an application that allows startups to connect with investors and inde
 | updatedAt   | DateTime     | date when post was updated    |
 | updateStatus   | string     | update status of the post (for example: "looking for starups", "posted a new starup", "invested in a starup"    |
 | contentOfPost   | string     | text content of the post   |
+
+#### Model: UserConnection
+| Property | Type | Description |
+| :---         |     :---:      |          :--- |
+| objectId   | string     | unique id for the UserConnection    |
+| createdAt   | DateTime     | date when UserConnection was created    |
+| updatedAt   | DateTime     | date when UserConnection was updated    |
+| closeness   | number     | closeness value between the two users    |
+| userTwo   | pointer to user     | pointer to one of the users   |
+| userOne   | pointer to user     | pointer to the other of the users   |
 
 ### Networking
 

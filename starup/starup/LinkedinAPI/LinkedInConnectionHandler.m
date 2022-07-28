@@ -9,6 +9,7 @@
 #import <LinkedinIOSHelper/LinkedInConnectionHandler.h>
 #import <UIKit/UIKit.h>
 
+
 @interface LinkedInConnectionHandler () <NSURLConnectionDataDelegate, NSURLConnectionDelegate>
 
 /*!
@@ -38,6 +39,7 @@
 
 @end
 
+
 @implementation LinkedInConnectionHandler
 
 @synthesize isCancelled = _isCancelled;
@@ -51,8 +53,8 @@
                    postData:(NSString *)postData
                     success:(void (^)(NSDictionary *response))success
                      cancel:(void (^)(void))cancel
-                    failure:(void (^)(NSError *))failure {
-    
+                    failure:(void (^)(NSError *))failure
+{
     NSParameterAssert(url);
     self = [super init];
     if (self) {
@@ -68,8 +70,8 @@
 
 #pragma mark - Start / Cancel -
 
-- (void) start {
-    
+- (void)start
+{
     if (self.connection) {
         [self.connection cancel];
     }
@@ -83,38 +85,36 @@
         return;
     }
     self.isExecuting = YES;
-    
+
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:_url];
     self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
-    
+
     if (self.connection == nil) {
         NSError *err = [NSError errorWithDomain:@"com.linkedinioshelper"
-                                         code:-2
-                                     userInfo:@{NSLocalizedDescriptionKey:@"Couldn't create NSURLConnection"}];
+                                           code:-2
+                                       userInfo:@{NSLocalizedDescriptionKey : @"Couldn't create NSURLConnection"}];
         if (self.failureCallback) {
             self.failureCallback(err);
         }
         [self killEmAll];
         return;
     }
-    
+
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    
+
     switch (self.type) {
         case GET: {
             [self.connection scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
             [self.connection start];
-        }
-            break;
+        } break;
         case POST: {
-            
             NSData *postData = [NSData dataWithBytes:[_postString UTF8String] length:[_postString length]];
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
             [request setURL:_url];
             [request setHTTPMethod:@"POST"];
             [request setValue:@"application/json" forHTTPHeaderField:@"Current-Type"];
             [request setHTTPBody:postData];
-            
+
             self.connection = [NSURLConnection connectionWithRequest:request delegate:self];
             [self.connection start];
         }
@@ -123,78 +123,78 @@
     }
 }
 
-- (void) cancel {
-    
+- (void)cancel
+{
     dispatch_async(dispatch_get_main_queue(), ^{
         if (_isCancelled || _isFinished) {
             return;
         }
         [self.connection cancel];
-        
+
         if (self.cancelCallback) {
             self.cancelCallback();
         }
-        
+
         [self killEmAll];
     });
 }
 
 #pragma mark - NSURLConnection Delegate -
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
     if (self.failureCallback) {
         self.failureCallback(error);
     }
-    
+
     [self killEmAll];
 }
 
 #pragma mark - NSURLConnectionData Delegate -
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
     assert([response isKindOfClass:[NSHTTPURLResponse class]]);
-    
+
     switch (self.type) {
-        case GET:  self.responseData = [[NSMutableData alloc] initWithCapacity:1024];
+        case GET:
+            self.responseData = [[NSMutableData alloc] initWithCapacity:1024];
             break;
-        case POST: self.responseData = [[NSMutableData alloc] init];
+        case POST:
+            self.responseData = [[NSMutableData alloc] init];
         default:
             break;
     }
-    self.lastResponse = (NSHTTPURLResponse*)response;
+    self.lastResponse = (NSHTTPURLResponse *)response;
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
     [self.responseData appendData:data];
 }
 
-- (void)connectionDidFinishLoading:(NSURLConnection*)connection
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    
     if (self.lastResponse.statusCode != 200) {
         NSString *desc = [[NSString alloc] initWithFormat:@"connection failed with response %ld (%@)",
-                          (long)self.lastResponse.statusCode, [NSHTTPURLResponse localizedStringForStatusCode:self.lastResponse.statusCode]];
-        
+                                                          (long)self.lastResponse.statusCode, [NSHTTPURLResponse localizedStringForStatusCode:self.lastResponse.statusCode]];
+
         NSError *err = [[NSError alloc] initWithDomain:@"com.linkedinioshelper"
-                                                code:-4
-                                            userInfo:@{
-                                                       NSLocalizedDescriptionKey: desc,
-                                                       NSLocalizedFailureReasonErrorKey:[self.responseData description]
-                                                       }];
+                                                  code:-4
+                                              userInfo:@{
+                                                  NSLocalizedDescriptionKey : desc,
+                                                  NSLocalizedFailureReasonErrorKey : [self.responseData description]
+                                              }];
         if (self.failureCallback) {
             self.failureCallback(err);
             err = nil;
             desc = nil;
         }
-        
+
     } else {
-        
         NSError *err = nil;
-        NSDictionary  *returnObject = [NSJSONSerialization JSONObjectWithData:self.responseData options:kNilOptions error:&err];
-        
+        NSDictionary *returnObject = [NSJSONSerialization JSONObjectWithData:self.responseData options:kNilOptions error:&err];
+
         if (err) {
             NSAssert(self.failureCallback, @"SHOULD SET USER INFO FAIL BLOCK!");
             if (self.failureCallback) {
@@ -218,39 +218,38 @@
 
 - (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
 {
-//    NSLog(@"Authenticated");
+    //    NSLog(@"Authenticated");
     return [protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 {
-//    NSLog(@"Challenged");
+    //    NSLog(@"Challenged");
     if ([challenge.protectionSpace.authenticationMethod
-         isEqualToString:NSURLAuthenticationMethodServerTrust])
-    {
+            isEqualToString:NSURLAuthenticationMethodServerTrust]) {
         //trust domain
         NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
         [challenge.sender useCredential:credential forAuthenticationChallenge:challenge];
     }
-    
+
     [challenge.sender continueWithoutCredentialForAuthenticationChallenge:challenge];
 }
 
 #pragma mark - Memory Management -
 
-- (void) dealloc {
-    
+- (void)dealloc
+{
 }
 
-- (void)killEmAll {
-    
+- (void)killEmAll
+{
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    
+
     NSAssert([NSThread currentThread] == [NSThread mainThread], @"not executing on main thread");
-    
+
     if (_isFinished)
         return;
-    
+
     self.successCallback = nil;
     self.failureCallback = nil;
     self.cancelCallback = nil;

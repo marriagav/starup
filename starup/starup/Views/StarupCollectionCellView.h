@@ -11,23 +11,24 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol starupCollectionViewCellDelegate;
+@protocol StarupCollectionCellViewDelegate;
 
-@interface starupCollectionViewCell : UICollectionViewCell
+
+@interface StarupCollectionCellView : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *starupName;
 @property (strong, nonatomic) Collaborator *collaborator;
 @property (strong, nonatomic) NSString *userRoleText;
 @property (weak, nonatomic) IBOutlet UIImageView *userRoleImage;
-@property (nonatomic, weak) id<starupCollectionViewCellDelegate> delegate;
+@property (nonatomic, weak) id<StarupCollectionCellViewDelegate> delegate;
 
 - (void)setCollaborator:(Collaborator *)collaborator;
 
 @end
 
-@protocol starupCollectionViewCellDelegate
+@protocol StarupCollectionCellViewDelegate
 
-- (void)starupCell:(starupCollectionViewCell *) starupCell didTap: (Starup *)starup;
+- (void)starupCell:(StarupCollectionCellView *)starupCell didTap:(Starup *)starup;
 
 @end
 

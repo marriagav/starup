@@ -5,23 +5,27 @@
 //  Created by Miguel Arriaga Velasco on 7/8/22.
 //
 
-#import "StarupCell.h"
+#import "StarupCellView.h"
 
-@implementation StarupCell
 
-- (void)awakeFromNib {
+@implementation StarupCellView
+
+- (void)awakeFromNib
+{
     [super awakeFromNib];
     // Initialization code
-    [self _cellGestureRecognizer];
+    [self cellGestureRecognizer];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
     [super setSelected:selected animated:animated];
     // Configure the view for the selected state
 }
 
-- (void)setStarup:(Starup *)starup {
-//    Setter for the post
+- (void)setStarup:(Starup *)starup
+{
+    //    Setter for the post
     _starup = starup;
     self.starupName.text = starup[@"starupName"];
     self.starupCategory.text = [starup[@"starupCategory"] capitalizedString];
@@ -33,14 +37,16 @@
     [self.starupImage loadInBackground];
 }
 
-- (void) didTapCell:(UITapGestureRecognizer *)sender{
-//    Gets called when the user taps on the starup
+- (void)didTapCell:(UITapGestureRecognizer *)sender
+{
+    //    Gets called when the user taps on the starup
     [self.delegate starupCell:self didTap:self.starup];
 }
 
-- (void)_cellGestureRecognizer{
-//    Method to set up a tap gesture recognizer for the cell
-    UITapGestureRecognizer *cellTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapCell:)];
+- (void)cellGestureRecognizer
+{
+    //    Method to set up a tap gesture recognizer for the cell
+    UITapGestureRecognizer *cellTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapCell:)];
     [self addGestureRecognizer:cellTapGestureRecognizer];
     [self setUserInteractionEnabled:YES];
 }

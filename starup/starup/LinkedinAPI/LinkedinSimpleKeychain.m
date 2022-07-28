@@ -8,25 +8,29 @@
 
 #import <LinkedinIOSHelper/LinkedinSimpleKeychain.h>
 
+
 @implementation LinkedinSimpleKeychain
 
-+ (NSMutableDictionary *)getKeychainQuery:(NSString *)service {
++ (NSMutableDictionary *)getKeychainQuery:(NSString *)service
+{
     return [NSMutableDictionary dictionaryWithObjectsAndKeys:
-            (__bridge id)kSecClassGenericPassword, (__bridge id)kSecClass,
-            service, (__bridge id)kSecAttrService,
-            service, (__bridge id)kSecAttrAccount,
-            (__bridge id)kSecAttrAccessibleAfterFirstUnlock, (__bridge id)kSecAttrAccessible,
-            nil];
+                                    (__bridge id)kSecClassGenericPassword, (__bridge id)kSecClass,
+                                    service, (__bridge id)kSecAttrService,
+                                    service, (__bridge id)kSecAttrAccount,
+                                    (__bridge id)kSecAttrAccessibleAfterFirstUnlock, (__bridge id)kSecAttrAccessible,
+                                    nil];
 }
 
-+ (void)saveWithService:(NSString *)service data:(id)data {
++ (void)saveWithService:(NSString *)service data:(id)data
+{
     NSMutableDictionary *keychainQuery = [self getKeychainQuery:service];
     SecItemDelete((__bridge CFDictionaryRef)keychainQuery);
     [keychainQuery setObject:[NSKeyedArchiver archivedDataWithRootObject:data] forKey:(__bridge id)kSecValueData];
     SecItemAdd((__bridge CFDictionaryRef)keychainQuery, NULL);
 }
 
-+ (id)loadWithService:(NSString *)service {
++ (id)loadWithService:(NSString *)service
+{
     id ret = nil;
     NSMutableDictionary *keychainQuery = [self getKeychainQuery:service];
     [keychainQuery setObject:(id)kCFBooleanTrue forKey:(__bridge id)kSecReturnData];
@@ -39,13 +43,15 @@
         @catch (NSException *e) {
             NSLog(@"Unarchive of %@ failed: %@", service, e);
         }
-        @finally {}
+        @finally {
+        }
     }
     if (keyData) CFRelease(keyData);
     return ret;
 }
 
-+ (void)deleteObjectWithService:(NSString *)service {
++ (void)deleteObjectWithService:(NSString *)service
+{
     NSMutableDictionary *keychainQuery = [self getKeychainQuery:service];
     SecItemDelete((__bridge CFDictionaryRef)keychainQuery);
 }

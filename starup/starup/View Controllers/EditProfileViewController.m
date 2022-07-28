@@ -7,15 +7,18 @@
 
 #import "EditProfileViewController.h"
 
+
 @interface EditProfileViewController () <UITextViewDelegate>
 
 @end
+
 
 @implementation EditProfileViewController
 
 #pragma mark - Initialization
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Set outlets
     [self setOutlets];
@@ -24,43 +27,46 @@
     [self.view addGestureRecognizer:gestureRecognizer];
     gestureRecognizer.cancelsTouchesInView = NO;
     // For the textfield placeholder to work
-    self.userBio.delegate=self;
+    self.userBio.delegate = self;
 }
 
-- (void)setOutlets{
+- (void)setOutlets
+{
     self.usernameOutlet.text = PFUser.currentUser[@"username"];
     self.firstnameOutlet.text = PFUser.currentUser[@"firstname"];
     self.lastnameOutlet.text = PFUser.currentUser[@"lastname"];
     self.userBio.text = PFUser.currentUser[@"userBio"];
-    self.roleOutlet.text =  PFUser.currentUser[@"role"];
+    self.roleOutlet.text = PFUser.currentUser[@"role"];
 }
 
 #pragma mark - QualityOfLife
 
-- (void)dismissKeyboard{
+- (void)dismissKeyboard
+{
     //    Dissmiss the keyboard
     [self.view endEditing:YES];
 }
 
-- (void)textViewDidChange:(UITextView *)textView{
+- (void)textViewDidChange:(UITextView *)textView
+{
     //    If the text changes the placeholder dissapears
-    self.typeHere.hidden=(textView.text.length>0);
+    self.typeHere.hidden = (textView.text.length > 0);
 }
 
 #pragma mark - Network
 
-- (void)changeProfileDetails{
+- (void)changeProfileDetails
+{
     //    Call to change the profile details
-    [PFUser.currentUser setObject:self.usernameOutlet.text forKey: @"username"];
-    [PFUser.currentUser setObject:self.firstnameOutlet.text forKey: @"firstname"];
-    [PFUser.currentUser setObject:self.lastnameOutlet.text forKey: @"lastname"];
-    [PFUser.currentUser setObject:self.userBio.text forKey: @"userBio"];
-    [PFUser.currentUser setObject:self.roleOutlet.text forKey: @"role"];
-    [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if(error){
+    [PFUser.currentUser setObject:self.usernameOutlet.text forKey:@"username"];
+    [PFUser.currentUser setObject:self.firstnameOutlet.text forKey:@"firstname"];
+    [PFUser.currentUser setObject:self.lastnameOutlet.text forKey:@"lastname"];
+    [PFUser.currentUser setObject:self.userBio.text forKey:@"userBio"];
+    [PFUser.currentUser setObject:self.roleOutlet.text forKey:@"role"];
+    [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
+        if (error) {
             NSLog(@"%@", error.localizedDescription);
-        }
-        else{
+        } else {
             // Dismiss UIImagePickerController to go back to your original view controller
             [self.delegate didEdit];
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -70,13 +76,15 @@
 
 #pragma mark - Actions
 
-- (IBAction)updateOnClick:(id)sender {
+- (IBAction)updateOnClick:(id)sender
+{
     [self changeProfileDetails];
 }
 
 #pragma mark - Navigation
 
-- (IBAction)cancelOnClick:(id)sender {
+- (IBAction)cancelOnClick:(id)sender
+{
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 

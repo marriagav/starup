@@ -13,23 +13,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 @import Parse;
 
-@protocol profileCellDelegate;
+@protocol ProfileCellViewDelegate;
 
-@interface profileCell : UITableViewCell
+
+@interface ProfileCellView : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet PFImageView *profilePicture;
 @property (weak, nonatomic) IBOutlet UILabel *profileName;
 @property (weak, nonatomic) IBOutlet UILabel *username;
 @property (strong, nonatomic) PFUser *user;
-@property (nonatomic, weak) id<profileCellDelegate> delegate;
+@property (nonatomic, weak) id<ProfileCellViewDelegate> delegate;
 
 - (void)setUser:(PFUser *)user;
 
 @end
 
-@protocol profileCellDelegate
+@protocol ProfileCellViewDelegate
 
-- (void)profileCell:(profileCell *) profileCell didTap: (PFUser *)user;
+- (void)profileCell:(ProfileCellView *)profileCell didTap:(PFUser *)user;
 
 @end
 

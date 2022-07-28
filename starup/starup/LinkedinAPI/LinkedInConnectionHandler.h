@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM (NSInteger, MethodType) {
+typedef NS_ENUM(NSInteger, MethodType) {
     POST,
     GET
 };
+
 
 @interface LinkedInConnectionHandler : NSObject
 
@@ -36,7 +37,7 @@ typedef NS_ENUM (NSInteger, MethodType) {
  * @brief Start the asynchronous HTTP request.
  * This can be executed only once, that is if the receiver has already been started, it will have no effect.
  */
-- (void) start;
+- (void)start;
 
 /*!
  * @brief Cancels a running operation at the next cancelation point and returns
@@ -44,7 +45,7 @@ typedef NS_ENUM (NSInteger, MethodType) {
  *
  * If the receiver is already cancelled or finished the message has no effect.
  */
-- (void) cancel;
+- (void)cancel;
 
 /*!
  * @brief HTTP Request method type which can be "POST"  or "GET" here

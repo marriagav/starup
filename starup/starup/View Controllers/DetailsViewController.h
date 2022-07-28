@@ -9,9 +9,11 @@
 #import "Starup.h"
 #import "DateTools.h"
 #import "Collaborator.h"
-#import "profilesCollectionViewCell.h"
+#import "ProfilesCollectionCellView.h"
 #import "ProfileViewController.h"
 #import "InvestViewController.h"
+#import "UserConnection.h"
+#import "ConnectionsGraph.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateData;
 
 @end
+
 
 @interface DetailsViewController : UIViewController
 
@@ -35,9 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UICollectionView *sharksCollectionView;
 @property (weak, nonatomic) IBOutlet UIProgressView *investmentProgressBar;
 @property (weak, nonatomic) IBOutlet UILabel *progressString;
-@property (nonatomic, strong) NSMutableArray* ideators;
-@property (nonatomic, strong) NSMutableArray* sharks;
-@property (nonatomic, strong) NSMutableArray* hackers;
+@property (nonatomic, strong) NSMutableArray *ideators;
+@property (nonatomic, strong) NSMutableArray *sharks;
+@property (nonatomic, strong) NSMutableArray *hackers;
 @property (nonatomic, weak) id<DetailsViewControllerDelegate> delegate;
 
 @end

@@ -10,13 +10,17 @@
 #import "Parse/Parse.h"
 #import "EditProfileViewController.h"
 #import "Post.h"
-#import "PostCell.h"
-#import "starupCollectionViewCell.h"
+#import "PostCellView.h"
+#import "StarupCollectionCellView.h"
 #import "InfiniteScrollActivityView.h"
 #import "DetailsViewController.h"
 #import "Linkedin.h"
+#import "ConnectionsGraph.h"
+#import "AddCollaboratorViewController.h"
+#import "ResultsViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
 
 @interface ProfileViewController : UIViewController
 
@@ -31,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *editProfileButton;
 @property (strong, nonatomic) NSMutableArray *postArray;
 @property (strong, nonatomic) NSMutableArray *collaboratorArray;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
+@property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic) int currentMax;
 
 @end
