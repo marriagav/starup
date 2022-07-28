@@ -36,10 +36,10 @@ InfiniteScrollActivityView *_loadingMoreViewP;
     [self refreshColletionViewData];
     [self setOutlets];
     // Initialize a UIRefreshControl
-    [self _initializeRefreshControl];
+    [self initializeRefreshControl];
     // Initialize a UIRefreshControlBottom
     self.currentMax = 20;
-    [self _initializeRefreshControlB];
+    [self initializeRefreshControlB];
 }
 
 - (void)setOutlets
@@ -266,7 +266,7 @@ InfiniteScrollActivityView *_loadingMoreViewP;
     }];
 }
 
-- (void)_beginRefresh:(UIRefreshControl *)refreshControl
+- (void)beginRefresh:(UIRefreshControl *)refreshControl
 {
     //    Refreshes the data using the UIRefreshControl
     [self refreshColletionViewData];
@@ -312,7 +312,7 @@ InfiniteScrollActivityView *_loadingMoreViewP;
                 if (succeeded) {
                     // Add connection to local graph
                     ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
-                    [graph addUserToGraph:user:nil];
+                    [graph addUserToGraph:user withCompletion:nil];
                 }
             }];
         } else {
@@ -320,7 +320,7 @@ InfiniteScrollActivityView *_loadingMoreViewP;
             [UserConnection postUserConnection:PFUser.currentUser withUserTwo:user withCloseness:@(closenesss) withCompletion:^(BOOL succeeded, NSError *_Nullable error) {
                 // Add connection to local graph
                 ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
-                [graph addUserToGraph:user:nil];
+                [graph addUserToGraph:user withCompletion:nil];
             }];
         }
     }];
@@ -328,15 +328,15 @@ InfiniteScrollActivityView *_loadingMoreViewP;
 
 #pragma mark - QualityOfLife
 
-- (void)_initializeRefreshControl
+- (void)initializeRefreshControl
 {
     //    Initialices and inserts the refresh control
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(_beginRefresh:) forControlEvents:UIControlEventValueChanged];
+    [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:refreshControl atIndex:0];
 }
 
-- (void)_initializeRefreshControlB
+- (void)initializeRefreshControlB
 {
     //    Initialices and inserts the refresh control
     // Set up Infinite Scroll loading indicator

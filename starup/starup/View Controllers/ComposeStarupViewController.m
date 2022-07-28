@@ -137,9 +137,9 @@
         if (error) {
             NSLog(@"%@", error);
         } else {
-            [self addStarupsToIdeators:starup:self.ideators];
-            [self addStarupsToSharks:starup:self.sharks];
-            [self addStarupsToHackers:starup:self.hackers];
+            [self addStarupsToIdeators:starup withIdeators:self.ideators];
+            [self addStarupsToSharks:starup withSharks:self.sharks];
+            [self addStarupsToHackers:starup withHackers:self.hackers];
             //Calls the didPost method from the delegate and dissmisses the view controller
             [self.delegate didPost];
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -149,7 +149,7 @@
     }];
 }
 
-- (void)addStarupsToIdeators:(Starup *)starup:(NSMutableArray<PFUser *> *)ideators
+- (void)addStarupsToIdeators:(Starup *)starup withIdeators:(NSMutableArray<PFUser *> *)ideators
 {
     for (PFUser *ideator in ideators) {
         if (ideator.objectId == PFUser.currentUser.objectId) {
@@ -162,7 +162,7 @@
     }
 }
 
-- (void)addStarupsToSharks:(Starup *)starup:(NSMutableArray<PFUser *> *)sharks
+- (void)addStarupsToSharks:(Starup *)starup withSharks:(NSMutableArray<PFUser *> *)sharks
 {
     for (PFUser *shark in sharks) {
         [Collaborator postCollaborator:@"Shark" withUser:shark withStarup:starup withOwnership:0 withCompletion:nil];
@@ -170,7 +170,7 @@
     }
 }
 
-- (void)addStarupsToHackers:(Starup *)starup:(NSMutableArray<PFUser *> *)hackers
+- (void)addStarupsToHackers:(Starup *)starup withHackers:(NSMutableArray<PFUser *> *)hackers
 {
     for (PFUser *hacker in hackers) {
         [Collaborator postCollaborator:@"Hacker" withUser:hacker withStarup:starup withOwnership:0 withCompletion:nil];
@@ -200,14 +200,14 @@
             [parseObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
                 // Add connection to local graph
                 ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
-                [graph addUserToGraph:user:nil];
+                [graph addUserToGraph:user withCompletion:nil];
             }];
         } else {
             //    Posts a user connection
             [UserConnection postUserConnection:PFUser.currentUser withUserTwo:user withCloseness:@(closenesss) withCompletion:^(BOOL succeeded, NSError *_Nullable error) {
                 // Add connection to local graph
                 ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
-                [graph addUserToGraph:user:nil];
+                [graph addUserToGraph:user withCompletion:nil];
             }];
         }
     }];
@@ -254,7 +254,7 @@
 
 - (void)didAddIdeator:(PFUser *)user
 {
-    if (![self checkIfArrayHasUser:user:self.ideators]) {
+    if (![self checkIfArrayHasUser:user inArray:self.ideators]) {
         [self.ideators addObject:user];
         [self.ideatorsCollectionView reloadData];
     }
@@ -262,7 +262,7 @@
 
 - (void)didAddHacker:(PFUser *)user
 {
-    if (![self checkIfArrayHasUser:user:self.hackers]) {
+    if (![self checkIfArrayHasUser:user inArray:self.hackers]) {
         [self.hackers addObject:user];
         [self.hackersCollectionView reloadData];
     }
@@ -270,13 +270,13 @@
 
 - (void)didAddShark:(PFUser *)user
 {
-    if (![self checkIfArrayHasUser:user:self.sharks]) {
+    if (![self checkIfArrayHasUser:user inArray:self.sharks]) {
         [self.sharks addObject:user];
         [self.sharksCollectionView reloadData];
     }
 }
 
-- (BOOL)checkIfArrayHasUser:(PFUser *)user:(NSMutableArray *)array
+- (BOOL)checkIfArrayHasUser:(PFUser *)user inArray:(NSMutableArray *)array
 {
     for (PFUser *collaborator in array) {
         if ([collaborator.username isEqual:user.username]) {

@@ -92,7 +92,7 @@
     }];
 }
 
-+ (void)postTolinkedin:(NSString *)visibility:(NSString *)textToPost
++ (void)postTolinkedin:(NSString *)visibility withTextToPost:(NSString *)textToPost
 {
     LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
     [linkedIn postInLinkedin:visibility:textToPost:nil];

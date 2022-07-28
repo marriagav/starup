@@ -31,11 +31,11 @@
     self.ideatorsCollectionView.dataSource = self;
     self.hackersCollectionView.delegate = self;
     self.hackersCollectionView.dataSource = self;
-    [self _setUpLabels];
+    [self setUpLabels];
     [self refreshColletionViewData];
 }
 
-- (void)_setUpLabels
+- (void)setUpLabels
 {
     //    Sets up the labels of the details view
     self.starupName.text = self.starup[@"starupName"];
@@ -63,7 +63,7 @@
         NSNumber *currentInv = self.starup[@"currentInvestment"];
         NSNumber *goalInv = self.starup[@"goalInvestment"];
         weakSelf.progressString.text = [NSString stringWithFormat:@"%@$%@ / $%@", @"Progress: ", currentInv, goalInv];
-        [weakSelf.investmentProgressBar setProgress:[Algos percentageWithNumbers:[currentInv floatValue]:[goalInv floatValue]] animated:YES];
+        [weakSelf.investmentProgressBar setProgress:[Algos percentageWithNumbers:[currentInv floatValue] withTotal:[goalInv floatValue]] animated:YES];
     });
 }
 
@@ -129,7 +129,7 @@
                 if (succeeded && closenesss == 1) {
                     // Add connection to local graph
                     ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
-                    [graph addUserToGraph:user:nil];
+                    [graph addUserToGraph:user withCompletion:nil];
                 }
             }];
         } else {
@@ -138,7 +138,7 @@
                 if (closenesss == 1) {
                     // Add connection to local graph
                     ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
-                    [graph addUserToGraph:user:nil];
+                    [graph addUserToGraph:user withCompletion:nil];
                 }
             }];
         }

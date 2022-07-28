@@ -15,7 +15,7 @@
     [super awakeFromNib];
     // Initialization code
     [Algos formatPictureWithRoundedEdges:self.profilePicture];
-    [self _cellGestureRecognizer];
+    [self cellGestureRecognizer];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -40,7 +40,7 @@
     [self.delegate profileCell:self didTap:self.user];
 }
 
-- (void)_cellGestureRecognizer
+- (void)cellGestureRecognizer
 {
     //    Method to set up a tap gesture recognizer for the profile picture
     UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapCell:)];

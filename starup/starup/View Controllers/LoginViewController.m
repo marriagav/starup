@@ -61,7 +61,7 @@
 
 #pragma mark - Network
 
-- (void)loginUser:(NSString *)username:(NSString *)password
+- (void)loginUser:(NSString *)username withPassword:(NSString *)password
 {
     //    Method that logs the user in
     //    Call log in function on the object
@@ -103,7 +103,7 @@
         } else {
             NSLog(@"User registered successfully");
             // successful register means we need to log the user in
-            [self loginUser:newUser.username:newUser.password];
+            [self loginUser:newUser.username withPassword:newUser.password];
         }
     }];
 }
@@ -130,7 +130,7 @@
 
 - (IBAction)loginOnClick:(id)sender
 {
-    [self loginUser:self.usernameField.text:self.passwordField.text];
+    [self loginUser:self.usernameField.text withPassword:self.passwordField.text];
 }
 
 - (IBAction)registerOnClick:(id)sender
@@ -222,7 +222,7 @@
 - (void)didPressNextLogin:(NSString *)password
 {
     self.password = password;
-    [self loginUser:self.linkedinUsername:self.password];
+    [self loginUser:self.linkedinUsername withPassword:self.password];
 }
 
 

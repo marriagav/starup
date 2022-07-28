@@ -21,18 +21,18 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self _setUpLabels];
+    [self setUpLabels];
     [self.investOutlet addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 }
 
-- (void)_setUpLabels
+- (void)setUpLabels
 {
     //    Sets up the labels of the details view
     self.goalInv = self.starup[@"goalInvestment"];
     self.totalPercent = self.starup[@"percentageToGive"];
     self.starupName.text = self.starup[@"starupName"];
     self.hasError = NO;
-    [self _getMaxInvestment];
+    [self getMaxInvestment];
 }
 
 - (void)initializeAlertController
@@ -58,7 +58,7 @@
 
 #pragma mark - Calculations
 
-- (void)_getMaxInvestment
+- (void)getMaxInvestment
 {
     //    Calculate the percentage gained from investing x amount
     NSNumber *currentInv = self.starup[@"currentInvestment"];
@@ -66,7 +66,7 @@
     self.maxInvestOutlet.text = [NSString stringWithFormat:@"%@%.0f", @"max:", self.maxInvestment];
 }
 
-- (void)_getPercentage:(float)amount
+- (void)getPercentage:(float)amount
 {
     //    Calculate the percentage gained from investing x amount
     self.percentageToGet = amount * [self.totalPercent floatValue] / [self.goalInv floatValue];
@@ -75,7 +75,7 @@
 
 - (void)textFieldDidChange:(UITextField *)textField
 {
-    [self _getPercentage:[self.investOutlet.text floatValue]];
+    [self getPercentage:[self.investOutlet.text floatValue]];
 }
 
 #pragma mark - Network

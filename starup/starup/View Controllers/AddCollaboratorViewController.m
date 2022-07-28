@@ -34,7 +34,7 @@ InfiniteScrollActivityView *_loadingMoreViewA;
     //    Initialize search bar
     [self setSearchBar];
     // Initialize a UIRefreshControlBottom
-    [self _initializeRefreshControlB];
+    [self initializeRefreshControlB];
 }
 
 - (void)initializeMatrix
@@ -61,7 +61,7 @@ InfiniteScrollActivityView *_loadingMoreViewA;
 
 #pragma mark - QualityOfLife
 
-- (void)_initializeRefreshControlB
+- (void)initializeRefreshControlB
 {
     //    Initialices and inserts the refresh control
     // Set up Infinite Scroll loading indicator

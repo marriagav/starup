@@ -33,7 +33,7 @@
     self.serviceGroup = dispatch_group_create();
     __weak __typeof(self) weakSelf = self;
     dispatch_group_enter(self.serviceGroup);
-    [weakSelf addNode:PFUser.currentUser:YES:^(NSError *_Nonnull error) {
+    [weakSelf addNode:PFUser.currentUser isLoading:YES withCompletion:^(NSError *_Nonnull error) {
         dispatch_group_leave(weakSelf.serviceGroup);
     }];
     dispatch_group_notify(self.serviceGroup, dispatch_get_main_queue(), ^{
@@ -42,10 +42,10 @@
     });
 }
 
-- (void)addUserToGraph:(PFUser *)user:(void (^__nullable)(NSError *_Nullable error))completion
+- (void)addUserToGraph:(PFUser *)user withCompletion:(void (^__nullable)(NSError *_Nullable error))completion
 {
     //    Fills the graph with the users close connections
-    [self addNode:user:NO:^(NSError *_Nonnull error) {
+    [self addNode:user isLoading:NO withCompletion:^(NSError *_Nonnull error) {
         nil;
     }];
 }
@@ -56,7 +56,7 @@
     for (UserNode *node in self.nodes) {
         dispatch_group_enter(self.serviceGroup);
         __weak __typeof(self) weakSelf = self;
-        [self addNode:node.user:YES:^(NSError *_Nonnull error) {
+        [self addNode:node.user isLoading:YES withCompletion:^(NSError *_Nonnull error) {
             dispatch_group_leave(weakSelf.serviceGroup);
         }];
     }
@@ -66,14 +66,14 @@
 {
     //    Adds secondary connections (connections of connections) to the local graph
     for (UserNode *node in self.nodes) {
-        [self addNode:node.user:NO:^(NSError *_Nonnull error) {
+        [self addNode:node.user isLoading:NO withCompletion:^(NSError *_Nonnull error) {
             nil;
         }];
     }
 }
 
-- (void)addNode:(PFUser *)user:(BOOL)loading
-               :(void (^__nullable)(NSError *_Nullable error))completion
+- (void)addNode:(PFUser *)user isLoading:(BOOL)loading
+    withCompletion:(void (^__nullable)(NSError *_Nullable error))completion
 {
     //    Adds a node to the graph
 
@@ -94,7 +94,7 @@
             for (UserConnection *edge in edges) {
                 UserNode *nodeOne = [self checkIfNodeExistsForUser:edge[@"userOne"]];
                 UserNode *nodeTwo = [self checkIfNodeExistsForUser:edge[@"userTwo"]];
-                [self checkIfEdgeExistsForNodes:nodeOne:nodeTwo:-[edge[@"closeness"] intValue]];
+                [self checkIfEdgeExistsForNodes:nodeOne withNodeTwo:nodeTwo withCloseness:-[edge[@"closeness"] intValue]];
             }
             if ([self.nodes count] < 400 && self.addedUser) {
                 if (loading) {
@@ -125,8 +125,7 @@
     return node;
 }
 
-- (int)checkIfEdgeExistsForNodes:(UserNode *)nodeOne:(UserNode *)nodeTwo
-                                :(int)closeness
+- (int)checkIfEdgeExistsForNodes:(UserNode *)nodeOne withNodeTwo:(UserNode *)nodeTwo withCloseness:(int)closeness
 {
     for (UsersEdge *edge in self.edges) {
         if (edge.node1 == nodeOne && edge.node2 == nodeTwo) {
@@ -228,7 +227,7 @@
         UserNode *smallest = [self ExtractSmallest];
         NSMutableArray *adjecentNodes = [self AdjecentRemainingNodes:smallest];
         for (UserNode *adjecentNode in adjecentNodes) {
-            int distance = [self Distance:smallest:adjecentNode] + smallest.distanceFromStart;
+            int distance = [self Distance:smallest withNodeTwo:adjecentNode] + smallest.distanceFromStart;
             if (distance < adjecentNode.distanceFromStart) {
                 adjecentNode.distanceFromStart = distance;
                 adjecentNode.previous = smallest;
@@ -265,14 +264,14 @@
         } else if (edge.node2 == node) {
             adjecent = edge.node1;
         }
-        if (adjecent && [self contains:self.nodesQueue:adjecent]) {
+        if (adjecent && [self contains:self.nodesQueue withNodes:adjecent]) {
             [adjecentNodes addObject:adjecent];
         }
     }
     return adjecentNodes;
 }
 
-- (int)Distance:(UserNode *)nodeOne:(UserNode *)nodeTwo
+- (int)Distance:(UserNode *)nodeOne withNodeTwo:(UserNode *)nodeTwo
 {
     // Return distance between two connected nodes
     for (UsersEdge *edge in self.edges) {
@@ -283,7 +282,7 @@
     return -1; // should never happen
 }
 
-- (BOOL)contains:(NSMutableArray *)nodes:(UserNode *)nodeArg
+- (BOOL)contains:(NSMutableArray *)nodes withNodes:(UserNode *)nodeArg
 {
     //    Checks if a nodes array contain nodeArg
     for (UserNode *node in nodes) {

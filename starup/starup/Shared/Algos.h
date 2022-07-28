@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)imageWithImage:(UIImage *)sourceImage scaledToWidth:(float)i_width;
 + (void)formatPictureWithRoundedEdges:(PFImageView *)image;
 + (NSString *)dateToString:(NSDate *)date;
-+ (float)percentageWithNumbers:(double)current:(double)total;
++ (float)percentageWithNumbers:(double)current withTotal:(double)total;
 + (NSString *)firstObjectFromDict:(NSDictionary *)dict;
 + (NSString *)generateRandomString:(int)num;
 + (BOOL)userInArray:(PFUser *)user1 withArray:(NSMutableArray *)array;

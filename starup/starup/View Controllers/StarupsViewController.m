@@ -29,23 +29,23 @@ InfiniteScrollActivityView *_loadingMoreViewS;
     self.tableView.delegate = self;
     [self refreshDataWithNStarups:20];
     // Initialize a UIRefreshControl
-    [self _initializeRefreshControl];
+    [self initializeRefreshControl];
     // Initialize a UIRefreshControlBottom
     self.currentMax = 20;
-    [self _initializeRefreshControlB];
+    [self initializeRefreshControlB];
 }
 
 #pragma mark - QualityOfLife
 
-- (void)_initializeRefreshControl
+- (void)initializeRefreshControl
 {
     //    Initialices and inserts the refresh control
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(_beginRefresh:) forControlEvents:UIControlEventValueChanged];
+    [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:refreshControl atIndex:0];
 }
 
-- (void)_initializeRefreshControlB
+- (void)initializeRefreshControlB
 {
     //    Initialices and inserts the refresh control
     // Set up Infinite Scroll loading indicator
@@ -114,7 +114,7 @@ InfiniteScrollActivityView *_loadingMoreViewS;
     }];
 }
 
-- (void)_beginRefresh:(UIRefreshControl *)refreshControl
+- (void)beginRefresh:(UIRefreshControl *)refreshControl
 {
     //    Refreshes the data using the UIRefreshControl
     // construct query

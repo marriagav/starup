@@ -15,7 +15,7 @@
     [super awakeFromNib];
     // Initialization code
     [Algos formatPictureWithRoundedEdges:self.profilePicture];
-    [self _pictureGestureRecognizer];
+    [self pictureGestureRecognizer];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -40,7 +40,7 @@
     [self.statusImage loadInBackground];
 }
 
-- (void)_pictureGestureRecognizer
+- (void)pictureGestureRecognizer
 {
     //    Method to set up a tap gesture recognizer for the profile picture
     UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapUserProfile:)];

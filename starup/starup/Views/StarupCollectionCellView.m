@@ -14,7 +14,7 @@
 {
     [super awakeFromNib];
     // Initialization code
-    [self _cellGestureRecognizer];
+    [self cellGestureRecognizer];
 }
 
 - (void)setCollaborator:(Collaborator *)collaborator
@@ -50,7 +50,7 @@
     [self.delegate starupCell:self didTap:self.collaborator[@"starup"]];
 }
 
-- (void)_cellGestureRecognizer
+- (void)cellGestureRecognizer
 {
     //    Method to set up a tap gesture recognizer for the cell
     UITapGestureRecognizer *cellTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapCell:)];

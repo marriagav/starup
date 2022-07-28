@@ -157,7 +157,7 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
         if (users != nil) {
             if (users.count > 0) {
-                [Linkedin postTolinkedin:@"CONNECTIONS":self.captionOutlet.text];
+                [Linkedin postTolinkedin:@"CONNECTIONS" withTextToPost:self.captionOutlet.text];
                 [self makePostToStarup];
             } else {
                 self.hasLinkedin = NO;

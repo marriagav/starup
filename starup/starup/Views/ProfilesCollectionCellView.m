@@ -15,7 +15,7 @@
     [super awakeFromNib];
     // Initialization code
     [Algos formatPictureWithRoundedEdges:self.profilePicture];
-    [self _cellGestureRecognizer];
+    [self cellGestureRecognizer];
 }
 
 - (void)setUser:(PFUser *)user
@@ -27,7 +27,7 @@
     self.usernameOutlet.text = [NSString stringWithFormat:@"%@%@", @"@", self.user[@"username"]];
 }
 
-- (void)_cellGestureRecognizer
+- (void)cellGestureRecognizer
 {
     //    Method to set up a tap gesture recognizer for the profile cell
     UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapUserProfile:)];

@@ -59,7 +59,7 @@
     return dateString;
 }
 
-+ (float)percentageWithNumbers:(double)current:(double)total
++ (float)percentageWithNumbers:(double)current withTotal:(double)total
 {
     return current / total;
 }
