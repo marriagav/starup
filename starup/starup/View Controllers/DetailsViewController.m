@@ -123,7 +123,6 @@
                     // Add connection to local graph
                     connectionsGraph *graph = [connectionsGraph sharedInstance];
                     [graph addUserToGraph:user :nil];
-                    [self goToUserProfile:user];
                 }
             }];
         }
@@ -134,7 +133,6 @@
                     // Add connection to local graph
                     connectionsGraph *graph = [connectionsGraph sharedInstance];
                     [graph addUserToGraph:user :nil];
-                    [self goToUserProfile:user];
                 }
             }];
         }
@@ -188,6 +186,7 @@
 - (void)profileCell:(profilesCollectionViewCell *) profileCell didTap: (PFUser *)user{
     //    Posts a user connection and goes to user profile
     [self checkIfConnectionExists:user withCloseness:1];
+    [self goToUserProfile:user];
 }
 
 - (void)didInvest{

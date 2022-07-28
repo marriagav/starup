@@ -175,7 +175,6 @@ InfiniteScrollActivityView* _loadingMoreView;
                     // Add connection to local graph
                     connectionsGraph *graph = [connectionsGraph sharedInstance];
                     [graph addUserToGraph:user :nil];
-                    [self goToUserProfile:user];
                 }
             }];
         }
@@ -185,7 +184,6 @@ InfiniteScrollActivityView* _loadingMoreView;
                     // Add connection to local graph
                     connectionsGraph *graph = [connectionsGraph sharedInstance];
                     [graph addUserToGraph:user :nil];
-                    [self goToUserProfile:user];
             }];
         }
     }];
@@ -228,6 +226,7 @@ InfiniteScrollActivityView* _loadingMoreView;
 - (void)postCell:(PostCell *)postCell didTap:(PFUser *)user{
 //    Posts a user connection and goes to user profile
     [self checkIfConnectionExists:user withCloseness:1];
+    [self goToUserProfile:user];
 }
 
 #pragma mark - Actions
@@ -255,6 +254,7 @@ InfiniteScrollActivityView* _loadingMoreView;
     // Pass the user
     profileViewController.user = user;
     [self presentViewController:navigationController animated:YES completion:nil];
+//    [self.navigationController pushViewController:profileViewController animated:YES];
 }
 
 @end

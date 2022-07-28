@@ -37,8 +37,6 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     // Initialize a UIRefreshControlBottom
     self.currentMax = 20;
     [self _initializeRefreshControlB];
-//    Initialize search bar
-    [self setSearchControl];
 }
 
 - (void)setOutlets{
@@ -75,6 +73,8 @@ InfiniteScrollActivityView* _loadingMoreViewP;
         self.user = PFUser.currentUser;
         //    Set the dropdown menu
         [self setDropDownMenu];
+        //    Initialize search bar
+        [self setSearchControl];
     }
     else {
         // When in someone elses profile page
@@ -203,6 +203,7 @@ InfiniteScrollActivityView* _loadingMoreViewP;
 
 - (void) didTapUser:(PFUser *)user{
     [self checkIfConnectionExists:user withCloseness:1];
+    [self goToUserProfile:user];
 }
 
 #pragma mark - Network
@@ -305,7 +306,6 @@ InfiniteScrollActivityView* _loadingMoreViewP;
                     // Add connection to local graph
                     connectionsGraph *graph = [connectionsGraph sharedInstance];
                     [graph addUserToGraph:user :nil];
-                    [self goToUserProfile:user];
                 }
             }];
         }
@@ -315,7 +315,6 @@ InfiniteScrollActivityView* _loadingMoreViewP;
                     // Add connection to local graph
                     connectionsGraph *graph = [connectionsGraph sharedInstance];
                     [graph addUserToGraph:user :nil];
-                    [self goToUserProfile:user];
             }];
         }
     }];

@@ -30,7 +30,7 @@
     self.serviceGroup = dispatch_group_create();
     __weak __typeof(self) weakSelf = self;
     dispatch_group_enter(self.serviceGroup);
-    [self addNode:PFUser.currentUser :^(NSError * _Nonnull error) {
+    [weakSelf addNode:PFUser.currentUser :YES :^(NSError * _Nonnull error) {
         dispatch_group_leave(weakSelf.serviceGroup);
     }];
     dispatch_group_notify(self.serviceGroup,dispatch_get_main_queue(),^{
@@ -41,29 +41,28 @@
 
 - (void) addUserToGraph: (PFUser *)user :(void (^ __nullable)(NSError * _Nullable error))completion {
     //    Fills the graph with the users close connections
-    self.serviceGroup = dispatch_group_create();
-    __weak __typeof(self) weakSelf = self;
-    dispatch_group_enter(self.serviceGroup);
-    [self addNode:user :^(NSError * _Nonnull error) {
-        dispatch_group_leave(weakSelf.serviceGroup);
-    }];
-    dispatch_group_notify(self.serviceGroup,dispatch_get_main_queue(),^{
-           // Now call the final completion block
-       });
+    [self addNode:user :NO :^(NSError * _Nonnull error) {nil;}];
 }
 
-- (void) addSecondaryConnections{
+- (void) addSecondaryConnectionsLoading{
     //    Adds secondary connections (connections of connections) to the local graph
     for (userNode *node in self.nodes){
         dispatch_group_enter(self.serviceGroup);
         __weak __typeof(self) weakSelf = self;
-        [self addNode:node.user :^(NSError * _Nonnull error) {
+        [self addNode:node.user :YES :^(NSError * _Nonnull error) {
             dispatch_group_leave(weakSelf.serviceGroup);
         }];
     }
 }
 
-- (void) addNode: (PFUser *)user :(void (^ __nullable)(NSError * _Nullable error))completion{
+- (void) addSecondaryConnectionsNotLoading{
+    //    Adds secondary connections (connections of connections) to the local graph
+    for (userNode *node in self.nodes){
+        [self addNode:node.user :NO :^(NSError * _Nonnull error) {nil;}];
+    }
+}
+
+- (void) addNode: (PFUser *)user :(BOOL)loading :(void (^ __nullable)(NSError * _Nullable error))completion{
     //    Adds a node to the graph
     
     PFQuery *query1 = [PFQuery queryWithClassName:@"UserConnection"];
@@ -86,7 +85,12 @@
                 [self checkIfEdgeExistsForNodes:nodeOne :nodeTwo :-[edge[@"closeness"] intValue]];
             }
             if ([self.nodes count]<400 && self.addedUser){
-                [self addSecondaryConnections];
+                if (loading){
+                    [self addSecondaryConnectionsLoading];
+                }
+                else {
+                    [self addSecondaryConnectionsNotLoading];
+                }
             }
             [self Dijkstra:[self checkIfNodeExistsForUser:PFUser.currentUser]];
             completion(nil);
