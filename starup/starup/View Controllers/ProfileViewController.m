@@ -65,8 +65,6 @@ InfiniteScrollActivityView* _loadingMoreViewP;
 - (void)prepAccordingToUser{
     //    Case when the profile view is accessed through the nav bar
     if (self.user == nil){
-        // There is only a back button if not accessed through navbar
-        self.navigationItem.leftBarButtonItem = nil;
         //    Initialize search bar
         [self setSearchControl];
     }
@@ -166,10 +164,6 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     
     // Dismiss UIImagePickerController to go back to your original view controller
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (IBAction)goBack:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)goToUserProfile: (PFUser *)user{

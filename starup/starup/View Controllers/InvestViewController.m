@@ -226,12 +226,4 @@
     NSLog(@"Checkout failed with error: %@", errorInfo.error.localizedDescription);
 }
 
-#pragma mark - Navigation
-
-- (IBAction)goBack:(id)sender {
-    // display starups view controller
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-
 @end

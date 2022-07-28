@@ -214,12 +214,6 @@
 
 #pragma mark - Navigation
 
-- (IBAction)goBack:(id)sender {
-    // display starups view controller
-    [self.delegate updateData];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (IBAction)goToInvestments:(id)sender {
     //    Goes to investments page
     UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
