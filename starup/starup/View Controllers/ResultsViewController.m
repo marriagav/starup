@@ -7,7 +7,7 @@
 
 #import "ResultsViewController.h"
 
-@interface ResultsViewController () <UITableViewDataSource, UITableViewDelegate, profileCellDelegate>
+@interface ResultsViewController () <UITableViewDataSource, UITableViewDelegate, ProfileCellViewDelegate>
 
 @end
 
@@ -68,7 +68,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     //    initialize cell (profileCell) to a reusable cell using the PostCell identifier
-    profileCell *cell = [tableView
+    ProfileCellView *cell = [tableView
                          dequeueReusableCellWithIdentifier: @"profileCell"];
     //    get the user and assign it to the cell
     PFUser *user = self.userMatrix[indexPath.section][indexPath.row];
@@ -89,14 +89,14 @@
 
 - (void) localCloseSearch: (NSString *)searchText {
     //        Refresh local connections
-    connectionsGraph *graph = [connectionsGraph sharedInstance];
+    ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
     self.userMatrix[0] = [[graph GetCloseUsersWithSubstring:searchText withNumberOfUsers:5] mutableCopy];
     [self.tableView reloadData];
 }
 
 - (void) localDeepSearch: (NSString *)searchText {
     //        Refresh local connections
-    connectionsGraph *graph = [connectionsGraph sharedInstance];
+    ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
     self.userMatrix[1] = [[graph GetDeepUsersWithSubstring:searchText withNumberOfUsers:5] mutableCopy];
     [self.tableView reloadData];
 }
@@ -123,7 +123,7 @@
 
 #pragma mark - Navigation
 
-- (void)profileCell:(profileCell *) profileCell didTap: (PFUser *)user{
+- (void)profileCell:(ProfileCellView *) profileCell didTap: (PFUser *)user{
     [self.delegate didTapUser:user];
 }
 

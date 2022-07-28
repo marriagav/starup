@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "ComposeStarupViewController.h"
 #import "Parse/Parse.h"
-#import "StarupCell.h"
+#import "StarupCellView.h"
 #import "InfiniteScrollActivityView.h"
 #import "ComposeStarupViewController.h"
 #import "DetailsViewController.h"

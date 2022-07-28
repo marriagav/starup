@@ -7,7 +7,7 @@
 
 #import "StarupsViewController.h"
 
-@interface StarupsViewController () <ComposeStarupViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, starupCellDelegate, DetailsViewControllerDelegate>
+@interface StarupsViewController () <ComposeStarupViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, StarupCellViewDelegate, DetailsViewControllerDelegate>
 
 @end
 
@@ -138,7 +138,7 @@ InfiniteScrollActivityView* _loadingMoreViewS;
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     //    initialize cell (StarupCell) to a reusable cell using the StarupCell identifier
-    StarupCell *cell = [tableView
+    StarupCellView *cell = [tableView
                       dequeueReusableCellWithIdentifier: @"StarupCell"];
     //    get the starup and assign it to the cell
     Starup *starup = self.starupsArray[indexPath.row];
@@ -165,7 +165,7 @@ InfiniteScrollActivityView* _loadingMoreViewS;
     [self refreshDataWithNStarups:(int)self.starupsArray.count];
 }
 
-- (void)starupCell:(StarupCell *) starupCell didTap: (Starup *)starup{
+- (void)starupCell:(StarupCellView *) starupCell didTap: (Starup *)starup{
     // display details view controller
     UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     DetailsViewController *detailsStarupViewController = [storyboard instantiateViewControllerWithIdentifier:@"detailsNoNav"];

@@ -11,10 +11,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface userNode : NSObject
+@interface UserNode : NSObject
 
 @property (nonatomic, strong) PFUser *user;
-@property (nonatomic, strong) userNode *previous;
+@property (nonatomic, strong) UserNode *previous;
 @property int distanceFromStart;
 
 - (instancetype)initWithUser:(PFUser *)user;

@@ -7,7 +7,7 @@
 
 #import "HomeViewController.h"
 
-@interface HomeViewController () <UITableViewDataSource, UITableViewDelegate, PostCellDelegate, ComposePostViewControllerDelegate>
+@interface HomeViewController () <UITableViewDataSource, UITableViewDelegate, PostCellViewDelegate, ComposePostViewControllerDelegate>
 
 @end
 
@@ -89,8 +89,8 @@ InfiniteScrollActivityView* _loadingMoreView;
 #pragma mark - Network
 
 - (void)buildCloseConnectionsArray{
-    connectionsGraph *graph = [connectionsGraph sharedInstance];
-    for (userNode* node in graph.nodes){
+    ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
+    for (UserNode* node in graph.nodes){
         [self.closeConnectionsArray addObject:node.user];
     }
 }
@@ -173,7 +173,7 @@ InfiniteScrollActivityView* _loadingMoreView;
             [parseObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if (succeeded){
                     // Add connection to local graph
-                    connectionsGraph *graph = [connectionsGraph sharedInstance];
+                    ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
                     [graph addUserToGraph:user :nil];
                 }
             }];
@@ -182,7 +182,7 @@ InfiniteScrollActivityView* _loadingMoreView;
             //    Posts a user connection
             [UserConnection postUserConnection:PFUser.currentUser withUserTwo:user withCloseness:@(closenesss) withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                     // Add connection to local graph
-                    connectionsGraph *graph = [connectionsGraph sharedInstance];
+                    ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
                     [graph addUserToGraph:user :nil];
             }];
         }
@@ -200,7 +200,7 @@ InfiniteScrollActivityView* _loadingMoreView;
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     //    initialize cell (PostCell) to a reusable cell using the PostCell identifier
-    PostCell *cell = [tableView
+    PostCellView *cell = [tableView
                       dequeueReusableCellWithIdentifier: @"PostCell"];
     //    get the post and delegate and assign it to the cell
     Post *post = self.postArray[indexPath.row];
@@ -223,7 +223,7 @@ InfiniteScrollActivityView* _loadingMoreView;
     [self refreshDataWithNPosts:(int)self.postArray.count+1];
 }
 
-- (void)postCell:(PostCell *)postCell didTap:(PFUser *)user{
+- (void)postCell:(PostCellView *)postCell didTap:(PFUser *)user{
 //    Posts a user connection and goes to user profile
     [self checkIfConnectionExists:user withCloseness:1];
     [self goToUserProfile:user];

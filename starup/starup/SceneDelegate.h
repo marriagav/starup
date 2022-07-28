@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "Parse/Parse.h"
 #import "Linkedin.h"
-#import "connectionsGraph.h"
+#import "ConnectionsGraph.h"
 
 @interface SceneDelegate : UIResponder <UIWindowSceneDelegate>
 

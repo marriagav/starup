@@ -9,11 +9,11 @@
 #import "Starup.h"
 #import "DateTools.h"
 #import "Collaborator.h"
-#import "profilesCollectionViewCell.h"
+#import "ProfilesCollectionCellView.h"
 #import "ProfileViewController.h"
 #import "InvestViewController.h"
 #import "UserConnection.h"
-#import "connectionsGraph.h"
+#import "ConnectionsGraph.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

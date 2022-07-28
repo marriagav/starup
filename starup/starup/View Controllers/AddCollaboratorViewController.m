@@ -7,7 +7,7 @@
 
 #import "AddCollaboratorViewController.h"
 
-@interface AddCollaboratorViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, profileCellDelegate>
+@interface AddCollaboratorViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, ProfileCellViewDelegate>
 
 @end
 
@@ -102,7 +102,7 @@ InfiniteScrollActivityView* _loadingMoreViewA;
 - (void)refreshDataWithNUsers:(int) numberOfUsers {
     //    Refreshes the tableview data with numberOfUsers users
     //    Refresh the data of the first and second sections
-    connectionsGraph *graph = [connectionsGraph sharedInstance];
+    ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
     self.userMatrix[0] = [[graph GetCloseUsersWithSubstring:@"" withNumberOfUsers:5] mutableCopy];
     [self.tableView reloadData];
     self.userMatrix[1] = [[graph GetDeepUsersWithSubstring:@"" withNumberOfUsers:5] mutableCopy];
@@ -161,7 +161,7 @@ InfiniteScrollActivityView* _loadingMoreViewA;
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     //    initialize cell (profileCell) to a reusable cell using the PostCell identifier
-    profileCell *cell = [tableView
+    ProfileCellView *cell = [tableView
                          dequeueReusableCellWithIdentifier: @"profileCell"];
     //    get the user and assign it to the cell
     PFUser *user = self.userMatrix[indexPath.section][indexPath.row];
@@ -199,14 +199,14 @@ InfiniteScrollActivityView* _loadingMoreViewA;
 
 - (void) localCloseSearch: (NSString *)searchText {
     //        Refresh local connections
-    connectionsGraph *graph = [connectionsGraph sharedInstance];
+    ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
     self.userMatrix[0] = [[graph GetCloseUsersWithSubstring:searchText withNumberOfUsers:5] mutableCopy];
     [self.tableView reloadData];
 }
 
 - (void) localDeepSearch: (NSString *)searchText {
     //        Refresh local connections
-    connectionsGraph *graph = [connectionsGraph sharedInstance];
+    ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
     self.userMatrix[1] = [[graph GetDeepUsersWithSubstring:searchText withNumberOfUsers:5] mutableCopy];
     [self.tableView reloadData];
 }
@@ -237,7 +237,7 @@ InfiniteScrollActivityView* _loadingMoreViewA;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)profileCell:(profileCell *) profileCell didTap: (PFUser *)user{
+- (void)profileCell:(ProfileCellView *) profileCell didTap: (PFUser *)user{
     [self addCollaborator: user];
     [self dismissViewControllerAnimated:YES completion:nil];
 }

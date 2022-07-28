@@ -6,15 +6,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "userNode.h"
-#import "usersEdge.h"
+#import "UserNode.h"
+#import "UsersEdge.h"
 #import "Algos.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface connectionsGraph : NSObject
+@interface ConnectionsGraph : NSObject
 
-+ (connectionsGraph *)sharedInstance;
++ (ConnectionsGraph *)sharedInstance;
 
 @property (nonatomic, strong) NSMutableArray *nodes;
 @property (nonatomic, strong) NSMutableArray *nodesQueue;

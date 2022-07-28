@@ -7,7 +7,7 @@
 
 #import "ProfileViewController.h"
 
-@interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditProfileViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, starupCollectionViewCellDelegate, UISearchResultsUpdating, ResultsViewControllerDelegate>
+@interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditProfileViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, StarupCollectionCellViewDelegate, UISearchResultsUpdating, ResultsViewControllerDelegate>
 
 @end
 
@@ -117,7 +117,7 @@ InfiniteScrollActivityView* _loadingMoreViewP;
         else{
             [Linkedin logoutFromLinkedin];
             // Add connection to local graph
-            connectionsGraph *graph = [connectionsGraph sharedInstance];
+            ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
             [graph resetGraph];
             UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
             UIViewController *nav = [storyboard instantiateViewControllerWithIdentifier:@"loginView"];
@@ -183,7 +183,7 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     [self setUserTextProperties];
 }
 
-- (void)starupCell:(starupCollectionViewCell *) starupCell didTap: (Starup *)starup{
+- (void)starupCell:(StarupCollectionCellView *) starupCell didTap: (Starup *)starup{
     // display details view controller
     UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     DetailsViewController *detailsStarupViewController = [storyboard instantiateViewControllerWithIdentifier:@"detailsNoNav"];
@@ -294,7 +294,7 @@ InfiniteScrollActivityView* _loadingMoreViewP;
             [parseObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if (succeeded){
                     // Add connection to local graph
-                    connectionsGraph *graph = [connectionsGraph sharedInstance];
+                    ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
                     [graph addUserToGraph:user :nil];
                 }
             }];
@@ -303,7 +303,7 @@ InfiniteScrollActivityView* _loadingMoreViewP;
             //    Posts a user connection
             [UserConnection postUserConnection:PFUser.currentUser withUserTwo:user withCloseness:@(closenesss) withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                     // Add connection to local graph
-                    connectionsGraph *graph = [connectionsGraph sharedInstance];
+                    ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
                     [graph addUserToGraph:user :nil];
             }];
         }
@@ -374,7 +374,7 @@ InfiniteScrollActivityView* _loadingMoreViewP;
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     //    initialize cell (PostCell) to a reusable cell using the PostCell identifier
-    PostCell *cell = [tableView
+    PostCellView *cell = [tableView
                       dequeueReusableCellWithIdentifier: @"PostCell"];
     //    get the post and assign it to the cell
     Post *post = self.postArray[indexPath.row];
@@ -396,7 +396,7 @@ InfiniteScrollActivityView* _loadingMoreViewP;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    starupCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"starupCollectionViewCell" forIndexPath:indexPath];
+    StarupCollectionCellView *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"starupCollectionViewCell" forIndexPath:indexPath];
     
     //    get the collaborator and and assign it to the cell
     Collaborator *collaborator = self.collaboratorArray[indexPath.row];

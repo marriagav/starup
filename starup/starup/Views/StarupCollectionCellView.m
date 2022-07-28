@@ -5,9 +5,9 @@
 //  Created by Miguel Arriaga Velasco on 7/15/22.
 //
 
-#import "starupCollectionViewCell.h"
+#import "StarupCollectionCellView.h"
 
-@implementation starupCollectionViewCell
+@implementation StarupCollectionCellView
 
 - (void)awakeFromNib {
     [super awakeFromNib];

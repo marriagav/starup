@@ -12,9 +12,9 @@
 #import "Starup.h"
 #import "AddCollaboratorViewController.h"
 #import "Collaborator.h"
-#import "profilesCollectionViewCell.h"
+#import "ProfilesCollectionCellView.h"
 #import "UserConnection.h"
-#import "connectionsGraph.h"
+#import "ConnectionsGraph.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

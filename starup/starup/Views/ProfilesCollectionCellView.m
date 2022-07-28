@@ -5,9 +5,9 @@
 //  Created by Miguel Arriaga Velasco on 7/15/22.
 //
 
-#import "profilesCollectionViewCell.h"
+#import "ProfilesCollectionCellView.h"
 
-@implementation profilesCollectionViewCell
+@implementation ProfilesCollectionCellView
 
 - (void)awakeFromNib {
     [super awakeFromNib];

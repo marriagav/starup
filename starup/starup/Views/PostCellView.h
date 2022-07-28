@@ -15,9 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @import Parse;
 
-@protocol PostCellDelegate;
+@protocol PostCellViewDelegate;
 
-@interface PostCell : UITableViewCell
+@interface PostCellView : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet PFImageView *profilePicture;
 @property (weak, nonatomic) IBOutlet PFImageView *statusImage;
@@ -28,15 +28,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *profileName;
 @property (strong, nonatomic) PFUser *user;
 @property (strong, nonatomic) Post *post;
-@property (nonatomic, weak) id<PostCellDelegate> delegate;
+@property (nonatomic, weak) id<PostCellViewDelegate> delegate;
 
 - (void)setPost:(Post *)post;
 
 @end
 
-@protocol PostCellDelegate
+@protocol PostCellViewDelegate
 
-- (void)postCell:(PostCell *) postCell didTap: (PFUser *)user;
+- (void)postCell:(PostCellView *) postCell didTap: (PFUser *)user;
 
 @end
 

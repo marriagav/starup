@@ -15,9 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @import Parse;
 
-@protocol starupCellDelegate;
+@protocol StarupCellViewDelegate;
 
-@interface StarupCell : UITableViewCell
+@interface StarupCellView : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *starupName;
 @property (weak, nonatomic) IBOutlet UILabel *starupCategory;
@@ -26,15 +26,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet PFImageView *starupImage;
 @property (weak, nonatomic) IBOutlet UILabel *starupDescription;
 @property (strong, nonatomic) Starup *starup;
-@property (nonatomic, weak) id<starupCellDelegate> delegate;
+@property (nonatomic, weak) id<StarupCellViewDelegate> delegate;
 
 - (void)setStarup:(Starup *)starup;
 
 @end
 
-@protocol starupCellDelegate
+@protocol StarupCellViewDelegate
 
-- (void)starupCell:(StarupCell *) starupCell didTap: (Starup *)starup;
+- (void)starupCell:(StarupCellView *) starupCell didTap: (Starup *)starup;
 
 @end
 

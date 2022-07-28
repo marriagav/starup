@@ -225,7 +225,7 @@
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         //    Set graph
-        connectionsGraph *graph = [connectionsGraph sharedInstance];
+        ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
         [graph fillGraphWithCloseConnections:^(NSError * _Nullable error) {
             //    Change window to homefeed
             UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];

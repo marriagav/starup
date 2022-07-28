@@ -7,9 +7,9 @@
 
 #import <UIKit/UIKit.h>
 #import "Parse/Parse.h"
-#import "profileCell.h"
+#import "ProfileCellView.h"
 #import "InfiniteScrollActivityView.h"
-#import "connectionsGraph.h"
+#import "ConnectionsGraph.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

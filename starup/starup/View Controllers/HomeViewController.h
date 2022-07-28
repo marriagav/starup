@@ -7,12 +7,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Parse/Parse.h"
-#import "PostCell.h"
+#import "PostCellView.h"
 #import "InfiniteScrollActivityView.h"
 #import "ComposePostViewController.h"
 #import "ProfileViewController.h"
 #import "UserConnection.h"
-#import "connectionsGraph.h"
+#import "ConnectionsGraph.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

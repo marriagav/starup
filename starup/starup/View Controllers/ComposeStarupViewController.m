@@ -7,7 +7,7 @@
 
 #import "ComposeStarupViewController.h"
 
-@interface ComposeStarupViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, AddCollaboratorViewControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, profilesCollectionViewCellDelegate>
+@interface ComposeStarupViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextViewDelegate, AddCollaboratorViewControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, ProfilesCollectionCellViewDelegate>
 
 @end
 
@@ -186,7 +186,7 @@
             parseObject[@"closeness"] = [NSNumber numberWithFloat: currCloseness+closenesss];
             [parseObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 // Add connection to local graph
-                connectionsGraph *graph = [connectionsGraph sharedInstance];
+                ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
                 [graph addUserToGraph:user :nil];
             }];
         }
@@ -194,7 +194,7 @@
             //    Posts a user connection
             [UserConnection postUserConnection:PFUser.currentUser withUserTwo:user withCloseness:@(closenesss) withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                 // Add connection to local graph
-                connectionsGraph *graph = [connectionsGraph sharedInstance];
+                ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
                 [graph addUserToGraph:user :nil];
             }];
         }
@@ -265,7 +265,7 @@
     return NO;
 }
 
-- (void)profileCell:(profilesCollectionViewCell *) profileCell didTap: (PFUser *)user{
+- (void)profileCell:(ProfilesCollectionCellView *) profileCell didTap: (PFUser *)user{
     //    Goes to profile page when user taps on profile
     UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     ProfileViewController *profileViewController = [storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
@@ -293,7 +293,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    profilesCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"profilesCollectionViewCell" forIndexPath:indexPath];
+    ProfilesCollectionCellView *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"profilesCollectionViewCell" forIndexPath:indexPath];
     
     if (collectionView == self.sharksCollectionView){
         //    get the shark and and assign it to the cell

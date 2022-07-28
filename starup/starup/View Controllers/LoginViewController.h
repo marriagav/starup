@@ -12,7 +12,7 @@
 #import "Algos.h"
 #import "PasswordViewController.h"
 #import "Linkedin.h"
-#import "connectionsGraph.h"
+#import "ConnectionsGraph.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

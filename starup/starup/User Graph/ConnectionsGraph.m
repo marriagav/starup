@@ -5,17 +5,17 @@
 //  Created by Miguel Arriaga Velasco on 7/25/22.
 //
 
-#import "connectionsGraph.h"
+#import "ConnectionsGraph.h"
 
-@implementation connectionsGraph
+@implementation ConnectionsGraph
 
 #pragma mark Initialize
 
-+ ( connectionsGraph * )sharedInstance {
++ ( ConnectionsGraph * )sharedInstance {
     static dispatch_once_t predicate;
-    static connectionsGraph *sharedInstance = nil;
+    static ConnectionsGraph *sharedInstance = nil;
     dispatch_once(&predicate, ^{
-        sharedInstance = [[connectionsGraph alloc] init];
+        sharedInstance = [[ConnectionsGraph alloc] init];
         sharedInstance.nodes = [[NSMutableArray alloc] init];
         sharedInstance.edges = [[NSMutableArray alloc] init];
         sharedInstance.searchResults = [[NSMutableArray alloc] init];
@@ -46,7 +46,7 @@
 
 - (void) addSecondaryConnectionsLoading{
     //    Adds secondary connections (connections of connections) to the local graph
-    for (userNode *node in self.nodes){
+    for (UserNode *node in self.nodes){
         dispatch_group_enter(self.serviceGroup);
         __weak __typeof(self) weakSelf = self;
         [self addNode:node.user :YES :^(NSError * _Nonnull error) {
@@ -57,7 +57,7 @@
 
 - (void) addSecondaryConnectionsNotLoading{
     //    Adds secondary connections (connections of connections) to the local graph
-    for (userNode *node in self.nodes){
+    for (UserNode *node in self.nodes){
         [self addNode:node.user :NO :^(NSError * _Nonnull error) {nil;}];
     }
 }
@@ -80,8 +80,8 @@
         if (edges != nil) {
             self.addedUser = NO;
             for (UserConnection *edge in edges){
-                userNode *nodeOne = [self checkIfNodeExistsForUser:edge[@"userOne"]];
-                userNode *nodeTwo = [self checkIfNodeExistsForUser:edge[@"userTwo"]];
+                UserNode *nodeOne = [self checkIfNodeExistsForUser:edge[@"userOne"]];
+                UserNode *nodeTwo = [self checkIfNodeExistsForUser:edge[@"userTwo"]];
                 [self checkIfEdgeExistsForNodes:nodeOne :nodeTwo :-[edge[@"closeness"] intValue]];
             }
             if ([self.nodes count]<400 && self.addedUser){
@@ -100,27 +100,27 @@
     }];
 }
 
-- (userNode*) checkIfNodeExistsForUser: (PFUser *)user{
-    for (userNode *node in self.nodes){
+- (UserNode*) checkIfNodeExistsForUser: (PFUser *)user{
+    for (UserNode *node in self.nodes){
         node.distanceFromStart = INT_MAX;
         if ([node.user[@"username"] isEqual:user.username]){
             return node;
         }
     }
-    userNode *node = [[userNode alloc]initWithUser:user];
+    UserNode *node = [[UserNode alloc]initWithUser:user];
     [self.nodes addObject:node];
     self.addedUser = YES;
     return node;
 }
 
-- (int) checkIfEdgeExistsForNodes: (userNode *)nodeOne :(userNode *)nodeTwo :(int)closeness{
-    for (usersEdge *edge in self.edges){
+- (int) checkIfEdgeExistsForNodes: (UserNode *)nodeOne :(UserNode *)nodeTwo :(int)closeness{
+    for (UsersEdge *edge in self.edges){
         if (edge.node1 == nodeOne && edge.node2 == nodeTwo){
             edge.closeness = closeness;
             return 0;
         }
     }
-    usersEdge *edgeToAdd = [[usersEdge alloc]initWithNodes:nodeOne :nodeTwo :closeness];
+    UsersEdge *edgeToAdd = [[UsersEdge alloc]initWithNodes:nodeOne :nodeTwo :closeness];
     [self.edges addObject:edgeToAdd];
     return 1;
 }
@@ -136,7 +136,7 @@
     [self.searchResults removeAllObjects];
     int count = 0;
     if ([searchParameter isEqual:@""]){
-        for (userNode *node in self.nodes){
+        for (UserNode *node in self.nodes){
             if (count == numOfUsers){
                 return self.searchResults;
             }
@@ -145,7 +145,7 @@
         }
     }
     else {
-        for (userNode *node in self.nodes){
+        for (UserNode *node in self.nodes){
             if ([node.user.username containsString:searchParameter] || [node.user[@"firstame"] containsString:searchParameter] || [node.user[@"lastname"] containsString:searchParameter]){
                 if (count == numOfUsers){
                     return self.searchResults;
@@ -161,14 +161,14 @@
 - (NSMutableArray *) GetDeepUsersWithSubstring: (NSString *)searchParameter withNumberOfUsers:(int)numOfUsers{
     int count = 0;
     NSMutableArray *subarray = [self.nodes mutableCopy];
-    for (userNode *node in self.nodes){
+    for (UserNode *node in self.nodes){
         if ([Algos userInArray:node.user withArray:self.searchResults]){
             [subarray removeObject:node];
         }
     }
     [self.searchResults removeAllObjects];
     if ([searchParameter isEqual:@""]){
-        for (userNode *node in subarray){
+        for (UserNode *node in subarray){
             if (count == numOfUsers){
                 return self.searchResults;
             }
@@ -177,7 +177,7 @@
         }
     }
     else {
-        for (userNode *node in subarray){
+        for (UserNode *node in subarray){
             if ([node.user.username containsString:searchParameter] || [node.user[@"firstame"] containsString:searchParameter] || [node.user[@"lastname"] containsString:searchParameter]){
                 if (count == numOfUsers){
                     return self.searchResults;
@@ -193,7 +193,7 @@
 #pragma mark Dijkstra
 
 - (void) SortGraphWithDistances{
-    [self.nodes sortUsingComparator:^NSComparisonResult(userNode* node1, userNode* node2) {
+    [self.nodes sortUsingComparator:^NSComparisonResult(UserNode* node1, UserNode* node2) {
         if (node1.distanceFromStart > node2.distanceFromStart) {
             return (NSComparisonResult)NSOrderedDescending;
         }
@@ -204,13 +204,13 @@
     }];
 }
 
-- (void) Dijkstra: (userNode *)source{
+- (void) Dijkstra: (UserNode *)source{
     self.nodesQueue = [[NSMutableArray alloc] initWithArray:self.nodes];
     source.distanceFromStart = 0;
     while ([self.nodesQueue count]>0){
-        userNode *smallest = [self ExtractSmallest];
+        UserNode *smallest = [self ExtractSmallest];
         NSMutableArray *adjecentNodes = [self AdjecentRemainingNodes:smallest];
-        for (userNode *adjecentNode in adjecentNodes){
+        for (UserNode *adjecentNode in adjecentNodes){
             int distance = [self Distance:smallest :adjecentNode] + smallest.distanceFromStart;
             if (distance < adjecentNode.distanceFromStart){
                 adjecentNode.distanceFromStart = distance;
@@ -223,9 +223,9 @@
     [self SortGraphWithDistances];
 }
 
-- (userNode *) ExtractSmallest{
-    userNode *smallest = self.nodesQueue[0];
-    for (userNode *node in self.nodesQueue){
+- (UserNode *) ExtractSmallest{
+    UserNode *smallest = self.nodesQueue[0];
+    for (UserNode *node in self.nodesQueue){
         if (node.distanceFromStart < smallest.distanceFromStart){
             smallest = node;
         }
@@ -237,10 +237,10 @@
     return smallest;
 }
 
-- (NSMutableArray *) AdjecentRemainingNodes: (userNode*) node {
+- (NSMutableArray *) AdjecentRemainingNodes: (UserNode*) node {
     NSMutableArray *adjecentNodes = [[NSMutableArray alloc] init];
-    for (usersEdge *edge in self.edges){
-        userNode *adjecent = nil;
+    for (UsersEdge *edge in self.edges){
+        UserNode *adjecent = nil;
         if (edge.node1 == node){
             adjecent = edge.node2;
         }
@@ -254,9 +254,9 @@
     return adjecentNodes;
 }
 
-- (int) Distance: (userNode *)nodeOne :(userNode *)nodeTwo{
+- (int) Distance: (UserNode *)nodeOne :(UserNode *)nodeTwo{
     // Return distance between two connected nodes
-    for (usersEdge *edge in self.edges){
+    for (UsersEdge *edge in self.edges){
         if ((edge.node1 == nodeOne && edge.node2 == nodeTwo) || (edge.node1 == nodeTwo && edge.node2 == nodeOne)){
             return edge.closeness;
         }
@@ -264,9 +264,9 @@
     return -1;  // should never happen
 }
 
-- (BOOL) contains: (NSMutableArray *)nodes :(userNode *)nodeArg{
+- (BOOL) contains: (NSMutableArray *)nodes :(UserNode *)nodeArg{
     //    Checks if a nodes array contain nodeArg
-    for (userNode *node in nodes){
+    for (UserNode *node in nodes){
         if ([node isEqual: nodeArg]){
             return YES;
         }

@@ -7,7 +7,7 @@
 
 #import "DetailsViewController.h"
 
-@interface DetailsViewController () <UICollectionViewDelegate, UICollectionViewDataSource, profilesCollectionViewCellDelegate, InvestViewControllerDelegate>
+@interface DetailsViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ProfilesCollectionCellViewDelegate, InvestViewControllerDelegate>
 
 @end
 
@@ -121,7 +121,7 @@
             [parseObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if (succeeded && closenesss==1){
                     // Add connection to local graph
-                    connectionsGraph *graph = [connectionsGraph sharedInstance];
+                    ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
                     [graph addUserToGraph:user :nil];
                 }
             }];
@@ -131,7 +131,7 @@
             [UserConnection postUserConnection:PFUser.currentUser withUserTwo:user withCloseness:@(closenesss) withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                 if (closenesss==1){
                     // Add connection to local graph
-                    connectionsGraph *graph = [connectionsGraph sharedInstance];
+                    ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
                     [graph addUserToGraph:user :nil];
                 }
             }];
@@ -158,7 +158,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    profilesCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"profilesCollectionViewCell" forIndexPath:indexPath];
+    ProfilesCollectionCellView *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"profilesCollectionViewCell" forIndexPath:indexPath];
     
     if (collectionView == self.sharksCollectionView){
         //    get the shark and and assign it to the cell
@@ -183,7 +183,7 @@
 
 #pragma mark - Delegates
 
-- (void)profileCell:(profilesCollectionViewCell *) profileCell didTap: (PFUser *)user{
+- (void)profileCell:(ProfilesCollectionCellView *) profileCell didTap: (PFUser *)user{
     //    Posts a user connection and goes to user profile
     [self checkIfConnectionExists:user withCloseness:1];
     [self goToUserProfile:user];

@@ -5,9 +5,9 @@
 //  Created by Miguel Arriaga Velasco on 7/25/22.
 //
 
-#import "userNode.h"
+#import "UserNode.h"
 
-@implementation userNode
+@implementation UserNode
 
 - (instancetype)initWithUser:(PFUser *)user{
     self = [super init];

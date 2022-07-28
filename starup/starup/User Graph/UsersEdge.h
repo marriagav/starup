@@ -6,18 +6,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "userNode.h"
+#import "UserNode.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface usersEdge : NSObject
+@interface UsersEdge : NSObject
 
-@property (nonatomic, strong) userNode *node1;
-@property (nonatomic, strong) userNode *node2;
+@property (nonatomic, strong) UserNode *node1;
+@property (nonatomic, strong) UserNode *node2;
 @property int closeness;
 @property (nonatomic, strong) NSMutableArray *vertices;
 
-- (instancetype)initWithNodes:(userNode *)node1 :(userNode *)node2 :(int)closeness;
+- (instancetype)initWithNodes:(UserNode *)node1 :(UserNode *)node2 :(int)closeness;
 
 @end
 

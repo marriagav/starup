@@ -5,11 +5,11 @@
 //  Created by Miguel Arriaga Velasco on 7/26/22.
 //
 
-#import "usersEdge.h"
+#import "UsersEdge.h"
 
-@implementation usersEdge
+@implementation UsersEdge
 
-- (instancetype)initWithNodes:(userNode *)node1 :(userNode *)node2 :(int)closeness{
+- (instancetype)initWithNodes:(UserNode *)node1 :(UserNode *)node2 :(int)closeness{
     self = [super init];
     if (self){
         _node1 = node1;
@@ -20,7 +20,7 @@
 }
 
 - (instancetype)init {
-    self = [self initWithNodes:[[userNode alloc]init] :[[userNode alloc]init] :0];
+    self = [self initWithNodes:[[UserNode alloc]init] :[[UserNode alloc]init] :0];
     return self;
 }
 
