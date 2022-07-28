@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id<ResultsViewControllerDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-- (void)searchForSubstring:(NSString *)searchText;
+- (void)performSearch:(NSString *)searchText;
 
 @end
 

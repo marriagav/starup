@@ -27,14 +27,14 @@
 {
     //    Setter for the post
     _starup = starup;
+    self.starupImage.file = starup[@"starupImage"];
+    [self.starupImage loadInBackground];
     self.starupName.text = starup[@"starupName"];
     self.starupCategory.text = [starup[@"starupCategory"] capitalizedString];
     self.sales.text = [NSString stringWithFormat:@"%@%@", @"Sales ~ $", starup[@"sales"]];
     self.starupDescription.text = starup[@"starupDescription"];
     NSDate *date = starup[@"operatingSince"];
     self.operatingSince.text = [NSString stringWithFormat:@"%@%ld", @"Operating since: ", (long)date.year];
-    self.starupImage.file = starup[@"starupImage"];
-    [self.starupImage loadInBackground];
 }
 
 - (void)didTapCell:(UITapGestureRecognizer *)sender

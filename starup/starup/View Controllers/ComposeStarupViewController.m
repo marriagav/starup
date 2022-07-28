@@ -112,10 +112,10 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info
 {
     // Get the image captured by the UIImagePickerController
-    UIImage *editedImage = info[UIImagePickerControllerEditedImage];
+    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
 
     // Resize the image
-    UIImage *resizedImage = [Algos imageWithImage:editedImage scaledToWidth:414];
+    UIImage *resizedImage = [Algos imageWithImage:originalImage scaledToWidth:414];
 
     self.starupImage.image = resizedImage;
 

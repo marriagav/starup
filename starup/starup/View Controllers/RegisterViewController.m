@@ -101,7 +101,7 @@
     newUser[@"lastname"] = self.lastNameField.text;
     newUser[@"role"] = self.roleField.text;
     newUser[@"linkedinAuthentification"] = @"False";
-    UIImage *image = [UIImage imageNamed:@"profile_tab"];
+    UIImage *image = [UIImage imageNamed:@"default_user_image"];
     [newUser setObject:[Algos getPFFileFromImage:image] forKey:@"profileImage"];
 
     // call sign up function on the object

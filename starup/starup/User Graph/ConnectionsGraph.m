@@ -160,7 +160,8 @@
         }
     } else {
         for (UserNode *node in self.nodes) {
-            if ([node.user.username containsString:searchParameter] || [node.user[@"firstame"] containsString:searchParameter] || [node.user[@"lastname"] containsString:searchParameter]) {
+            NSString *fullName = [NSString stringWithFormat:@"%@ %@", node.user[@"firstname"], node.user[@"lastname"]];
+            if ([node.user.username containsString:searchParameter] || [fullName containsString:searchParameter]) {
                 if (count == numOfUsers) {
                     return self.searchResults;
                 }
