@@ -67,14 +67,14 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     if (self.user == nil){
         // There is only a back button if not accessed through navbar
         self.navigationItem.leftBarButtonItem = nil;
+        //    Initialize search bar
+        [self setSearchControl];
     }
     if (self.user == nil || self.user.username==PFUser.currentUser.username){
         //  Can only edit the profile if it is your profile
         self.user = PFUser.currentUser;
         //    Set the dropdown menu
         [self setDropDownMenu];
-        //    Initialize search bar
-        [self setSearchControl];
     }
     else {
         // When in someone elses profile page
@@ -169,18 +169,16 @@ InfiniteScrollActivityView* _loadingMoreViewP;
 }
 
 - (IBAction)goBack:(id)sender {
-    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)goToUserProfile: (PFUser *)user{
     //    Goes to profile page when user taps on profile
     UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     ProfileViewController *profileViewController = [storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
-    [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
     // Pass the user
     profileViewController.user = user;
-    [self presentViewController:navigationController animated:YES completion:nil];
+    [self.navigationController pushViewController:profileViewController animated:YES];
 }
 
 #pragma mark - Delegates
@@ -196,9 +194,7 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     DetailsViewController *detailsStarupViewController = [storyboard instantiateViewControllerWithIdentifier:@"detailsNoNav"];
     detailsStarupViewController.starup = starup;
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:detailsStarupViewController];
-    [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
-    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+    [self.navigationController pushViewController:detailsStarupViewController animated:YES];
 }
 
 - (void) didTapUser:(PFUser *)user{

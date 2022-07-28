@@ -217,29 +217,26 @@
 - (IBAction)goBack:(id)sender {
     // display starups view controller
     [self.delegate updateData];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)goToInvestments:(id)sender {
-    //    Goes to incestments page
+    //    Goes to investments page
     UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     InvestViewController *investController = [storyboard instantiateViewControllerWithIdentifier:@"investmentsVC"];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:investController];
-    [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
     // Pass the user
     investController.starup = self.starup;
     investController.delegate = self;
-    [self presentViewController:navigationController animated:YES completion:nil];
+    [self.navigationController pushViewController:investController animated:YES];
 }
 
 - (void)goToUserProfile: (PFUser *)user{
     //    Goes to profile page when user taps on profile
     UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     ProfileViewController *profileViewController = [storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
     // Pass the user
     profileViewController.user = user;
-    [self presentViewController:navigationController animated:YES completion:nil];
+    [self.navigationController pushViewController:profileViewController animated:YES];
 }
 
 @end

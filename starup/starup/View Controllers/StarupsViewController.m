@@ -170,11 +170,8 @@ InfiniteScrollActivityView* _loadingMoreViewS;
     UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     DetailsViewController *detailsStarupViewController = [storyboard instantiateViewControllerWithIdentifier:@"detailsNoNav"];
     detailsStarupViewController.starup = starup;
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:detailsStarupViewController];
-    [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
-    [self.navigationController presentViewController:navigationController animated:YES completion:^{
-        detailsStarupViewController.delegate = self;
-    }];
+    detailsStarupViewController.delegate = self;
+    [self.navigationController pushViewController:detailsStarupViewController animated:YES];
 }
 
 #pragma mark - Actions

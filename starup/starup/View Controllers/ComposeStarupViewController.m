@@ -269,10 +269,9 @@
     //    Goes to profile page when user taps on profile
     UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     ProfileViewController *profileViewController = [storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
     // Pass the user
     profileViewController.user = user;
-    [self presentViewController:navigationController animated:YES completion:nil];
+    [self.navigationController pushViewController:profileViewController animated:YES];
 }
 
 #pragma mark - CollectionView

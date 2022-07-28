@@ -91,7 +91,7 @@
         parseObject[@"currentInvestment"] = [NSNumber numberWithInt:newInvestment];
         [parseObject saveInBackground];
         [self.delegate didInvest];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController popViewControllerAnimated:YES];
         // hides progress hud
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
@@ -230,7 +230,7 @@
 
 - (IBAction)goBack:(id)sender {
     // display starups view controller
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
