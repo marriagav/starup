@@ -71,11 +71,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="T6u-bL-tcl">
                         <barButtonItem key="leftBarButtonItem" title=" Cancel" id="eNM-La-kwA">
+                            <color key="tintColor" systemColor="systemIndigoColor"/>
                             <connections>
                                 <action selector="goBack:" destination="2EB-RS-e1z" id="0SL-ax-bwQ"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Continue" id="0mV-4k-9sg">
+                            <color key="tintColor" systemColor="systemIndigoColor"/>
                             <connections>
                                 <action selector="continueOnClick:" destination="2EB-RS-e1z" id="fay-DV-VGB"/>
                             </connections>
@@ -115,7 +117,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0z1-1J-ZpV">
                                                 <rect key="frame" x="34" y="346" width="346" height="31"/>
                                                 <color key="backgroundColor" systemColor="systemIndigoColor"/>
-                                                <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Login"/>
                                                 <userDefinedRuntimeAttributes>
@@ -142,7 +144,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPL-O0-MKA">
                                                 <rect key="frame" x="34" y="434" width="346" height="31"/>
                                                 <color key="backgroundColor" systemColor="systemIndigoColor"/>
-                                                <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Dont have an account? Register"/>
                                                 <userDefinedRuntimeAttributes>
@@ -167,7 +169,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="31" id="6Ay-q4-VeQ"/>
                                                 </constraints>
-                                                <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" image="linkedin-4-24" imagePlacement="leading" title="Sign in with LinkedIn" imagePadding="7"/>
                                                 <userDefinedRuntimeAttributes>
@@ -300,7 +302,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wr5-Ym-LR4">
                                                 <rect key="frame" x="34" y="444" width="346" height="31"/>
                                                 <color key="backgroundColor" systemColor="systemIndigoColor"/>
-                                                <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Register"/>
                                                 <userDefinedRuntimeAttributes>
@@ -383,6 +385,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" systemColor="systemIndigoColor"/>
                     </tabBar>
                     <connections>
                         <segue destination="kNf-9R-zjR" kind="relationship" relationship="viewControllers" id="5v8-gO-1wY"/>
@@ -483,6 +486,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="lAM-W7-yvI">
                         <barButtonItem key="rightBarButtonItem" title=" " image="plus" catalog="system" id="7pU-yb-z4e">
+                            <color key="tintColor" systemColor="systemIndigoColor"/>
                             <connections>
                                 <action selector="composeAStarup:" destination="6o5-Ae-rLO" id="5co-dd-NWc"/>
                             </connections>
@@ -530,7 +534,9 @@
                                         <rect key="frame" x="86" y="25" width="306" height="55"/>
                                         <color key="backgroundColor" systemColor="quaternarySystemFillColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title="Select an update status"/>
+                                        <state key="normal" title="Select an update status">
+                                            <color key="titleColor" systemColor="systemIndigoColor"/>
+                                        </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="5"/>
@@ -580,11 +586,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="t3O-xE-aPy">
                         <barButtonItem key="leftBarButtonItem" title=" Cancel" id="45c-Mf-C2n">
+                            <color key="tintColor" systemColor="systemIndigoColor"/>
                             <connections>
                                 <action selector="goBackToHome:" destination="rEn-hk-7t6" id="19N-uX-YQg"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Post" id="1ZV-tM-x4x">
+                            <color key="tintColor" systemColor="systemIndigoColor"/>
                             <connections>
                                 <action selector="makePost:" destination="rEn-hk-7t6" id="q8X-Pw-Tnr"/>
                             </connections>
@@ -652,7 +660,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="31" id="C5n-2J-1bP"/>
                                                 </constraints>
-                                                <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Make an investment"/>
                                                 <connections>
@@ -994,7 +1002,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vua-hH-uo6">
                                                 <rect key="frame" x="33" y="153" width="348" height="38"/>
                                                 <color key="backgroundColor" systemColor="systemIndigoColor"/>
-                                                <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" image="Paypal_2014_logo (1)" imagePlacement="leading" title="Invest with PayPal" imagePadding="7"/>
                                                 <connections>
@@ -1162,6 +1170,7 @@
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="mNN-38-7EM" customClass="PFImageView">
                                                 <rect key="frame" x="0.0" y="544" width="414" height="16"/>
+                                                <color key="tintColor" systemColor="systemIndigoColor"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Operating since:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3bx-s7-UxK">
                                                 <rect key="frame" x="34" y="125" width="114" height="31"/>
@@ -1172,6 +1181,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qDk-hX-DFP">
                                                 <rect key="frame" x="34" y="599" width="345" height="30"/>
                                                 <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Add collaborator">
                                                     <color key="titleColor" systemColor="systemBackgroundColor"/>
                                                 </state>
@@ -1459,11 +1469,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="94p-jT-BFl">
                         <barButtonItem key="leftBarButtonItem" title=" Cancel" id="OV1-h8-Wbv">
+                            <color key="tintColor" systemColor="systemIndigoColor"/>
                             <connections>
                                 <action selector="goBackToStarups:" destination="ggG-9Y-mYU" id="wpQ-HV-tQC"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Post" id="uQm-r9-Tx7">
+                            <color key="tintColor" systemColor="systemIndigoColor"/>
                             <connections>
                                 <action selector="postStarup:" destination="ggG-9Y-mYU" id="5MF-Vs-7Sj"/>
                             </connections>
@@ -1560,6 +1572,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="lRd-1S-T1q">
                         <barButtonItem key="leftBarButtonItem" title="Return" id="oqf-LC-EVI">
+                            <color key="tintColor" systemColor="systemIndigoColor"/>
                             <connections>
                                 <action selector="goBack:" destination="hep-nv-idu" id="KQ0-pp-Ujf"/>
                             </connections>
@@ -1629,7 +1642,9 @@
                                                             <command title="Item 2" id="GQe-Oy-MC6"/>
                                                         </children>
                                                     </menu>
-                                                    <state key="normal" title="Settings"/>
+                                                    <state key="normal" title="Settings">
+                                                        <color key="titleColor" systemColor="systemIndigoColor"/>
+                                                    </state>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="5"/>
@@ -2005,11 +2020,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="Edit your profile" id="w4P-S0-ez9">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="2Tv-hE-Syu">
+                            <color key="tintColor" systemColor="systemIndigoColor"/>
                             <connections>
                                 <action selector="cancelOnClick:" destination="WtF-bm-bHj" id="NQL-Ji-2Nf"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Update" id="vFC-kO-edj">
+                            <color key="tintColor" systemColor="systemIndigoColor"/>
                             <connections>
                                 <action selector="updateOnClick:" destination="WtF-bm-bHj" id="S8v-Ob-rth"/>
                             </connections>
@@ -2231,6 +2248,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Pff-qb-dMQ">
                         <barButtonItem key="rightBarButtonItem" title=" " image="plus" catalog="system" id="9Y6-Ep-7zM">
+                            <color key="tintColor" systemColor="systemIndigoColor"/>
                             <connections>
                                 <action selector="composeAPost:" destination="hRc-2W-ora" id="gZ4-uz-sOG"/>
                             </connections>
@@ -2410,6 +2428,7 @@
             <point key="canvasLocation" x="-110.14492753623189" y="-575.22321428571422"/>
         </scene>
     </scenes>
+    <color key="tintColor" systemColor="systemIndigoColor"/>
     <resources>
         <image name="Paypal_2014_logo (1)" width="24" height="24"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
@@ -2429,9 +2448,6 @@
         </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

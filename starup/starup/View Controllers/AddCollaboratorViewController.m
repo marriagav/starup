@@ -149,6 +149,8 @@ InfiniteScrollActivityView *_loadingMoreViewA;
         label.text = @"     Discover";
     }
     label.font = [UIFont boldSystemFontOfSize:14];
+    label.textColor = [UIColor whiteColor];
+    label.backgroundColor = [UIColor systemIndigoColor];
     return label;
 }
 
