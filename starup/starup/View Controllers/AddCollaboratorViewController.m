@@ -21,7 +21,7 @@ InfiniteScrollActivityView* _loadingMoreViewA;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //  Initiallize delegate and datasource of the tableview to self
+    //  Initialize delegate and datasource of the tableview to self
     self.tableView.dataSource=self;
     self.tableView.delegate=self;
     //    Initialize the user matrix

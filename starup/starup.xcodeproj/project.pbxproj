@@ -42,6 +42,7 @@
 		D458E862288F4E74004DF020 /* userNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D458E861288F4E74004DF020 /* userNode.m */; };
 		D458E866288F5954004DF020 /* connectionsGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = D458E865288F5954004DF020 /* connectionsGraph.m */; };
 		D458E86928904A68004DF020 /* usersEdge.m in Sources */ = {isa = PBXBuildFile; fileRef = D458E86828904A68004DF020 /* usersEdge.m */; };
+		D458E86C28920117004DF020 /* ResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D458E86B28920117004DF020 /* ResultsViewController.m */; };
 		D4ABAA4E2888C75F00EF3B8A /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4ABAA4D2888C75F00EF3B8A /* PasswordViewController.m */; };
 		D4CDEA4E2878A37C00495426 /* PostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CDEA4D2878A37C00495426 /* PostCell.m */; };
 		D4CDEA512878AB7100495426 /* StarupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CDEA502878AB7100495426 /* StarupCell.m */; };
@@ -138,6 +139,8 @@
 		D458E865288F5954004DF020 /* connectionsGraph.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = connectionsGraph.m; sourceTree = "<group>"; };
 		D458E86728904A68004DF020 /* usersEdge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = usersEdge.h; sourceTree = "<group>"; };
 		D458E86828904A68004DF020 /* usersEdge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = usersEdge.m; sourceTree = "<group>"; };
+		D458E86A28920117004DF020 /* ResultsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResultsViewController.h; sourceTree = "<group>"; };
+		D458E86B28920117004DF020 /* ResultsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResultsViewController.m; sourceTree = "<group>"; };
 		D4ABAA4C2888C75F00EF3B8A /* PasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordViewController.h; sourceTree = "<group>"; };
 		D4ABAA4D2888C75F00EF3B8A /* PasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PasswordViewController.m; sourceTree = "<group>"; };
 		D4CDEA4C2878A37C00495426 /* PostCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostCell.h; sourceTree = "<group>"; };
@@ -288,6 +291,8 @@
 				D40045C428809123001EB588 /* AddCollaboratorViewController.m */,
 				D4ABAA4C2888C75F00EF3B8A /* PasswordViewController.h */,
 				D4ABAA4D2888C75F00EF3B8A /* PasswordViewController.m */,
+				D458E86A28920117004DF020 /* ResultsViewController.h */,
+				D458E86B28920117004DF020 /* ResultsViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -619,6 +624,7 @@
 				D458E862288F4E74004DF020 /* userNode.m in Sources */,
 				D41A9BD1287609210038852B /* RegisterViewController.m in Sources */,
 				D40045BF287F2E1D001EB588 /* profileCell.m in Sources */,
+				D458E86C28920117004DF020 /* ResultsViewController.m in Sources */,
 				D41A9B802875F0DA0038852B /* SceneDelegate.m in Sources */,
 				D41A9BBF2876006D0038852B /* ProfileViewController.m in Sources */,
 				D4D869DA2889BBBA0084176E /* Linkedin.m in Sources */,

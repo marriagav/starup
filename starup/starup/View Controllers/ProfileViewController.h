@@ -16,6 +16,8 @@
 #import "DetailsViewController.h"
 #import "Linkedin.h"
 #import "connectionsGraph.h"
+#import "AddCollaboratorViewController.h"
+#import "ResultsViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -33,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSMutableArray *postArray;
 @property (strong, nonatomic) NSMutableArray *collaboratorArray;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
-@property (strong, nonatomic) UISearchBar *searchBar;
+@property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic) int currentMax;
 
 @end

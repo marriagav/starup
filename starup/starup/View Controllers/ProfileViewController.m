@@ -7,7 +7,7 @@
 
 #import "ProfileViewController.h"
 
-@interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditProfileViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, starupCollectionViewCellDelegate, UISearchBarDelegate>
+@interface ProfileViewController () <UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, EditProfileViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, starupCollectionViewCellDelegate, UISearchResultsUpdating, ResultsViewControllerDelegate>
 
 @end
 
@@ -37,8 +37,8 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     // Initialize a UIRefreshControlBottom
     self.currentMax = 20;
     [self _initializeRefreshControlB];
-    //    Initialize search bar
-    [self setSearchBar];
+//    Initialize search bar
+    [self setSearchControl];
 }
 
 - (void)setOutlets{
@@ -51,13 +51,17 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     [Algos formatPictureWithRoundedEdges:self.profilePicture];
 }
 
-- (void)setSearchBar {
-    self.searchBar = [[UISearchBar alloc] init];
-    [self.searchBar sizeToFit];
-    self.navigationItem.titleView = self.searchBar;
-    self.searchBar.delegate = self;
-    self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    self.searchBar.placeholder = @"Search by username...";
+- (void)setSearchControl{
+    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    ResultsViewController *resultsViewController = [storyboard instantiateViewControllerWithIdentifier:@"resultsVC"];
+    resultsViewController.delegate = self;
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:resultsViewController];
+    self.searchController.searchResultsUpdater = self;
+    self.searchController.searchBar.placeholder = @"Search by username...";
+    self.searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.navigationItem.searchController = self.searchController;
+    [self.navigationController setNavigationBarHidden:NO];
+    self.navigationItem.hidesSearchBarWhenScrolling = NO;
 }
 
 - (void)prepAccordingToUser{
@@ -168,6 +172,17 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)goToUserProfile: (PFUser *)user{
+    //    Goes to profile page when user taps on profile
+    UIStoryboard  *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    ProfileViewController *profileViewController = [storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
+    [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
+    // Pass the user
+    profileViewController.user = user;
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
 #pragma mark - Delegates
 
 - (void)didEdit{
@@ -184,6 +199,10 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:detailsStarupViewController];
     [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
     [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+}
+
+- (void) didTapUser:(PFUser *)user{
+    [self checkIfConnectionExists:user withCloseness:1];
 }
 
 #pragma mark - Network
@@ -260,6 +279,45 @@ InfiniteScrollActivityView* _loadingMoreViewP;
             NSLog(@"%@", error.localizedDescription);
         }
         [refreshControl endRefreshing];
+    }];
+}
+
+- (void) checkIfConnectionExists: (PFUser *)user withCloseness:(int)closenesss{
+    //    checks if two users are already close, if they are, make their connection stronger, if theyre not, create a connection between them
+    PFQuery *query1 = [PFQuery queryWithClassName:@"UserConnection"];
+    [query1 whereKey:@"userOne" equalTo:PFUser.currentUser];
+    [query1 whereKey:@"userTwo" equalTo:user];
+
+    PFQuery *query2 = [PFQuery queryWithClassName:@"UserConnection"];
+    [query2 whereKey:@"userTwo" equalTo:PFUser.currentUser];
+    [query2 whereKey:@"userOne" equalTo:user];
+
+    PFQuery *find = [PFQuery orQueryWithSubqueries:@[query1,query2]];
+    [find includeKey:@"userOne"];
+    [find includeKey:@"userTwo"];
+    
+    [find getFirstObjectInBackgroundWithBlock: ^(PFObject *parseObject, NSError *error) {
+        if (parseObject){
+            float currCloseness = [parseObject[@"closeness"] floatValue];
+            parseObject[@"closeness"] = [NSNumber numberWithFloat: currCloseness+closenesss];
+            [parseObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded){
+                    // Add connection to local graph
+                    connectionsGraph *graph = [connectionsGraph sharedInstance];
+                    [graph addUserToGraph:user :nil];
+                    [self goToUserProfile:user];
+                }
+            }];
+        }
+        else{
+            //    Posts a user connection
+            [UserConnection postUserConnection:PFUser.currentUser withUserTwo:user withCloseness:@(closenesss) withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                    // Add connection to local graph
+                    connectionsGraph *graph = [connectionsGraph sharedInstance];
+                    [graph addUserToGraph:user :nil];
+                    [self goToUserProfile:user];
+            }];
+        }
     }];
 }
 
@@ -358,22 +416,13 @@ InfiniteScrollActivityView* _loadingMoreViewP;
     return cell;
 }
 
-#pragma mark - SearchBar
+#pragma mark - Search Controller
 
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    self.searchBar.showsCancelButton = YES;
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    self.searchBar.showsCancelButton = NO;
-    self.searchBar.text = @"";
-    [self.searchBar resignFirstResponder];
-}
-
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    // to limit network activity, reload half a second after last key press.
-//    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(searchForSubstring:) object:searchText];
-//    [self performSelector:@selector(searchForSubstring:) withObject:searchText afterDelay:0.5];
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController{
+    NSString *searchString = searchController.searchBar.text;
+    ResultsViewController *resultsVC = (ResultsViewController *)searchController.searchResultsController;
+    resultsVC.delegate = self;
+    [resultsVC searchForSubstring:searchString];
 }
 
 @end
