@@ -86,6 +86,13 @@
 
 
 #pragma mark - Search
+
+- (void)performSearch:(NSString *)searchText
+{
+    // to limit network activity, reload half a second after last key press.
+    [self performSelector:@selector(searchForSubstring:) withObject:searchText afterDelay:0.5];
+}
+
 - (void)searchForSubstring:(NSString *)searchText
 {
     [self localCloseSearch:searchText];

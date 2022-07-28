@@ -62,6 +62,7 @@ InfiniteScrollActivityView *_loadingMoreViewP;
     self.searchController.searchResultsUpdater = self;
     self.searchController.searchBar.placeholder = @"Search by username...";
     self.searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.searchController.showsSearchResultsController = YES;
     self.navigationItem.searchController = self.searchController;
     [self.navigationController setNavigationBarHidden:NO];
     self.navigationItem.hidesSearchBarWhenScrolling = NO;
@@ -437,7 +438,7 @@ InfiniteScrollActivityView *_loadingMoreViewP;
     NSString *searchString = searchController.searchBar.text;
     ResultsViewController *resultsVC = (ResultsViewController *)searchController.searchResultsController;
     resultsVC.delegate = self;
-    [resultsVC searchForSubstring:searchString];
+    [resultsVC performSearch:searchString];
 }
 
 @end
