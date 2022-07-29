@@ -13,7 +13,7 @@ Original App Design Project
 ## Installation
 1. Clone this github repository on your local machine
 `git clone git@github.com:marriagav/starup.git`
-2. Install the project dependencies by going to the `starup` directory with the command `cd starup` and then running the command `pod install`
+2. Go to the `starup` directory with the command `cd starup`
 3. Open the project in xcode by running the command `open starup.xcworkspace/`
 4. Add the Keys.plist file to the project, with the following keys of the API's (their values are also needed):
     - parseAppID
