@@ -160,8 +160,7 @@
         }
     } else {
         for (UserNode *node in self.nodes) {
-            NSString *fullName = [NSString stringWithFormat:@"%@ %@", node.user[@"firstname"], node.user[@"lastname"]];
-            if ([node.user.username containsString:searchParameter] || [fullName containsString:searchParameter]) {
+            if ([[node.user[@"normalizedUsername"] lowercaseString] containsString:searchParameter] || [node.user[@"normalizedFullname"] containsString:searchParameter]) {
                 if (count == numOfUsers) {
                     return self.searchResults;
                 }
@@ -193,7 +192,7 @@
         }
     } else {
         for (UserNode *node in subarray) {
-            if ([node.user.username containsString:searchParameter] || [node.user[@"firstame"] containsString:searchParameter] || [node.user[@"lastname"] containsString:searchParameter]) {
+            if ([[node.user[@"normalizedUsername"] lowercaseString] containsString:searchParameter] || [node.user[@"normalizedFullname"] containsString:searchParameter]) {
                 if (count == numOfUsers) {
                     return self.searchResults;
                 }

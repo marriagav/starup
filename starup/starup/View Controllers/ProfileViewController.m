@@ -60,7 +60,7 @@ InfiniteScrollActivityView *_loadingMoreViewP;
     resultsViewController.delegate = self;
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:resultsViewController];
     self.searchController.searchResultsUpdater = self;
-    self.searchController.searchBar.placeholder = @"Search by username...";
+    self.searchController.searchBar.placeholder = @"Search user...";
     self.searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.searchController.showsSearchResultsController = YES;
     self.navigationItem.searchController = self.searchController;
@@ -78,6 +78,7 @@ InfiniteScrollActivityView *_loadingMoreViewP;
     if (self.user == nil || self.user.username == PFUser.currentUser.username) {
         //  Can only edit the profile if it is your profile
         self.user = PFUser.currentUser;
+        self.editProfileButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         //    Set the dropdown menu
         [self setDropDownMenu];
     } else {
@@ -201,6 +202,14 @@ InfiniteScrollActivityView *_loadingMoreViewP;
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     DetailsViewController *detailsStarupViewController = [storyboard instantiateViewControllerWithIdentifier:@"detailsNoNav"];
     detailsStarupViewController.starup = starup;
+    //    Check if currrent user is owner of the starup
+    PFUser *user = starup[@"author"];
+    [user fetchIfNeeded];
+    if ([user[@"username"] isEqual:PFUser.currentUser.username]) {
+        detailsStarupViewController.isOwner = YES;
+    } else {
+        detailsStarupViewController.isOwner = NO;
+    }
     [self.navigationController pushViewController:detailsStarupViewController animated:YES];
 }
 

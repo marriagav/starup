@@ -99,6 +99,19 @@
     newUser.email = self.emailField.text;
     newUser[@"firstname"] = self.firstNameField.text;
     newUser[@"lastname"] = self.lastNameField.text;
+
+    //    Normalize strings for search
+    NSString *normalizedUsername = [[NSString alloc]
+        initWithData:
+            [self.usernameField.text dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES]
+            encoding:NSASCIIStringEncoding];
+    NSString *normalizedFullname = [[NSString alloc]
+        initWithData:
+            [[NSString stringWithFormat:@"%@ %@", self.firstNameField.text, self.lastNameField.text] dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES]
+            encoding:NSASCIIStringEncoding];
+    newUser[@"normalizedFullname"] = [normalizedFullname lowercaseString];
+    newUser[@"normalizedUsername"] = [normalizedUsername lowercaseString];
+
     newUser[@"role"] = self.roleField.text;
     newUser[@"linkedinAuthentification"] = @"False";
     UIImage *image = [UIImage imageNamed:@"default_user_image"];

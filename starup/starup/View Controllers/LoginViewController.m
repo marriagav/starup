@@ -92,6 +92,19 @@
     newUser.email = self.linkedinEmail;
     newUser[@"firstname"] = self.linkedinFName;
     newUser[@"lastname"] = self.linkedinLName;
+
+    //    Normalize strings for search
+    NSString *normalizedUsername = [[NSString alloc]
+        initWithData:
+            [self.linkedinUsername dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES]
+            encoding:NSASCIIStringEncoding];
+    NSString *normalizedFullname = [[NSString alloc]
+        initWithData:
+            [[NSString stringWithFormat:@"%@ %@", self.linkedinFName, self.linkedinLName] dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES]
+            encoding:NSASCIIStringEncoding];
+    newUser[@"normalizedFullname"] = [normalizedFullname lowercaseString];
+    newUser[@"normalizedUsername"] = [normalizedUsername lowercaseString];
+
     newUser[@"linkedinAuthentification"] = @"True";
     UIImage *image = self.imageLinkedin;
     [newUser setObject:[Algos getPFFileFromImage:image] forKey:@"profileImage"];
