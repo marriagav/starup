@@ -56,7 +56,7 @@ InfiniteScrollActivityView *_loadingMoreViewA;
     self.navigationItem.titleView = self.searchBar;
     self.searchBar.delegate = self;
     self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    self.searchBar.placeholder = @"Search by username...";
+    self.searchBar.placeholder = @"Search user...";
 }
 
 #pragma mark - QualityOfLife
@@ -200,9 +200,14 @@ InfiniteScrollActivityView *_loadingMoreViewA;
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
+    //    Normalize string
+    NSString *normalizedString = [[NSString alloc]
+        initWithData:
+            [[searchText lowercaseString] dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES]
+            encoding:NSASCIIStringEncoding];
     // to limit network activity, reload half a second after last key press.
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(searchForSubstring:) object:searchText];
-    [self performSelector:@selector(searchForSubstring:) withObject:searchText afterDelay:0.5];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(searchForSubstring:) object:normalizedString];
+    [self performSelector:@selector(searchForSubstring:) withObject:normalizedString afterDelay:0.5];
 }
 
 #pragma mark - Search
@@ -233,9 +238,15 @@ InfiniteScrollActivityView *_loadingMoreViewA;
 
 - (void)serverSearch:(NSString *)searchText
 {
-    //        Refresh server connections
-    PFQuery *query = [PFUser query];
-    [query whereKey:@"username" containsString:searchText];
+    //   Username search
+    PFQuery *queryUsername = [PFUser query];
+    [queryUsername whereKey:@"lower_username" containsString:searchText];
+
+    //    Full name search
+    PFQuery *queryFN = [PFUser query];
+    [queryFN whereKey:@"fullname" containsString:searchText];
+
+    PFQuery *query = [PFQuery orQueryWithSubqueries:@[ queryUsername, queryFN ]];
     query.limit = 20;
     [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
         if (users != nil) {

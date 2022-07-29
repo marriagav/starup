@@ -47,6 +47,12 @@
     self.starupImage.file = self.starup[@"starupImage"];
     [self.starupImage loadInBackground];
     [self setProgressBar];
+    //    If the user is not owner, remove edit starup button
+    if (!(self.isOwner)) {
+        [self.editStarupButton removeFromSuperview];
+    } else {
+        self.editStarupButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    }
 }
 
 - (void)setProgressBar

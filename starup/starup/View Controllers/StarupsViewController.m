@@ -185,6 +185,12 @@ InfiniteScrollActivityView *_loadingMoreViewS;
     DetailsViewController *detailsStarupViewController = [storyboard instantiateViewControllerWithIdentifier:@"detailsNoNav"];
     detailsStarupViewController.starup = starup;
     detailsStarupViewController.delegate = self;
+    //    Check if currrent user is owner of the starup
+    if ([starup[@"author"][@"username"] isEqual:PFUser.currentUser.username]) {
+        detailsStarupViewController.isOwner = YES;
+    } else {
+        detailsStarupViewController.isOwner = NO;
+    }
     [self.navigationController pushViewController:detailsStarupViewController animated:YES];
 }
 
