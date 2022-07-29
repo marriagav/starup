@@ -46,6 +46,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UICollectionView *ideatorsCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *hackersCollectionView;
 @property (weak, nonatomic) IBOutlet UILabel *typeHere;
+@property BOOL isEditing;
+@property (nonatomic, strong) Starup *starupEditing;
+
+- (void)refreshCollectionViews;
 
 @end
 

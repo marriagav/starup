@@ -30,8 +30,6 @@
     self.ideators = [[NSMutableArray alloc] init];
     self.sharks = [[NSMutableArray alloc] init];
     self.hackers = [[NSMutableArray alloc] init];
-    //    Add the user as an ideator
-    [self.ideators addObject:PFUser.currentUser];
     //    Set dropdown menu
     [self setDropDownMenu];
     //    Set collection views
@@ -41,9 +39,36 @@
     self.ideatorsCollectionView.dataSource = self;
     self.hackersCollectionView.delegate = self;
     self.hackersCollectionView.dataSource = self;
-    [self.ideatorsCollectionView reloadData];
+    //    Set depending on editing status
+    [self setDependingOnEditing];
     // For the textfield placeholder to work
     self.descriptionOutlet.delegate = self;
+    self.typeHere.hidden = (self.descriptionOutlet.text.length > 0);
+}
+
+- (void)setDependingOnEditing
+{
+    if (self.isEditing) {
+        self.shareButton.title = @"Update";
+        self.starupName.text = self.starupEditing[@"starupName"];
+        self.starupCategory.text = self.starupEditing[@"starupCategory"];
+        self.sales.text = [self.starupEditing[@"sales"] stringValue];
+        self.descriptionOutlet.text = self.starupEditing[@"starupDescription"];
+        self.goalInvestment.text = [self.starupEditing[@"goalInvestment"] stringValue];
+        self.percentageToGive.text = [self.starupEditing[@"percentageToGive"] stringValue];
+        self.goalInvestment.textColor = [UIColor systemGrayColor];
+        self.percentageToGive.textColor = [UIColor systemGrayColor];
+        [self.goalInvestment setUserInteractionEnabled:NO];
+        [self.percentageToGive setUserInteractionEnabled:NO];
+        [self.operatingSince setDate:self.starupEditing[@"operatingSince"]];
+        [self.operatingSince setUserInteractionEnabled:NO];
+        self.starupImage.file = self.starupEditing[@"starupImage"];
+        [self.starupImage loadInBackground];
+    } else {
+        //    Add the user as an ideator
+        [self.ideators addObject:PFUser.currentUser];
+        [self.ideatorsCollectionView reloadData];
+    }
 }
 
 - (void)setOutlets
@@ -84,6 +109,13 @@
 {
     //    If the text changes the placeholder dissapears
     self.typeHere.hidden = (textView.text.length > 0);
+}
+
+- (void)refreshCollectionViews
+{
+    [self.ideatorsCollectionView reloadData];
+    [self.sharksCollectionView reloadData];
+    [self.hackersCollectionView reloadData];
 }
 
 #pragma mark - ImagePicker
@@ -127,7 +159,16 @@
 
 - (IBAction)postStarup:(id)sender
 {
-    //    Makes the call to post the image to the db
+    if (self.editing) {
+        [self updateExistingStarup];
+    } else {
+        [self postNewStarup];
+    }
+}
+
+- (void)postNewStarup
+{
+    //    Makes the call to post the starup to the db
     //    Shows progress hud
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //    Dissables sharebutton so that the user cant spam it
@@ -149,32 +190,75 @@
     }];
 }
 
+- (void)updateExistingStarup
+{
+    //    Updates an existing starup
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //    Dissables sharebutton so that the user cant spam it
+    self.shareButton.enabled = false;
+    //    Call to change the profile details
+    self.starupEditing[@"starupName"] = self.starupName.text;
+    self.starupEditing[@"starupCategory"] = self.starupCategory.text;
+    self.starupEditing[@"sales"] = [NSNumber numberWithInt:(int)[self.sales.text integerValue]];
+    self.starupEditing[@"starupDescription"] = self.descriptionOutlet.text;
+    self.starupEditing[@"starupImage"] = [Algos getPFFileFromImage:self.starupImage.image];
+    [self.starupEditing saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
+        if (succeeded) {
+            [self addStarupsToIdeators:self.starupEditing withIdeators:self.ideators];
+            [self addStarupsToSharks:self.starupEditing withSharks:self.sharks];
+            [self addStarupsToHackers:self.starupEditing withHackers:self.hackers];
+            //Calls the didPost method from the delegate and dissmisses the view controller
+            [self.delegate didPost];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            NSLog(@"%@", error);
+        }
+        // hides progress hud
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
+}
+
+- (void)checkIfIsCollaborator:(Starup *)starup withUser:(PFUser *)user withCollaboratorType:(NSString *)collaboratorType
+{
+    PFQuery *find = [PFQuery queryWithClassName:@"Collaborator"];
+    [find includeKey:@"user"];
+    [find includeKey:@"starup"];
+    [find whereKey:@"typeOfUser" equalTo:collaboratorType];
+    [find whereKey:@"user" equalTo:user];
+    [find whereKey:@"starup" equalTo:starup];
+    [find getFirstObjectInBackgroundWithBlock:^(PFObject *parseObject, NSError *error) {
+        if (parseObject) {
+            nil;
+        } else {
+            if ((user.objectId == PFUser.currentUser.objectId) && ([collaboratorType isEqual:@"Ideator"])) {
+                //  Ownership is calculated by decreasing 100 by the amount of percentage to give
+                [Collaborator postCollaborator:collaboratorType withUser:user withStarup:starup withOwnership:[NSNumber numberWithInt:100 - [self.percentageToGive.text intValue]] withCompletion:nil];
+            } else {
+                [Collaborator postCollaborator:collaboratorType withUser:user withStarup:starup withOwnership:0 withCompletion:nil];
+                [self checkIfConnectionExists:user withCloseness:10];
+            }
+        }
+    }];
+}
+
 - (void)addStarupsToIdeators:(Starup *)starup withIdeators:(NSMutableArray<PFUser *> *)ideators
 {
     for (PFUser *ideator in ideators) {
-        if (ideator.objectId == PFUser.currentUser.objectId) {
-            //  Ownership is calculated by decreasing 100 by the amount of percentage to give
-            [Collaborator postCollaborator:@"Ideator" withUser:ideator withStarup:starup withOwnership:[NSNumber numberWithInt:100 - [self.percentageToGive.text intValue]] withCompletion:nil];
-        } else {
-            [Collaborator postCollaborator:@"Ideator" withUser:ideator withStarup:starup withOwnership:0 withCompletion:nil];
-            [self checkIfConnectionExists:ideator withCloseness:10];
-        }
+        [self checkIfIsCollaborator:starup withUser:ideator withCollaboratorType:@"Ideator"];
     }
 }
 
 - (void)addStarupsToSharks:(Starup *)starup withSharks:(NSMutableArray<PFUser *> *)sharks
 {
     for (PFUser *shark in sharks) {
-        [Collaborator postCollaborator:@"Shark" withUser:shark withStarup:starup withOwnership:0 withCompletion:nil];
-        [self checkIfConnectionExists:shark withCloseness:10];
+        [self checkIfIsCollaborator:starup withUser:shark withCollaboratorType:@"Shark"];
     }
 }
 
 - (void)addStarupsToHackers:(Starup *)starup withHackers:(NSMutableArray<PFUser *> *)hackers
 {
     for (PFUser *hacker in hackers) {
-        [Collaborator postCollaborator:@"Hacker" withUser:hacker withStarup:starup withOwnership:0 withCompletion:nil];
-        [self checkIfConnectionExists:hacker withCloseness:10];
+        [self checkIfIsCollaborator:starup withUser:hacker withCollaboratorType:@"Hacker"];
     }
 }
 

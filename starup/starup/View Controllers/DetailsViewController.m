@@ -8,7 +8,7 @@
 #import "DetailsViewController.h"
 
 
-@interface DetailsViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ProfilesCollectionCellViewDelegate, InvestViewControllerDelegate>
+@interface DetailsViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ProfilesCollectionCellViewDelegate, InvestViewControllerDelegate, ComposeStarupViewControllerDelegate>
 
 @end
 
@@ -20,7 +20,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //    Initialize Arrays
+    //    //    Initialize Arrays
     self.ideators = [[NSMutableArray alloc] init];
     self.sharks = [[NSMutableArray alloc] init];
     self.hackers = [[NSMutableArray alloc] init];
@@ -64,13 +64,10 @@
 
 - (void)updateProgressBar
 {
-    __weak typeof(self) weakSelf = self;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSNumber *currentInv = self.starup[@"currentInvestment"];
-        NSNumber *goalInv = self.starup[@"goalInvestment"];
-        weakSelf.progressString.text = [NSString stringWithFormat:@"%@$%@ / $%@", @"Progress: ", currentInv, goalInv];
-        [weakSelf.investmentProgressBar setProgress:[Algos percentageWithNumbers:[currentInv floatValue] withTotal:[goalInv floatValue]] animated:YES];
-    });
+    NSNumber *currentInv = self.starup[@"currentInvestment"];
+    NSNumber *goalInv = self.starup[@"goalInvestment"];
+    self.progressString.text = [NSString stringWithFormat:@"%@$%@ / $%@", @"Progress: ", currentInv, goalInv];
+    [self.investmentProgressBar setProgress:[Algos percentageWithNumbers:[currentInv floatValue] withTotal:[goalInv floatValue]] animated:YES];
 }
 
 #pragma mark - Network
@@ -191,6 +188,29 @@
     return cell;
 }
 
+- (void)refreshStarup
+{
+    //    Update starup
+    PFQuery *query = [PFQuery queryWithClassName:@"Starup"];
+    [query includeKey:@"author"];
+    [query whereKey:@"objectId" equalTo:self.starup.objectId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *starups, NSError *error) {
+        if (starups != nil) {
+            self.starup = starups[0];
+            [self setUpLabels];
+            //    Reset and refresh Arrays
+            [self.ideators removeAllObjects];
+            [self.sharks removeAllObjects];
+            [self.hackers removeAllObjects];
+            [self refreshColletionViewData];
+            //    Update/make connection
+            [self checkIfConnectionExists:self.starup[@"author"] withCloseness:10];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+}
+
 #pragma mark - Delegates
 
 - (void)profileCell:(ProfilesCollectionCellView *)profileCell didTap:(PFUser *)user
@@ -202,26 +222,14 @@
 
 - (void)didInvest
 {
-    //    Update starup
-    PFQuery *query = [PFQuery queryWithClassName:@"Starup"];
-    [query includeKey:@"author"];
-    [query whereKey:@"objectId" equalTo:self.starup.objectId];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *starups, NSError *error) {
-        if (starups != nil) {
-            self.starup = starups[0];
-            //    Reset and refresh Arrays
-            self.ideators = [[NSMutableArray alloc] init];
-            self.sharks = [[NSMutableArray alloc] init];
-            self.hackers = [[NSMutableArray alloc] init];
-            [self refreshColletionViewData];
-            //    Update ProgressBar
-            [self updateProgressBar];
-            //    Update/make connection
-            [self checkIfConnectionExists:self.starup[@"author"] withCloseness:10];
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-        }
-    }];
+    //    Update starup after investment
+    [self refreshStarup];
+}
+
+- (void)didPost
+{
+    //    Gets called when the user presses the "share" button on the "ComposePost" view, this controller functions as a delegate of the former
+    [self refreshStarup];
 }
 
 #pragma mark - Navigation
@@ -245,6 +253,25 @@
     // Pass the user
     profileViewController.user = user;
     [self.navigationController pushViewController:profileViewController animated:YES];
+}
+
+- (IBAction)editStarup:(id)sender
+{
+    // display compose post view controller
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ComposeStarupViewController *composeStarupViewController = [storyboard instantiateViewControllerWithIdentifier:@"composeSNoNav"];
+    composeStarupViewController.isEditing = YES;
+    composeStarupViewController.starupEditing = self.starup;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:composeStarupViewController];
+    [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
+    [self.navigationController presentViewController:navigationController animated:YES completion:^{
+        composeStarupViewController.sharks = self.sharks;
+        composeStarupViewController.hackers = self.hackers;
+        composeStarupViewController.ideators = self.ideators;
+        [composeStarupViewController refreshCollectionViews];
+        // Pass the delegate
+        composeStarupViewController.delegate = self;
+    }];
 }
 
 @end

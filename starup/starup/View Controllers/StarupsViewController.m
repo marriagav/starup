@@ -201,6 +201,7 @@ InfiniteScrollActivityView *_loadingMoreViewS;
     // display compose post view controller
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ComposeStarupViewController *composeStarupViewController = [storyboard instantiateViewControllerWithIdentifier:@"composeSNoNav"];
+    composeStarupViewController.isEditing = NO;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:composeStarupViewController];
     [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
     [self.navigationController presentViewController:navigationController animated:YES completion:^{
