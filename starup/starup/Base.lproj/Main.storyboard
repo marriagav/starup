@@ -673,7 +673,7 @@
                                                     <constraint firstAttribute="width" constant="414" id="Sba-Eh-UFM"/>
                                                 </constraints>
                                             </imageView>
-                                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="E1f-Fr-xMu">
+                                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E1f-Fr-xMu">
                                                 <rect key="frame" x="19" y="212.5" width="376" height="4"/>
                                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
                                                 <color key="progressTintColor" systemColor="systemIndigoColor"/>
@@ -893,6 +893,9 @@
                                                         <integer key="value" value="5"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="editStarup:" destination="SKn-j3-L4H" eventType="touchUpInside" id="fBp-Vs-ClL"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1612,10 +1615,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="FyH-gW-5jl">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="FyH-gW-5jl">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <scrollView key="tableHeaderView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" id="j2v-xk-VjR">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="308"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1692,7 +1694,7 @@
                                                     <rect key="frame" x="0.0" y="182.5" width="414" height="86"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="86" id="xmw-d1-Wml"/>
+                                                        <constraint firstAttribute="height" constant="86" id="TQn-i3-poC"/>
                                                     </constraints>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="rf3-ad-YPa">
                                                         <size key="itemSize" width="129" height="85"/>
@@ -1747,6 +1749,7 @@
                                             <constraints>
                                                 <constraint firstItem="gri-MQ-8nI" firstAttribute="leading" secondItem="fOo-iP-5q9" secondAttribute="trailing" constant="14" id="2Ta-yD-owy"/>
                                                 <constraint firstItem="lbw-MH-wNf" firstAttribute="trailing" secondItem="8pf-mM-zK9" secondAttribute="trailing" id="3EQ-w1-32f"/>
+                                                <constraint firstItem="DqB-cr-U4o" firstAttribute="top" secondItem="8pf-mM-zK9" secondAttribute="bottom" constant="8" symbolic="YES" id="5GP-i0-Yy0"/>
                                                 <constraint firstAttribute="trailing" secondItem="J78-UD-1hj" secondAttribute="trailing" id="8Qj-uL-JMy"/>
                                                 <constraint firstAttribute="trailing" secondItem="SaI-f9-3wJ" secondAttribute="trailing" constant="109" id="CMU-jm-yaK"/>
                                                 <constraint firstAttribute="trailing" secondItem="51j-c7-mAR" secondAttribute="trailing" constant="109" id="Mvx-YI-x1j"/>
@@ -1769,7 +1772,6 @@
                                                 <constraint firstItem="fm1-rc-PVC" firstAttribute="leading" secondItem="fOo-iP-5q9" secondAttribute="leading" id="jUt-TI-16s"/>
                                                 <constraint firstItem="lbw-MH-wNf" firstAttribute="leading" secondItem="gri-MQ-8nI" secondAttribute="trailing" constant="16" id="nAH-x3-MzB"/>
                                                 <constraint firstItem="SaI-f9-3wJ" firstAttribute="leading" secondItem="gri-MQ-8nI" secondAttribute="leading" id="r3N-AX-ngZ"/>
-                                                <constraint firstItem="DqB-cr-U4o" firstAttribute="top" secondItem="8pf-mM-zK9" secondAttribute="bottom" constant="8" symbolic="YES" id="sCy-Mp-e4M"/>
                                                 <constraint firstItem="SaI-f9-3wJ" firstAttribute="leading" secondItem="gri-MQ-8nI" secondAttribute="leading" id="zQ5-33-2WV"/>
                                             </constraints>
                                         </view>

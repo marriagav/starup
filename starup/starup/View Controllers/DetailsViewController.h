@@ -14,6 +14,7 @@
 #import "InvestViewController.h"
 #import "UserConnection.h"
 #import "ConnectionsGraph.h"
+#import "ComposeStarupViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

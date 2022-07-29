@@ -99,7 +99,7 @@
     [query getObjectInBackgroundWithId:self.starup.objectId
                                  block:^(PFObject *parseObject, NSError *error) {
                                      parseObject[@"currentInvestment"] = [NSNumber numberWithInt:newInvestment];
-                                     [parseObject saveInBackground];
+                                     [parseObject save];
                                      [self.delegate didInvest];
                                      [self.navigationController popViewControllerAnimated:YES];
                                      // hides progress hud
