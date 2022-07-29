@@ -138,25 +138,22 @@ InfiniteScrollActivityView *_loadingMoreViewA;
 
 #pragma mark - TableView
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UILabel *label = [[UILabel alloc] init];
-    if (section == 0) {
-        label.text = @"     Recommended";
-    } else if (section == 1) {
-        label.text = @"     You may know";
-    } else if (section == 2) {
-        label.text = @"     Discover";
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    int count = (int)self.userMatrix[section].count;
+    if (count > 0){
+        NSString *title = [[NSString alloc]init];
+        if (section == 0) {
+            title = @"Recommended";
+        } else if (section == 1) {
+            title = @"You may know";
+        } else if (section == 2) {
+            title =  @"Discover";
+        }
+        return title;
     }
-    label.font = [UIFont boldSystemFontOfSize:14];
-    label.textColor = [UIColor whiteColor];
-    label.backgroundColor = [UIColor systemIndigoColor];
-    return label;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 34;
+    else{
+        return nil;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
@@ -240,11 +237,11 @@ InfiniteScrollActivityView *_loadingMoreViewA;
 {
     //   Username search
     PFQuery *queryUsername = [PFUser query];
-    [queryUsername whereKey:@"lower_username" containsString:searchText];
+    [queryUsername whereKey:@"normalizedUsername" containsString:searchText];
 
     //    Full name search
     PFQuery *queryFN = [PFUser query];
-    [queryFN whereKey:@"fullname" containsString:searchText];
+    [queryFN whereKey:@"normalizedFullname" containsString:searchText];
 
     PFQuery *query = [PFQuery orQueryWithSubqueries:@[ queryUsername, queryFN ]];
     query.limit = 20;
