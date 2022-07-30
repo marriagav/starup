@@ -104,6 +104,15 @@ InfiniteScrollActivityView *_loadingMoreViewA;
     [_loadingMoreViewA stopAnimating];
 }
 
+- (void)showAlert
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Added" message:[NSString stringWithFormat:@"%@ added!", self.typeOfUserToAdd] preferredStyle:UIAlertControllerStyleAlert];
+    [self presentViewController:alert animated:YES completion:nil];
+    [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:NO block:^(NSTimer *_Nonnull timer) {
+        [alert dismissViewControllerAnimated:YES completion:nil];
+    }];
+}
+
 
 #pragma mark - Network
 
@@ -138,20 +147,20 @@ InfiniteScrollActivityView *_loadingMoreViewA;
 
 #pragma mark - TableView
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
     int count = (int)self.userMatrix[section].count;
-    if (count > 0){
-        NSString *title = [[NSString alloc]init];
+    if (count > 0) {
+        NSString *title = [[NSString alloc] init];
         if (section == 0) {
             title = @"Recommended";
         } else if (section == 1) {
             title = @"You may know";
         } else if (section == 2) {
-            title =  @"Discover";
+            title = @"Discover";
         }
         return title;
-    }
-    else{
+    } else {
         return nil;
     }
 }
@@ -179,6 +188,22 @@ InfiniteScrollActivityView *_loadingMoreViewA;
     cell.user = user;
     cell.delegate = self;
     return cell;
+}
+
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView leadingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //    UISwipeActionsConfiguration *swipeAction = [[UISwipeActionsConfiguration alloc]init];
+    //    return swipeAction;
+    PFUser *user = self.userMatrix[indexPath.section][indexPath.row];
+    UIContextualAction *action = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"Add collaborator" handler:^(UIContextualAction *_Nonnull action, __kindof UIView *_Nonnull sourceView, void (^_Nonnull completionHandler)(BOOL)) {
+        [self addCollaborator:user];
+        [self showAlert];
+        completionHandler(true);
+    }];
+    action.backgroundColor = [UIColor systemIndigoColor];
+    UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:[NSArray arrayWithObject:action]];
+    config.performsFirstActionWithFullSwipe = YES;
+    return config;
 }
 
 #pragma mark - SearchBar
