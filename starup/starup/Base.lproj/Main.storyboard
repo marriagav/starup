@@ -1707,31 +1707,31 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="77" height="85"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TheMerchStore" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBq-Pa-3Cg">
+                                                                        <rect key="frame" x="8" y="62" width="69" height="18"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ideator-1" translatesAutoresizingMaskIntoConstraints="NO" id="4xO-tJ-xdE">
-                                                                        <rect key="frame" x="11" y="4" width="55" height="55"/>
+                                                                        <rect key="frame" x="14" y="4" width="55" height="55"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="55" id="Xo1-bQ-lG5"/>
                                                                             <constraint firstAttribute="height" constant="55" id="keK-mI-quj"/>
                                                                         </constraints>
                                                                     </imageView>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TheMerchStore" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBq-Pa-3Cg">
-                                                                        <rect key="frame" x="4" y="62" width="69" height="18"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
                                                                 </subviews>
                                                                 <constraints>
-                                                                    <constraint firstItem="4xO-tJ-xdE" firstAttribute="centerX" secondItem="7k4-nk-LWg" secondAttribute="centerX" id="0O2-K7-OHC"/>
-                                                                    <constraint firstItem="4xO-tJ-xdE" firstAttribute="leading" secondItem="7k4-nk-LWg" secondAttribute="leading" constant="11" id="31F-bi-5FK"/>
+                                                                    <constraint firstItem="4xO-tJ-xdE" firstAttribute="centerX" secondItem="7k4-nk-LWg" secondAttribute="centerX" constant="3" id="0O2-K7-OHC"/>
+                                                                    <constraint firstItem="4xO-tJ-xdE" firstAttribute="leading" secondItem="7k4-nk-LWg" secondAttribute="leading" constant="14" id="31F-bi-5FK"/>
                                                                     <constraint firstItem="4xO-tJ-xdE" firstAttribute="top" secondItem="7k4-nk-LWg" secondAttribute="top" constant="4" id="9sg-WQ-yQx"/>
-                                                                    <constraint firstItem="oBq-Pa-3Cg" firstAttribute="centerX" secondItem="7k4-nk-LWg" secondAttribute="centerX" id="BXq-GT-nJr"/>
-                                                                    <constraint firstItem="oBq-Pa-3Cg" firstAttribute="leading" secondItem="7k4-nk-LWg" secondAttribute="leading" constant="4" id="DOh-kL-op7"/>
+                                                                    <constraint firstItem="oBq-Pa-3Cg" firstAttribute="centerX" secondItem="7k4-nk-LWg" secondAttribute="centerX" constant="4" id="BXq-GT-nJr"/>
+                                                                    <constraint firstItem="oBq-Pa-3Cg" firstAttribute="leading" secondItem="7k4-nk-LWg" secondAttribute="leading" constant="8" id="DOh-kL-op7"/>
                                                                     <constraint firstAttribute="bottom" secondItem="oBq-Pa-3Cg" secondAttribute="bottom" constant="5" id="LKQ-1b-ViN"/>
                                                                     <constraint firstItem="oBq-Pa-3Cg" firstAttribute="top" secondItem="4xO-tJ-xdE" secondAttribute="bottom" constant="3" id="gft-6W-GK8"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="oBq-Pa-3Cg" secondAttribute="trailing" constant="4" id="heo-qe-jTy"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="oBq-Pa-3Cg" secondAttribute="trailing" id="heo-qe-jTy"/>
                                                                     <constraint firstItem="oBq-Pa-3Cg" firstAttribute="top" secondItem="4xO-tJ-xdE" secondAttribute="bottom" constant="3" id="rqp-Nt-sp4"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="4xO-tJ-xdE" secondAttribute="trailing" constant="11" id="wLD-dS-byj"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="4xO-tJ-xdE" secondAttribute="trailing" constant="8" id="wLD-dS-byj"/>
                                                                 </constraints>
                                                             </collectionViewCellContentView>
                                                             <size key="customSize" width="77" height="85"/>
