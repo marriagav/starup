@@ -104,6 +104,15 @@ InfiniteScrollActivityView *_loadingMoreViewA;
     [_loadingMoreViewA stopAnimating];
 }
 
+- (void)showAlert
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Added" message:[NSString stringWithFormat:@"%@ added!", self.typeOfUserToAdd] preferredStyle:UIAlertControllerStyleAlert];
+    [self presentViewController:alert animated:YES completion:nil];
+    [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:NO block:^(NSTimer *_Nonnull timer) {
+        [alert dismissViewControllerAnimated:YES completion:nil];
+    }];
+}
+
 
 #pragma mark - Network
 
@@ -188,7 +197,7 @@ InfiniteScrollActivityView *_loadingMoreViewA;
     PFUser *user = self.userMatrix[indexPath.section][indexPath.row];
     UIContextualAction *action = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"Add collaborator" handler:^(UIContextualAction *_Nonnull action, __kindof UIView *_Nonnull sourceView, void (^_Nonnull completionHandler)(BOOL)) {
         [self addCollaborator:user];
-
+        [self showAlert];
         completionHandler(true);
     }];
     action.backgroundColor = [UIColor systemIndigoColor];

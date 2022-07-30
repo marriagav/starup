@@ -1592,7 +1592,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="lRd-1S-T1q">
-                        <barButtonItem key="leftBarButtonItem" title="Return" id="oqf-LC-EVI">
+                        <barButtonItem key="leftBarButtonItem" title="Dismiss" id="oqf-LC-EVI">
                             <color key="tintColor" systemColor="systemIndigoColor"/>
                             <connections>
                                 <action selector="goBack:" destination="hep-nv-idu" id="KQ0-pp-Ujf"/>
