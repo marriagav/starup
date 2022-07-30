@@ -226,19 +226,18 @@
     [find whereKey:@"typeOfUser" equalTo:collaboratorType];
     [find whereKey:@"user" equalTo:user];
     [find whereKey:@"starup" equalTo:starup];
-    [find getFirstObjectInBackgroundWithBlock:^(PFObject *parseObject, NSError *error) {
-        if (parseObject) {
-            nil;
+    PFObject *parseObject = [find getFirstObject];
+    if (parseObject) {
+        nil;
+    } else {
+        if ((user.objectId == PFUser.currentUser.objectId) && ([collaboratorType isEqual:@"Ideator"])) {
+            //  Ownership is calculated by decreasing 100 by the amount of percentage to give
+            [Collaborator postCollaborator:collaboratorType withUser:user withStarup:starup withOwnership:[NSNumber numberWithInt:100 - [self.percentageToGive.text intValue]] withCompletion:nil];
         } else {
-            if ((user.objectId == PFUser.currentUser.objectId) && ([collaboratorType isEqual:@"Ideator"])) {
-                //  Ownership is calculated by decreasing 100 by the amount of percentage to give
-                [Collaborator postCollaborator:collaboratorType withUser:user withStarup:starup withOwnership:[NSNumber numberWithInt:100 - [self.percentageToGive.text intValue]] withCompletion:nil];
-            } else {
-                [Collaborator postCollaborator:collaboratorType withUser:user withStarup:starup withOwnership:0 withCompletion:nil];
-                [self checkIfConnectionExists:user withCloseness:10];
-            }
+            [Collaborator postCollaborator:collaboratorType withUser:user withStarup:starup withOwnership:0 withCompletion:nil];
+            [self checkIfConnectionExists:user withCloseness:10];
         }
-    }];
+    }
 }
 
 - (void)addStarupsToIdeators:(Starup *)starup withIdeators:(NSMutableArray<PFUser *> *)ideators

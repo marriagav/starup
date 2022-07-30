@@ -104,7 +104,7 @@
             encoding:NSASCIIStringEncoding];
     newUser[@"normalizedFullname"] = [normalizedFullname lowercaseString];
     newUser[@"normalizedUsername"] = [normalizedUsername lowercaseString];
-
+    newUser[@"role"] = @"User from LinkedIn";
     newUser[@"linkedinAuthentification"] = @"True";
     UIImage *image = self.imageLinkedin;
     [newUser setObject:[Algos getPFFileFromImage:image] forKey:@"profileImage"];
