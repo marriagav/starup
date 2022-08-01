@@ -24,7 +24,7 @@ PODS:
     - Bolts/Tasks (= 1.9.1)
   - Parse/UI (1.19.3):
     - Parse/Core
-  - PayPalCheckout (0.100.0)
+  - PayPalCheckout (0.101.0)
 
 DEPENDENCIES:
   - AFNetworking
@@ -52,8 +52,8 @@ SPEC CHECKSUMS:
   LinkedinIOSHelper: 580d0abceb3eaee33c465ec72554fbbd37069d01
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   Parse: 0abb63a0ff6fa34a3f64b81d595a294e2ece143a
-  PayPalCheckout: aaea664c43840f6c99a49bf806e81c28f69fb8a3
+  PayPalCheckout: b2c4d0f5cc982e89adde857be760f4333a74f4fa
 
-PODFILE CHECKSUM: 9baad15e1f638f4d0852e700d0370b83ef988e4e
+PODFILE CHECKSUM: 25153f138284cceae36c811f8dc08d1972dbb116
 
 COCOAPODS: 1.11.3

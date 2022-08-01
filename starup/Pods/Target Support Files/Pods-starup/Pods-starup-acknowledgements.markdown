@@ -3,7 +3,7 @@ This application makes use of the following third party libraries:
 
 ## AFNetworking
 
-Copyright (c) 2011-2020 Alamofire Software Foundation (http://alamofire.org/)
+Copyright (c) 2011-2016 Alamofire Software Foundation (http://alamofire.org/)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -171,7 +171,7 @@ As of April 5, 2017, Parse, LLC has transferred this code to the parse-community
 
 SDK LICENSE
 
-Copyright Â© 2013 - 2017 PayPal Holdings, Inc.
+Copyright ÃÂ© 2013 - 2017 PayPal Holdings, Inc.
 
 NOTICE TO USER: PayPal Holdings, Inc. is providing the Software and
 Documentation for use under the terms of this Agreement. Any use, reproduction,

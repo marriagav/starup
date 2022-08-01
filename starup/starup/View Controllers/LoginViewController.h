@@ -8,7 +8,6 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import "LinkedinIOSHelper/LinkedInHelper.h"
-#import "AFNetworking/AFNetworking.h"
 #import "Algos.h"
 #import "PasswordViewController.h"
 #import "Linkedin.h"
