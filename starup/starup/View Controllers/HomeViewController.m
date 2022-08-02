@@ -7,11 +7,6 @@
 
 #import "HomeViewController.h"
 
-#import <ChatSDK/ChatSDK.h>
-#import <FIRDatabase.h>
-#import <FIRApp.h>
-#import <ChatSDKFirebase/CCUserWrapper.h>
-
 
 @interface HomeViewController () <UITableViewDataSource, UITableViewDelegate, PostCellViewDelegate, ComposePostViewControllerDelegate>
 
@@ -39,21 +34,6 @@ InfiniteScrollActivityView *_loadingMoreView;
     // Initialize a UIRefreshControlBottom
     self.currentMax = 20;
     [self initializeRefreshControlB];
-
-
-    //    //    Goes to profile page when user taps on profile
-    //    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    //    ProfileViewController *profileViewController = [storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
-    //    // Pass the user
-    //    profileViewController.user = PFUser.currentUser;
-    //    [self.navigationController pushViewController:profileViewController animated:YES];
-    //    NSString *idUser = PFUser.currentUser[@"chatsId"];
-    //    CCUserWrapper * wrapper = [CCUserWrapper userWithEntityID: idUser];
-    //    [wrapper metaOn];
-    //    [wrapper onlineOn];
-    //    id<PUser> chatUser = [wrapper model];
-    //    UIViewController * privateThreadsViewController = [BChatSDK.ui profileViewControllerWithUser:chatUser];
-    //    [self.navigationController pushViewController:privateThreadsViewController animated:YES];
 }
 
 #pragma mark - QualityOfLife
