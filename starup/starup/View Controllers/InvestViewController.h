@@ -6,9 +6,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StarupsViewController.h"
 #import "Starup.h"
 #import "Collaborator.h"
 #import "MBProgressHUD.h"
+#import "Algos.h"
 @import PayPalCheckout;
 
 NS_ASSUME_NONNULL_BEGIN

@@ -49,6 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *typeHere;
 @property BOOL isEditing;
 @property (nonatomic, strong) Starup *starupEditing;
+@property (nonatomic, strong) NSString *starupChatId;
 
 - (void)refreshCollectionViews;
 

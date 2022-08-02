@@ -215,7 +215,7 @@
             [self addStarupsToSharks:self.starupEditing withSharks:self.sharks];
             [self addStarupsToHackers:self.starupEditing withHackers:self.hackers];
             //            Add new participants to the groupchat
-            id<PThread> chatThread = [BChatSDK.db fetchEntityWithID:self.starupEditing[@"starupChatId"] withType:bThreadEntity];
+            id<PThread> chatThread = [BChatSDK.db fetchEntityWithID:self.starupChatId withType:bThreadEntity];
             [BChatSDK.thread addUsers:[self.chatParticipants copy] toThread:chatThread];
             //Calls the didPost method from the delegate and dissmisses the view controller
             [self.delegate didPost];

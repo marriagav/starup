@@ -19,12 +19,8 @@
 {
     [super viewDidLoad];
     UIViewController *privateThreadsViewController = [BChatSDK.ui privateThreadsViewController];
+    privateThreadsViewController.navigationItem.hidesBackButton = YES;
     [self.navigationController pushViewController:privateThreadsViewController animated:NO];
 }
-
-//- (void)viewDidAppear:(BOOL)animated {
-//    UIViewController * privateThreadsViewController = [BChatSDK.ui privateThreadsViewController];
-//    [self.navigationController pushViewController:privateThreadsViewController animated:YES];
-//}
 
 @end

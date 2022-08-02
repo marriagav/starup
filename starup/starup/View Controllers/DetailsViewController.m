@@ -248,11 +248,22 @@
 
 - (void)goToGroupchat
 {
-    //    [BChatSDK.thread createThreadWithUsers:self.chatParticipants name:self.starupName.text threadCreated:^(NSError *error, id<PThread> thread) {
-    //        [thread setImageURL:[Algos imageToString:self.starupImage.image]];
-    //        UIViewController *cvc = [BChatSDK.ui chatViewControllerWithThread:thread];
-    //        [self.navigationController pushViewController:cvc animated:YES];
-    //    }];
+    id<PThread> thread = [BChatSDK.db fetchEntityWithID:self.starup[@"starupChatId"] withType:bThreadEntity];
+    if (!(thread)) {
+        [self showAlert];
+    } else {
+        UIViewController *cvc = [BChatSDK.ui chatViewControllerWithThread:thread];
+        [self.navigationController pushViewController:cvc animated:YES];
+    }
+}
+
+- (void)showAlert
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Denied" message:@"Please ask the starup administrator to add you to the groupchat" preferredStyle:UIAlertControllerStyleAlert];
+    [self presentViewController:alert animated:YES completion:nil];
+    [NSTimer scheduledTimerWithTimeInterval:2.0 repeats:NO block:^(NSTimer *_Nonnull timer) {
+        [alert dismissViewControllerAnimated:YES completion:nil];
+    }];
 }
 
 - (IBAction)goToInvestments:(id)sender
@@ -283,6 +294,7 @@
     ComposeStarupViewController *composeStarupViewController = [storyboard instantiateViewControllerWithIdentifier:@"composeSNoNav"];
     composeStarupViewController.isEditing = YES;
     composeStarupViewController.starupEditing = self.starup;
+    composeStarupViewController.starupChatId = self.starup[@"starupChatId"];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:composeStarupViewController];
     [navigationController setModalPresentationStyle:UIModalPresentationFullScreen];
     [self.navigationController presentViewController:navigationController animated:YES completion:^{
