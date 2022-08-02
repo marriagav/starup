@@ -21,6 +21,7 @@
 {
     [super viewDidLoad];
     //    //    Initialize Arrays
+    self.chatParticipants = [[NSMutableArray alloc] init];
     self.ideators = [[NSMutableArray alloc] init];
     self.sharks = [[NSMutableArray alloc] init];
     self.hackers = [[NSMutableArray alloc] init];
@@ -98,6 +99,17 @@
 - (void)addDependingOnUserType:(NSArray *)collaborators
 {
     for (Collaborator *collaborator in collaborators) {
+        id<PUser> ChatUser = [Algos getChatUserWithId:collaborator[@"user"][@"chatsId"]];
+        [self.chatParticipants addObject:ChatUser];
+        if ([collaborator[@"user"][@"username"] isEqual:PFUser.currentUser.username]) {
+            // Set send groupchat button
+            UIBarButtonItem *sendButton = [[UIBarButtonItem alloc] initWithImage:[UIImage
+                                                                                     systemImageNamed:@"paperplane.fill"]
+                                                                           style:UIBarButtonItemStylePlain
+                                                                          target:self
+                                                                          action:@selector(goToGroupchat)];
+            self.navigationItem.rightBarButtonItem = sendButton;
+        }
         if ([collaborator[@"typeOfUser"] isEqual:@"Ideator"]) {
             [self.ideators addObject:collaborator[@"user"]];
         } else if ([collaborator[@"typeOfUser"] isEqual:@"Shark"]) {
@@ -233,6 +245,15 @@
 }
 
 #pragma mark - Navigation
+
+- (void)goToGroupchat
+{
+    //    [BChatSDK.thread createThreadWithUsers:self.chatParticipants name:self.starupName.text threadCreated:^(NSError *error, id<PThread> thread) {
+    //        [thread setImageURL:[Algos imageToString:self.starupImage.image]];
+    //        UIViewController *cvc = [BChatSDK.ui chatViewControllerWithThread:thread];
+    //        [self.navigationController pushViewController:cvc animated:YES];
+    //    }];
+}
 
 - (IBAction)goToInvestments:(id)sender
 {

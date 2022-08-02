@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray *ideators;
 @property (nonatomic, strong) NSMutableArray *sharks;
 @property (nonatomic, strong) NSMutableArray *hackers;
+@property (nonatomic, strong) NSMutableArray *chatParticipants;
 @property (nonatomic, weak) id<DetailsViewControllerDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIButton *editStarupButton;
 @property BOOL isOwner;
