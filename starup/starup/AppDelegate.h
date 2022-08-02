@@ -6,7 +6,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ChatSDK/ChatSDK.h>
+#import <ChatSDKFirebase/ChatSDKFirebase-Swift.h>
 #import "Parse/Parse.h"
+#import "MyAppInterfaceAdapter.h"
+
 @import PayPalCheckout;
 
 

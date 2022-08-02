@@ -48,6 +48,8 @@
 		D4CDEA512878AB7100495426 /* StarupCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CDEA502878AB7100495426 /* StarupCellView.m */; };
 		D4D869DA2889BBBA0084176E /* Linkedin.m in Sources */ = {isa = PBXBuildFile; fileRef = D4D869D92889BBBA0084176E /* Linkedin.m */; };
 		D4E4664D28985A4F00803672 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4E4664C28985A4F00803672 /* GoogleService-Info.plist */; };
+		D4E466562898D61000803672 /* GoToChatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E466552898D61000803672 /* GoToChatsViewController.m */; };
+		D4E466592898E01900803672 /* MyAppInterfaceAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E466582898E01900803672 /* MyAppInterfaceAdapter.m */; };
 		FB50FED72C2285DFF8940994 /* Pods_starup_starupUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 120143D56E6EFC00AC9D69EF /* Pods_starup_starupUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -151,6 +153,10 @@
 		D4D869D82889BBBA0084176E /* Linkedin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Linkedin.h; sourceTree = "<group>"; };
 		D4D869D92889BBBA0084176E /* Linkedin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Linkedin.m; sourceTree = "<group>"; };
 		D4E4664C28985A4F00803672 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D4E466542898D61000803672 /* GoToChatsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoToChatsViewController.h; sourceTree = "<group>"; };
+		D4E466552898D61000803672 /* GoToChatsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoToChatsViewController.m; sourceTree = "<group>"; };
+		D4E466572898E01900803672 /* MyAppInterfaceAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAppInterfaceAdapter.h; sourceTree = "<group>"; };
+		D4E466582898E01900803672 /* MyAppInterfaceAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAppInterfaceAdapter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -296,6 +302,8 @@
 				D4ABAA4D2888C75F00EF3B8A /* PasswordViewController.m */,
 				D458E86A28920117004DF020 /* ResultsViewController.h */,
 				D458E86B28920117004DF020 /* ResultsViewController.m */,
+				D4E466542898D61000803672 /* GoToChatsViewController.h */,
+				D4E466552898D61000803672 /* GoToChatsViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -324,6 +332,8 @@
 			children = (
 				D450F1ED287C9F400000F5D1 /* Algos.h */,
 				D450F1EE287C9F400000F5D1 /* Algos.m */,
+				D4E466572898E01900803672 /* MyAppInterfaceAdapter.h */,
+				D4E466582898E01900803672 /* MyAppInterfaceAdapter.m */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -627,6 +637,7 @@
 				D40045C92881D3F4001EB588 /* Collaborator.m in Sources */,
 				D458E862288F4E74004DF020 /* UserNode.m in Sources */,
 				D41A9BD1287609210038852B /* RegisterViewController.m in Sources */,
+				D4E466592898E01900803672 /* MyAppInterfaceAdapter.m in Sources */,
 				D40045BF287F2E1D001EB588 /* ProfileCellView.m in Sources */,
 				D458E86C28920117004DF020 /* ResultsViewController.m in Sources */,
 				D41A9B802875F0DA0038852B /* SceneDelegate.m in Sources */,
@@ -636,6 +647,7 @@
 				D40045C528809123001EB588 /* AddCollaboratorViewController.m in Sources */,
 				D41A9BC5287600AD0038852B /* DetailsViewController.m in Sources */,
 				D41A9BBC2876005E0038852B /* HomeViewController.m in Sources */,
+				D4E466562898D61000803672 /* GoToChatsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

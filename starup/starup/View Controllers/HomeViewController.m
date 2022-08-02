@@ -10,6 +10,7 @@
 #import <ChatSDK/ChatSDK.h>
 #import <FIRDatabase.h>
 #import <FIRApp.h>
+#import <ChatSDKFirebase/CCUserWrapper.h>
 
 
 @interface HomeViewController () <UITableViewDataSource, UITableViewDelegate, PostCellViewDelegate, ComposePostViewControllerDelegate>
@@ -40,20 +41,19 @@ InfiniteScrollActivityView *_loadingMoreView;
     [self initializeRefreshControlB];
 
 
-    //    NSLog(@"%@", [FIRApp defaultApp]);
-    //    FIRDatabase *db = [FIRDatabase databaseForApp:[FIRApp defaultApp]];
-    //    FIRDatabaseReference *ref = [[db reference] child:@"test/users"];
-    //    [ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-    //        NSDictionary *userDict = snapshot.value;
-    //        NSLog(@"%@",userDict);
-    //    }];
-    //    NSLog(@"%@",ref);
-    FIRDatabaseHandle users = [BChatSDK users];
-    NSLog(@"%@", users);
-
-    //    UIViewController * privateThreadsViewController = [BChatSDK.ui privateThreadsViewController];
+    //    //    Goes to profile page when user taps on profile
+    //    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    //    ProfileViewController *profileViewController = [storyboard instantiateViewControllerWithIdentifier:@"profileVC"];
+    //    // Pass the user
+    //    profileViewController.user = PFUser.currentUser;
+    //    [self.navigationController pushViewController:profileViewController animated:YES];
+    //    NSString *idUser = PFUser.currentUser[@"chatsId"];
+    //    CCUserWrapper * wrapper = [CCUserWrapper userWithEntityID: idUser];
+    //    [wrapper metaOn];
+    //    [wrapper onlineOn];
+    //    id<PUser> chatUser = [wrapper model];
+    //    UIViewController * privateThreadsViewController = [BChatSDK.ui profileViewControllerWithUser:chatUser];
     //    [self.navigationController pushViewController:privateThreadsViewController animated:YES];
-    //    id<PUser> user = [BChatSDK [users];
 }
 
 #pragma mark - QualityOfLife

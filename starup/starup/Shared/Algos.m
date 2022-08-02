@@ -96,10 +96,26 @@
 
 + (NSString *)imageToString:(UIImage *)image
 {
-    NSURL *url = [[NSURL fileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:@"TempImage.png"];
+    NSString *imagePath = [NSString stringWithFormat:@"%@%@", [self generateRandomString:10], @".png"];
+    NSURL *url = [[NSURL fileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:imagePath];
     NSData *pngData = UIImagePNGRepresentation(image);
     [pngData writeToURL:url atomically:YES];
     return url.absoluteString;
+}
+
++ (NSString *)normalizeString:(NSString *)string
+{
+    //    Normalize strings for search
+    NSString *normalizedString = [[NSString alloc]
+        initWithData:
+            [string dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES]
+            encoding:NSASCIIStringEncoding];
+    return [normalizedString lowercaseString];
+}
+
++ (NSString *)normalizeFullName:(NSString *)firstName withLastname:(NSString *)lastName
+{
+    return [self normalizeString:[NSString stringWithFormat:@"%@ %@", firstName, lastName]];
 }
 
 @end

@@ -116,6 +116,16 @@
     for (UserNode *node in self.nodes) {
         node.distanceFromStart = INT_MAX;
         if ([node.user[@"username"] isEqual:user.username]) {
+            if (!([node.user[@"username"] isEqual:PFUser.currentUser.username])) {
+                //                Add the user as a contact for chats
+                NSString *idUser = node.user[@"chatsId"];
+                CCUserWrapper *wrapper = [CCUserWrapper userWithEntityID:idUser];
+                [wrapper metaOn];
+                [wrapper onlineOn];
+                id<PUser> chatUser = [wrapper model];
+                //                id<PUser> chatUser = [BChatSDK.db fetchEntityWithID:node.user[@"chatsId"] withType:bUserEntity];
+                [BChatSDK.contact addContact:chatUser withType:bUserConnectionTypeContact];
+            }
             return node;
         }
     }

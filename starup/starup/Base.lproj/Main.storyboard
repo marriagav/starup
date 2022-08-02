@@ -390,12 +390,29 @@
                     <connections>
                         <segue destination="kNf-9R-zjR" kind="relationship" relationship="viewControllers" id="5v8-gO-1wY"/>
                         <segue destination="VbG-2H-Gpx" kind="relationship" relationship="viewControllers" id="opy-i2-ecS"/>
-                        <segue destination="NNs-Pm-boX" kind="relationship" relationship="viewControllers" id="Lud-Yt-Q0J"/>
+                        <segue destination="s4i-1L-Typ" kind="relationship" relationship="viewControllers" id="DiL-Hh-g5k"/>
+                        <segue destination="NNs-Pm-boX" kind="relationship" relationship="viewControllers" id="OvC-ma-gfF"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DOH-Zo-ZBd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1728" y="116"/>
+        </scene>
+        <!--Go To Chats View Controller-->
+        <scene sceneID="BSk-Bq-tQd">
+            <objects>
+                <viewController id="dyp-w1-EgI" customClass="GoToChatsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5Su-R9-x70">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="QPD-7j-qiE"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Jyi-6d-vaf"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QoD-1O-ezd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3592.753623188406" y="742.63392857142856"/>
         </scene>
         <!--Starups View Controller-->
         <scene sceneID="iOJ-gy-0cW">
@@ -2445,10 +2462,31 @@
             </objects>
             <point key="canvasLocation" x="-110.14492753623189" y="-575.22321428571422"/>
         </scene>
+        <!-- -->
+        <scene sceneID="FPt-yD-X41">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pna-Xp-odP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="s4i-1L-Typ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title=" " image="bubble.right.fill" catalog="system" id="9XZ-Rt-E4v"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="YSJ-vM-tXR"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YUf-AA-Ymw">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="dyp-w1-EgI" kind="relationship" relationship="rootViewController" id="9zf-xF-VMQ"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="2682.608695652174" y="742.63392857142856"/>
+        </scene>
     </scenes>
     <color key="tintColor" systemColor="systemIndigoColor"/>
     <resources>
         <image name="Paypal_2014_logo (1)" width="24" height="24"/>
+        <image name="bubble.right.fill" catalog="system" width="128" height="110"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="ideator-1" width="512" height="512"/>
         <image name="linkedin-4-24" width="24" height="24"/>

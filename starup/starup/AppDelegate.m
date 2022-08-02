@@ -7,22 +7,6 @@
 
 #import "AppDelegate.h"
 
-#import <ChatSDK/ChatSDK.h>
-#import <ChatSDKFirebase/ChatSDKFirebase-Swift.h>
-//#import <ChatSDKFirebase/fi
-//#import <FirebaseEmailAuthUI/FirebaseEmailAuthUI.h>
-//#import <Chatsdf
-//#import <ChatSDKFirebase/ChatSDKFirebase.h>
-//#import <FirebaseEmailAuthUI/FirebaseEmailAuthUI.h>
-
-//#import <FirebaseModules/FirebaseModules-umbrella.h>
-//#import <EncryptionModule/EncryptionModule-umbrella.h>
-//#import <MessageModules/MessageModules-umbrella.h>
-//#import <ContactBookModule/ContactBookModule-umbrella.h>
-//#import <FirebaseNearbyUsersModule/FirebaseNearbyUsersModule-umbrella.h>
-
-//@import ChatSDK;
-
 
 @interface AppDelegate ()
 
@@ -40,6 +24,7 @@
     NSString *parseAPIid = [dict objectForKey:@"parseAppID"];
     NSString *parseKey = [dict objectForKey:@"parseClientKey"];
     NSString *paypalKey = [dict objectForKey:@"paypalClientID"];
+
     //    Set Parse configuration
     ParseClientConfiguration *parseConfig = [ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
         configuration.applicationId = parseAPIid;
@@ -47,15 +32,14 @@
         configuration.server = @"https://parseapi.back4app.com";
     }];
     [Parse initializeWithConfiguration:parseConfig];
+
     //    Set PayPal configuration
     PPCheckoutConfig *paypalConfig = [[PPCheckoutConfig alloc] initWithClientID:paypalKey returnUrl:@"com.starupcode.app://paypalpay" createOrder:nil onApprove:nil onShippingChange:nil onCancel:nil onError:nil environment:PPCEnvironmentSandbox];
     [PPCheckout setConfig:paypalConfig];
 
-
-    BConfiguration *config = [BConfiguration configuration];
-    config.rootPath = @"test";
-    //    config.allowUsersToCreatePublicChats = YES;
-    //    config.showEmptyChats = NO;
+    //    Set the chats Configuration
+    BConfiguration *chatsConfig = [BConfiguration configuration];
+    chatsConfig.rootPath = @"test";
 
     NSMutableArray<PModule> *modules = [NSMutableArray arrayWithArray:@[
         [FirebaseNetworkAdapterModule shared],
@@ -63,22 +47,8 @@
         [FirebasePushModule shared],
     ]];
 
-    //    FirebaseUIModule * firebaseUI = [FirebaseUIModule new];
-    //    [firebaseUI setProviders:@[
-    //        [FUIEmailAuth new]
-    //    ]];
-
-    //    [modules addObject:firebaseUI]
-    //    NSLog(@"%@", [FIRApp defaultApp]);
-    //    FIRDatabase *db = [FIRDatabase databaseForApp:[FIRApp defaultApp]];
-    //    FIRDatabaseReference *ref = [[db reference] child:@"test/users"];
-    //    [ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-    //        NSDictionary *userDict = snapshot.value;
-    //        NSLog(@"%@",userDict);
-    //    }];
-    //    NSLog(@"%@",ref);
-
-    [BChatSDK initialize:config app:application options:launchOptions modules:modules];
+    [BChatSDK initialize:chatsConfig app:application options:launchOptions modules:modules];
+    BChatSDK.shared.interfaceAdapter = [[MyAppInterfaceAdapter alloc] init];
 
     return YES;
 }

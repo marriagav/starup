@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)generateRandomString:(int)num;
 + (BOOL)userInArray:(PFUser *)user1 withArray:(NSMutableArray *)array;
 + (NSString *)imageToString:(UIImage *)image;
++ (NSString *)normalizeString:(NSString *)string;
++ (NSString *)normalizeFullName:(NSString *)firstName withLastname:(NSString *)lastName;
 
 @end
 

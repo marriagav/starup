@@ -101,16 +101,8 @@
     newUser[@"lastname"] = self.lastNameField.text;
 
     //    Normalize strings for search
-    NSString *normalizedUsername = [[NSString alloc]
-        initWithData:
-            [self.usernameField.text dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES]
-            encoding:NSASCIIStringEncoding];
-    NSString *normalizedFullname = [[NSString alloc]
-        initWithData:
-            [[NSString stringWithFormat:@"%@ %@", self.firstNameField.text, self.lastNameField.text] dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES]
-            encoding:NSASCIIStringEncoding];
-    newUser[@"normalizedFullname"] = [normalizedFullname lowercaseString];
-    newUser[@"normalizedUsername"] = [normalizedUsername lowercaseString];
+    newUser[@"normalizedFullname"] = [Algos normalizeFullName:self.firstNameField.text withLastname:self.lastNameField.text];
+    newUser[@"normalizedUsername"] = [Algos normalizeString:self.usernameField.text];
 
     newUser[@"role"] = self.roleField.text;
     newUser[@"linkedinAuthentification"] = @"False";
@@ -129,7 +121,10 @@
             BAccountDetails *accountDetails = [BAccountDetails signUp:self.emailField.text password:self.passwordField.text];
             [BChatSDK.auth authenticate:accountDetails].thenOnMain(
                 ^id(id result) {
+                    [BIntegrationHelper updateUserWithName:[NSString stringWithFormat:@"%@ %@", self.firstNameField.text, self.lastNameField.text] image:image url:[Algos imageToString:image]];
                     NSLog(@"%@", [BChatSDK currentUserID]);
+                    [PFUser.currentUser setObject:[BChatSDK currentUserID] forKey:@"chatsId"];
+                    [PFUser.currentUser save];
                     NSLog(@"User registered successfully");
                     self.correctLogin = @"YES";
                     [self initializeAlertController];
