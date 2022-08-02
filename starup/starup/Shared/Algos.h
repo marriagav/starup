@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
+#import <ChatSDKFirebase/CCUserWrapper.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)imageToString:(UIImage *)image;
 + (NSString *)normalizeString:(NSString *)string;
 + (NSString *)normalizeFullName:(NSString *)firstName withLastname:(NSString *)lastName;
++ (id<PUser>)getChatUserWithId:(NSString *)chatUserId;
 
 @end
 

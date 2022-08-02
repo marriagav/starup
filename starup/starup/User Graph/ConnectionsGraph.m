@@ -119,11 +119,7 @@
             if (!([node.user[@"username"] isEqual:PFUser.currentUser.username])) {
                 //                Add the user as a contact for chats
                 NSString *idUser = node.user[@"chatsId"];
-                CCUserWrapper *wrapper = [CCUserWrapper userWithEntityID:idUser];
-                [wrapper metaOn];
-                [wrapper onlineOn];
-                id<PUser> chatUser = [wrapper model];
-                //                id<PUser> chatUser = [BChatSDK.db fetchEntityWithID:node.user[@"chatsId"] withType:bUserEntity];
+                id<PUser> chatUser = [Algos getChatUserWithId:idUser];
                 [BChatSDK.contact addContact:chatUser withType:bUserConnectionTypeContact];
             }
             return node;

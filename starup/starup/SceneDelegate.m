@@ -39,12 +39,6 @@
                 return error;
             });
     }
-
-    //    UIViewController * rootViewController = BChatSDK.ui.splashScreenNavigationController;
-    //
-    ////     Set the root view controller
-    //    [self.window setRootViewController:rootViewController];
-    //    [self.window makeKeyAndVisible];
 }
 
 - (void)sceneDidDisconnect:(UIScene *)scene

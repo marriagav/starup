@@ -118,4 +118,13 @@
     return [self normalizeString:[NSString stringWithFormat:@"%@ %@", firstName, lastName]];
 }
 
++ (id<PUser>)getChatUserWithId:(NSString *)chatUserId
+{
+    CCUserWrapper *wrapper = [CCUserWrapper userWithEntityID:chatUserId];
+    [wrapper metaOn];
+    [wrapper onlineOn];
+    id<PUser> chatUser = [wrapper model];
+    return chatUser;
+}
+
 @end

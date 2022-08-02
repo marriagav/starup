@@ -2465,7 +2465,6 @@
         <!-- -->
         <scene sceneID="FPt-yD-X41">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Pna-Xp-odP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="s4i-1L-Typ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title=" " image="bubble.right.fill" catalog="system" id="9XZ-Rt-E4v"/>
                     <toolbarItems/>
@@ -2479,6 +2478,7 @@
                         <segue destination="dyp-w1-EgI" kind="relationship" relationship="rootViewController" id="9zf-xF-VMQ"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pna-Xp-odP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2682.608695652174" y="742.63392857142856"/>
         </scene>

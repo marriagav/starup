@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import <ChatSDK/ChatSDK.h>
 #import <ChatSDKFirebase/ChatSDKFirebase-Swift.h>
+#import <ChatSDK/PThreadHandler.h>
 #import "Algos.h"
 #import "Parse/Parse.h"
 #import "EditProfileViewController.h"
