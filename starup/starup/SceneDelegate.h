@@ -9,6 +9,8 @@
 #import "Parse/Parse.h"
 #import "Linkedin.h"
 #import "ConnectionsGraph.h"
+#import <ChatSDK/ChatSDK.h>
+#import <ChatSDKFirebase/ChatSDKFirebase-Swift.h>
 
 
 @interface SceneDelegate : UIResponder <UIWindowSceneDelegate>

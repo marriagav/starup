@@ -12,6 +12,8 @@
 #import "PasswordViewController.h"
 #import "Linkedin.h"
 #import "ConnectionsGraph.h"
+#import <ChatSDK/ChatSDK.h>
+#import <ChatSDKFirebase/ChatSDKFirebase-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *linkedinID;
 @property (strong, nonatomic) NSString *linkedinUsername;
 @property (strong, nonatomic) NSString *password;
+@property (strong, nonatomic) NSString *imageURL;
 @property (strong, nonatomic) NSString *linkedinEmail;
 @property (strong, nonatomic) UIImage *imageLinkedin;
 

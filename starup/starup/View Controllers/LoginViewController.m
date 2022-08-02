@@ -72,9 +72,16 @@
             self.error = error.localizedDescription;
             [self initializeAlertController];
         } else {
-            NSLog(@"User logged in successfully");
-            // display view controller that needs to shown after successful login
-            [self afterSuccessfullLogin];
+            BAccountDetails *accountDetails = [BAccountDetails username:user[@"email"] password:password];
+            [BChatSDK.auth authenticate:accountDetails].thenOnMain(
+                ^id(id result) {
+                    NSLog(@"User logged in successfully");
+                    // display view controller that needs to shown after successful login
+                    [self afterSuccessfullLogin];
+                    return result;
+                }, ^id(NSError *error) {
+                    return error;
+                });
         }
     }];
 }
@@ -114,9 +121,18 @@
         if (error != nil) {
             NSLog(@"Error: %@", error.localizedDescription);
         } else {
-            NSLog(@"User registered successfully");
-            // successful register means we need to log the user in
-            [self loginUser:newUser.username withPassword:newUser.password];
+            // successful register means we need to register the user in the chats SDK
+            BAccountDetails *accountDetails = [BAccountDetails signUp:self.linkedinEmail password:self.password];
+            [BChatSDK.auth authenticate:accountDetails].thenOnMain(
+                ^id(id result) {
+                    [BIntegrationHelper updateUserWithName:self.linkedinUsername image:self.imageLinkedin url:self.imageURL];
+                    NSLog(@"User registered successfully");
+                    [self loginUser:newUser.username withPassword:newUser.password];
+                    return result;
+                }, ^id(NSError *error) {
+                    NSLog(@"%@", error);
+                    return error;
+                });
         }
     }];
 }
@@ -197,7 +213,8 @@
             NSDictionary *urlOfImageDict = elementsOfPicture[0];
             NSDictionary *urlOfimageIdentifiers = [urlOfImageDict valueForKey:@"identifiers"];
             NSArray *imageURLLinkedin = [urlOfimageIdentifiers valueForKey:@"identifier"];
-            self.imageLinkedin = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageURLLinkedin[0]]]];
+            self.imageURL = imageURLLinkedin[0];
+            self.imageLinkedin = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.imageURL]]];
             //    the username is a combination of users name, lastname and id from linkedin
             self.linkedinUsername = [NSString stringWithFormat:@"%@_%@_%@", self.linkedinFName, self.linkedinLName, self.linkedinID];
             //        Get the email address

@@ -94,4 +94,12 @@
     return NO;
 }
 
++ (NSString *)imageToString:(UIImage *)image
+{
+    NSURL *url = [[NSURL fileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:@"TempImage.png"];
+    NSData *pngData = UIImagePNGRepresentation(image);
+    [pngData writeToURL:url atomically:YES];
+    return url.absoluteString;
+}
+
 @end

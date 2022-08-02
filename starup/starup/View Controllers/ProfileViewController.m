@@ -124,6 +124,7 @@ InfiniteScrollActivityView *_loadingMoreViewP;
         if (error) {
             NSLog(@"%@", error);
         } else {
+            [BChatSDK.auth logout];
             [Linkedin logoutFromLinkedin];
             // Add connection to local graph
             ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];

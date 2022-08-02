@@ -7,6 +7,10 @@
 
 #import "HomeViewController.h"
 
+#import <ChatSDK/ChatSDK.h>
+#import <FIRDatabase.h>
+#import <FIRApp.h>
+
 
 @interface HomeViewController () <UITableViewDataSource, UITableViewDelegate, PostCellViewDelegate, ComposePostViewControllerDelegate>
 
@@ -34,6 +38,22 @@ InfiniteScrollActivityView *_loadingMoreView;
     // Initialize a UIRefreshControlBottom
     self.currentMax = 20;
     [self initializeRefreshControlB];
+
+
+    //    NSLog(@"%@", [FIRApp defaultApp]);
+    //    FIRDatabase *db = [FIRDatabase databaseForApp:[FIRApp defaultApp]];
+    //    FIRDatabaseReference *ref = [[db reference] child:@"test/users"];
+    //    [ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+    //        NSDictionary *userDict = snapshot.value;
+    //        NSLog(@"%@",userDict);
+    //    }];
+    //    NSLog(@"%@",ref);
+    FIRDatabaseHandle users = [BChatSDK users];
+    NSLog(@"%@", users);
+
+    //    UIViewController * privateThreadsViewController = [BChatSDK.ui privateThreadsViewController];
+    //    [self.navigationController pushViewController:privateThreadsViewController animated:YES];
+    //    id<PUser> user = [BChatSDK [users];
 }
 
 #pragma mark - QualityOfLife

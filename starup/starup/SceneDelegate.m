@@ -26,16 +26,25 @@
         UIStoryboard *loadingScreen = [UIStoryboard storyboardWithName:@"LaunchScreen" bundle:nil];
         self.window.rootViewController = [loadingScreen instantiateViewControllerWithIdentifier:@"launchScreen"];
         [Linkedin checkIfUserHasLinkedin:PFUser.currentUser.username];
-        __weak typeof(self) weakSelf = self;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            //    Set graph
-            ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
-            [graph fillGraphWithCloseConnections:^(NSError *_Nullable error) {
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                weakSelf.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"navBar"];
-            }];
-        });
+        [BChatSDK.auth authenticate].thenOnMain(
+            ^id(id result) {
+                //    Set graph
+                ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
+                [graph fillGraphWithCloseConnections:^(NSError *_Nullable error) {
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                    self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"navBar"];
+                }];
+                return result;
+            }, ^id(NSError *error) {
+                return error;
+            });
     }
+
+    //    UIViewController * rootViewController = BChatSDK.ui.splashScreenNavigationController;
+    //
+    ////     Set the root view controller
+    //    [self.window setRootViewController:rootViewController];
+    //    [self.window makeKeyAndVisible];
 }
 
 - (void)sceneDidDisconnect:(UIScene *)scene

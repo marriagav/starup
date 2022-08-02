@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)firstObjectFromDict:(NSDictionary *)dict;
 + (NSString *)generateRandomString:(int)num;
 + (BOOL)userInArray:(PFUser *)user1 withArray:(NSMutableArray *)array;
++ (NSString *)imageToString:(UIImage *)image;
 
 @end
 

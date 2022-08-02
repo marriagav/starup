@@ -47,6 +47,7 @@
 		D4CDEA4E2878A37C00495426 /* PostCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CDEA4D2878A37C00495426 /* PostCellView.m */; };
 		D4CDEA512878AB7100495426 /* StarupCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CDEA502878AB7100495426 /* StarupCellView.m */; };
 		D4D869DA2889BBBA0084176E /* Linkedin.m in Sources */ = {isa = PBXBuildFile; fileRef = D4D869D92889BBBA0084176E /* Linkedin.m */; };
+		D4E4664D28985A4F00803672 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4E4664C28985A4F00803672 /* GoogleService-Info.plist */; };
 		FB50FED72C2285DFF8940994 /* Pods_starup_starupUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 120143D56E6EFC00AC9D69EF /* Pods_starup_starupUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -149,6 +150,7 @@
 		D4CDEA502878AB7100495426 /* StarupCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StarupCellView.m; sourceTree = "<group>"; };
 		D4D869D82889BBBA0084176E /* Linkedin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Linkedin.h; sourceTree = "<group>"; };
 		D4D869D92889BBBA0084176E /* Linkedin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Linkedin.m; sourceTree = "<group>"; };
+		D4E4664C28985A4F00803672 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +243,7 @@
 				D41A9B872875F0DB0038852B /* Assets.xcassets */,
 				D41A9B892875F0DB0038852B /* LaunchScreen.storyboard */,
 				D41A9B8C2875F0DB0038852B /* Info.plist */,
+				D4E4664C28985A4F00803672 /* GoogleService-Info.plist */,
 				D40045D72885D468001EB588 /* Keys.plist */,
 				D41A9B8D2875F0DB0038852B /* main.m */,
 			);
@@ -472,6 +475,7 @@
 			files = (
 				D40045D82885D468001EB588 /* Keys.plist in Resources */,
 				D41A9B8B2875F0DB0038852B /* LaunchScreen.storyboard in Resources */,
+				D4E4664D28985A4F00803672 /* GoogleService-Info.plist in Resources */,
 				D41A9B882875F0DB0038852B /* Assets.xcassets in Resources */,
 				D41A9B862875F0DA0038852B /* Main.storyboard in Resources */,
 			);

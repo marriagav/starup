@@ -125,9 +125,19 @@
             self.error = error.localizedDescription;
             [self initializeAlertController];
         } else {
-            NSLog(@"User registered successfully");
-            self.correctLogin = @"YES";
-            [self initializeAlertController];
+            // successful register means we need to register the user in the chats SDK
+            BAccountDetails *accountDetails = [BAccountDetails signUp:self.emailField.text password:self.passwordField.text];
+            [BChatSDK.auth authenticate:accountDetails].thenOnMain(
+                ^id(id result) {
+                    NSLog(@"%@", [BChatSDK currentUserID]);
+                    NSLog(@"User registered successfully");
+                    self.correctLogin = @"YES";
+                    [self initializeAlertController];
+                    return result;
+                }, ^id(NSError *error) {
+                    NSLog(@"%@", error);
+                    return error;
+                });
         }
     }];
 }
