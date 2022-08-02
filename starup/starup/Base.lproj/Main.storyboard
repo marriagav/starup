@@ -398,22 +398,6 @@
             </objects>
             <point key="canvasLocation" x="1728" y="116"/>
         </scene>
-        <!--Go To Chats View Controller-->
-        <scene sceneID="BSk-Bq-tQd">
-            <objects>
-                <viewController id="dyp-w1-EgI" customClass="GoToChatsViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5Su-R9-x70">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="QPD-7j-qiE"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Jyi-6d-vaf"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QoD-1O-ezd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3709" y="840"/>
-        </scene>
         <!--Starups View Controller-->
         <scene sceneID="iOJ-gy-0cW">
             <objects>
@@ -2465,7 +2449,7 @@
         <!-- -->
         <scene sceneID="FPt-yD-X41">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="s4i-1L-Typ" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="s4i-1L-Typ" customClass="ChatsNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title=" " image="bubble.right.fill" catalog="system" id="9XZ-Rt-E4v"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="YSJ-vM-tXR"/>
@@ -2475,7 +2459,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="dyp-w1-EgI" kind="relationship" relationship="rootViewController" id="9zf-xF-VMQ"/>
+                        <outlet property="barItem" destination="9XZ-Rt-E4v" id="eub-AG-sBc"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pna-Xp-odP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
