@@ -19,7 +19,6 @@
 {
     [super viewDidLoad];
     UIViewController *privateThreadsViewController = [BChatSDK.ui privateThreadsViewController];
-    self.navigationBar.prefersLargeTitles = YES;
     privateThreadsViewController.navigationItem.hidesBackButton = YES;
     privateThreadsViewController.title = @" ";
     [privateThreadsViewController.navigationItem setTitle:@"Chats"];

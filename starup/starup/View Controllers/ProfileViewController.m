@@ -30,7 +30,6 @@ InfiniteScrollActivityView *_loadingMoreViewP;
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     //    Configuration that deppends on which users profile youre accessing
-    self.navigationController.navigationBar.prefersLargeTitles = YES;
     [self prepAccordingToUser];
     //  Fill tableview, collectionview and set outlets
     [self refreshDataWithNPosts:20];

@@ -33,7 +33,6 @@ InfiniteScrollActivityView *_loadingMoreViewS;
     // Initialize a UIRefreshControlBottom
     self.currentMax = 20;
     [self initializeRefreshControlB];
-    self.navigationController.navigationBar.prefersLargeTitles = YES;
     [self.navigationItem setTitle:@"Starups"];
 }
 

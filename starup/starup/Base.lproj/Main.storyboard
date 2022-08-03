@@ -105,7 +105,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SjX-UW-fUO" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
+                                        <rect key="frame" x="0.0" y="-88" width="414" height="896"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lgk-lb-LkI">
                                                 <rect key="frame" x="19" y="233" width="376" height="34"/>
@@ -175,11 +175,11 @@
                                                     <action selector="logInLinkedin:" destination="0fW-9q-Gp2" eventType="touchUpInside" id="t2k-3F-W3r"/>
                                                 </connections>
                                             </button>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Starup-Letters" translatesAutoresizingMaskIntoConstraints="NO" id="nHd-Cy-N72">
-                                                <rect key="frame" x="103" y="132" width="209" height="93"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Starup-Letters" translatesAutoresizingMaskIntoConstraints="NO" id="nHd-Cy-N72">
+                                                <rect key="frame" x="103" y="132" width="218" height="93"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="93" id="QOb-CT-Mr8"/>
-                                                    <constraint firstAttribute="width" constant="209" id="nXu-67-soC"/>
+                                                    <constraint firstAttribute="width" constant="218" id="nXu-67-soC"/>
                                                 </constraints>
                                             </imageView>
                                         </subviews>
@@ -196,12 +196,12 @@
                                             <constraint firstItem="Lgk-lb-LkI" firstAttribute="trailing" secondItem="0AM-DE-5Ay" secondAttribute="trailing" id="R2Y-hS-7lS"/>
                                             <constraint firstItem="0z1-1J-ZpV" firstAttribute="top" secondItem="0AM-DE-5Ay" secondAttribute="bottom" constant="37" id="RhM-0L-URD"/>
                                             <constraint firstItem="0z1-1J-ZpV" firstAttribute="trailing" secondItem="0AM-DE-5Ay" secondAttribute="trailing" id="b9i-LX-uQo"/>
-                                            <constraint firstAttribute="trailing" secondItem="nHd-Cy-N72" secondAttribute="trailing" constant="102" id="bRP-GJ-9fj"/>
+                                            <constraint firstAttribute="trailing" secondItem="nHd-Cy-N72" secondAttribute="trailing" constant="93" id="bRP-GJ-9fj"/>
                                             <constraint firstItem="EPL-O0-MKA" firstAttribute="trailing" secondItem="0AM-DE-5Ay" secondAttribute="trailing" id="blb-ae-pR6"/>
                                             <constraint firstItem="0AM-DE-5Ay" firstAttribute="top" secondItem="Lgk-lb-LkI" secondAttribute="bottom" constant="8" symbolic="YES" id="c2O-PX-eyg"/>
                                             <constraint firstItem="EPL-O0-MKA" firstAttribute="top" secondItem="epW-kh-0Sb" secondAttribute="bottom" constant="20" id="czS-bp-X1l"/>
                                             <constraint firstItem="0AM-DE-5Ay" firstAttribute="leading" secondItem="SjX-UW-fUO" secondAttribute="leading" constant="19" id="dcS-Rk-LWx"/>
-                                            <constraint firstAttribute="bottom" secondItem="445-ad-pFY" secondAttribute="bottom" constant="168" id="iVg-aI-e1s"/>
+                                            <constraint firstAttribute="bottom" secondItem="445-ad-pFY" secondAttribute="bottom" constant="392" id="iVg-aI-e1s"/>
                                             <constraint firstAttribute="trailing" secondItem="0AM-DE-5Ay" secondAttribute="trailing" constant="19" id="rEb-yH-kHM"/>
                                             <constraint firstItem="nHd-Cy-N72" firstAttribute="leading" secondItem="SjX-UW-fUO" secondAttribute="leading" constant="103" id="seO-UM-kdc"/>
                                             <constraint firstItem="445-ad-pFY" firstAttribute="leading" secondItem="EPL-O0-MKA" secondAttribute="leading" id="ySe-WC-IZS"/>
@@ -210,10 +210,10 @@
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="SjX-UW-fUO" firstAttribute="bottom" secondItem="4iu-bL-IZw" secondAttribute="bottom" id="1sG-LX-2VO"/>
+                                    <constraint firstItem="SjX-UW-fUO" firstAttribute="bottom" secondItem="4iu-bL-IZw" secondAttribute="bottom" constant="136" id="1sG-LX-2VO"/>
                                     <constraint firstItem="SjX-UW-fUO" firstAttribute="leading" secondItem="4iu-bL-IZw" secondAttribute="leading" id="Azy-By-Hab"/>
                                     <constraint firstItem="SjX-UW-fUO" firstAttribute="trailing" secondItem="4iu-bL-IZw" secondAttribute="trailing" id="J3u-HI-6vC"/>
-                                    <constraint firstItem="4iu-bL-IZw" firstAttribute="top" secondItem="SjX-UW-fUO" secondAttribute="top" id="MAa-tt-FSG"/>
+                                    <constraint firstItem="4iu-bL-IZw" firstAttribute="top" secondItem="SjX-UW-fUO" secondAttribute="top" constant="88" id="MAa-tt-FSG"/>
                                     <constraint firstItem="SjX-UW-fUO" firstAttribute="width" secondItem="DAI-Cx-7Xo" secondAttribute="width" id="Z0Q-uO-teq"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="4iu-bL-IZw"/>
@@ -251,7 +251,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="940"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Xe-ql-uML" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="675"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="898"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gZH-ij-wvy">
                                                 <rect key="frame" x="19" y="163" width="376" height="34"/>
@@ -326,7 +326,7 @@
                                             <constraint firstItem="lFb-pG-zMt" firstAttribute="centerX" secondItem="6Xe-ql-uML" secondAttribute="centerX" id="Cck-fk-qMu"/>
                                             <constraint firstItem="64t-GT-N3I" firstAttribute="trailing" secondItem="gZH-ij-wvy" secondAttribute="trailing" id="HLn-yH-jQb"/>
                                             <constraint firstItem="Wr5-Ym-LR4" firstAttribute="trailing" secondItem="gZH-ij-wvy" secondAttribute="trailing" id="N9B-Gn-MLJ"/>
-                                            <constraint firstAttribute="bottom" secondItem="Wr5-Ym-LR4" secondAttribute="bottom" constant="200" id="PD8-SR-Sxw"/>
+                                            <constraint firstAttribute="bottom" secondItem="Wr5-Ym-LR4" secondAttribute="bottom" constant="423" id="PD8-SR-Sxw"/>
                                             <constraint firstItem="S72-Hf-dQb" firstAttribute="leading" secondItem="gZH-ij-wvy" secondAttribute="leading" id="PLn-1e-kX8"/>
                                             <constraint firstItem="TlB-QK-wKT" firstAttribute="trailing" secondItem="gZH-ij-wvy" secondAttribute="trailing" id="TgK-Jb-KLp"/>
                                             <constraint firstItem="ujK-0H-o3V" firstAttribute="leading" secondItem="gZH-ij-wvy" secondAttribute="leading" id="Uha-Qi-Pnq"/>
@@ -351,7 +351,7 @@
                                     <constraint firstItem="6Xe-ql-uML" firstAttribute="top" secondItem="NcW-Rd-fXx" secondAttribute="top" id="OZk-Gj-JOU"/>
                                     <constraint firstItem="6Xe-ql-uML" firstAttribute="leading" secondItem="NcW-Rd-fXx" secondAttribute="leading" id="ZTL-v7-593"/>
                                     <constraint firstItem="6Xe-ql-uML" firstAttribute="trailing" secondItem="NcW-Rd-fXx" secondAttribute="trailing" id="iJ2-EN-VlO"/>
-                                    <constraint firstItem="6Xe-ql-uML" firstAttribute="bottom" secondItem="NcW-Rd-fXx" secondAttribute="bottom" id="lqd-AY-fob"/>
+                                    <constraint firstItem="6Xe-ql-uML" firstAttribute="bottom" secondItem="NcW-Rd-fXx" secondAttribute="bottom" constant="223" id="lqd-AY-fob"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="NcW-Rd-fXx"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="Y4G-Fe-vBw"/>
@@ -377,7 +377,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HrF-Zm-zKx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="803" y="116"/>
+            <point key="canvasLocation" x="802.89855072463774" y="115.84821428571428"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="rVR-Zg-dJg">
