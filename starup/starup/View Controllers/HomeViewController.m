@@ -35,7 +35,6 @@ InfiniteScrollActivityView *_loadingMoreView;
     self.currentMax = 20;
     [self initializeRefreshControlB];
     //    Add starup image
-
     UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 50)];
     container.backgroundColor = [UIColor clearColor];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(-145, -10, 100, 50)];
