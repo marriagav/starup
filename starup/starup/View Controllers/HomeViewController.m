@@ -35,13 +35,8 @@ InfiniteScrollActivityView *_loadingMoreView;
     self.currentMax = 20;
     [self initializeRefreshControlB];
     //    Add starup image
-    UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 50)];
-    container.backgroundColor = [UIColor clearColor];
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(-145, -10, 100, 50)];
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    imageView.image = [UIImage imageNamed:@"Starup-Letters"];
-    [container addSubview:imageView];
-    [self.navigationItem setTitleView:container];
+    self.navigationController.navigationBar.prefersLargeTitles = YES;
+    [self.navigationItem setTitle:@"Home feed"];
 }
 
 #pragma mark - QualityOfLife
