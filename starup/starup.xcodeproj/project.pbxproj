@@ -235,6 +235,7 @@
 		D41A9B7A2875F0DA0038852B /* starup */ = {
 			isa = PBXGroup;
 			children = (
+				D4E466632899FC4800803672 /* Navigation Controllers */,
 				D458E85C288F1219004DF020 /* User Graph */,
 				D4D869D72889BBA70084176E /* Linkedin */,
 				D41A9BB32875F8450038852B /* Models */,
@@ -252,8 +253,6 @@
 				D41A9B8C2875F0DB0038852B /* Info.plist */,
 				D40045D72885D468001EB588 /* Keys.plist */,
 				D41A9B8D2875F0DB0038852B /* main.m */,
-				D4E4665C2899ECA600803672 /* ChatsNavigationController.h */,
-				D4E4665D2899ECA600803672 /* ChatsNavigationController.m */,
 			);
 			path = starup;
 			sourceTree = "<group>";
@@ -373,6 +372,15 @@
 				D4D869D92889BBBA0084176E /* Linkedin.m */,
 			);
 			path = Linkedin;
+			sourceTree = "<group>";
+		};
+		D4E466632899FC4800803672 /* Navigation Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D4E4665C2899ECA600803672 /* ChatsNavigationController.h */,
+				D4E4665D2899ECA600803672 /* ChatsNavigationController.m */,
+			);
+			path = "Navigation Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
