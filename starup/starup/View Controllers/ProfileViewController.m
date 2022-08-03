@@ -30,6 +30,7 @@ InfiniteScrollActivityView *_loadingMoreViewP;
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     //    Configuration that deppends on which users profile youre accessing
+    self.navigationController.navigationBar.prefersLargeTitles = YES;
     [self prepAccordingToUser];
     //  Fill tableview, collectionview and set outlets
     [self refreshDataWithNPosts:20];
@@ -75,13 +76,16 @@ InfiniteScrollActivityView *_loadingMoreViewP;
         //    Initialize search bar
         [self setSearchControl];
     }
-    if (self.user == nil || self.user.username == PFUser.currentUser.username) {
+    if (self.user == nil || [self.user.username isEqual:PFUser.currentUser.username]) {
         //  Can only edit the profile if it is your profile
         self.user = PFUser.currentUser;
+        [self.navigationItem setTitle:self.user.username];
+        [self.navigationController.navigationBar sizeToFit];
         self.editProfileButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         //    Set the dropdown menu
         [self setDropDownMenu];
     } else {
+        [self.navigationItem setTitle:self.user.username];
         // When in someone elses profile page
         [self.editProfileButton removeFromSuperview];
         //        Set send dm button
@@ -365,7 +369,7 @@ InfiniteScrollActivityView *_loadingMoreViewP;
     //    Initialices and inserts the refresh control
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
-    [self.tableView insertSubview:refreshControl atIndex:0];
+    [self.tableView setRefreshControl:refreshControl];
 }
 
 - (void)initializeRefreshControlB

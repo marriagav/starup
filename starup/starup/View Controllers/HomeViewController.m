@@ -34,6 +34,13 @@ InfiniteScrollActivityView *_loadingMoreView;
     // Initialize a UIRefreshControlBottom
     self.currentMax = 20;
     [self initializeRefreshControlB];
+    //    Add starup image
+
+    self.navigationController.navigationBar.prefersLargeTitles = YES;
+    //    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Starup-Letters"]];
+    //    [imageView setContentMode:UIViewContentModeScaleAspectFit];
+    //    [self.navigationItem setTitleView:imageView];
+    [self.navigationItem setTitle:@"Home Feed"];
 }
 
 #pragma mark - QualityOfLife
@@ -43,7 +50,7 @@ InfiniteScrollActivityView *_loadingMoreView;
     //    Initialices and inserts the refresh control
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
-    [self.tableView insertSubview:refreshControl atIndex:0];
+    [self.tableView setRefreshControl:refreshControl];
 }
 
 - (void)initializeRefreshControlB

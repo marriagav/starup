@@ -33,6 +33,8 @@ InfiniteScrollActivityView *_loadingMoreViewS;
     // Initialize a UIRefreshControlBottom
     self.currentMax = 20;
     [self initializeRefreshControlB];
+    self.navigationController.navigationBar.prefersLargeTitles = YES;
+    [self.navigationItem setTitle:@"Starups"];
 }
 
 #pragma mark - QualityOfLife
@@ -42,7 +44,7 @@ InfiniteScrollActivityView *_loadingMoreViewS;
     //    Initialices and inserts the refresh control
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
-    [self.tableView insertSubview:refreshControl atIndex:0];
+    [self.tableView setRefreshControl:refreshControl];
 }
 
 - (void)initializeRefreshControlB
