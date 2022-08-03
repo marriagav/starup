@@ -6,6 +6,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <ChatSDK/ChatSDK.h>
+#import <ChatSDKFirebase/ChatSDKFirebase-Swift.h>
+#import <ChatSDKFirebase/CCUserWrapper.h>
 #import "UserNode.h"
 #import "UsersEdge.h"
 #import "Algos.h"

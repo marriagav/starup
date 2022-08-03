@@ -64,11 +64,15 @@
     [PFUser.currentUser setObject:self.lastnameOutlet.text forKey:@"lastname"];
     [PFUser.currentUser setObject:self.userBio.text forKey:@"userBio"];
     [PFUser.currentUser setObject:self.roleOutlet.text forKey:@"role"];
+    //    Normalize strings for search
+    [PFUser.currentUser setObject:[Algos normalizeFullName:self.firstnameOutlet.text withLastname:self.lastnameOutlet.text] forKey:@"normalizedFullname"];
+    [PFUser.currentUser setObject:[Algos normalizeString:self.usernameOutlet.text] forKey:@"normalizedUsername"];
     [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
         if (error) {
             NSLog(@"%@", error.localizedDescription);
         } else {
             // Dismiss UIImagePickerController to go back to your original view controller
+            [BIntegrationHelper updateUserWithName:[NSString stringWithFormat:@"%@ %@", self.firstnameOutlet.text, self.lastnameOutlet.text] image:BChatSDK.currentUser.imageAsImage url:BChatSDK.currentUser.imageURL];
             [self.delegate didEdit];
             [self dismissViewControllerAnimated:YES completion:nil];
         }

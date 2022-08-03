@@ -84,6 +84,14 @@ InfiniteScrollActivityView *_loadingMoreViewP;
     } else {
         // When in someone elses profile page
         [self.editProfileButton removeFromSuperview];
+        //        Set send dm button
+        UIBarButtonItem *sendButton = [[UIBarButtonItem alloc] initWithImage:[UIImage
+                                                                                 systemImageNamed:@"paperplane.fill"]
+                                                                       style:UIBarButtonItemStylePlain
+                                                                      target:self
+                                                                      action:@selector(sendDm)];
+
+        self.navigationItem.rightBarButtonItem = sendButton;
     }
 }
 
@@ -116,6 +124,18 @@ InfiniteScrollActivityView *_loadingMoreViewP;
 
 #pragma mark - Navigation
 
+- (void)sendDm
+{
+    //    Send a message to the user / displaying thir chat conversation
+    id<PUser> firstChatUser = [Algos getChatUserWithId:PFUser.currentUser[@"chatsId"]];
+    id<PUser> secondChatUser = [Algos getChatUserWithId:self.user[@"chatsId"]];
+    NSArray *users = [NSArray arrayWithObjects:firstChatUser, secondChatUser, nil];
+    [BChatSDK.thread createThreadWithUsers:users name:nil threadCreated:^(NSError *error, id<PThread> thread) {
+        UIViewController *cvc = [BChatSDK.ui chatViewControllerWithThread:thread];
+        [self.navigationController pushViewController:cvc animated:YES];
+    }];
+}
+
 - (void)logOutUser
 {
     //    Call to log out the user
@@ -124,6 +144,7 @@ InfiniteScrollActivityView *_loadingMoreViewP;
         if (error) {
             NSLog(@"%@", error);
         } else {
+            [BChatSDK.auth logout];
             [Linkedin logoutFromLinkedin];
             // Add connection to local graph
             ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
@@ -229,6 +250,7 @@ InfiniteScrollActivityView *_loadingMoreViewP;
         if (error) {
             NSLog(@"%@", error.localizedDescription);
         } else {
+            [BIntegrationHelper updateUserWithName:BChatSDK.currentUser.name image:self.profilePicture.image url:[Algos imageToString:self.profilePicture.image]];
             [self refreshDataWithNPosts:20];
         }
     }];

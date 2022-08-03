@@ -1,5 +1,9 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
+# ignore all warnings from all pods
+inhibit_all_warnings!
+
+ENV['SWIFT_VERSION'] = '5'
 
 target 'starup' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -13,6 +17,10 @@ target 'starup' do
   pod 'MBProgressHUD'
   pod 'LinkedinIOSHelper', '~> 1.0.9'
   pod 'PayPalCheckout'
+  pod 'ChatSDK'
+  pod 'ChatSDKFirebase/Adapter'
+  pod 'ChatSDKFirebase/Upload'
+  pod 'ChatSDKFirebase/Push'
   
   plugin 'cocoapods-patch'
 

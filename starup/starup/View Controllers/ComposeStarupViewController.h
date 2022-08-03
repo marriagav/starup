@@ -41,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray *ideators;
 @property (nonatomic, strong) NSMutableArray *sharks;
 @property (nonatomic, strong) NSMutableArray *hackers;
+@property (nonatomic, strong) NSMutableArray *chatParticipants;
 @property (weak, nonatomic) IBOutlet UIButton *addCollaborator;
 @property (weak, nonatomic) IBOutlet UICollectionView *sharksCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *ideatorsCollectionView;
@@ -48,6 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *typeHere;
 @property BOOL isEditing;
 @property (nonatomic, strong) Starup *starupEditing;
+@property (nonatomic, strong) NSString *starupChatId;
 
 - (void)refreshCollectionViews;
 

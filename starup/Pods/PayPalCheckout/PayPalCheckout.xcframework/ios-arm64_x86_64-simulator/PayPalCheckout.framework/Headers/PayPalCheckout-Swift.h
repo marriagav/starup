@@ -861,6 +861,13 @@ SWIFT_CLASS_NAMED("CreateOrderAction")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
+SWIFT_CLASS("_TtC14PayPalCheckout14CryptoRateView")
+@interface CryptoRateView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
+@end
+
 /// An enum of the possible values to be passed as the curency code.
 /// <a href="https://developer.paypal.com/docs/api/orders/v2/#definition-currency_code">Currency code enum documentation guide</a>
 typedef SWIFT_ENUM_NAMED(NSInteger, PPCCurrencyCode, "CurrencyCode", open) {
@@ -3418,6 +3425,13 @@ SWIFT_CLASS_NAMED("CreateOrderAction")
 - (void)cancel;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS("_TtC14PayPalCheckout14CryptoRateView")
+@interface CryptoRateView : UIView
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder SWIFT_UNAVAILABLE;
 @end
 
 /// An enum of the possible values to be passed as the curency code.

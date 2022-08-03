@@ -486,6 +486,8 @@ public protocol BankAccount {
   public var systemFont13Bold: UIKit.UIFont
   public var boldLinkFont: UIKit.UIFont
   public var subheaderFont: UIKit.UIFont
+  public var textSectionTitleFont: UIKit.UIFont
+  public var textSectionParagraphFont: UIKit.UIFont
   public var cartDetailsLineItemFont: UIKit.UIFont
   public var cartDetailsTaxesAndFeesFont: UIKit.UIFont
   public var colorSheet: PayPalCheckout.ColorSheet
@@ -871,6 +873,7 @@ public enum RequestError : Foundation.LocalizedError {
   case decodingFailure(Swift.Error)
   case statusCode(Swift.Int)
   case unsupported(Swift.String)
+  case requestCancellation
   case other(Swift.Error)
   public var errorDescription: Swift.String? {
     get
@@ -1397,6 +1400,8 @@ public enum Transition {
   }
   public enum StartWithSpinner : PayPalCheckout.StaticIdentifiable {
   }
+  public enum Crypto : PayPalCheckout.StaticIdentifiable {
+  }
   public enum Finishing : PayPalCheckout.StaticIdentifiable {
   }
   public enum Shutdown : PayPalCheckout.StaticIdentifiable {
@@ -1741,6 +1746,17 @@ public protocol ThreeDomainSecureContingency {
   var parameter: Swift.String? { get }
   var experience: PayPalCheckout.ThreeDSPaymentExperience? { get }
   var requestParams: [Swift.String : Swift.String] { get }
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class CryptoRateView : UIKit.UIView, PayPalCheckout.ContentView, PayPalCheckout.ViewModelView, PayPalCheckout.StaticIdentifiable {
+  public func desiredHeight(forWidth availableWidth: CoreGraphics.CGFloat = 0) -> CoreGraphics.CGFloat
+  public var isVisible: Swift.Bool {
+    get
+  }
+  public var isPaysheetRow: Swift.Bool {
+    get
+  }
+  @objc deinit
+  public func updateData()
 }
 public enum NetworkInputType {
   case mapped
@@ -2197,6 +2213,57 @@ public enum I18n {
     get
   }
   @PayPalCheckout.L10n public static var conversionConvertWithCardIssuerPrompt: Swift.String {
+    get
+  }
+  @PayPalCheckout.L10n public static var cryptoLegalGotIt: Swift.String {
+    get
+  }
+  @PayPalCheckout.L10n public static var cryptoLegalSellTitle: Swift.String {
+    get
+  }
+  @PayPalCheckout.L10n public static var cryptoLegalSellPayPalBalance: Swift.String {
+    get
+  }
+  @PayPalCheckout.L10n public static var cryptoLegalSellMerchantAddsTax: Swift.String {
+    get
+  }
+  @PayPalCheckout.L10n public static var cryptoLegalRefundTitle: Swift.String {
+    get
+  }
+  @PayPalCheckout.L10n public static var cryptoLegalRefundsIssuedToPayPalBalance: Swift.String {
+    get
+  }
+  @PayPalCheckout.L10n public static var cryptoLegalTaxableTitle: Swift.String {
+    get
+  }
+  @PayPalCheckout.L10n public static var cryptoLegalTaxableTaxStatements: Swift.String {
+    get
+  }
+  @PayPalCheckout.L10n public static var cryptoLegalLegalese: Swift.String {
+    get
+  }
+  @PayPalCheckout.L10n public static var cryptoSellingAmount: Swift.String {
+    get
+  }
+  @PayPalCheckout.L10n public static var cryptoExchangeRate: Swift.String {
+    get
+  }
+  @PayPalCheckout.L10n public static var cryptoDescription: Swift.String {
+    get
+  }
+  @PayPalCheckout.L10n public static var cryptoRatesAndFees: Swift.String {
+    get
+  }
+  @PayPalCheckout.L10n public static var cryptoBackupFundingInstrument: Swift.String {
+    get
+  }
+  @PayPalCheckout.L10n public static var cryptoCta: Swift.String {
+    get
+  }
+  @PayPalCheckout.L10n public static var cryptoLoading1: Swift.String {
+    get
+  }
+  @PayPalCheckout.L10n public static var cryptoLoading2: Swift.String {
     get
   }
   @PayPalCheckout.L10n public static var department: Swift.String {
@@ -3028,6 +3095,8 @@ public protocol Address {
   var postalCode: Swift.String? { get }
   var fullAddress: Swift.String { get }
 }
+extension Address {
+}
 public protocol CartAddress : PayPalCheckout.Address {
   var firstName: Swift.String? { get }
   var lastName: Swift.String? { get }
@@ -3178,6 +3247,8 @@ public enum EventTypeData {
   case keyboardWillShow(keyboardHeight: CoreGraphics.CGFloat, duration: Foundation.TimeInterval)
   case keyboardWillHide
   case cardinalNotPresent
+  case cryptoUpdated
+  case ctaButtonUpdated(PayPalCheckout.FIModelBase)
   case billingBalanceToggled(isOn: Swift.Bool)
 }
 public protocol CheckoutSessionFlags {
@@ -3221,6 +3292,9 @@ public protocol CheckoutSessionFlags {
   @objc public func button(_ button: PayPalCheckout.PaymentButton, changedEligibilityStatus status: PayPalCheckout.PaymentButtonEligibilityStatus)
   @objc deinit
   @objc override dynamic public init(frame: CoreGraphics.CGRect)
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class CryptoLegalInfoPage : PayPalCheckout.ContentPage {
+  @objc deinit
 }
 @_hasMissingDesignatedInitializers @objc(PPCBillingActionData) @objcMembers public class BillingActionData : ObjectiveC.NSObject {
   @objc final public let billingId: Swift.String
@@ -3267,6 +3341,7 @@ extension String {
   }
   public func boundingHeight(forWidth: CoreGraphics.CGFloat, font: UIKit.UIFont = .preferredFont(forTextStyle: .body), options: UIKit.NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading], attributes: [Foundation.NSAttributedString.Key : Any]? = nil, context: UIKit.NSStringDrawingContext? = nil) -> CoreGraphics.CGFloat
   public func height(withConstrainedWidth width: CoreGraphics.CGFloat, font: UIKit.UIFont) -> CoreGraphics.CGFloat
+  public static func secureRandomIdentifier() -> Swift.String
 }
 @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class UndefinedPage : PayPalCheckout.ContentPage {
   public static var instance: PayPalCheckout.UndefinedPage
@@ -4456,6 +4531,8 @@ public enum EventType : Swift.String, Swift.CaseIterable, Swift.CustomStringConv
   case keyboardWillShow
   case keyboardWillHide
   case cardinalNotPresent
+  case cryptoUpdated
+  case ctaButtonUpdated
   case billingBalanceToggled
   public var description: Swift.String {
     get

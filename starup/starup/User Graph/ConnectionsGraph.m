@@ -116,6 +116,12 @@
     for (UserNode *node in self.nodes) {
         node.distanceFromStart = INT_MAX;
         if ([node.user[@"username"] isEqual:user.username]) {
+            if (!([node.user[@"username"] isEqual:PFUser.currentUser.username])) {
+                //                Add the user as a contact for chats
+                NSString *idUser = node.user[@"chatsId"];
+                id<PUser> chatUser = [Algos getChatUserWithId:idUser];
+                [BChatSDK.contact addContact:chatUser withType:bUserConnectionTypeContact];
+            }
             return node;
         }
     }

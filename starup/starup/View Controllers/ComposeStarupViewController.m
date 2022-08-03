@@ -27,6 +27,7 @@
     [self.view addGestureRecognizer:gestureRecognizer];
     gestureRecognizer.cancelsTouchesInView = NO;
     //    Initialize Arrays
+    self.chatParticipants = [[NSMutableArray alloc] init];
     self.ideators = [[NSMutableArray alloc] init];
     self.sharks = [[NSMutableArray alloc] init];
     self.hackers = [[NSMutableArray alloc] init];
@@ -181,6 +182,12 @@
             [self addStarupsToIdeators:starup withIdeators:self.ideators];
             [self addStarupsToSharks:starup withSharks:self.sharks];
             [self addStarupsToHackers:starup withHackers:self.hackers];
+            [BChatSDK.thread createThreadWithUsers:self.chatParticipants name:self.starupName.text threadCreated:^(NSError *error, id<PThread> thread) {
+                [thread setName:self.starupName.text];
+                [thread setImageURL:[Algos imageToString:self.starupImage.image]];
+                starup[@"starupChatId"] = thread.entityID;
+                [starup save];
+            }];
             //Calls the didPost method from the delegate and dissmisses the view controller
             [self.delegate didPost];
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -207,6 +214,9 @@
             [self addStarupsToIdeators:self.starupEditing withIdeators:self.ideators];
             [self addStarupsToSharks:self.starupEditing withSharks:self.sharks];
             [self addStarupsToHackers:self.starupEditing withHackers:self.hackers];
+            //            Add new participants to the groupchat
+            id<PThread> chatThread = [BChatSDK.db fetchEntityWithID:self.starupChatId withType:bThreadEntity];
+            [BChatSDK.thread addUsers:[self.chatParticipants copy] toThread:chatThread];
             //Calls the didPost method from the delegate and dissmisses the view controller
             [self.delegate didPost];
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -338,6 +348,8 @@
 - (void)didAddIdeator:(PFUser *)user
 {
     if (![self checkIfArrayHasUser:user inArray:self.ideators]) {
+        id<PUser> ChatUser = [Algos getChatUserWithId:user[@"chatsId"]];
+        [self.chatParticipants addObject:ChatUser];
         [self.ideators addObject:user];
         [self.ideatorsCollectionView reloadData];
     }
@@ -346,6 +358,8 @@
 - (void)didAddHacker:(PFUser *)user
 {
     if (![self checkIfArrayHasUser:user inArray:self.hackers]) {
+        id<PUser> ChatUser = [Algos getChatUserWithId:user[@"chatsId"]];
+        [self.chatParticipants addObject:ChatUser];
         [self.hackers addObject:user];
         [self.hackersCollectionView reloadData];
     }
@@ -354,6 +368,8 @@
 - (void)didAddShark:(PFUser *)user
 {
     if (![self checkIfArrayHasUser:user inArray:self.sharks]) {
+        id<PUser> ChatUser = [Algos getChatUserWithId:user[@"chatsId"]];
+        [self.chatParticipants addObject:ChatUser];
         [self.sharks addObject:user];
         [self.sharksCollectionView reloadData];
     }

@@ -94,4 +94,37 @@
     return NO;
 }
 
++ (NSString *)imageToString:(UIImage *)image
+{
+    NSString *imagePath = [NSString stringWithFormat:@"%@%@", [self generateRandomString:10], @".png"];
+    NSURL *url = [[NSURL fileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:imagePath];
+    NSData *pngData = UIImagePNGRepresentation(image);
+    [pngData writeToURL:url atomically:YES];
+    return url.absoluteString;
+}
+
++ (NSString *)normalizeString:(NSString *)string
+{
+    //    Normalize strings for search
+    NSString *normalizedString = [[NSString alloc]
+        initWithData:
+            [string dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES]
+            encoding:NSASCIIStringEncoding];
+    return [normalizedString lowercaseString];
+}
+
++ (NSString *)normalizeFullName:(NSString *)firstName withLastname:(NSString *)lastName
+{
+    return [self normalizeString:[NSString stringWithFormat:@"%@ %@", firstName, lastName]];
+}
+
++ (id<PUser>)getChatUserWithId:(NSString *)chatUserId
+{
+    CCUserWrapper *wrapper = [CCUserWrapper userWithEntityID:chatUserId];
+    [wrapper metaOn];
+    [wrapper onlineOn];
+    id<PUser> chatUser = [wrapper model];
+    return chatUser;
+}
+
 @end
