@@ -54,29 +54,50 @@
     self.typeHere.hidden = (textView.text.length > 0);
 }
 
+- (void)initializeAlertController
+{
+    //    Empty fields
+    self.emptyFields = [UIAlertController alertControllerWithTitle:@"Error"
+                                                           message:@"Requiered fields empty"
+                                                    preferredStyle:(UIAlertControllerStyleAlert)];
+    // create a cancel action
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Try Again"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction *_Nonnull action){
+                                                         }];
+    [self.emptyFields addAction:cancelAction];
+}
+
 #pragma mark - Network
 
 - (void)changeProfileDetails
 {
-    //    Call to change the profile details
-    [PFUser.currentUser setObject:self.usernameOutlet.text forKey:@"username"];
-    [PFUser.currentUser setObject:self.firstnameOutlet.text forKey:@"firstname"];
-    [PFUser.currentUser setObject:self.lastnameOutlet.text forKey:@"lastname"];
-    [PFUser.currentUser setObject:self.userBio.text forKey:@"userBio"];
-    [PFUser.currentUser setObject:self.roleOutlet.text forKey:@"role"];
-    //    Normalize strings for search
-    [PFUser.currentUser setObject:[Algos normalizeFullName:self.firstnameOutlet.text withLastname:self.lastnameOutlet.text] forKey:@"normalizedFullname"];
-    [PFUser.currentUser setObject:[Algos normalizeString:self.usernameOutlet.text] forKey:@"normalizedUsername"];
-    [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
-        if (error) {
-            NSLog(@"%@", error.localizedDescription);
-        } else {
-            // Dismiss UIImagePickerController to go back to your original view controller
-            [BIntegrationHelper updateUserWithName:[NSString stringWithFormat:@"%@ %@", self.firstnameOutlet.text, self.lastnameOutlet.text] image:BChatSDK.currentUser.imageAsImage url:BChatSDK.currentUser.imageURL];
-            [self.delegate didEdit];
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-    }];
+    [self initializeAlertController];
+    if (([self.usernameOutlet.text isEqual:@""]) | ([self.firstnameOutlet.text isEqual:@""]) | ([self.lastnameOutlet.text isEqual:@""]) | ([self.roleOutlet.text isEqual:@""])) {
+        [self presentViewController:self.emptyFields animated:YES completion:^{
+            nil;
+        }];
+    } else {
+        //    Call to change the profile details
+        [PFUser.currentUser setObject:self.usernameOutlet.text forKey:@"username"];
+        [PFUser.currentUser setObject:self.firstnameOutlet.text forKey:@"firstname"];
+        [PFUser.currentUser setObject:self.lastnameOutlet.text forKey:@"lastname"];
+        [PFUser.currentUser setObject:self.userBio.text forKey:@"userBio"];
+        [PFUser.currentUser setObject:self.roleOutlet.text forKey:@"role"];
+        //    Normalize strings for search
+        [PFUser.currentUser setObject:[Algos normalizeFullName:self.firstnameOutlet.text withLastname:self.lastnameOutlet.text] forKey:@"normalizedFullname"];
+        [PFUser.currentUser setObject:[Algos normalizeString:self.usernameOutlet.text] forKey:@"normalizedUsername"];
+        [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
+            if (error) {
+                NSLog(@"%@", error.localizedDescription);
+            } else {
+                // Dismiss UIImagePickerController to go back to your original view controller
+                [BIntegrationHelper updateUserWithName:[NSString stringWithFormat:@"%@ %@", self.firstnameOutlet.text, self.lastnameOutlet.text] image:BChatSDK.currentUser.imageAsImage url:BChatSDK.currentUser.imageURL];
+                [self.delegate didEdit];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+        }];
+    }
 }
 
 #pragma mark - Actions

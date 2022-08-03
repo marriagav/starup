@@ -32,10 +32,31 @@
     }
 }
 
+- (void)initializeAlertController
+{
+    //    Empty fields
+    self.passwordLength = [UIAlertController alertControllerWithTitle:@"Error"
+                                                              message:@"Password must be at least 6 characters long"
+                                                       preferredStyle:(UIAlertControllerStyleAlert)];
+    // create a cancel action
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Try Again"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction *_Nonnull action){
+                                                         }];
+    [self.passwordLength addAction:cancelAction];
+}
+
 - (IBAction)continueOnClick:(id)sender
 {
+    [self initializeAlertController];
     if (self.newUser) {
-        [self.delegate didPressNextRegister:self.passwordField.text];
+        if (self.passwordField.text.length < 6) {
+            [self presentViewController:self.passwordLength animated:YES completion:^{
+                nil;
+            }];
+        } else {
+            [self.delegate didPressNextRegister:self.passwordField.text];
+        }
     } else {
         [self.delegate didPressNextLogin:self.passwordField.text];
     }

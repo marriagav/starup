@@ -50,6 +50,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL isEditing;
 @property (nonatomic, strong) Starup *starupEditing;
 @property (nonatomic, strong) NSString *starupChatId;
+@property (strong, nonatomic) UIAlertController *emptyFields;
+@property (strong, nonatomic) UIAlertController *emptyImage;
+@property BOOL imageSet;
 
 - (void)refreshCollectionViews;
 

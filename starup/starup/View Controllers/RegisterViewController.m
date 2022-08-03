@@ -47,11 +47,18 @@
     UIAlertController *emailVerify = [UIAlertController alertControllerWithTitle:@"Please verify email"
                                                                          message:@"An email has been sent to your address for verification!"
                                                                   preferredStyle:(UIAlertControllerStyleAlert)];
+    //    Empty fields
+    self.emptyFields = [UIAlertController alertControllerWithTitle:@"Error"
+                                                           message:@"Empty Fields"
+                                                    preferredStyle:(UIAlertControllerStyleAlert)];
+    //    Empty fields
+    self.passwordLength = [UIAlertController alertControllerWithTitle:@"Error"
+                                                              message:@"Password must be at least 6 characters long"
+                                                       preferredStyle:(UIAlertControllerStyleAlert)];
     // create a cancel action
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Try Again"
                                                            style:UIAlertActionStyleCancel
                                                          handler:^(UIAlertAction *_Nonnull action){
-                                                             // handle try again response here. Doing nothing will dismiss the view.
                                                          }];
     // create an ok action
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok"
@@ -72,6 +79,8 @@
     // add the cancel action to the alertControllers
     [registerError addAction:cancelAction];
     [emailVerify addAction:okAction];
+    [self.emptyFields addAction:cancelAction];
+    [self.passwordLength addAction:cancelAction];
 
     if (![self.error isEqual:@""]) {
         [self presentViewController:registerError animated:YES completion:^{
@@ -109,32 +118,42 @@
     UIImage *image = [UIImage imageNamed:@"default_user_image"];
     [newUser setObject:[Algos getPFFileFromImage:image] forKey:@"profileImage"];
 
-    // call sign up function on the object
-    [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (error != nil) {
-            NSLog(@"Error: %@", error.localizedDescription);
-            //    Initialize alert controller in case of errors
-            self.error = error.localizedDescription;
-            [self initializeAlertController];
-        } else {
-            // successful register means we need to register the user in the chats SDK
-            BAccountDetails *accountDetails = [BAccountDetails signUp:self.emailField.text password:self.passwordField.text];
-            [BChatSDK.auth authenticate:accountDetails].thenOnMain(
-                ^id(id result) {
-                    [BIntegrationHelper updateUserWithName:[NSString stringWithFormat:@"%@ %@", self.firstNameField.text, self.lastNameField.text] image:image url:[Algos imageToString:image]];
-                    NSLog(@"%@", [BChatSDK currentUserID]);
-                    [PFUser.currentUser setObject:[BChatSDK currentUserID] forKey:@"chatsId"];
-                    [PFUser.currentUser save];
-                    NSLog(@"User registered successfully");
-                    self.correctLogin = @"YES";
-                    [self initializeAlertController];
-                    return result;
-                }, ^id(NSError *error) {
-                    NSLog(@"%@", error);
-                    return error;
-                });
-        }
-    }];
+    [self initializeAlertController];
+    if (([self.emailField.text isEqual:@""]) | ([self.firstNameField.text isEqual:@""]) | ([self.lastNameField.text isEqual:@""]) | ([self.roleField.text isEqual:@""])) {
+        [self presentViewController:self.emptyFields animated:YES completion:^{
+            nil;
+        }];
+    } else if (self.passwordField.text.length < 6) {
+        [self presentViewController:self.passwordLength animated:YES completion:^{
+            nil;
+        }];
+    } else {
+        // call sign up function on the object
+        [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error != nil) {
+                NSLog(@"Error: %@", error.localizedDescription);
+                //    Initialize alert controller in case of errors
+                self.error = error.localizedDescription;
+                [self initializeAlertController];
+            } else {
+                // successful register means we need to register the user in the chats SDK
+                BAccountDetails *accountDetails = [BAccountDetails signUp:self.emailField.text password:self.passwordField.text];
+                [BChatSDK.auth authenticate:accountDetails].thenOnMain(
+                    ^id(id result) {
+                        [BIntegrationHelper updateUserWithName:[NSString stringWithFormat:@"%@ %@", self.firstNameField.text, self.lastNameField.text] image:image url:[Algos imageToString:image]];
+                        [PFUser.currentUser setObject:[BChatSDK currentUserID] forKey:@"chatsId"];
+                        [PFUser.currentUser save];
+                        NSLog(@"User registered successfully");
+                        self.correctLogin = @"YES";
+                        [self initializeAlertController];
+                        return result;
+                    }, ^id(NSError *error) {
+                        NSLog(@"%@", error);
+                        return error;
+                    });
+            }
+        }];
+    }
 }
 
 #pragma mark - Actions

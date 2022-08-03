@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 @property (weak, nonatomic) IBOutlet UILabel *typeHere;
 @property (nonatomic, weak) id<ComposePostViewControllerDelegate> delegate;
+@property (strong, nonatomic) UIAlertController *textLength;
 @property BOOL hasLinkedin;
 
 @end

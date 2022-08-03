@@ -45,6 +45,7 @@
     // For the textfield placeholder to work
     self.descriptionOutlet.delegate = self;
     self.typeHere.hidden = (self.descriptionOutlet.text.length > 0);
+    self.imageSet = NO;
 }
 
 - (void)setDependingOnEditing
@@ -119,6 +120,25 @@
     [self.hackersCollectionView reloadData];
 }
 
+- (void)initializeAlertController
+{
+    //    Empty fields
+    self.emptyFields = [UIAlertController alertControllerWithTitle:@"Error"
+                                                           message:@"Empty fields"
+                                                    preferredStyle:(UIAlertControllerStyleAlert)];
+    //    Empty fields
+    self.emptyImage = [UIAlertController alertControllerWithTitle:@"Error"
+                                                          message:@"Select a picture"
+                                                   preferredStyle:(UIAlertControllerStyleAlert)];
+    // create a cancel action
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Try Again"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction *_Nonnull action){
+                                                         }];
+    [self.emptyFields addAction:cancelAction];
+    [self.emptyImage addAction:cancelAction];
+}
+
 #pragma mark - ImagePicker
 
 - (void)didTapImage:(UITapGestureRecognizer *)sender
@@ -151,6 +171,7 @@
     UIImage *resizedImage = [Algos imageWithImage:originalImage scaledToWidth:414];
 
     self.starupImage.image = resizedImage;
+    self.imageSet = YES;
 
     // Dismiss UIImagePickerController to go back to your original view controller
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -160,10 +181,23 @@
 
 - (IBAction)postStarup:(id)sender
 {
-    if (self.editing) {
-        [self updateExistingStarup];
+    [self initializeAlertController];
+    if (([self.starupName.text isEqual:@""]) | ([self.starupCategory.text isEqual:@""]) | ([self.sales.text isEqual:@""]) | ([self.goalInvestment.text isEqual:@""]) | ([self.percentageToGive.text isEqual:@""]) | ([self.descriptionOutlet.text isEqual:@""])) {
+        [self presentViewController:self.emptyFields animated:YES completion:^{
+            nil;
+        }];
     } else {
-        [self postNewStarup];
+        if (self.editing) {
+            [self updateExistingStarup];
+        } else {
+            if (!(self.imageSet)) {
+                [self presentViewController:self.emptyImage animated:YES completion:^{
+                    nil;
+                }];
+            } else {
+                [self postNewStarup];
+            }
+        }
     }
 }
 
