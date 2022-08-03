@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *roleField;
 @property (strong, nonatomic) NSString *error;
 @property (strong, nonatomic) NSString *correctLogin;
+@property (strong, nonatomic) UIAlertController *emptyFields;
+@property (strong, nonatomic) UIAlertController *passwordLength;
 
 @end
 

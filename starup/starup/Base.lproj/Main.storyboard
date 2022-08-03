@@ -116,7 +116,7 @@
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0z1-1J-ZpV">
                                                 <rect key="frame" x="19" y="346" width="376" height="31"/>
-                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                <color key="backgroundColor" red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Login"/>
@@ -522,6 +522,9 @@
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VpS-7S-Vek">
                                         <rect key="frame" x="19" y="88" width="376" height="140"/>
                                         <color key="backgroundColor" systemColor="quaternarySystemFillColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="140" id="LaB-vi-3K4"/>
+                                        </constraints>
                                         <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -562,6 +565,7 @@
                                 <constraints>
                                     <constraint firstItem="VpS-7S-Vek" firstAttribute="top" secondItem="cg2-b8-wq7" secondAttribute="bottom" constant="8" symbolic="YES" id="5sB-kP-phK"/>
                                     <constraint firstAttribute="trailing" secondItem="dxO-V4-Vo4" secondAttribute="trailing" constant="19" id="8FW-dm-JlP"/>
+                                    <constraint firstAttribute="bottom" secondItem="VpS-7S-Vek" secondAttribute="bottom" constant="580" id="ILC-fh-C61"/>
                                     <constraint firstItem="dxO-V4-Vo4" firstAttribute="bottom" secondItem="cg2-b8-wq7" secondAttribute="bottom" id="Ioa-hD-fCu"/>
                                     <constraint firstItem="VpS-7S-Vek" firstAttribute="leading" secondItem="cg2-b8-wq7" secondAttribute="leading" id="JIV-vN-xmB"/>
                                     <constraint firstItem="dxO-V4-Vo4" firstAttribute="leading" secondItem="cg2-b8-wq7" secondAttribute="trailing" constant="8" symbolic="YES" id="LIq-mp-VMl"/>
@@ -572,7 +576,6 @@
                                     <constraint firstItem="UaA-cR-pjU" firstAttribute="top" secondItem="cg2-b8-wq7" secondAttribute="bottom" constant="15" id="tQw-1g-EyQ"/>
                                     <constraint firstItem="VpS-7S-Vek" firstAttribute="top" secondItem="dxO-V4-Vo4" secondAttribute="bottom" constant="8" symbolic="YES" id="uXK-sa-qda"/>
                                     <constraint firstItem="VpS-7S-Vek" firstAttribute="trailing" secondItem="dxO-V4-Vo4" secondAttribute="trailing" id="x4f-D4-GBL"/>
-                                    <constraint firstAttribute="bottom" secondItem="VpS-7S-Vek" secondAttribute="bottom" constant="580" id="zmC-EI-BMY"/>
                                 </constraints>
                             </view>
                         </subviews>

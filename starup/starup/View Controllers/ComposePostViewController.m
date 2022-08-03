@@ -95,6 +95,10 @@
     UIAlertController *LinkedinError = [UIAlertController alertControllerWithTitle:@"Error"
                                                                            message:@"Must authenticate with Linkedin"
                                                                     preferredStyle:(UIAlertControllerStyleAlert)];
+    //    Empty fields
+    self.textLength = [UIAlertController alertControllerWithTitle:@"Error"
+                                                          message:@"Caption cannot be empty"
+                                                   preferredStyle:(UIAlertControllerStyleAlert)];
     // create a cancel action
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Okay"
                                                            style:UIAlertActionStyleCancel
@@ -103,6 +107,7 @@
                                                          }];
     // add the cancel action to the alertControllers
     [LinkedinError addAction:cancelAction];
+    [self.textLength addAction:cancelAction];
 
     if (!(self.hasLinkedin)) {
         [self presentViewController:LinkedinError animated:YES completion:nil];
@@ -113,16 +118,23 @@
 
 - (IBAction)makePost:(id)sender
 {
-    if ([self.updateStatus isEqual:@""]) {
-        //        If no status selected
-        self.updateStatus = @"Just a thought";
-        self.updateImage = [UIImage imageNamed:@"thought-icon-6"];
-    } else if ([self.updateStatus isEqual:@"Linkedin Post"]) {
-        //        Make post to likedin if the user wants to
-        [self checkIfUserHasLinkedin];
+    [self initializeAlertController];
+    if ([self.captionOutlet.text isEqual:@""]) {
+        [self presentViewController:self.textLength animated:YES completion:^{
+            nil;
+        }];
     } else {
-        //    Make the post to Starup
-        [self makePostToStarup];
+        if ([self.updateStatus isEqual:@""]) {
+            //        If no status selected
+            self.updateStatus = @"Just a thought";
+            self.updateImage = [UIImage imageNamed:@"thought-icon-6"];
+        } else if ([self.updateStatus isEqual:@"Linkedin Post"]) {
+            //        Make post to likedin if the user wants to
+            [self checkIfUserHasLinkedin];
+        } else {
+            //    Make the post to Starup
+            [self makePostToStarup];
+        }
     }
 }
 

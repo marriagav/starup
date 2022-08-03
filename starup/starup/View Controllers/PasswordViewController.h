@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *continueButton;
 @property (nonatomic, weak) id<PasswordViewControllerDelegate> delegate;
+@property (strong, nonatomic) UIAlertController *passwordLength;
 
 @end
 
