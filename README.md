@@ -23,7 +23,8 @@ Original App Design Project
     - linkedinSecret
 5. Add the GoogleService-Info.plist file to the project
 6. Run the project from xcode
-NOTE: installing the pods through the podfile is not necessary, as they're already included in the repository.
+
+*NOTE: installing the pods through the podfile is not necessary, as they're already included in the repository.*
 
 ## Overview
 ### Description
