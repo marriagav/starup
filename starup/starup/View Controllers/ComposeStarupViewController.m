@@ -218,8 +218,6 @@
             [self addStarupsToHackers:starup withHackers:self.hackers];
             [BChatSDK.thread createThreadWithUsers:self.chatParticipants name:self.starupName.text threadCreated:^(NSError *error, id<PThread> thread) {
                 [thread setName:self.starupName.text];
-                PFFileObject *file = starup[@"starupImage"];
-                [thread setImageURL:file.url];
                 starup[@"starupChatId"] = thread.entityID;
                 [starup save];
                 //Calls the didPost method from the delegate and dissmisses the view controller
@@ -253,8 +251,6 @@
             id<PThread> chatThread = [BChatSDK.db fetchEntityWithID:self.starupChatId withType:bThreadEntity];
             [BChatSDK.thread addUsers:[self.chatParticipants copy] toThread:chatThread];
             PFFileObject *file = self.starupEditing[@"starupImage"];
-            [chatThread setImageURL:file.url];
-            [chatThread setName:self.starupName.text];
             //Calls the didPost method from the delegate and dissmisses the view controller
             [self.delegate didPost];
             [self dismissViewControllerAnimated:YES completion:nil];
