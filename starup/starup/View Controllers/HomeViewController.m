@@ -35,12 +35,10 @@ InfiniteScrollActivityView *_loadingMoreView;
     self.currentMax = 20;
     [self initializeRefreshControlB];
     //    Add starup image
-    //    [self.navigationItem setTitle:@"Home feed"];
-    UIImageView *titleImage = (UIImageView *)self.navigationItem.titleView;
-    titleImage = [[UIImageView alloc] initWithFrame:CGRectMake((self.navigationController.navigationBar.frame.size.width / 2) - (100 / 2), 0, 100, self.navigationController.navigationBar.frame.size.height)];
-
+    UIImage *image = [Algos imageWithImage:[UIImage imageNamed:@"Starup-Letters"] scaledToWidth:80];
     //setting the image for UIImageView
-    titleImage.image = [UIImage imageNamed:@"Starup-Letters"];
+    UIImageView *titleImage = [[UIImageView alloc] initWithImage:image];
+    titleImage.image = image;
     titleImage.contentMode = UIViewContentModeCenter;
     self.navigationItem.titleView = titleImage;
 }
