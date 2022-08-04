@@ -25,6 +25,7 @@
     self.ideators = [[NSMutableArray alloc] init];
     self.sharks = [[NSMutableArray alloc] init];
     self.hackers = [[NSMutableArray alloc] init];
+    [self.navigationItem setTitle:self.starup[@"starupName"]];
     //    Set collection views
     self.sharksCollectionView.delegate = self;
     self.sharksCollectionView.dataSource = self;

@@ -34,6 +34,13 @@ InfiniteScrollActivityView *_loadingMoreView;
     // Initialize a UIRefreshControlBottom
     self.currentMax = 20;
     [self initializeRefreshControlB];
+    //    Add starup image
+    UIImage *image = [Algos imageWithImage:[UIImage imageNamed:@"Starup-Letters"] scaledToWidth:80];
+    //setting the image for UIImageView
+    UIImageView *titleImage = [[UIImageView alloc] initWithImage:image];
+    titleImage.image = image;
+    titleImage.contentMode = UIViewContentModeCenter;
+    self.navigationItem.titleView = titleImage;
 }
 
 #pragma mark - QualityOfLife
@@ -43,7 +50,7 @@ InfiniteScrollActivityView *_loadingMoreView;
     //    Initialices and inserts the refresh control
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
-    [self.tableView insertSubview:refreshControl atIndex:0];
+    [self.tableView setRefreshControl:refreshControl];
 }
 
 - (void)initializeRefreshControlB

@@ -21,6 +21,7 @@
     UIViewController *privateThreadsViewController = [BChatSDK.ui privateThreadsViewController];
     privateThreadsViewController.navigationItem.hidesBackButton = YES;
     privateThreadsViewController.title = @" ";
+    [privateThreadsViewController.navigationItem setTitle:@"Chats"];
     [self pushViewController:privateThreadsViewController animated:NO];
 }
 
