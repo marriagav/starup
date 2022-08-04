@@ -253,7 +253,8 @@ InfiniteScrollActivityView *_loadingMoreViewP;
         if (error) {
             NSLog(@"%@", error.localizedDescription);
         } else {
-            [BIntegrationHelper updateUserWithName:BChatSDK.currentUser.name image:self.profilePicture.image url:[Algos imageToString:self.profilePicture.image]];
+            PFFileObject *file = self.user[@"profileImage"];
+            [BIntegrationHelper updateUserWithName:BChatSDK.currentUser.name image:self.profilePicture.image url:file.url];
             [self refreshDataWithNPosts:20];
         }
     }];

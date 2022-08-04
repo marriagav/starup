@@ -140,7 +140,8 @@
                 BAccountDetails *accountDetails = [BAccountDetails signUp:self.emailField.text password:self.passwordField.text];
                 [BChatSDK.auth authenticate:accountDetails].thenOnMain(
                     ^id(id result) {
-                        [BIntegrationHelper updateUserWithName:[NSString stringWithFormat:@"%@ %@", self.firstNameField.text, self.lastNameField.text] image:image url:[Algos imageToString:image]];
+                        PFFileObject *file = newUser[@"profileImage"];
+                        [BIntegrationHelper updateUserWithName:[NSString stringWithFormat:@"%@ %@", self.firstNameField.text, self.lastNameField.text] image:image url:file.url];
                         [PFUser.currentUser setObject:[BChatSDK currentUserID] forKey:@"chatsId"];
                         [PFUser.currentUser save];
                         NSLog(@"User registered successfully");
