@@ -39,7 +39,7 @@ InfiniteScrollActivityView *_loadingMoreView;
     //setting the image for UIImageView
     UIImageView *titleImage = [[UIImageView alloc] initWithImage:image];
     titleImage.image = image;
-    titleImage.contentMode = UIViewContentModeCenter;
+    titleImage.contentMode = UIViewContentModeScaleAspectFit;
     self.navigationItem.titleView = titleImage;
 }
 

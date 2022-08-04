@@ -149,7 +149,7 @@ InfiniteScrollActivityView *_loadingMoreViewP;
         } else {
             [BChatSDK.auth logout];
             [Linkedin logoutFromLinkedin];
-            // Add connection to local graph
+            // Reset local graph
             ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
             [graph resetGraph];
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
