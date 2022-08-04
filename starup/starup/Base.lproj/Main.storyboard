@@ -135,21 +135,6 @@
                                                 <color key="textColor" systemColor="secondaryLabelColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPL-O0-MKA">
-                                                <rect key="frame" x="19" y="434" width="376" height="31"/>
-                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
-                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Dont have an account? Register"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="5"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="registerOnClick:" destination="0fW-9q-Gp2" eventType="touchUpInside" id="Bgv-pz-OGU"/>
-                                                </connections>
-                                            </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0AM-DE-5Ay">
                                                 <rect key="frame" x="19" y="275" width="376" height="34"/>
                                                 <color key="backgroundColor" systemColor="quaternarySystemFillColor"/>
@@ -182,6 +167,21 @@
                                                     <constraint firstAttribute="width" constant="218" id="nXu-67-soC"/>
                                                 </constraints>
                                             </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPL-O0-MKA">
+                                                <rect key="frame" x="19" y="434" width="376" height="31"/>
+                                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Dont have an account? Register"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="registerOnClick:" destination="0fW-9q-Gp2" eventType="touchUpInside" id="Bgv-pz-OGU"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -231,7 +231,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="e3M-gZ-ZCL"/>
                     <connections>
+                        <outlet property="linkedinButton" destination="445-ad-pFY" id="h15-TH-hpO"/>
+                        <outlet property="loginButton" destination="0z1-1J-ZpV" id="YhX-dc-0dl"/>
                         <outlet property="passwordField" destination="0AM-DE-5Ay" id="ysg-7v-2us"/>
+                        <outlet property="registerButton" destination="EPL-O0-MKA" id="Yer-sU-1aR"/>
                         <outlet property="usernameField" destination="Lgk-lb-LkI" id="C6n-ff-6gC"/>
                     </connections>
                 </viewController>

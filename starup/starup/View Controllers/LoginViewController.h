@@ -7,13 +7,14 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import <ChatSDK/ChatSDK.h>
+#import <ChatSDKFirebase/ChatSDKFirebase-Swift.h>
 #import "LinkedinIOSHelper/LinkedInHelper.h"
 #import "Algos.h"
 #import "PasswordViewController.h"
 #import "Linkedin.h"
 #import "ConnectionsGraph.h"
-#import <ChatSDK/ChatSDK.h>
-#import <ChatSDKFirebase/ChatSDKFirebase-Swift.h>
+#import "MBProgressHUD.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -31,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *imageURL;
 @property (strong, nonatomic) NSString *linkedinEmail;
 @property (strong, nonatomic) UIImage *imageLinkedin;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property (weak, nonatomic) IBOutlet UIButton *registerButton;
+@property (weak, nonatomic) IBOutlet UIButton *linkedinButton;
 
 @end
 

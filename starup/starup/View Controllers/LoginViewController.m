@@ -65,12 +65,21 @@
 {
     //    Method that logs the user in
     //    Call log in function on the object
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //    Dissables buttons so that the user cant spam it
+    self.loginButton.enabled = false;
+    self.registerButton.enabled = false;
+    self.linkedinButton.enabled = false;
+
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error) {
         if (error != nil) {
             NSLog(@"User log in failed: %@", error.localizedDescription);
             //    Initialize alert controller if there is an error
             self.error = error.localizedDescription;
             [self initializeAlertController];
+            self.loginButton.enabled = true;
+            self.registerButton.enabled = true;
+            self.linkedinButton.enabled = true;
         } else {
             BAccountDetails *accountDetails = [BAccountDetails username:user[@"email"] password:password];
             [BChatSDK.auth authenticate:accountDetails].thenOnMain(
@@ -83,6 +92,8 @@
                     return error;
                 });
         }
+        // hides progress hud
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
 }
 
