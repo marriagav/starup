@@ -94,15 +94,6 @@
     return NO;
 }
 
-+ (NSString *)imageToString:(UIImage *)image
-{
-    NSString *imagePath = [NSString stringWithFormat:@"%@%@", [self generateRandomString:10], @".png"];
-    NSURL *url = [[NSURL fileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:imagePath];
-    NSData *pngData = UIImagePNGRepresentation(image);
-    [pngData writeToURL:url atomically:YES];
-    return url.absoluteString;
-}
-
 + (NSString *)normalizeString:(NSString *)string
 {
     //    Normalize strings for search
