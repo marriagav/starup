@@ -21,7 +21,9 @@ Original App Design Project
     - paypalClientID
     - linkedinAppID
     - linkedinSecret
-4. Run the project from xcode
+5. Add the GoogleService-Info.plist file to the project
+6. Run the project from xcode
+NOTE: installing the pods through the podfile is not necessary, as they're already included in the repository.
 
 ## Overview
 ### Description
@@ -264,6 +266,3 @@ Starup is an application that allows startups to connect with investors and inde
 | :---         |     :---:      |          :--- |
 | Read   | GET     | get the starup information    |
 | Update   | PUT     | make an investment    |
-
-- [Create basic snippets for each Parse network request] - pending
-- [OPTIONAL: List endpoints if using existing API such as Yelp] - pending with linkedin api
