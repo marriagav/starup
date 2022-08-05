@@ -6,9 +6,11 @@ Original App Design Project
 ## Table of Contents
 1. [Installation](#Installation)
 2. [Overview](#Overview)
-3. [Product Spec](#Product-Spec)
-4. [Wireframes](#Wireframes)
-5. [Schema](#Schema)
+3. [Features](#Features)
+4. [Screenshots and Demo](#Screenshots-and-Demo)
+5. [Product Spec](#Product-Spec)
+6. [Wireframes](#Wireframes)
+7. [Schema](#Schema)
 
 ## Installation
 1. Clone this github repository on your local machine
@@ -28,7 +30,7 @@ Original App Design Project
 
 ## Overview
 ### Description
-Starup is an application that allows startups to connect with investors and independent workers. There are three type of users in this app:
+Starup is an application that allows startups to connect with investors and independent workers. There are three user roles in this app:
 - Ideators: can post information about their startups and network for "sharks" or "hackers".
 - Sharks: can scroll and search for different startups, connecting with "ideators" and potentially investing in their startups.
 - Hackers: similarly to sharks, they can search for startups, but rather than investing in them, they can apply to join the project as independent workers.
@@ -41,6 +43,41 @@ Starup is an application that allows startups to connect with investors and inde
 - **Market:** anyone that falls into either of these three categories: has any startup ideas, has any skills and interest to participate in a startup, has interest and means to invest in a startup.
 - **Habit:** ideators can post as many startup ideas as they want, hackers and sharks can explore endless startups in any category or buissness that exists.
 - **Scope:** it is planned to start as a simple app where networking happens around startups, just posting and connecting people.
+
+## Features
+
+**SDK/Database integration**
+- Integrated Parse as the main database for my project, designing the database and storing users, posts, connections and starups.
+- Integrated Firebase as a secondary database for messaging, using the ChatsSDK (https://chatsdk.co/).
+- Linkedin Integration (https://github.com/marriagav/starup/pull/28)
+    - Implemented sign in with Linkedin functionality, were the user can authenticate themselves, with the use of the Linkedin API, in order to create their Starup account.
+        * This feature also allows users to use their Linkedin names and profile pictures when they log in with Linkedin.
+    * Paypal integration (https://github.com/marriagav/starup/pull/29)
+        * Added PayPal integration so that users can make investments through the Paypal API, using the sandbox environment and a sandbox account.
+
+**Difficult/ Ambiguous Technical Problems:**
+- If a user has Linkedin authentication, they will be able to post both on Starup and on Linkedin if they wish to do so.
+- Messages (https://github.com/marriagav/starup/pull/39)
+    - Users can manage their conversations: add users, remove users, delete messages, delete conversations, etc.
+    - After a new starup is created, a groupchat will be automatically created with all the members of that starup.
+* Search (https://github.com/marriagav/starup/pull/31)
+    * Built a graph data structure in the server to measure "closeness" between users.
+    * User search is reusable (everything goes through the same graph) and It has been added on two view controllers: the profile view controller and the add collaborator view controller.
+    * When the user makes a search, a local graph will be traversed looking for users that match the search.
+    * Sectioning: in which "recommended" means people that are really close to you, "you may know" is people somewhat close to you and "discover" is people you don't have any type of connection with.
+
+**Visuals and interactions**
+- Added a gesture recognizer (https://github.com/marriagav/starup/pull/38) so that users can add collaborators to their starups more easily
+- Created my own icons and logo (https://github.com/marriagav/starup/pull/42/files) for the app.
+- Starups investment bar is animated.
+- Added a MBProgressHUD (https://github.com/jdg/MBProgressHUD) for when the user is performing network requests.
+
+## Screenshots and Demo
+
+**Find the demo here**
+
+**Screenshots**
+
 
 ## Product Spec
 
@@ -75,7 +112,7 @@ Starup is an application that allows startups to connect with investors and inde
 * Home feed
    * Being able to see what other people are posting (statuses)
    * Search bar to filter posts
-* Compse post
+* Compose post
    * Being able to make a status post
 * Starups tab
    * Being able to navigate startups
@@ -267,3 +304,4 @@ Starup is an application that allows startups to connect with investors and inde
 | :---         |     :---:      |          :--- |
 | Read   | GET     | get the starup information    |
 | Update   | PUT     | make an investment    |
+
