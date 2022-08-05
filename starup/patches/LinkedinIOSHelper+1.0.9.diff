@@ -1,6 +1,416 @@
-diff --git a/cocoapods-patch-20220729-20280-9o458o/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m
-index 906eec3..63ae2fe 100644
---- a/cocoapods-patch-20220729-20280-9o458o/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m
+diff --git a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/Constants/LinkedInIOSFields.h b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/Constants/LinkedInIOSFields.h
+index 327f2b0..abefd89 100644
+--- a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/Constants/LinkedInIOSFields.h
++++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/Constants/LinkedInIOSFields.h
+@@ -16,7 +16,7 @@
+ #import <LinkedinIOSHelper/PermissionNetworkFields.h>
+ 
+ 
+-/*!
++/**
+  * @brief To access any of the following full profile fields, your app must request the FullProfile member permission.  Note that BasicProfile provides access to a sub-set of the fields made available by FullProfile, so if you are requesting FullProfile, there is no need to also request the BasicProfile permission.
+  */
+ typedef NS_ENUM (NSInteger, Permissions) {
+diff --git a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/Constants/PermissionBasicProfileFields.h b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/Constants/PermissionBasicProfileFields.h
+index 2126443..2f89602 100644
+--- a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/Constants/PermissionBasicProfileFields.h
++++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/Constants/PermissionBasicProfileFields.h
+@@ -16,114 +16,114 @@
+ 
+ @interface PermissionBasicProfileFields : NSObject
+ 
+-/*!
++/**
+  * @brief A unique identifying value for the member.
+  *
+  * This value is linked to your specific application.  Any attempts to use it with a different application will result in a "404 - Invalid member id" error.
+  */
+ extern NSString * const Id;
+ 
+-/*!
++/**
+  * @brief The member's first name.
+  */
+ extern NSString * const first_name;
+ 
+-/*!
++/**
+  * @brief The member's last name.
+  */
+ extern NSString * const last_name;
+ 
+-/*!
++/**
+  * @brief The member's maiden name.
+  */
+ extern NSString * const maiden_name;
+ 
+-/*!
++/**
+  * @brief The member's name, formatted based on language.
+  */
+ extern NSString * const formatted_name;
+ 
+-/*!
++/**
+  * @brief The member's first name, spelled phonetically.
+  */
+ extern NSString * const phonetic_first_name;
+ 
+-/*!
++/**
+  * @brief The member's last name, spelled phonetically.
+  */
+ extern NSString * const phonetic_last_name;
+ 
+-/*!
++/**
+  * @brief The member's name, spelled phonetically and formatted based on language.
+  */
+ extern NSString * const formatted_phonetic_name;
+ 
+-/*!
++/**
+  * @brief The member's headline.
+  */
+ extern NSString * const headline;
+ 
+-/*!
++/**
+  * @brief An object representing the user's physical location.
+  */
+ extern NSString * const location;
+ 
+-/*!
++/**
+  * @brief The industry the member belongs to.
+  */
+ extern NSString * const industry;
+ 
+-/*!
++/**
+  * @brief The most recent item the member has shared on LinkedIn.  If the member has not shared anything, their 'status' is returned instead.
+  */
+ extern NSString * const current_share;
+ 
+-/*!
++/**
+  * @brief The number of LinkedIn connections the member has, capped at 500.  See 'num-connections-capped' to determine if the value returned has been capped.
+  */
+ extern NSString * const num_connections;
+ 
+-/*!
++/**
+  * @brief Returns 'true' if the member's 'num-connections' value has been capped at 500', or 'false' if 'num-connections' represents the user's true value.
+  */
+ extern NSString * const num_connections_capped;
+ 
+-/*!
++/**
+  * @brief A long-form text area describing the member's professional profile.
+  */
+ extern NSString * const summary;
+ 
+-/*!
++/**
+  * @brief A short-form text area describing the member's specialties.
+  */
+ extern NSString * const specialties;
+ 
+-/*!
++/**
+  * @brief An object representing the member's current position.
+  */
+ extern NSString * const positions;
+ 
+-/*!
++/**
+  * @brief A URL to the member's formatted profile picture, if one has been provided.
+  */
+ extern NSString * const picture_url;
+ 
+-/*!
++/**
+  * @brief A URL to the member's original unformatted profile picture.  This image is usually larger than the picture-url value above.
+  */
+ extern NSString * const picture_urls_original;
+ 
+-/*!
++/**
+  * @brief The URL to the member's authenticated profile on LinkedIn.  You must be logged into LinkedIn to view this URL.
+  */
+ extern NSString * const site_standard_profile_request;
+ 
+-/*!
++/**
+  * @brief A URL representing the resource you would request for programmatic access to the member's profile.
+  */
+ extern NSString * const api_standard_profile_request;
+ 
+-/*!
++/**
+  * @brief The URL to the member's public profile on LinkedIn.
+  */
+ extern NSString * const public_profile_url;
+diff --git a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/Constants/PermissionContactInfoFields.h b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/Constants/PermissionContactInfoFields.h
+index 25ee07c..ea92e05 100644
+--- a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/Constants/PermissionContactInfoFields.h
++++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/Constants/PermissionContactInfoFields.h
+@@ -15,32 +15,32 @@
+ 
+ @interface PermissionContactInfoFields : NSObject
+ 
+-/*!
++/**
+  * @brief A collection of phone number objects.
+  */
+ extern NSString * const phone_numbers;
+ 
+-/*!
++/**
+  * @brief A collection of accounts bound by the member.
+  */
+ extern NSString * const bound_account_types;
+ 
+-/*!
++/**
+  * @brief A collection of instant messenger accounts associated with the member.
+  */
+ extern NSString * const im_accounts;
+ 
+-/*!
++/**
+  * @brief The member's primary address.  We do not specify whether this is a work, home or other address.
+  */
+ extern NSString * const main_address;
+ 
+-/*!
++/**
+  * @brief A collection of Twitter accounts associated with the member.
+  */
+ extern NSString * const twitter_accounts;
+ 
+-/*!
++/**
+  * @brief The primary Twitter account associated with the member.
+  */
+ extern NSString * const primary_twitter_account;
+diff --git a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/Constants/PermissionEmailFields.h b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/Constants/PermissionEmailFields.h
+index 51cb87b..01f1eea 100644
+--- a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/Constants/PermissionEmailFields.h
++++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/Constants/PermissionEmailFields.h
+@@ -10,7 +10,7 @@
+ 
+ @interface PermissionEmailFields : NSObject
+ 
+-/*!
++/**
+  * @brief The LinkedIn member's primary email address.  Secondary email addresses associated with the member are not available via the API.
+  */
+ extern NSString * const email_address;
+diff --git a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/Constants/PermissionFullProfileFields.h b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/Constants/PermissionFullProfileFields.h
+index 7205e7b..18cb65c 100644
+--- a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/Constants/PermissionFullProfileFields.h
++++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/Constants/PermissionFullProfileFields.h
+@@ -15,122 +15,122 @@
+ 
+ @interface PermissionFullProfileFields : PermissionBasicProfileFields
+ 
+-/*!
++/**
+  * @brief The timestamp, in milliseconds, when the member's profile was last edited.
+  */
+ extern NSString * const last_modified_timestamp;
+ 
+-/*!
++/**
+  * @brief A short-form text area describing how the member approaches proposals.
+  */
+ extern NSString * const proposal_comments;
+ 
+-/*!
++/**
+  * @brief A short-form text area listing the various associations the member is a part of.
+  */
+ extern NSString * const associations;
+ 
+-/*!
++/**
+  * @brief A short-form text area describing the member's interests.
+  */
+ extern NSString * const interests;
+ 
+-/*!
++/**
+  * @brief An object representing the various publications associated with the member.
+  */
+ extern NSString * const publications;
+ 
+-/*!
++/**
+  * @brief An object representing the various patents associated with the member.
+  */
+ extern NSString * const patents;
+ 
+-/*!
++/**
+  * @brief An object representing the languages that the member knows.
+  */
+ extern NSString * const languages;
+ 
+-/*!
++/**
+  * @brief An object representing the skills that the member holds.
+  */
+ extern NSString * const skills;
+ 
+-/*!
++/**
+  * @brief An object representing the certifications that the member holds.
+  */
+ extern NSString * const certifications;
+ 
+-/*!
++/**
+  * @brief An object representing the user's educational background.
+  */
+ extern NSString * const educations;
+ 
+-/*!
++/**
+  * @brief An object representing courses the member has taken.
+  */
+ extern NSString * const courses;
+ 
+-/*!
++/**
+  * @brief An object representing the member's volunteer experience.
+  */
+ extern NSString * const volunteer;
+ 
+-/*!
++/**
+  * @brief A collection of current positions that the member holds, capped at three.
+  */
+ extern NSString * const three_current_positions;
+ 
+-/*!
++/**
+  * @brief A collection of the most recent past positions that the member held, capped at three.
+  */
+ extern NSString * const three_past_positions;
+ 
+-/*!
++/**
+  * @brief The number of recommendations that the member has.
+  */
+ extern NSString * const num_recommenders;
+ 
+-/*!
++/**
+  * @brief An object representing the recommendations that the member has received.
+  */
+ extern NSString * const recommendations_received;
+ 
+-/*!
++/**
+  * @brief An collection of people, company and industries that the member is following.
+  */
+ extern NSString * const following;
+ 
+-/*!
++/**
+  * @brief A collection of jobs that the member is following.
+  */
+ extern NSString * const job_bookmarks;
+ 
+-/*!
++/**
+  * @brief A collection of people, companies and industries suggested for the member to follow.
+  */
+ extern NSString * const suggestions;
+ 
+-/*!
++/**
+  * @brief The member's date of birth.  This field may not return the year as part of the date, if the member has not provided it.
+  */
+ extern NSString * const date_of_birth;
+ 
+-/*!
++/**
+  * @brief An object representing the URLs the member has shared on their LinkedIn profile.
+  */
+ extern NSString * const member_url_resources;
+ 
+-/*!
++/**
+  * @brief An object listing related member profiles that were viewed before or after the member's profile.
+  */
+ extern NSString * const related_profile_views;
+ 
+-/*!
++/**
+  * @brief An object representing the various honors and awards the member has received.
+  */
+ extern NSString * const honors_awards;
+ 
+-/*!
++/**
+  * @brief Members locations which is set to Linked profile
+  */
+ extern NSString * const location_name;
+diff --git a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/Constants/PermissionNetworkFields.h b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/Constants/PermissionNetworkFields.h
+index 791cf29..8b658be 100644
+--- a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/Constants/PermissionNetworkFields.h
++++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/Constants/PermissionNetworkFields.h
+@@ -10,7 +10,7 @@
+ 
+ @interface PermissionNetworkFields : NSObject
+ 
+-/*!
++/**
+  * @brief Members connections
+  */
+ extern NSString * const connections;
+diff --git a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.h b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.h
+index d830771..0809e25 100644
+--- a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.h
++++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.h
+@@ -22,19 +22,19 @@
+                    permissions:(NSArray *)permissions
+                          state:(NSString *)state;
+ 
+-/*!
++/**
+  * @brief clientId of application that you created on linkedin developer portal
+  * @warning clientId can not be nil!
+  */
+ @property (nonatomic, copy) NSString *clientId;
+ 
+-/*!
++/**
+  * @brief Client Secret of application that you created on linkedin developer portal
+  * @warning clientSecret can not be nil!
+  */
+ @property (nonatomic, copy) NSString *clientSecret;
+ 
+-/*!
++/**
+  * @brief applicationWithRedirectURL of application that you created on linkedin developer portal
+  * @warning applicationWithRedirectURL can not be nil!
+  */
+@@ -52,7 +52,7 @@
+  */
+ @property (nonatomic, copy) NSString *subPermissions;
+ 
+-/*!
++/**
+  * @brief Setting Granted Accesses which is about to ask the user to fetch those informations (Contains NSNumbers because of typedef to make this code more understandable)
+  */
+ - (void)setAppPermissions:(NSArray *)permissions;
+diff --git a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m
+index 906eec3..ab08124 100644
+--- a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAppSettings.m
 @@ -63,14 +63,14 @@
      self.grantedAccess = permissions;
@@ -19,9 +429,62 @@ index 906eec3..63ae2fe 100644
      if ([permissions containsObject:@(CompanyAdmin)])   [self.permissions addObject:@"rw_company_admin"];
      if ([permissions containsObject:@(Groups)])         [self.permissions addObject:@"rw_groups"];
      if ([permissions containsObject:@(Messages)])       [self.permissions addObject:@"w_messages"];
-diff --git a/cocoapods-patch-20220729-20280-9o458o/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m
+@@ -157,7 +157,7 @@
+     [[NSUserDefaults standardUserDefaults] setObject:self.subPermissions forKey:KSUBPERMISSONS];
+     [[NSUserDefaults standardUserDefaults] synchronize];
+     
+-//    NSLog(@"%@", self.subPermissions);
++
+ }
+ 
+ @end
+diff --git a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.h b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.h
+index 00a28b7..e2c0b9c 100644
+--- a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.h
++++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.h
+@@ -12,33 +12,33 @@
+ 
+ @interface LinkedInAuthorizationViewController : UIViewController
+ 
+-/*!
++/**
+  * @brief Initialize AuthorizationVC with service Manager
+  * @param manager the service manager that can handle url connections
+  */
+ - (instancetype)initWithServiceManager:(LinkedInServiceManager *)manager;
+ 
+-/*!
++/**
+  * @brief Cancel Button's text while getting AuthorizationCode via webview (default is Close)
+  */
+ @property (nonatomic, copy) NSString *cancelButtonText;
+ 
+-/*!
++/**
+  * @brief Returns successful user info which are requested via grantedAccess
+  */
+ @property (nonatomic, copy) void (^authorizationCodeSuccessCallback)(NSString *code);
+ 
+-/*!
++/**
+  * @brief Returns the cancel statement of connection because of user canceled the auth
+  */
+ @property (nonatomic, copy) void (^authorizationCodeCancelCallback)(void);
+ 
+-/*!
++/**
+  * @brief Returns the failure statement of connection
+  */
+ @property (nonatomic, copy) void (^authorizationCodeFailureCallback)(NSError *err);
+ 
+-/*!
++/**
+  * @brief Yes if automaticly shows the activity indicator on the webview while getting authorization code
+  */
+ @property (nonatomic, assign) BOOL showActivityIndicator;
+diff --git a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m
 index 73fbc14..fa68ee2 100644
---- a/cocoapods-patch-20220729-20280-9o458o/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m
+--- a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInAuthorizationViewController.m
 @@ -67,7 +67,7 @@ NSString * const linkedinIosHelperDomain = @"com.linkedinioshelper";
  - (void)viewDidAppear:(BOOL)animated {
@@ -60,10 +523,69 @@ index 73fbc14..fa68ee2 100644
                  if (self.authorizationCodeSuccessCallback) {
                      self.authorizationCodeSuccessCallback(authorizationCode);
                  }
-diff --git a/cocoapods-patch-20220729-20280-9o458o/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m
-index 5e060b5..4c8c2d2 100644
---- a/cocoapods-patch-20220729-20280-9o458o/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m
+diff --git a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.h b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.h
+index d39474f..5b1b37f 100644
+--- a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.h
++++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.h
+@@ -15,7 +15,7 @@ typedef NS_ENUM (NSInteger, MethodType) {
+ 
+ @interface LinkedInConnectionHandler : NSObject
+ 
+-/*!
++/**
+  * @brief Initializes the receiver
+  *
+  * @param url is the `url` for the resource which will be loaded. The url’s scheme must be `http` or `https`.
+@@ -32,13 +32,13 @@ typedef NS_ENUM (NSInteger, MethodType) {
+                      cancel:(void (^)(void))cancel
+                     failure:(void (^)(NSError *))failure;
+ 
+-/*!
++/**
+  * @brief Start the asynchronous HTTP request.
+  * This can be executed only once, that is if the receiver has already been started, it will have no effect.
+  */
+ - (void) start;
+ 
+-/*!
++/**
+  * @brief Cancels a running operation at the next cancelation point and returns
+  * immediately.
+  *
+@@ -46,7 +46,7 @@ typedef NS_ENUM (NSInteger, MethodType) {
+  */
+ - (void) cancel;
+ 
+-/*!
++/**
+  * @brief HTTP Request method type which can be "POST"  or "GET" here
+  */
+ @property (nonatomic, assign) MethodType type;
+diff --git a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m
+index 5e060b5..fc36f28 100644
+--- a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInConnectionHandler.m
+@@ -11,17 +11,17 @@
+ 
+ @interface LinkedInConnectionHandler () <NSURLConnectionDataDelegate, NSURLConnectionDelegate>
+ 
+-/*!
++/**
+  * @brief Returns successful user info which are requested via grantedAccess
+  */
+ @property (nonatomic, copy) void (^successCallback)(NSDictionary *response);
+ 
+-/*!
++/**
+  * @brief Returns the cancel statement of connection because of user canceled the auth
+  */
+ @property (nonatomic, copy) void (^cancelCallback)(void);
+ 
+-/*!
++/**
+  * @brief Returns the failure statement of connection
+  */
+ @property (nonatomic, copy) void (^failureCallback)(NSError *err);
 @@ -108,14 +108,15 @@
              break;
          case POST: {
@@ -82,92 +604,182 @@ index 5e060b5..4c8c2d2 100644
              [self.connection start];
          }
          default:
-@@ -216,14 +217,12 @@
+@@ -181,9 +182,9 @@
+         NSError *err = [[NSError alloc] initWithDomain:@"com.linkedinioshelper"
+                                                 code:-4
+                                             userInfo:@{
+-                                                       NSLocalizedDescriptionKey: desc,
+-                                                       NSLocalizedFailureReasonErrorKey:[self.responseData description]
+-                                                       }];
++                           NSLocalizedDescriptionKey: desc,
++                   NSLocalizedFailureReasonErrorKey:[self.responseData description]
++                                                                                    }];
+         if (self.failureCallback) {
+             self.failureCallback(err);
+             err = nil;
+@@ -216,15 +217,11 @@
      return nil;
  }
  
 -- (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
 -{
+-//    NSLog(@"Authenticated");
 +- (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
- //    NSLog(@"Authenticated");
      return [protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust];
  }
  
 -- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 -{
+-//    NSLog(@"Challenged");
 +- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
- //    NSLog(@"Challenged");
      if ([challenge.protectionSpace.authenticationMethod
           isEqualToString:NSURLAuthenticationMethodServerTrust])
-diff --git a/cocoapods-patch-20220729-20280-9o458o/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.h b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.h
-index bb93d6e..2d51528 100644
---- a/cocoapods-patch-20220729-20280-9o458o/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.h
+     {
+@@ -238,10 +235,6 @@
+ 
+ #pragma mark - Memory Management -
+ 
+-- (void) dealloc {
+-    
+-}
+-
+ - (void)killEmAll {
+     
+     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+diff --git a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.h b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.h
+index bb93d6e..ba2ce49 100644
+--- a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.h
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.h
-@@ -60,6 +60,9 @@
+@@ -11,12 +11,12 @@
+ 
+ @interface LinkedInHelper : NSObject
+ 
+-/*!
++/**
+  * @brief Initialize shared Instance
+  */
+ + (LinkedInHelper *)sharedInstance;
+ 
+-/*!
++/**
+  * @brief Connects the user to Linkedin and fetchs user informations
+  * @param sender is the UIViewcontroller which the web authentication will be fired from
+  * @param clientId the clientId of application that you created on linkedin developer portal
+@@ -39,7 +39,7 @@
+                           successUserInfo:( void (^) (NSDictionary *userInfo) )successUserInfo
+                         failUserInfoBlock:( void (^) (NSError *error))failure;
+ 
+-/*!
++/**
+  * @brief  Fetchs user information if access token is still valid. In this case user does not have to input their username and password informations to login again
+  * @param successUserInfo Returns successful user info which are requested via grantedAccess
+  * @param failure Returns the failure statement of connection
+@@ -47,7 +47,7 @@
+ - (void)autoFetchUserInfoWithSuccess:( void (^) (NSDictionary *userInfo) )successUserInfo
+                         failUserInfo:( void (^) (NSError *error))failure;
+ 
+-/*!
++/**
+  * @brief Refreshing the Access Token (Because accessToken comes from Linkedin has expiration date and for now 60 days)
+  * @param success Returns accessToken
+  * @param failure Returns the failure statement of connection
+@@ -60,22 +60,25 @@
                                 success:(void (^) (NSString *accessToken))success
                                failure:(void (^) (NSError *err) )failure;
  
+-/*!
 +// MY REQUESTS
 +- ( void )requestEmailWithToken:(void(^)(NSDictionary *response, NSError *error))completion;
 +
- /*!
++/**
   * @brief Cancel Button's text while getting AuthorizationCode via webview
   */
-@@ -86,29 +89,29 @@
+ @property (nonatomic, copy) NSString *cancelButtonText;
+ 
+-/*!
++/**
+  * @brief returns YES if accessToken is valid (Because accessToken comes from Linkedin has expiration date)
+  */
+ - (BOOL)isValidToken;
+ 
+-/*!
++/**
+  * @brief Yes if automaticly shows the activity indicator on the webview while getting authorization code
+  */
+ @property (nonatomic, assign) BOOL showActivityIndicator;
+ 
+-/*!
++/**
+  * @brief This library uses some default subpermissions (Look at LinkedInAppSettings.m Line:84)
+  * And If you do not want to use this values so u can make your own with this property by using fields in LinkedInIOSFields.h or by visiting https://developer.linkedin.com/docs/fields
+  * If THIS VALUE IS NIL SO LIBRARY FETCH'S ALMOST ALL INFORMATIONS OF MEMBER!! (BY PREPARING THIS VALUE IN LinkedInAppSettings.m Line:84)
+@@ -85,39 +88,44 @@
+ 
  // ================== Frequently Using Fields  =================
  
- /*!
+-/*!
 - * @brief User's job title
++/**
 + * @brief User's first name title
   */
 -@property (nonatomic, copy, readonly) NSString *title;
 +@property (nonatomic, copy, readonly) NSString *firstName;
  
- /*!
+-/*!
 - * @brief User's company Name
++/**
 + * @brief User's last name
   */
 -@property (nonatomic, copy, readonly) NSString *companyName;
 +@property (nonatomic, copy, readonly) NSString *lastName;
  
- /*!
+-/*!
 - * @brief User's email Address
++/**
 + * @brief User's Photo Url
   */
 -@property (nonatomic, copy, readonly) NSString *emailAddress;
 +@property (nonatomic, copy, readonly) NSString *profilePicture;
  
- /*!
+-/*!
 - * @brief User's Photo Url
++/**
 + * @brief User's unique id name
   */
 -@property (nonatomic, copy, readonly) NSString *photo;
 +@property (nonatomic, copy, readonly) NSString *ID;
  
- /*!
+-/*!
 - * @brief User's Industry name
++/**
 + * @brief User's url
   */
 -@property (nonatomic, copy, readonly) NSString *industry;
 +@property (nonatomic, copy, readonly) NSString *url;
  
- /*!
+-/*!
++/**
   * @brief Access Token comes from Linkedin
-@@ -120,4 +123,9 @@
+  */
+ - (NSString *)accessToken;
+ 
+-/*!
++/**
+  * @brief Removes All token and authorization data from keychain
   */
  - (void)logout;
  
-+/*!
++/**
 + * @brief Makes a post to linkedin
 + */
 +- ( void )postInLinkedin:(NSString*) visibility :(NSString*) textToPost :(void(^)(NSDictionary *response, NSError *error))completion;
 +
  @end
-diff --git a/cocoapods-patch-20220729-20280-9o458o/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m
-index 2690156..16d5613 100644
---- a/cocoapods-patch-20220729-20280-9o458o/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m
+diff --git a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m
+index 2690156..8d776cb 100644
+--- a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInHelper.m
-@@ -16,15 +16,13 @@
+@@ -16,29 +16,27 @@
  
  @property (nonatomic, strong) LinkedInServiceManager *service;
  
@@ -187,8 +799,46 @@ index 2690156..16d5613 100644
  @property (nonatomic, copy, readwrite) NSString *accessToken;
 +@property (nonatomic, copy, readwrite) NSString *urn;
  
- /*!
+-/*!
++/**
   * @brief clientId of application that you created on linkedin developer portal
+  * @warning clientId can not be nil!
+  */
+ @property (nonatomic, copy) NSString *clientId;
+ 
+-/*!
++/**
+  * @brief Client Secret of application that you created on linkedin developer portal
+  * @warning clientSecret can not be nil!
+  */
+ @property (nonatomic, copy) NSString *clientSecret;
+ 
+-/*!
++/**
+  * @brief applicationWithRedirectURL of application that you created on linkedin developer portal
+  * @warning applicationWithRedirectURL can not be nil!
+  */
+@@ -50,17 +48,17 @@
+  */
+ @property (nonatomic, strong) NSArray *permissions;
+ 
+-/*!
++/**
+  * @brief Returns successful user info which are requested via grantedAccess
+  */
+ @property (nonatomic, copy) void (^userInfoSuccessBlock)(NSDictionary *userInfo);
+ 
+-/*!
++/**
+  * @brief Returns the failure statement of connection
+  */
+ @property (nonatomic, copy) void (^dismissFailBlock)(NSError *error);
+ 
+-/*!
++/**
+  * @brief sender is the UIViewcontroller which the web authentication will be fired from
+  * @warning Can not be nil!
+  */
 @@ -135,25 +133,25 @@ NSString * StringOrEmpty(NSString *string) {
          
          [self.service getAccessToken:code
@@ -429,11 +1079,75 @@ index 2690156..16d5613 100644
  }
  
  @end
-diff --git a/cocoapods-patch-20220729-20280-9o458o/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m
-index 3717848..86af984 100644
---- a/cocoapods-patch-20220729-20280-9o458o/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m
+diff --git a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.h b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.h
+index 983e313..6094032 100644
+--- a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.h
++++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.h
+@@ -12,7 +12,7 @@
+ 
+ @interface LinkedInServiceManager : NSObject
+ 
+-/*!
++/**
+  * @brief Class method that creates instance of this class 
+  * @param viewController the UIViewcontroller which the web authentication will be fired from
+  * @param cancelButtonText Cancel Button's text while getting AuthorizationCode via webview
+@@ -21,22 +21,22 @@
+ + (LinkedInServiceManager *)serviceForPresentingViewController:viewController
+                                               cancelButtonText:(NSString *)cancelButtonText
+                                                    appSettings:(LinkedInAppSettings *)settings;
+-/*!
++/**
+  * @brief returns YES if accessToken is valid (Because accessToken comes from Linkedin has expiration date)
+  */
+ - (BOOL)validToken;
+ 
+-/*!
++/**
+  * @brief Linkedin access token for rest api
+  */
+ - (NSString *)accessToken;
+ 
+-/*!
++/**
+  * @brief authorizationCode the authorizationCode to authorize and then get access token
+  */
+ - (NSString *)authorizationCode;
+ 
+-/*!
++/**
+  * @brief Fetching access token for given authorization Code 
+  * @param authorizationCode the authorizationCode to be able to authorize
+  * @param success returns dictionary which has access token and expired date informations init
+@@ -46,7 +46,7 @@
+                success:(void (^)(NSDictionary *))success
+                failure:(void (^)(NSError *))failure;
+ 
+-/*!
++/**
+  * @brief Presenting UIWebview to fetch authorizationCode by users input (username and password)
+  * @param success returns authorizationCode
+  * @param cancel returns cancel statement if user clicked the cancel button of UIWebview
+@@ -56,12 +56,12 @@
+                       cancel:(void (^)(void))cancel
+                      failure:(void (^)(NSError *))failure;
+ 
+-/*!
++/**
+  * @brief settings the linkedin library settings which has client id, clients secret and etc. informations
+  */
+ @property (nonatomic, strong) LinkedInAppSettings *settings;
+ 
+-/*!
++/**
+  * @brief Yes if automaticly shows the activity indicator on the webview while getting authorization code
+  */
+ @property (nonatomic, assign) BOOL showActivityIndicator;
+diff --git a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m
+index 3717848..5056d6d 100644
+--- a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedInServiceManager.m
-@@ -107,60 +107,46 @@
+@@ -107,66 +107,46 @@
  - (void)getAccessToken:(NSString *)authorizationCode
                 success:(void (^)(NSDictionary *))success
                 failure:(void (^)(NSError *))failure {
@@ -531,16 +1245,16 @@ index 3717848..86af984 100644
 +        [dataTask resume];
  }
  
- #pragma mark - Memory Management -
-@@ -169,4 +155,5 @@
- {
-     
- }
-+
+-#pragma mark - Memory Management -
+-
+-- (void)dealloc
+-{
+-    
+-}
  @end
-diff --git a/cocoapods-patch-20220729-20280-9o458o/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.h b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.h
+diff --git a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.h b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.h
 index fa06ece..bb0e6ea 100644
---- a/cocoapods-patch-20220729-20280-9o458o/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.h
+--- a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.h
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.h
 @@ -13,5 +13,6 @@
  + (void)saveWithService:(NSString *)service data:(id)data;
@@ -549,9 +1263,9 @@ index fa06ece..bb0e6ea 100644
 ++ (void)deleteAllItems;
  
  @end
-diff --git a/cocoapods-patch-20220729-20280-9o458o/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.m
+diff --git a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.m b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.m
 index d451fb0..2ed06d2 100644
---- a/cocoapods-patch-20220729-20280-9o458o/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.m
+--- a/cocoapods-patch-20220805-95058-11enaf4/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.m
 +++ b/Pods/LinkedinIOSHelper/LinkedInIOSHelper/LinkedInHelper/LinkedinSimpleKeychain.m
 @@ -50,4 +50,20 @@
      SecItemDelete((__bridge CFDictionaryRef)keychainQuery);
