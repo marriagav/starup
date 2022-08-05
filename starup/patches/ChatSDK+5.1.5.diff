@@ -1,0 +1,260 @@
+diff --git a/cocoapods-patch-20220805-95199-ctm1gr/ChatSDK/ChatSDKCore/Classes/Hooks/BBaseHookHandler.m b/Pods/ChatSDK/ChatSDKCore/Classes/Hooks/BBaseHookHandler.m
+index f8fac4b..fa8ce50 100755
+--- a/cocoapods-patch-20220805-95199-ctm1gr/ChatSDK/ChatSDKCore/Classes/Hooks/BBaseHookHandler.m
++++ b/Pods/ChatSDK/ChatSDKCore/Classes/Hooks/BBaseHookHandler.m
+@@ -53,7 +53,6 @@
+     }];
+     if(existingHooks.count) {
+         for(BHook * hook in existingHooks) {
+-//            NSLog(@"Weight: %i", hook.weight);
+             [hook execute:data];
+         }
+     }
+diff --git a/cocoapods-patch-20220805-95199-ctm1gr/ChatSDK/ChatSDKExtras/AddContactWithQRCode/AddContactWithQRCodeModule.swift b/cocoapods-patch-20220805-95199-ctm1gr/ChatSDK/ChatSDKExtras/AddContactWithQRCode/AddContactWithQRCodeModule.swift
+deleted file mode 100644
+index 85882cd..0000000
+--- a/cocoapods-patch-20220805-95199-ctm1gr/ChatSDK/ChatSDKExtras/AddContactWithQRCode/AddContactWithQRCodeModule.swift
++++ /dev/null
+@@ -1,44 +0,0 @@
+-//
+-//  QRCodeScanner.swift
+-//  AFNetworking
+-//
+-//  Created by ben3 on 16/07/2020.
+-//
+-
+-import Foundation
+-
+-@objc public class AddContactWithQRCodeModule : NSObject, PModule {
+-    static let instance = AddContactWithQRCodeModule()
+-    @objc public static func shared() -> AddContactWithQRCodeModule {
+-        return instance
+-    }
+-    
+-    @objc public var watermark: UIImage?
+-    @objc public var showWatermark = false
+-
+-    @objc public func activate() {
+-        
+-        BChatSDK.ui().addSearch(QRScannerViewController.init(usersToExclude: []), withType: "QRCode", withName: Bundle.t(bQRCode))
+-
+-        let qrCode = ProfileItem(name: Bundle.t(bQRCode), icon: "icn_36_qr", showFor: nil, executor: { [weak self] (vc: UIViewController, user: PUser) -> Void in
+-            let qrCodeViewController = QRCodeViewController.init()
+-            
+-            if self?.showWatermark ?? false {
+-                qrCodeViewController.style = self?.watermark ?? user.imageAsImage() ?? BChatSDK.config().logoImage
+-            }
+-            
+-            qrCodeViewController.setCode(code: user.entityID())
+-            vc.present(UINavigationController(rootViewController: qrCodeViewController), animated: true, completion: nil)
+-        })
+-
+-        let contactSection = ProfileSection(name: Bundle.t(bContact), showFor: {(user: PUser?) -> Bool in
+-            return true
+-        })
+-
+-        contactSection.addItem(item: qrCode)
+-
+-        ChatSDKUI.shared().addUserProfileSection(section: contactSection)
+-    }
+-
+-}
+-
+diff --git a/cocoapods-patch-20220805-95199-ctm1gr/ChatSDK/ChatSDKExtras/AddContactWithQRCode/QRScannerViewController.swift b/cocoapods-patch-20220805-95199-ctm1gr/ChatSDK/ChatSDKExtras/AddContactWithQRCode/QRScannerViewController.swift
+deleted file mode 100644
+index 8460cfd..0000000
+--- a/cocoapods-patch-20220805-95199-ctm1gr/ChatSDK/ChatSDKExtras/AddContactWithQRCode/QRScannerViewController.swift
++++ /dev/null
+@@ -1,139 +0,0 @@
+-import AVFoundation
+-import UIKit
+-
+-class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, PSearchViewController {
+-
+-    required init!(usersToExclude excludedUsers: [Any]!, selectedAction action: (([Any]?) -> Void)!) {
+-        super.init(nibName: nil, bundle: nil)
+-    }
+-    
+-    required init!(usersToExclude excludedUsers: [Any]!) {
+-        super.init(nibName: nil, bundle: nil)
+-    }
+-    
+-    required init?(coder: NSCoder) {
+-        fatalError("init(coder:) has not been implemented")
+-    }
+-    
+-    func setExcludedUsers(_ excludedUsers: [Any]!) {
+-        
+-    }
+-    
+-    func setSelectedAction(_ action: (([Any]?) -> Void)!) {
+-        
+-    }
+-    
+-    var captureSession: AVCaptureSession!
+-    var previewLayer: AVCaptureVideoPreviewLayer!
+-
+-    override func viewDidLoad() {
+-        super.viewDidLoad()
+-        
+-        title = Bundle.t(bQRCode)
+-        
+-        let version = ProcessInfo.processInfo.operatingSystemVersion;
+-        if (version.majorVersion < 13) {
+-            self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: Bundle.t(bBack), style: .done, target: self, action: #selector(back));
+-        }
+-
+-        view.backgroundColor = UIColor.black
+-        captureSession = AVCaptureSession()
+-
+-        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
+-        let videoInput: AVCaptureDeviceInput
+-
+-        do {
+-            videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
+-        } catch {
+-            return
+-        }
+-
+-        if (captureSession.canAddInput(videoInput)) {
+-            captureSession.addInput(videoInput)
+-        } else {
+-            failed()
+-            return
+-        }
+-
+-        let metadataOutput = AVCaptureMetadataOutput()
+-
+-        if (captureSession.canAddOutput(metadataOutput)) {
+-            captureSession.addOutput(metadataOutput)
+-
+-            metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+-            metadataOutput.metadataObjectTypes = [.qr]
+-        } else {
+-            failed()
+-            return
+-        }
+-
+-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+-        previewLayer.frame = view.layer.bounds
+-        previewLayer.videoGravity = .resizeAspectFill
+-        view.layer.addSublayer(previewLayer)
+-
+-        captureSession.startRunning()
+-    }
+-    
+-    @objc public func back() {
+-        dismiss(animated: true, completion: nil)
+-    }
+-
+-    func failed() {
+-        let ac = UIAlertController(title: "Scanning not supported", message: "Your device does not support scanning a code from an item. Please use a device with a camera.", preferredStyle: .alert)
+-        ac.addAction(UIAlertAction(title: "OK", style: .default))
+-        present(ac, animated: true)
+-        captureSession = nil
+-    }
+-
+-    override func viewWillAppear(_ animated: Bool) {
+-        super.viewWillAppear(animated)
+-
+-        if (captureSession?.isRunning == false) {
+-            captureSession.startRunning()
+-        }
+-    }
+-
+-    override func viewWillDisappear(_ animated: Bool) {
+-        super.viewWillDisappear(animated)
+-
+-        if (captureSession?.isRunning == true) {
+-            captureSession.stopRunning()
+-        }
+-    }
+-
+-    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+-        captureSession.stopRunning()
+-
+-        if let metadataObject = metadataObjects.first {
+-            guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
+-            guard let stringValue = readableObject.stringValue else { return }
+-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+-            found(code: stringValue)
+-        }
+-
+-        dismiss(animated: true)
+-    }
+-
+-    func found(code: String) {
+-        // Add the contact
+-        let user = BChatSDK.core().user(forEntityID: code)
+-        _ = BChatSDK.contact().addContact(user, with: bUserConnectionTypeContact)?.thenOnMain({ success in
+-            self.view.makeToast(Bundle.t(bSuccess))
+-            self.dismiss(animated: true, completion: nil)
+-            return nil
+-        }, { error in
+-            self.view.makeToast(error?.localizedDescription)
+-            self.dismiss(animated: true, completion: nil)
+-            return nil
+-        })
+-    }
+-
+-    override var prefersStatusBarHidden: Bool {
+-        return true
+-    }
+-
+-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+-        return .portrait
+-    }
+-}
+diff --git a/cocoapods-patch-20220805-95199-ctm1gr/ChatSDK/ChatSDKExtras/Base64ImageMessage/Base64ImageMessageHandler.swift b/cocoapods-patch-20220805-95199-ctm1gr/ChatSDK/ChatSDKExtras/Base64ImageMessage/Base64ImageMessageHandler.swift
+deleted file mode 100644
+index 5cb8cab..0000000
+--- a/cocoapods-patch-20220805-95199-ctm1gr/ChatSDK/ChatSDKExtras/Base64ImageMessage/Base64ImageMessageHandler.swift
++++ /dev/null
+@@ -1,47 +0,0 @@
+-//
+-//  Base64ImageMessageHandler.swift
+-//  ChatSDK
+-//
+-//  Created by ben3 on 16/09/2021.
+-//
+-
+-import Foundation
+-import ChatSDK
+-import RXPromise
+-
+-enum Base64ImageMessageError: Error {
+-    case compressionFailed
+-}
+-
+-@objc public class Base64ImageMessageHandler: NSObject, PImageMessageHandler {
+-    
+-    open var width: CGFloat = 800.0
+-    open var jpegQuality: CGFloat = 0.2
+-    
+-    public func sendMessage(with image: UIImage!, withThreadEntityID threadID: String!) -> RXPromise! {
+-        let promise = RXPromise()
+-        
+-        // Max width = 400 px
+-        let height = image.size.height * width / image.size.width
+-        
+-        if let resized = image.resizedImage(CGSize(width: width, height: height), interpolationQuality: CGInterpolationQuality.high) {
+-            let data = resized.jpegData(compressionQuality: jpegQuality)
+-            let base64 = data?.base64EncodedString(options: .lineLength64Characters)
+-            
+-//            BChatSDK.db().beginUndoGroup()
+-            
+-            let message = BMessageBuilder()
+-                .textMessage(Bundle.t(bImageMessage))
+-                .meta([bMessageImageData: base64])
+-                .type(bMessageTypeBase64Image)
+-                .thread(threadID)
+-                .build()
+-            
+-            return BChatSDK.thread().send(message)
+-        } else {
+-            return RXPromise.reject(withReason: Base64ImageMessageError.compressionFailed)
+-        }
+-        
+-    }
+-    
+-}
