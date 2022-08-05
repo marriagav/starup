@@ -25,8 +25,7 @@
     if (linkedIn.isValidToken) {
         // So Fetch member info by elderyly access token
         [linkedIn autoFetchUserInfoWithSuccess:^(NSDictionary *userInfo) {
-            // Whole User Info
-            NSLog(@"user Info : %@", userInfo);
+            nil;
         } failUserInfo:^(NSError *error) {
             NSLog(@"error : %@", error.userInfo.description);
         }];
@@ -60,7 +59,7 @@
         permissions:permissions
         state:@"authState" // Your client state
         successUserInfo:^(NSDictionary *userInfo) {
-            NSLog(@"user Info : %@", userInfo);
+            nil;
         }
         failUserInfoBlock:^(NSError *error) {
             NSLog(@"error : %@", error.userInfo.description);

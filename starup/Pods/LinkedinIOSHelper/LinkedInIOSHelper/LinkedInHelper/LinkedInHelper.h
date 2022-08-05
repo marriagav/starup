@@ -11,12 +11,12 @@
 
 @interface LinkedInHelper : NSObject
 
-/*!
+/**
  * @brief Initialize shared Instance
  */
 + (LinkedInHelper *)sharedInstance;
 
-/*!
+/**
  * @brief Connects the user to Linkedin and fetchs user informations
  * @param sender is the UIViewcontroller which the web authentication will be fired from
  * @param clientId the clientId of application that you created on linkedin developer portal
@@ -39,7 +39,7 @@
                           successUserInfo:( void (^) (NSDictionary *userInfo) )successUserInfo
                         failUserInfoBlock:( void (^) (NSError *error))failure;
 
-/*!
+/**
  * @brief  Fetchs user information if access token is still valid. In this case user does not have to input their username and password informations to login again
  * @param successUserInfo Returns successful user info which are requested via grantedAccess
  * @param failure Returns the failure statement of connection
@@ -47,7 +47,7 @@
 - (void)autoFetchUserInfoWithSuccess:( void (^) (NSDictionary *userInfo) )successUserInfo
                         failUserInfo:( void (^) (NSError *error))failure;
 
-/*!
+/**
  * @brief Refreshing the Access Token (Because accessToken comes from Linkedin has expiration date and for now 60 days)
  * @param success Returns accessToken
  * @param failure Returns the failure statement of connection
@@ -63,22 +63,22 @@
 // MY REQUESTS
 - ( void )requestEmailWithToken:(void(^)(NSDictionary *response, NSError *error))completion;
 
-/*!
+/**
  * @brief Cancel Button's text while getting AuthorizationCode via webview
  */
 @property (nonatomic, copy) NSString *cancelButtonText;
 
-/*!
+/**
  * @brief returns YES if accessToken is valid (Because accessToken comes from Linkedin has expiration date)
  */
 - (BOOL)isValidToken;
 
-/*!
+/**
  * @brief Yes if automaticly shows the activity indicator on the webview while getting authorization code
  */
 @property (nonatomic, assign) BOOL showActivityIndicator;
 
-/*!
+/**
  * @brief This library uses some default subpermissions (Look at LinkedInAppSettings.m Line:84)
  * And If you do not want to use this values so u can make your own with this property by using fields in LinkedInIOSFields.h or by visiting https://developer.linkedin.com/docs/fields
  * If THIS VALUE IS NIL SO LIBRARY FETCH'S ALMOST ALL INFORMATIONS OF MEMBER!! (BY PREPARING THIS VALUE IN LinkedInAppSettings.m Line:84)
@@ -88,42 +88,42 @@
 
 // ================== Frequently Using Fields  =================
 
-/*!
+/**
  * @brief User's first name title
  */
 @property (nonatomic, copy, readonly) NSString *firstName;
 
-/*!
+/**
  * @brief User's last name
  */
 @property (nonatomic, copy, readonly) NSString *lastName;
 
-/*!
+/**
  * @brief User's Photo Url
  */
 @property (nonatomic, copy, readonly) NSString *profilePicture;
 
-/*!
+/**
  * @brief User's unique id name
  */
 @property (nonatomic, copy, readonly) NSString *ID;
 
-/*!
+/**
  * @brief User's url
  */
 @property (nonatomic, copy, readonly) NSString *url;
 
-/*!
+/**
  * @brief Access Token comes from Linkedin
  */
 - (NSString *)accessToken;
 
-/*!
+/**
  * @brief Removes All token and authorization data from keychain
  */
 - (void)logout;
 
-/*!
+/**
  * @brief Makes a post to linkedin
  */
 - ( void )postInLinkedin:(NSString*) visibility :(NSString*) textToPost :(void(^)(NSDictionary *response, NSError *error))completion;

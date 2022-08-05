@@ -73,7 +73,6 @@
 
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error) {
         if (error != nil) {
-            NSLog(@"User log in failed: %@", error.localizedDescription);
             //    Initialize alert controller if there is an error
             self.error = error.localizedDescription;
             [self initializeAlertController];
@@ -85,7 +84,6 @@
             BAccountDetails *accountDetails = [BAccountDetails username:user[@"email"] password:password];
             [BChatSDK.auth authenticate:accountDetails].thenOnMain(
                 ^id(id result) {
-                    NSLog(@"User logged in successfully");
                     // display view controller that needs to shown after successful login
                     [self afterSuccessfullLogin];
                     return result;
@@ -256,7 +254,6 @@
             self.loginButton.enabled = true;
             self.registerButton.enabled = true;
             self.linkedinButton.enabled = true;
-            NSLog(@"error : %@", error.userInfo.description);
         }];
 }
 

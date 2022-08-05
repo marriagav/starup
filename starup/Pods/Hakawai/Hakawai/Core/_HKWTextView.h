@@ -25,7 +25,7 @@
 
 #pragma mark - Support machinery
 
-/*!
+/**
  A dictionary of custom attributes to be applied to newly typed text. Custom attributes are not by default applied to
  newly typed text; they must be explicitly added to this dictionary.
  */
@@ -36,13 +36,13 @@
 // prevent several types of manipulations to the text view from spuriously triggering additional behavior.
 @property (nonatomic, readwrite) BOOL firstResponderIsCycling;
 
-/*!
+/**
  This property prevents the 'selection changed' \c UITextViewDelegate method from being forwarded to any registered
  plug-ins if the text view is currently performing a text transformation.
  */
 @property (nonatomic) BOOL transformInProgress;
 
-/*!
+/**
  If running on iOS 7 or greater, this is the line fragment padding of the text container. Here for iOS 6 compatibility.
  */
 @property (nonatomic, readonly) CGFloat lineFragmentPadding;
@@ -53,7 +53,7 @@
 
 #pragma mark - Single line viewport mode
 
-/*!
+/**
  Whether or not the text view is in 'single line' viewport mode. This mode locks the viewport to the top or bottom of
  the text view at the line where the insertion point was when entering this mode, and prohibits scrolling.
  */

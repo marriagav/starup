@@ -12,7 +12,7 @@
 
 #import <Foundation/Foundation.h>
 
-/*!
+/**
  A protocol describing the expected form of 'entity' objects provided by the mention plug-in's data source. Entity
  objects must provide a human-readable name and an ID value. An optional dictionary can contain custom info used to
  format the mentions cells and send up to the server.
@@ -25,14 +25,14 @@
 
 @optional
 
-/*!
+/**
  Return a value for a custom key. This method assumes that the consumer has at least an informal agreement as to what
  custom keys are supported and what their potential values can be. It is intended to allow concrete instances of
  mentions entity to provide safe access to custom keys stored within their metadata dictionary.
  */
 - (id)valueForCustomKey:(NSString *)customKey;
 
-/*!
+/**
  Return a unique ID describing the mentions entity. This is used for deduping records. Depending on the data set,
  the entityId might not be unique enough if IDs were to overlap between different data sets.
 

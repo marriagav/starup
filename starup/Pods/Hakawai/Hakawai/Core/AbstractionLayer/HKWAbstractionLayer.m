@@ -16,7 +16,7 @@
 
 #import "HKWAbstractionLayer.h"
 
-/*!
+/**
  An enum describing the states the state machine can be in.
  
  \c HKWAbstractionLayerStateQuiescent means the state machine is quiescent.
@@ -45,7 +45,7 @@ typedef NS_ENUM(NSInteger, HKWAbstractionLayerState) {
     HKWAbstractionLayerStateDidChangePendingUpdate
 };
 
-/*!
+/**
  An enum describing the state of text marking for this particular editing run.
 
  \c HKWAbstractionLayerMarkStateNone means that text has never been marked during this run.
@@ -61,7 +61,7 @@ typedef NS_ENUM(NSInteger, HKWAbstractionLayerMarkState) {
     HKWAbstractionLayerMarkStatePreviouslyMarked
 };
 
-/*!
+/**
  An enum describing potential changes that might be made to the text view's text.
  */
 typedef NS_ENUM(NSInteger, HKWAbstractionLayerChangeType) {
@@ -71,7 +71,7 @@ typedef NS_ENUM(NSInteger, HKWAbstractionLayerChangeType) {
     HKWAbstractionLayerChangeTypeNone
 };
 
-/*!
+/**
  An enum describing the text input mode.
  */
 typedef NS_ENUM(NSInteger, HKWAbstractionLayerInputMode) {
@@ -95,7 +95,7 @@ typedef NS_ENUM(NSInteger, HKWAbstractionLayerInputMode) {
 @property (nonatomic) NSRange previousSelectedRange;
 @property (nonatomic) NSInteger previousTextLength;
 
-/*!
+/**
  A range used to track the text view's selection range when IME entry began; this is necessary to properly report where
  text was replaced when the user ends up selecting a character or canceling the IME process.
  */
@@ -103,7 +103,7 @@ typedef NS_ENUM(NSInteger, HKWAbstractionLayerInputMode) {
 @property (nonatomic) NSInteger textLengthWhenMarkingStarted;
 @property (nonatomic) BOOL lastMarkedCharactersJustDeleted;
 
-/*!
+/**
  A range that describes the range of text the user last selected. It is used to determine what text was changed if the
  user selects some text, and then chooses a replacement string presented by an IME keyboard.
  
@@ -113,13 +113,13 @@ typedef NS_ENUM(NSInteger, HKWAbstractionLayerInputMode) {
  */
 @property (nonatomic) NSRange selectedRangeWhenTextWasLastSelected;
 
-/*!
+/**
  The length of the text view's text at the time that the \c selectedRangeWhenTextWasLastSelected property was most
  recently updated with a valid value.
  */
 @property (nonatomic) NSInteger textLengthWhenTextWasLastSelected;
 
-/*!
+/**
  If the state machine is in 'pending update' mode (trying to distinguish between the user drawing characters on a
  handwriting keyboard, and the user directly selecting options from an IME keyboard's menu), this range describes the
  number and location of characters that were inserted by the user selection.
@@ -762,7 +762,7 @@ typedef NS_ENUM(NSInteger, HKWAbstractionLayerInputMode) {
     return HKWAbstractionLayerInputModeAlphabetical;
 }
 
-/*!
+/**
  Return whether or not a prospective text insertion (e.g. shouldChangeText...) corresponds to the insertion of a single
  whitespace character (newlines are excluded).
  */
@@ -772,7 +772,7 @@ typedef NS_ENUM(NSInteger, HKWAbstractionLayerInputMode) {
             && [[NSCharacterSet whitespaceCharacterSet] characterIsMember:[text characterAtIndex:0]]);
 }
 
-/*!
+/**
  Return an \c NSRange struct representing the marked text range for the parent text view if both exist, or the standard
  error range otherwise.
  */

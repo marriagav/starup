@@ -92,17 +92,4 @@
     [BChatSDK application:application didReceiveRemoteNotification:userInfo];
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application
-{
-}
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-}
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-}
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-}
-
 @end

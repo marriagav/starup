@@ -21,7 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *typeOfUser;
 @property (nonatomic, strong) NSNumber *ownership;
 
-+ (void)postCollaborator:(NSString *_Nullable)typeOfUser withUser:(PFUser *_Nullable)user withStarup:(Starup *_Nullable)starup withOwnership:(NSNumber *_Nullable)ownership withCompletion:(PFBooleanResultBlock _Nullable)completion;
++ (void)postCollaborator:(NSString *_Nullable)typeOfUser
+                withUser:(PFUser *_Nullable)user
+              withStarup:(Starup *_Nullable)starup
+           withOwnership:(NSNumber *_Nullable)ownership
+          withCompletion:(PFBooleanResultBlock _Nullable)completion;
 
 @end
 

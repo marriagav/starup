@@ -18,7 +18,7 @@
 
 #import "_HKWMentionsPrivateConstants.h"
 
-/*!
+/**
  States for the master state machine.
  */
 typedef NS_ENUM(NSInteger, HKWMentionsCreationState) {
@@ -28,7 +28,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsCreationState) {
     HKWMentionsCreationStateCreatingMention
 };
 
-/*!
+/**
  States for the network state subsidiary state machine.
  */
 typedef NS_ENUM(NSInteger, HKWMentionsCreationNetworkState) {
@@ -48,7 +48,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsCreationNetworkState) {
     HKWMentionsCreationNetworkStatePendingRequestAfterCooldown,
 };
 
-/*!
+/**
  States for the mentions suggestion results subsidiary state machine.
  */
 typedef NS_ENUM(NSInteger, HKWMentionsCreationResultsState) {
@@ -117,7 +117,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsCreationAction) {
 @property (nonatomic) HKWMentionsSearchType searchType;
 @property (nonatomic) unichar explicitSearchControlCharacter;
 
-/*!
+/**
  A buffer containing the text typed by the user since mentions creation began, used to query the data source for
  potential matches.
  */
@@ -556,7 +556,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsCreationAction) {
 
 #pragma mark - Private (timer related)
 
-/*!
+/**
  Configure and activate the cooldown timer. If the cooldown timer was already active, restarts it.
  */
 - (void)activateCooldownTimer {
@@ -590,7 +590,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsCreationAction) {
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 }
 
-/*!
+/**
  Handle actions and state transitions after the cooldown timer fires. If the user has queued up another request, this
  method may fire another typeahead request to the server immediately. Otherwise, the firing of the timer indicates that
  it is acceptable to send another request at any time.
@@ -630,7 +630,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsCreationAction) {
 
 #pragma mark - Private (data related)
 
-/*!
+/**
  Handle updated data received from the data source.
  */
 - (void)dataReturnedWithResults:(NSArray *)results
@@ -779,7 +779,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsCreationAction) {
     }
 }
 
-/*!
+/**
  Perform all necessary state transitions when the results callback block is called, the query results are finalized, and
  there are no results at all. This may either result in terminating mentions creation, or going into a quiescent mode.
  */

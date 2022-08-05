@@ -16,7 +16,7 @@
 #import <LinkedinIOSHelper/PermissionNetworkFields.h>
 
 
-/*!
+/**
  * @brief To access any of the following full profile fields, your app must request the FullProfile member permission.  Note that BasicProfile provides access to a sub-set of the fields made available by FullProfile, so if you are requesting FullProfile, there is no need to also request the BasicProfile permission.
  */
 typedef NS_ENUM (NSInteger, Permissions) {

@@ -7,8 +7,16 @@
 
 #import "AddCollaboratorViewController.h"
 
+static NSArray *const kUserType = @[ @"ideator", @"shark", @"hacker" ];
+
 
 @interface AddCollaboratorViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, ProfileCellViewDelegate>
+
+typedef enum {
+    Ideator,
+    Shark,
+    Hacker
+} TypeOfUser;
 
 @end
 
@@ -113,6 +121,12 @@ InfiniteScrollActivityView *_loadingMoreViewA;
     }];
 }
 
+- (TypeOfUser)userTypeStringToEnum:(NSString *)strUserType
+{
+    // Makes string to enum for using in switch
+    NSUInteger n = [kUserType indexOfObject:strUserType];
+    return (TypeOfUser)n;
+}
 
 #pragma mark - Network
 
@@ -192,8 +206,6 @@ InfiniteScrollActivityView *_loadingMoreViewA;
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView leadingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //    UISwipeActionsConfiguration *swipeAction = [[UISwipeActionsConfiguration alloc]init];
-    //    return swipeAction;
     PFUser *user = self.userMatrix[indexPath.section][indexPath.row];
     UIContextualAction *action = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"Add collaborator" handler:^(UIContextualAction *_Nonnull action, __kindof UIView *_Nonnull sourceView, void (^_Nonnull completionHandler)(BOOL)) {
         [self addCollaborator:user];
@@ -300,13 +312,19 @@ InfiniteScrollActivityView *_loadingMoreViewA;
 
 - (void)addCollaborator:(PFUser *)user
 {
-    if ([self.typeOfUserToAdd isEqual:@"shark"]) {
-        [self.delegate didAddShark:user];
-    } else if ([self.typeOfUserToAdd isEqual:@"ideator"]) {
-        [self.delegate didAddIdeator:user];
-    }
-    if ([self.typeOfUserToAdd isEqual:@"hacker"]) {
-        [self.delegate didAddHacker:user];
+    TypeOfUser userType = [self userTypeStringToEnum:self.typeOfUserToAdd];
+    switch (userType) {
+        case Shark: {
+            [self.delegate didAddShark:user];
+        } break;
+        case Ideator: {
+            [self.delegate didAddIdeator:user];
+        } break;
+        case Hacker: {
+            [self.delegate didAddHacker:user];
+        } break;
+        default:
+            break;
     }
 }
 

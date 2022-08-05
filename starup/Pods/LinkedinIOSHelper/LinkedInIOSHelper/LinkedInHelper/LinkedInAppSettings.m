@@ -157,7 +157,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:self.subPermissions forKey:KSUBPERMISSONS];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-//    NSLog(@"%@", self.subPermissions);
+
 }
 
 @end

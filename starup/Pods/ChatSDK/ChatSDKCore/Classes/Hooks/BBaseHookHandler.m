@@ -53,7 +53,6 @@
     }];
     if(existingHooks.count) {
         for(BHook * hook in existingHooks) {
-//            NSLog(@"Weight: %i", hook.weight);
             [hook execute:data];
         }
     }

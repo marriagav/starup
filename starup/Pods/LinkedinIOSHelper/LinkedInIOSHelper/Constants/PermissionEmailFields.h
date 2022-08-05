@@ -10,7 +10,7 @@
 
 @interface PermissionEmailFields : NSObject
 
-/*!
+/**
  * @brief The LinkedIn member's primary email address.  Secondary email addresses associated with the member are not available via the API.
  */
 extern NSString * const email_address;

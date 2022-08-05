@@ -21,7 +21,7 @@
 
 @property (nonatomic, strong) NSDictionary *metadata;
 
-/*!
+/**
  The range of the mention. This is only valid when calling the mentions plug-in's \c mentions API method; it is not used
  for internal calculations.
  */

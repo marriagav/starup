@@ -16,7 +16,7 @@
 
 @interface HKWRoundedRectBackgroundAttributeValue : NSObject
 
-/*!
+/**
  The color to draw the background highlight effect.
  */
 @property (nonatomic, strong) UIColor *backgroundColor;

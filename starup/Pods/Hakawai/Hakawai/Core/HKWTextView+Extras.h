@@ -12,12 +12,12 @@
 
 #import "HKWTextView.h"
 
-/*!
+/**
  This category provides a number of (hopefully) useful extra capabilities which may be used directly or by plug-ins.
  */
 @interface HKWTextView (Extras)
 
-/*!
+/**
  If YES, scrolling is prohibited. Less error-prone than setting the \c scrollingEnabled property.
  */
 @property (nonatomic) BOOL disableVerticalScrolling;
@@ -25,13 +25,13 @@
 
 #pragma mark - API (word utilities)
 
-/*!
+/**
  Return the rectangle corresponding to the word immediately preceding the cursor. If there is no word preceding the
  cursor, the null rectangle is returned. The return value is relative to the coordinates of the parent text view.
  */
 - (CGRect)rectForWordPrecedingCursor;
 
-/*!
+/**
  Return the range for the word immediately preceding the location. If there is no word preceding the location, the
  range's location will be marked as the \c NSNotFound constant.
 
@@ -41,13 +41,13 @@
  */
 - (NSRange)rangeForWordPrecedingLocation:(NSInteger)location searchToEnd:(BOOL)toEnd;
 
-/*!
+/**
  Return the range for the word immediately preceding the current selection range's start location. If there is no word
  preceding the location, this method returns the \c NSNotFound constant.
  */
 - (NSRange)rangeForWordPrecedingCursor;
 
-/*!
+/**
  Return the character preceding the given location. If the location is 0 or invalid, this method returns 0 (the null
  character).
  */

@@ -168,7 +168,7 @@ typedef RXPromise* (^then_on_main_block_t)(promise_completionHandler_t, promise_
 
 @class RXPromise;
 
-/*!
+/**
  @brief Type definition for the completion handler block.
  
  @discussion The completion handler will be invoked when the associated promise has
@@ -192,7 +192,7 @@ typedef RXPromise* (^then_on_main_block_t)(promise_completionHandler_t, promise_
  */
 typedef id (^promise_completionHandler_t)(id result);
 
-/*!
+/**
  @brief Type definition for the error handler block.
  
  @discussion The error handler will be invoked when the associated promise has been
@@ -216,7 +216,7 @@ typedef id (^promise_completionHandler_t)(id result);
  */
 typedef id (^promise_errorHandler_t)(NSError* error);
 
-/*!
+/**
  @brief Type definition of the "then block". The "then block" is the return value
  of the property \p then.
  
@@ -233,7 +233,7 @@ typedef id (^promise_errorHandler_t)(NSError* error);
  */
 typedef RXPromise* (^then_block_t)(promise_completionHandler_t, promise_errorHandler_t);
 
-/*!
+/**
  @brief Type definition of the "then_on block". The "then_on block" is the return 
  value of the property \p thenOn. 
  
@@ -250,7 +250,7 @@ typedef RXPromise* (^then_on_block_t)(id,
                                       promise_completionHandler_t,
                                       promise_errorHandler_t);
 
-/*!
+/**
  @brief Type definition of the "then_on_main block". The "then_on_main block" is the return
  value of the property \p thenOnMain.
  
@@ -265,7 +265,7 @@ typedef RXPromise* (^then_on_block_t)(id,
  */
 typedef RXPromise* (^then_on_main_block_t)(promise_completionHandler_t, promise_errorHandler_t);
 
-/*!
+/**
  @brief Type definition of the "catch_on block". The "catch_on block" is the return value
  of the property \p catchOn.
  
@@ -280,7 +280,7 @@ typedef RXPromise* (^then_on_main_block_t)(promise_completionHandler_t, promise_
  */
 typedef RXPromise *(^catch_on_block_t)(id, promise_errorHandler_t errorHandler);
 
-/*!
+/**
  @brief Type definition of the "catch_on_main block". The "catch_on_main block" is the return
  value of the property \p catchOnMain.
  
@@ -295,7 +295,7 @@ typedef RXPromise *(^catch_on_block_t)(id, promise_errorHandler_t errorHandler);
  */
 typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
 
-/*!
+/**
  
  @brief A \p RXPromise object represents the eventual result of an asynchronous
  function or method.
@@ -327,7 +327,7 @@ typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
     
     
 
-/*!
+/**
  @brief Property \p then returns a block whose signature is
  @code
  RXPromise* (^)(promise_completionHandler_t onSuccess,
@@ -356,7 +356,7 @@ typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
 @property (nonatomic, readonly) then_block_t then;
 
 
-/*!
+/**
  @brief Property \p thenOn returns a block whose signature is
  @code
  RXPromise* (^)(id executionContext,
@@ -395,7 +395,7 @@ typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
 
 
 
-/*!
+/**
  @brief Property \p thenOnMain returns a block whose signature is
  @code
  RXPromise* (^)(promise_completionHandler_t onSuccess, promise_errorHandler_t onError)
@@ -424,7 +424,7 @@ typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
  */
 @property (nonatomic, readonly) then_on_main_block_t thenOnMain;
 
-/*!
+/**
  @brief Property \p catchOn returns a block whose signature is
  @code
  RXPromise* (^)(id executionContext, promise_errorHandler_t onError) @endcode
@@ -448,7 +448,7 @@ typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
  */
 @property (nonatomic, readonly) catch_on_block_t catchOn;
 
-/*!
+/**
  @brief Property \p catchOnMain returns a block whose signature is
  @code
  RXPromise* (^)(promise_errorHandler_t onError)
@@ -478,46 +478,46 @@ typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
 
 
 
-/*!
+/**
  Returns \c YES if the receiveer is pending.
  */
 @property (nonatomic, readonly) BOOL isPending;
 
-/*!
+/**
  Returns \c YES if the receiver is fulfilled.
  */
 @property (nonatomic, readonly) BOOL isFulfilled;
 
-/*!
+/**
  Returns \c YES if the receiver is rejected.
  */
 @property (nonatomic, readonly) BOOL isRejected;
 
-/*!
+/**
  Returns \c YES if the receiver is cancelled.
  */
 @property (nonatomic, readonly) BOOL isCancelled;
 
 
-/*!
+/**
  Returns the parent promise - the promise which created
  the receiver.
  */
 @property (nonatomic, readonly) RXPromise* parent;
 
 
-/*!
+/**
  Returns the root promise.
  */
 @property (nonatomic, readonly) RXPromise* root;
 
-/*!
+/**
  Cancels the promise unless it is already resolved and then forwards the
  message to all children.
  */
 - (void) cancel;
 
-/*!
+/**
  @brief Cancels the promise with the specfied reason unless it is already resolved and
  then forwards the message wto all children.
  
@@ -529,7 +529,7 @@ typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
 - (void) cancelWithReason:(id)reason;
 
 
-/*!
+/**
  Creates a resolver which rejects the receiver after the specified timeout value
  whose reason is a  \c NSError object with domain \@"RXPromise" and code = -1001,
  unless it has been resolved before elsewhere.
@@ -541,7 +541,7 @@ typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
 - (RXPromise*) setTimeout:(NSTimeInterval)timeout;
 
 
-/*!
+/**
  @brief Binds the receiver to the given promise  @p other.
  
  @discussion The receiver will take in the state of the given promise @p other, and
@@ -569,7 +569,7 @@ typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
 - (void) bind:(RXPromise*) other;
 
 
-/*!
+/**
  @brief Blocks the current thread until after the receiver has been resolved, and 
  previously queued handlers have been finished.
  
@@ -579,7 +579,7 @@ typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
 - (void) wait;
 
 
-/*!
+/**
  @brief Runs the current run loop until after the receiver has been resolved,
  and previously queued handlers have been finished.
  
@@ -591,7 +591,7 @@ typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
 - (void) runLoopWait;
 
 
-/*!
+/**
  Synchronously returns the value of the promise.
  
  Will block the current thread until after the promise has been resolved.
@@ -603,7 +603,7 @@ typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
 - (id) get;
 
 
-/*!
+/**
  @brief Synchronously returns the value of the promise.
  
  The current thread will be blocked until after the promise has been resolved or the
@@ -624,7 +624,7 @@ typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
 
 
 
-/*!
+/**
  
  See also: `RXPromise` interface.
  
@@ -635,7 +635,7 @@ typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
 @interface RXPromise(Deferred)
 
 
-/*!
+/**
  @brief  Factory method which returns a new promise whose state is fulfilled or 
  rejected depending on parameter \p result.
  
@@ -649,7 +649,7 @@ typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
 + (instancetype) promiseWithResult:(id)result;
 
 
-/*!
+/**
  A convenient class method which returns a promise whose associated task is 
  defined with block \p task.
  
@@ -670,7 +670,7 @@ typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
 + (RXPromise *)promiseWithTask:(id(^)(void))task;
     
     
-/*!
+/**
  A convenient class method which returns a promise whose associated task is 
  defined with block \p task.
  
@@ -694,7 +694,7 @@ typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
  
 
 
-/*!
+/**
  @brief  Factory method which returns a new promise whose state is pending.
  
  @discussion Resolvers may wish to detect if there is still a "subscriber" listening for
@@ -715,7 +715,7 @@ typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
 
 
 
-/*!
+/**
  @brief Returns a new promise whose state is pending.
  
  Designated Initializer
@@ -723,7 +723,7 @@ typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
 - (instancetype)init;
 
 
-/*!
+/**
  @brief Fulfilles the promise with specified value.
  
  If the promise is already resolved this method has no effect.
@@ -733,7 +733,7 @@ typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
 - (void) fulfillWithValue:(id)value;
 
 
-/*!
+/**
  @brief  Rejects the promise with the specified reason.
  
  If the promise is already resolved this method has no effect.
@@ -746,7 +746,7 @@ typedef RXPromise* (^catch_on_main_block_t)(promise_errorHandler_t);
 - (void) rejectWithReason:(id)reason;
 
 
-/*!
+/**
  @brief Resolves the promise with the specified result.
  
  If parameter \p result is a promise, the receiver will "bind" to the given promise, which
