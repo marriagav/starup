@@ -74,10 +74,25 @@ Starup is an application that allows startups to connect with investors and inde
 
 ## Screenshots and Demo
 
-**Find the demo here**
+**Find the demo here:** video [demo](https://github.com/marriagav/starup/blob/main/demo/Full-demo.mp4)
 
 **Screenshots**
 
+<img src="https://user-images.githubusercontent.com/65412950/183216212-d6fab24b-807b-41af-9e89-bd6b389bcc34.png" width=300>
+
+<img src="https://user-images.githubusercontent.com/65412950/183216218-c8476b85-e3a5-4d32-975b-fed17f29f1b1.png" width=300>
+
+<img src="https://user-images.githubusercontent.com/65412950/183216220-746fa888-b3ec-42d2-8cb1-bab6ed910371.png" width=300>
+
+<img src="https://user-images.githubusercontent.com/65412950/183216223-10a133ce-e36a-4412-8921-0129b17286de.png" width=300>
+
+<img src="https://user-images.githubusercontent.com/65412950/183216224-c116a47c-38ad-4344-b60d-a7fc3164c51c.png" width=300>
+
+<img src="https://user-images.githubusercontent.com/65412950/183216227-032cd88b-9fec-469d-b241-33274b769405.png" width=300>
+
+<img src="https://user-images.githubusercontent.com/65412950/183216229-869299e7-34cc-451e-af29-35cb532a76ee.png" width=300>
+
+<img src="https://user-images.githubusercontent.com/65412950/183216233-147b03bf-662c-4584-8390-ef4103104d90.png" width=300>
 
 ## Product Spec
 
