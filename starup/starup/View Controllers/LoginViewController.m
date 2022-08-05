@@ -140,7 +140,6 @@
                     [BIntegrationHelper updateUserWithName:[NSString stringWithFormat:@"%@ %@", self.linkedinFName, self.linkedinLName] image:self.imageLinkedin url:self.imageURL];
                     [PFUser.currentUser setObject:[BChatSDK currentUserID] forKey:@"chatsId"];
                     [PFUser.currentUser save];
-                    NSLog(@"User registered successfully");
                     [self loginUser:newUser.username withPassword:newUser.password];
                     return result;
                 }, ^id(NSError *error) {
@@ -252,6 +251,11 @@
             }];
         }
         failUserInfoBlock:^(NSError *error) {
+            // hides progress hud
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            self.loginButton.enabled = true;
+            self.registerButton.enabled = true;
+            self.linkedinButton.enabled = true;
             NSLog(@"error : %@", error.userInfo.description);
         }];
 }
