@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *correctLogin;
 @property (strong, nonatomic) UIAlertController *emptyFields;
 @property (strong, nonatomic) UIAlertController *passwordLength;
+@property (weak, nonatomic) IBOutlet UIButton *registerButton;
 
 @end
 
