@@ -14,7 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/*!
+/**
  Get the remaining stack-size of the current thread.
 
  @param totalSize The total stack size of the current thread.

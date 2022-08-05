@@ -107,7 +107,7 @@
     return (self.selectedRange.length == 0);
 }
 
-/*!
+/**
  Return NO if and only if both size dimensions of the \c CGRect argument are nonzero.
  */
 BOOL HKW_rectIsDegenerate(CGRect rect) {

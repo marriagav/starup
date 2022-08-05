@@ -22,7 +22,10 @@
     return @"UserConnection";
 }
 
-+ (void)postUserConnection:(PFUser *_Nullable)userOne withUserTwo:(PFUser *_Nullable)userTwo withCloseness:(NSNumber *_Nullable)closeness withCompletion:(PFBooleanResultBlock _Nullable)completion
++ (void)postUserConnection:(PFUser *_Nullable)userOne
+               withUserTwo:(PFUser *_Nullable)userTwo
+             withCloseness:(NSNumber *_Nullable)closeness
+            withCompletion:(PFBooleanResultBlock _Nullable)completion
 {
     //    Method to set the properties of the collaborator
     UserConnection *newConnection = [[UserConnection alloc] initWithClassName:@"UserConnection"];

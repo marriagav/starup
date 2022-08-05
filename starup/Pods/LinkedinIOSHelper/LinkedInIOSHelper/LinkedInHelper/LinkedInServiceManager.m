@@ -149,11 +149,4 @@
         [dataTask resume];
 }
 
-#pragma mark - Memory Management -
-
-- (void)dealloc
-{
-    
-}
-
 @end

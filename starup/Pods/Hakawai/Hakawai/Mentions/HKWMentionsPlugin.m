@@ -59,14 +59,14 @@ typedef NS_ENUM(NSInteger, HKWMentionsState) {
 /// going to begin, so that the text view doesn't snatch first-responder status from a different control.
 @property (nonatomic) BOOL initialSetupPerformed;
 
-/*!
+/**
  Indicates that all calls to \c textViewDidChangeSelection: should be ignored. This is used when custom transformations
  on the text view's text are desired, which would result in the text view's selection range temporarily changing, but
  should not actually indicate the cursor being manually moved or text being selected.
  */
 @property (nonatomic) BOOL suppressSelectionChangeNotifications;
 
-/*!
+/**
  Indicates that the next call to \c textViewDidChangeSelection: should be ignored. This property is a fix for an issue
  where the delegate method is called twice whenever a single character is deleted, each time with a different range,
  screwing up the state machine.
@@ -77,7 +77,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsState) {
  */
 @property (nonatomic) BOOL nextSelectionChangeShouldBeIgnored;
 
-/*!
+/**
  Indicates that the next call to \c textView:shouldChangeTextInRange:replacementText: should be ignored. This property
  is a fix for an issue where, when a suggestion-based keyboard suggestion is deleted (e.g. for the Chinese keyboard),
  the delegate method is fired requesting the suggestion be deleted, and then immediately again with a spurious
@@ -88,25 +88,25 @@ typedef NS_ENUM(NSInteger, HKWMentionsState) {
 @property (nonatomic, strong) HKWMentionsStartDetectionStateMachine *startDetectionStateMachine;
 @property (nonatomic, strong) HKWMentionsCreationStateMachine *creationStateMachine;
 
-/*!
+/**
  The point at which the last character typed was inserted.
  */
 @property (nonatomic) NSUInteger previousInsertionLocation;
 
-/*!
+/**
  The previous distinct value of the parent text view's \c selectedRange value for which the text view was in insertion
  mode.
  */
 @property (nonatomic) NSRange previousSelectionRange;
 @property (nonatomic) NSInteger previousTextLength;
 
-/*!
+/**
  The mention currently highlighted as the 'selected' mention (due to the cursor being in the right place), or the
  mention which may be selected if the state machine is in the 'about to select mention' state.
  */
 @property (nonatomic, strong) HKWMentionsAttribute *currentlySelectedMention;
 
-/*!
+/**
  The range of the mention attribute whose value is stored in the \c currentlySelectedMention property. This value is not
  automatically updated; it must be kept in sync by the plug-in if the text is modified.
  */
@@ -121,7 +121,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsState) {
 @property (nonatomic, readonly) BOOL viewportLocksToBottomUponMentionCreation;
 @property (nonatomic, readonly) BOOL viewportLocksUponMentionCreation;
 
-/*!
+/**
  If the state machine is currently executing the \c advanceStateForCharacterInsertion method, this property contains the
  character being inserted. Otherwise, it contains the NULL character, 0.
 
@@ -466,7 +466,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsState) {
 
 #pragma mark - Private
 
-/*!
+/**
  Return whether or not a given string is eligible to be appended to the start detection state machine's buffer. Minimum
  requirements include not containing any whitespace or newline characters.
  */
@@ -483,7 +483,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsState) {
     return YES;
 }
 
-/*!
+/**
  Build a new typing attributes dictionary by stripping mentions-specific attributes from an original attributes
  dictionary and, if applicable, restoring default attributes from the parent text view.
  */
@@ -502,7 +502,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsState) {
     return d;
 }
 
-/*!
+/**
  Remove the mentions-specific attributes from the parent text view's \c typingAttributes dictionary. This is necessary
  to prevent the color used to denote attributes from 'bleeding' over into newly typed text.
  */
@@ -511,7 +511,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsState) {
     self.parentTextView.typingAttributes = [self typingAttributesByStrippingMentionAttributes:oldAttrs];
 }
 
-/*!
+/**
  Toggle mentions-related formatting for a given portion of text. Mentions can either be 'selected' (annotation
  background, light text color), or 'unselected' (no background, dark text color)
  */
@@ -558,7 +558,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsState) {
     }
 }
 
-/*!
+/**
  'Bleach' all mentions that fall within a certain range. This is used when multiple characters' worth of text must be
  deleted; mentions formatting is stripped if part or all of a mention is part of the excised text. This method returns
  the number of mentions that were bleached.
@@ -603,7 +603,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsState) {
     return [ranges count];
 }
 
-/*!
+/**
  'Bleach' a mention by removing the mention attribute and all mentions-specific formatting for the mention at the given
  range. This destroys the mention but leaves the plain text intact.
  */
@@ -645,7 +645,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsState) {
     }];
 }
 
-/*!
+/**
  Return whether or not a mention can be trimmed.
 
  \param mention          a \c HKWMentionsAttribute object representing the candidate mention
@@ -701,7 +701,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsState) {
     return nil;
 }
 
-/*!
+/**
  Return YES if the given range touches at least one mention attribute.
  */
 - (BOOL)rangeTouchesMentions:(NSRange)range {
@@ -749,7 +749,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsState) {
              @"Currently selected mention range was nil. This is unexpected.");
 }
 
-/*!
+/**
  Manually perform a character insertion. This is useful in order to avoid certain built-in \c UITextView side effects.
  */
 - (void)manuallyInsertCharacter:(unichar)character
@@ -791,7 +791,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsState) {
 
 #pragma mark - State machine
 
-/*!
+/**
  Advance the state machine when a single character is typed by the user or otherwise inserted.
 
  \returns if the method that called this was the text view delegate method to determine whether or not to allow the text
@@ -875,7 +875,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsState) {
     return returnValue;
 }
 
-/*!
+/**
  Advance the state machine when a single character is deleted.
  */
 - (BOOL)advanceStateForCharacterDeletion:(unichar)precedingChar
@@ -1059,7 +1059,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsState) {
     return returnValue;
 }
 
-/*!
+/**
  Advance the state machine when a multi-character string is inserted (due to copy-paste).
  */
 - (BOOL)advanceStateForStringInsertionAtRange:(NSRange)range text:(NSString *)text {
@@ -1171,7 +1171,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsState) {
     return YES;
 }
 
-/*!
+/**
  Advance the state machine when multiple characters are deleted (due to copy-paste or selection delete).
  */
 - (BOOL)advanceStateForStringDeletionAtRange:(NSRange)range
@@ -1211,7 +1211,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsState) {
     return YES;
 }
 
-/*!
+/**
  Advance the state machine when the selection changes, or when the text view changes from insertion mode to selection
  mode.
  */
@@ -1240,7 +1240,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsState) {
     [self toggleAutocorrectAsRequiredForRange:range];
 }
 
-/*!
+/**
  Advance the state machine when the insertion point changes (not due to characters typed or removed), or when the text
  view changes from selection mode to insertion mode.
  */
@@ -1631,7 +1631,7 @@ typedef NS_ENUM(NSInteger, HKWMentionsState) {
     return [self.delegate heightForLoadingCellInTableView:tableView];
 }
 
-/*!
+/**
  Perform shared cleanup once a mention is created or mentions creation is cancelled (as signaled by the mentions
  creation state machine).
  */

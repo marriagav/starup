@@ -11,17 +11,17 @@
 
 @interface LinkedInConnectionHandler () <NSURLConnectionDataDelegate, NSURLConnectionDelegate>
 
-/*!
+/**
  * @brief Returns successful user info which are requested via grantedAccess
  */
 @property (nonatomic, copy) void (^successCallback)(NSDictionary *response);
 
-/*!
+/**
  * @brief Returns the cancel statement of connection because of user canceled the auth
  */
 @property (nonatomic, copy) void (^cancelCallback)(void);
 
-/*!
+/**
  * @brief Returns the failure statement of connection
  */
 @property (nonatomic, copy) void (^failureCallback)(NSError *err);
@@ -182,9 +182,9 @@
         NSError *err = [[NSError alloc] initWithDomain:@"com.linkedinioshelper"
                                                 code:-4
                                             userInfo:@{
-                                                       NSLocalizedDescriptionKey: desc,
-                                                       NSLocalizedFailureReasonErrorKey:[self.responseData description]
-                                                       }];
+                           NSLocalizedDescriptionKey: desc,
+                   NSLocalizedFailureReasonErrorKey:[self.responseData description]
+                                                                                    }];
         if (self.failureCallback) {
             self.failureCallback(err);
             err = nil;
@@ -218,12 +218,10 @@
 }
 
 - (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
-//    NSLog(@"Authenticated");
     return [protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
-//    NSLog(@"Challenged");
     if ([challenge.protectionSpace.authenticationMethod
          isEqualToString:NSURLAuthenticationMethodServerTrust])
     {
@@ -236,10 +234,6 @@
 }
 
 #pragma mark - Memory Management -
-
-- (void) dealloc {
-    
-}
 
 - (void)killEmAll {
     

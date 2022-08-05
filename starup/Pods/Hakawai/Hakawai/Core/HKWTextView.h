@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol HKWSimplePluginProtocol, HKWDirectControlFlowPluginProtocol, HKWAbstractionLayerControlFlowPluginProtocol;
 
-/*!
+/**
  An enhanced text view designed for use with various plug-ins. It provides additional functionality which a developer
  can pick and choose from in order to more easily implement complex features.
  */
@@ -48,14 +48,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - API (text view delegate)
 
-/*!
+/**
  An optional delegate object implementing the \c HKWTextViewDelegate protocol.
 
  \warning Do NOT set the text view's \c delegate property directly.
  */
 @property (nonatomic, weak, nullable) id<HKWTextViewDelegate> externalDelegate;
 
-/*!
+/**
  A \c UITextViewDelegate alias for the \c externalDelegate property.
  */
 @property (nonatomic, nullable) id<UITextViewDelegate> simpleDelegate;
@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// An array containing references to the simple plug-ins registered with the text view
 @property (nonatomic, readonly) NSArray *simplePlugins;
 
-/*!
+/**
  Register a control flow plug-in with the editor. Unlike simple plug-ins, only one control flow plug-in can be enabled
  at a time. Pass in nil to remove any currently registered control flow plug-in.
 
@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong, nullable) id<HKWDirectControlFlowPluginProtocol>controlFlowPlugin;
 
-/*!
+/**
  Register a control flow plug-in with the editor. Unlike simple plug-ins, only one control flow plug-in can be enabled
  at a time. Pass in nil to remove any currently registered control flow plug-in.
 
@@ -84,18 +84,18 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong, nullable) id<HKWAbstractionLayerControlFlowPluginProtocol>abstractionControlFlowPlugin;
 
-/*!
+/**
  Register a simple plug-in with the editor.
  */
 - (void)addSimplePlugin:(id<HKWSimplePluginProtocol>)plugin;
 
-/*!
+/**
  Unregister a simple plug-in with the editor.
  */
 - (void)removeSimplePluginNamed:(NSString *)name;
 
 
-/*!
+/**
  Inform the the textview that it was programatically updated (e.g. setText: or setAttributedText:) so that associated
  plugins can update their state accordingly.
  */
@@ -104,17 +104,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - API (plug-in status)
 
-/*!
+/**
  A readonly reference to an attached accessory view.
  */
 @property (nonatomic, weak, readonly) UIView *attachedAccessoryView;
 
-/*!
+/**
  A readonly reference to a view designated as the 'top-level view' for purposes of placing accessory views.
  */
 @property (nonatomic, weak, readonly) UIView *customTopLevelView;
 
-/*!
+/**
  Return whether or not the text view is in 'single line viewport' mode.
  */
 @property (nonatomic, readonly) BOOL inSingleLineViewportMode;

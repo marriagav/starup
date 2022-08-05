@@ -15,7 +15,6 @@
     NSString *entityId = user.entityID;
     PFQuery *query = [PFUser query];
     [query whereKey:@"chatsId" equalTo:entityId];
-    NSLog(@"%@", user.entityID);
 
     // fetch data asynchronously
     PFUser *userParse = [query getFirstObject];

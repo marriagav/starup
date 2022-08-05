@@ -149,7 +149,6 @@
     //    Makes call
     [Post postUserStatus:self.updateStatus withCaption:self.captionOutlet.text withImage:self.updateImage withCompletion:^(BOOL succeeded, NSError *_Nullable error) {
         if (error) {
-            NSLog(@"%@", error);
             self.shareButton.enabled = true;
         } else {
             // Calls the didPost method from the delegate and dissmisses the view controller

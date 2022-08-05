@@ -212,7 +212,7 @@
 {
     PPCOrderRequest *order = [self createNewOrder];
     [action createWithOrder:order completion:^(NSString *orderId) {
-        NSLog(@"Order created with orderId: %@", orderId);
+        nil;
     }];
 }
 
@@ -224,7 +224,6 @@
             NSLog(@"Fail to capture order with error %@", error.localizedDescription);
         } else if (success) {
             [self updateServerWithInvestment];
-            NSLog(@"Capture order successfully");
         } else {
             NSLog(@"Capture order: No error and no success response");
         }

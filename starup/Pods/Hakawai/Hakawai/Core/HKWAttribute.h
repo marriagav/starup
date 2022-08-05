@@ -12,7 +12,7 @@
 
 #import <UIKit/UIKit.h>
 
-/*!
+/**
  An object representing an attribute which can be applied to part of an attributed string.
 
  \note HKWAttribute objects aren't used anywhere else in the library, but are present for convenience and usage in
@@ -45,7 +45,7 @@
 
 // NSWritingDirectionAttributeName is not supported
 
-/*!
+/**
  Given an array of \c HKWAttribute objects, generate an attribute dictionary
  */
 + (NSDictionary *)attributeDictionaryWithAttributes:(NSArray *)attributes;

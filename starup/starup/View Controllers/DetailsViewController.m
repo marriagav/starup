@@ -20,7 +20,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //    //    Initialize Arrays
+    //    Initialize Arrays
     self.chatParticipants = [[NSMutableArray alloc] init];
     self.ideators = [[NSMutableArray alloc] init];
     self.sharks = [[NSMutableArray alloc] init];

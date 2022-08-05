@@ -15,7 +15,7 @@ typedef NS_ENUM (NSInteger, MethodType) {
 
 @interface LinkedInConnectionHandler : NSObject
 
-/*!
+/**
  * @brief Initializes the receiver
  *
  * @param url is the `url` for the resource which will be loaded. The url’s scheme must be `http` or `https`.
@@ -32,13 +32,13 @@ typedef NS_ENUM (NSInteger, MethodType) {
                      cancel:(void (^)(void))cancel
                     failure:(void (^)(NSError *))failure;
 
-/*!
+/**
  * @brief Start the asynchronous HTTP request.
  * This can be executed only once, that is if the receiver has already been started, it will have no effect.
  */
 - (void) start;
 
-/*!
+/**
  * @brief Cancels a running operation at the next cancelation point and returns
  * immediately.
  *
@@ -46,7 +46,7 @@ typedef NS_ENUM (NSInteger, MethodType) {
  */
 - (void) cancel;
 
-/*!
+/**
  * @brief HTTP Request method type which can be "POST"  or "GET" here
  */
 @property (nonatomic, assign) MethodType type;

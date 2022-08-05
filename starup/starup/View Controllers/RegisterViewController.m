@@ -134,7 +134,6 @@
         // call sign up function on the object
         [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (error != nil) {
-                NSLog(@"Error: %@", error.localizedDescription);
                 //    Initialize alert controller in case of errors
                 self.error = error.localizedDescription;
                 [self initializeAlertController];
@@ -156,7 +155,6 @@
                         // hides progress hud
                         [MBProgressHUD hideHUDForView:self.view animated:YES];
                         self.registerButton.enabled = true;
-                        NSLog(@"%@", error);
                         return error;
                     });
             }

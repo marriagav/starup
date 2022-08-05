@@ -10,7 +10,7 @@
 
 @interface PermissionNetworkFields : NSObject
 
-/*!
+/**
  * @brief Members connections
  */
 extern NSString * const connections;

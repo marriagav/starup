@@ -22,19 +22,19 @@
                    permissions:(NSArray *)permissions
                          state:(NSString *)state;
 
-/*!
+/**
  * @brief clientId of application that you created on linkedin developer portal
  * @warning clientId can not be nil!
  */
 @property (nonatomic, copy) NSString *clientId;
 
-/*!
+/**
  * @brief Client Secret of application that you created on linkedin developer portal
  * @warning clientSecret can not be nil!
  */
 @property (nonatomic, copy) NSString *clientSecret;
 
-/*!
+/**
  * @brief applicationWithRedirectURL of application that you created on linkedin developer portal
  * @warning applicationWithRedirectURL can not be nil!
  */
@@ -52,7 +52,7 @@
  */
 @property (nonatomic, copy) NSString *subPermissions;
 
-/*!
+/**
  * @brief Setting Granted Accesses which is about to ask the user to fetch those informations (Contains NSNumbers because of typedef to make this code more understandable)
  */
 - (void)setAppPermissions:(NSArray *)permissions;

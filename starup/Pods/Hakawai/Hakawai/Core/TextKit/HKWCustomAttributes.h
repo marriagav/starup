@@ -12,7 +12,7 @@
 
 #import "HKWRoundedRectBackgroundAttributeValue.h"
 
-/*!
+/**
  An attribute which draws text with a rounded rectangle background effect.
 
  Rounded rectangle background attributes should be paired with \c HKWRoundedRectBackgroundAttributeValue objects.

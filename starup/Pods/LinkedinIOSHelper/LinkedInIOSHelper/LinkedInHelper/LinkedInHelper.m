@@ -24,19 +24,19 @@
 @property (nonatomic, copy, readwrite) NSString *accessToken;
 @property (nonatomic, copy, readwrite) NSString *urn;
 
-/*!
+/**
  * @brief clientId of application that you created on linkedin developer portal
  * @warning clientId can not be nil!
  */
 @property (nonatomic, copy) NSString *clientId;
 
-/*!
+/**
  * @brief Client Secret of application that you created on linkedin developer portal
  * @warning clientSecret can not be nil!
  */
 @property (nonatomic, copy) NSString *clientSecret;
 
-/*!
+/**
  * @brief applicationWithRedirectURL of application that you created on linkedin developer portal
  * @warning applicationWithRedirectURL can not be nil!
  */
@@ -48,17 +48,17 @@
  */
 @property (nonatomic, strong) NSArray *permissions;
 
-/*!
+/**
  * @brief Returns successful user info which are requested via grantedAccess
  */
 @property (nonatomic, copy) void (^userInfoSuccessBlock)(NSDictionary *userInfo);
 
-/*!
+/**
  * @brief Returns the failure statement of connection
  */
 @property (nonatomic, copy) void (^dismissFailBlock)(NSError *error);
 
-/*!
+/**
  * @brief sender is the UIViewcontroller which the web authentication will be fired from
  * @warning Can not be nil!
  */

@@ -24,7 +24,10 @@
     return @"Post";
 }
 
-+ (void)postUserStatus:(NSString *_Nullable)updateStatus withCaption:(NSString *_Nullable)contentOfPost withImage:(UIImage *_Nullable)statusImage withCompletion:(PFBooleanResultBlock _Nullable)completion
++ (void)postUserStatus:(NSString *_Nullable)updateStatus
+           withCaption:(NSString *_Nullable)contentOfPost
+             withImage:(UIImage *_Nullable)statusImage
+        withCompletion:(PFBooleanResultBlock _Nullable)completion
 {
     //    Method to set the properties of the post
     Post *newPost = [[Post alloc] initWithClassName:@"Post"];
