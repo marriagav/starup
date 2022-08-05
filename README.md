@@ -76,7 +76,7 @@ Starup is an application that allows startups to connect with investors and inde
 
 **Find the demo video here:** demo [video](https://github.com/marriagav/starup/blob/main/demo/Full-demo.mp4)
 
-**Find the presentation here:** demo [presentation](https://github.com/marriagav/starup/blob/main/demo/Full-demo.mp4)
+**Find the presentation here:** demo [presentation](https://github.com/marriagav/starup/blob/main/demo/Starup%20demo.pptx)
 
 **Screenshots**
 
@@ -125,25 +125,39 @@ Starup is an application that allows startups to connect with investors and inde
 * Login screen
    * Profile creation / authentification
    * Login and signup
+   * Linkedin authentication
    * Persistent storage of users session
 * Home feed
    * Being able to see what other people are posting (statuses)
-   * Search bar to filter posts
 * Compose post
    * Being able to make a status post
+   * Being able to post to Linkedin
 * Starups tab
-   * Being able to navigate startups
+   * Being able to navigate starups
 * Details tab
    * Being able to see more information about a startup
    * See the current investment of the starup
+   * See starup collaborators
 * Invest tab
     * Select amount to invest and invest
     * Invest on a specific starup
 * Compose starup 
     * Post a new startup
+    * Edit an existing starup
+    * Add collaborators to your starup
 * Profile tab
     * See and edit your profile
     * See other profiles
+    * Search for profiles
+    * See a users posts and starups
+* Search tab
+    * Search users
+    * See users sectioned in different categories deppending on closeness
+* Chats tab
+    * Send messages to other users
+    * Create new conversations
+    * Remove conversations
+    * Create groupchats
 
 ### 3. Navigation
 
@@ -151,6 +165,7 @@ Starup is an application that allows startups to connect with investors and inde
 
 * Home feed 
 * Starups tab
+* Chats tab
 * Profile tab
 
 **Flow Navigation** (Screen to Screen)
@@ -167,11 +182,19 @@ Starup is an application that allows startups to connect with investors and inde
     * Compose starup tab (tap on new starup button)
 * Compose starup tab 
     * Starups tab
+    * Search tab
+    * User tab
 * Details tab
     * Profile tab (tap on profile pictures)
     * Invest tab (tap on invest button)
+    * Edit starup tab
+    * Chats tab
 * Profile tab
     * Details tab (tap on starup)
+    * Chats tab
+    * Search tab
+* Chats tab
+    * Profile tab
 
 ### Wireframes & Mockups
 
@@ -224,11 +247,15 @@ Starup is an application that allows startups to connect with investors and inde
 | username     | string       | unique username of the user      |
 | firstName     | string       | first name of the person that owns that profile      |
 | lastName     | string       | last name of the person that owns that profile      |
+| normalizedUsername     | string       | normalized username      |
+| normalizedFullName     | string       | normalized fullname      |
 | profilePicture     | string       | name of the person that owns that profile      |
 | userBio     | string       | user biography      |
 | userRole     | string       | short user role to show beneath their profile (For example: iOS software engineer)      |
 | password     | string       | password for login      |
 | email     | string       | user email      |
+| linkedinAuthentication     | BOOL       | if the user is authenticated with Linkedin      |
+| chatsId     | string       | the user chats id      |
 
 #### Model: Collaborator (catalogue)
 | Property | Type | Description |
@@ -238,7 +265,8 @@ Starup is an application that allows startups to connect with investors and inde
 | updatedAt   | DateTime     | date when collaborator was updated    |
 | user    | pointer to user       | the user that participates in the starup      |
 | starup     | pointer to starup       | starup in which the user participates      |
-| role     | string       | role that the user has in that starup (shark, ideator, hacker)      |
+| typeOfUser     | string       | role that the user has in that starup (shark, ideator, hacker)      |
+| ownership     | numbert       | % of starup owned by the collaborator      |
 
 #### Model: Starup
 | Property | Type | Description |
@@ -247,7 +275,7 @@ Starup is an application that allows startups to connect with investors and inde
 | createdAt   | DateTime     | date when starup was created    |
 | updatedAt   | DateTime     | date when starup was updated    |
 | starupName     | string       | the name of the starup      |
-| starupDesc     | string       | description of the starup      |
+| starupDescription     | string       | description of the starup      |
 | starupCategory     | string       | category of the starup (for example: software, design, etc.)      |
 | operatingSince     | DateTime       | Date when the starup started operating      |
 | sales     | number       | amount of money that the starup has generated in USD      |
@@ -264,6 +292,7 @@ Starup is an application that allows startups to connect with investors and inde
 | updatedAt   | DateTime     | date when post was updated    |
 | updateStatus   | string     | update status of the post (for example: "looking for starups", "posted a new starup", "invested in a starup"    |
 | contentOfPost   | string     | text content of the post   |
+| statusImage   | file     | image of the status   |
 
 #### Model: UserConnection
 | Property | Type | Description |
