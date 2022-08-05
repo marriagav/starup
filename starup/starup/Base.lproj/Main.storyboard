@@ -374,6 +374,7 @@
                         <outlet property="firstNameField" destination="TlB-QK-wKT" id="a1o-0m-IJG"/>
                         <outlet property="lastNameField" destination="S72-Hf-dQb" id="YEa-As-5fY"/>
                         <outlet property="passwordField" destination="A7e-c9-t5c" id="qS3-dD-JHG"/>
+                        <outlet property="registerButton" destination="Wr5-Ym-LR4" id="Aix-6e-CaW"/>
                         <outlet property="roleField" destination="64t-GT-N3I" id="J3N-gT-fhR"/>
                         <outlet property="usernameField" destination="gZH-ij-wvy" id="QUZ-k3-dEX"/>
                     </connections>

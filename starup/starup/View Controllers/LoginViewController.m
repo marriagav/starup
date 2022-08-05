@@ -77,6 +77,7 @@
             //    Initialize alert controller if there is an error
             self.error = error.localizedDescription;
             [self initializeAlertController];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             self.loginButton.enabled = true;
             self.registerButton.enabled = true;
             self.linkedinButton.enabled = true;
@@ -89,11 +90,14 @@
                     [self afterSuccessfullLogin];
                     return result;
                 }, ^id(NSError *error) {
+                    // hides progress hud
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    self.loginButton.enabled = true;
+                    self.registerButton.enabled = true;
+                    self.linkedinButton.enabled = true;
                     return error;
                 });
         }
-        // hides progress hud
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
 }
 
@@ -116,7 +120,12 @@
     newUser[@"normalizedUsername"] = [Algos normalizeString:self.linkedinUsername];
     newUser[@"role"] = @"User from LinkedIn";
     newUser[@"linkedinAuthentification"] = @"True";
-    UIImage *image = self.imageLinkedin;
+    UIImage *image = [[UIImage alloc] init];
+    if (self.imageLinkedin) {
+        image = self.imageLinkedin;
+    } else {
+        image = [UIImage imageNamed:@"default_user_image"];
+    }
     [newUser setObject:[Algos getPFFileFromImage:image] forKey:@"profileImage"];
 
     // call sign up function on the object
@@ -149,11 +158,16 @@
     query.limit = 1;
     [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
         if (users != nil) {
+            // hides progress hud
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             if (users.count > 0) {
                 [self requestUserPassword:NO];
             } else {
                 [self requestUserPassword:YES];
             }
+            self.loginButton.enabled = true;
+            self.registerButton.enabled = true;
+            self.linkedinButton.enabled = true;
         } else {
             NSLog(@"%@", error);
         }
@@ -200,6 +214,11 @@
     NSString *linkedinAPIid = [dict objectForKey:@"linkedinAppID"];
     NSString *linkedinSecret = [dict objectForKey:@"linkedinSecret"];
 
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.loginButton.enabled = false;
+    self.registerButton.enabled = false;
+    self.linkedinButton.enabled = false;
+
     [linkedIn requestMeWithSenderViewController:self
         clientId:linkedinAPIid               // Your App Client Id
         clientSecret:linkedinSecret          // Your App Client Secret
@@ -208,7 +227,6 @@
         state:@"authState" // Your client state
         successUserInfo:^(NSDictionary *userInfo) {
             // Save User Info
-            NSLog(@"user : %@", userInfo);
             NSDictionary *linkedinFName = userInfo[@"firstName"][@"localized"];
             self.linkedinFName = [Algos firstObjectFromDict:linkedinFName];
             self.linkedinID = [userInfo[@"id"] substringToIndex:3];
@@ -229,6 +247,7 @@
                 //            Save email address
                 self.linkedinEmail = userEmailArray[0];
                 //        Checks if the user already exists to determine if new user needs to be created
+                //    Dissables buttons so that the user cant spam it
                 [self checkIfUserExists];
             }];
         }
@@ -279,6 +298,8 @@
         //    Set graph
         ConnectionsGraph *graph = [ConnectionsGraph sharedInstance];
         [graph fillGraphWithCloseConnections:^(NSError *_Nullable error) {
+            // hides progress hud
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             //    Change window to homefeed
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             UIViewController *nav = [storyboard instantiateViewControllerWithIdentifier:@"navBar"];

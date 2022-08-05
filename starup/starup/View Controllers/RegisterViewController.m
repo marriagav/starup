@@ -98,6 +98,9 @@
 
 - (void)registerUser
 {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //    Dissables buttons so that the user cant spam it
+    self.registerButton.enabled = false;
     //    Method that registers the user
     // initialize a user object
     PFUser *newUser = [PFUser user];
@@ -144,11 +147,15 @@
                         [BIntegrationHelper updateUserWithName:[NSString stringWithFormat:@"%@ %@", self.firstNameField.text, self.lastNameField.text] image:image url:file.url];
                         [PFUser.currentUser setObject:[BChatSDK currentUserID] forKey:@"chatsId"];
                         [PFUser.currentUser save];
-                        NSLog(@"User registered successfully");
                         self.correctLogin = @"YES";
+                        // hides progress hud
+                        [MBProgressHUD hideHUDForView:self.view animated:YES];
                         [self initializeAlertController];
                         return result;
                     }, ^id(NSError *error) {
+                        // hides progress hud
+                        [MBProgressHUD hideHUDForView:self.view animated:YES];
+                        self.registerButton.enabled = true;
                         NSLog(@"%@", error);
                         return error;
                     });
