@@ -74,7 +74,9 @@ Starup is an application that allows startups to connect with investors and inde
 
 ## Screenshots and Demo
 
-**Find the demo here:** video [demo](https://github.com/marriagav/starup/blob/main/demo/Full-demo.mp4)
+**Find the demo video here:** demo [video](https://github.com/marriagav/starup/blob/main/demo/Full-demo.mp4)
+
+**Find the presentation here:** demo [presentation](https://github.com/marriagav/starup/blob/main/demo/Full-demo.mp4)
 
 **Screenshots**
 
