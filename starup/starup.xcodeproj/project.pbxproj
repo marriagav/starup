@@ -17,7 +17,6 @@
 		D40045C92881D3F4001EB588 /* Collaborator.m in Sources */ = {isa = PBXBuildFile; fileRef = D40045C82881D3F4001EB588 /* Collaborator.m */; };
 		D40045CC2881EA90001EB588 /* StarupCollectionCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = D40045CB2881EA90001EB588 /* StarupCollectionCellView.m */; };
 		D40045CF28820E20001EB588 /* ProfilesCollectionCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = D40045CE28820E20001EB588 /* ProfilesCollectionCellView.m */; };
-		D40045D82885D468001EB588 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = D40045D72885D468001EB588 /* Keys.plist */; };
 		D41A9B7D2875F0DA0038852B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9B7C2875F0DA0038852B /* AppDelegate.m */; };
 		D41A9B802875F0DA0038852B /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A9B7F2875F0DA0038852B /* SceneDelegate.m */; };
 		D41A9B862875F0DA0038852B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D41A9B842875F0DA0038852B /* Main.storyboard */; };
@@ -43,6 +42,7 @@
 		D458E866288F5954004DF020 /* ConnectionsGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = D458E865288F5954004DF020 /* ConnectionsGraph.m */; };
 		D458E86928904A68004DF020 /* UsersEdge.m in Sources */ = {isa = PBXBuildFile; fileRef = D458E86828904A68004DF020 /* UsersEdge.m */; };
 		D458E86C28920117004DF020 /* ResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D458E86B28920117004DF020 /* ResultsViewController.m */; };
+		D473206A289DC7C600E1E343 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4732069289DC7C600E1E343 /* Keys.plist */; };
 		D4ABAA4E2888C75F00EF3B8A /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4ABAA4D2888C75F00EF3B8A /* PasswordViewController.m */; };
 		D4CDEA4E2878A37C00495426 /* PostCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CDEA4D2878A37C00495426 /* PostCellView.m */; };
 		D4CDEA512878AB7100495426 /* StarupCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CDEA502878AB7100495426 /* StarupCellView.m */; };
@@ -96,7 +96,6 @@
 		D40045CB2881EA90001EB588 /* StarupCollectionCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StarupCollectionCellView.m; sourceTree = "<group>"; };
 		D40045CD28820E20001EB588 /* ProfilesCollectionCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfilesCollectionCellView.h; sourceTree = "<group>"; };
 		D40045CE28820E20001EB588 /* ProfilesCollectionCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfilesCollectionCellView.m; sourceTree = "<group>"; };
-		D40045D72885D468001EB588 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		D41A9B782875F0DA0038852B /* starup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = starup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D41A9B7B2875F0DA0038852B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D41A9B7C2875F0DA0038852B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -144,6 +143,7 @@
 		D458E86828904A68004DF020 /* UsersEdge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UsersEdge.m; sourceTree = "<group>"; };
 		D458E86A28920117004DF020 /* ResultsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResultsViewController.h; sourceTree = "<group>"; };
 		D458E86B28920117004DF020 /* ResultsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResultsViewController.m; sourceTree = "<group>"; };
+		D4732069289DC7C600E1E343 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		D4ABAA4C2888C75F00EF3B8A /* PasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordViewController.h; sourceTree = "<group>"; };
 		D4ABAA4D2888C75F00EF3B8A /* PasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PasswordViewController.m; sourceTree = "<group>"; };
 		D4CDEA4C2878A37C00495426 /* PostCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostCellView.h; sourceTree = "<group>"; };
@@ -250,8 +250,8 @@
 				D41A9B872875F0DB0038852B /* Assets.xcassets */,
 				D41A9B892875F0DB0038852B /* LaunchScreen.storyboard */,
 				D4E4665A2898F58B00803672 /* GoogleService-Info.plist */,
+				D4732069289DC7C600E1E343 /* Keys.plist */,
 				D41A9B8C2875F0DB0038852B /* Info.plist */,
-				D40045D72885D468001EB588 /* Keys.plist */,
 				D41A9B8D2875F0DB0038852B /* main.m */,
 			);
 			path = starup;
@@ -491,11 +491,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D40045D82885D468001EB588 /* Keys.plist in Resources */,
 				D41A9B8B2875F0DB0038852B /* LaunchScreen.storyboard in Resources */,
 				D4E4665B2898F58B00803672 /* GoogleService-Info.plist in Resources */,
 				D41A9B882875F0DB0038852B /* Assets.xcassets in Resources */,
 				D41A9B862875F0DA0038852B /* Main.storyboard in Resources */,
+				D473206A289DC7C600E1E343 /* Keys.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
