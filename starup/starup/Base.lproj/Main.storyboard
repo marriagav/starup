@@ -455,23 +455,49 @@
                                                         <constraint firstAttribute="width" constant="414" id="xoM-ew-mK4"/>
                                                     </constraints>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hmI-3h-fc6">
+                                                    <rect key="frame" x="20" y="604" width="23" height="23"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="23" id="GQ5-vy-qxf"/>
+                                                        <constraint firstAttribute="width" constant="23" id="ZhK-bv-AXI"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system" title=" "/>
+                                                    <connections>
+                                                        <action selector="likeOnClick:" destination="MN0-SV-HIw" eventType="touchUpInside" id="0es-q2-Bao"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 likes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCa-8n-PvT">
+                                                    <rect key="frame" x="44" y="604" width="38.5" height="23"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="p7J-t7-2Lw" firstAttribute="top" secondItem="Bha-z7-R8J" secondAttribute="bottom" constant="8" symbolic="YES" id="0BO-PM-BPO"/>
                                                 <constraint firstItem="PuU-HD-ald" firstAttribute="leading" secondItem="Bha-z7-R8J" secondAttribute="leading" id="70Y-1r-KIN"/>
                                                 <constraint firstItem="p7J-t7-2Lw" firstAttribute="leading" secondItem="Bha-z7-R8J" secondAttribute="leading" id="8jg-5R-Xp9"/>
+                                                <constraint firstItem="hmI-3h-fc6" firstAttribute="leading" secondItem="a6o-HM-Ba9" secondAttribute="leading" id="Dsa-Zg-Rod"/>
                                                 <constraint firstAttribute="bottom" secondItem="aeE-Bx-RTq" secondAttribute="bottom" constant="37" id="Gh0-VN-sL9"/>
+                                                <constraint firstItem="SCa-8n-PvT" firstAttribute="leading" secondItem="hmI-3h-fc6" secondAttribute="trailing" constant="1" id="O3U-Tp-r9L"/>
+                                                <constraint firstItem="hmI-3h-fc6" firstAttribute="bottom" secondItem="868-CE-U4I" secondAttribute="bottomMargin" id="Qer-VJ-JW1"/>
+                                                <constraint firstItem="SCa-8n-PvT" firstAttribute="bottom" secondItem="hmI-3h-fc6" secondAttribute="bottom" id="UCf-IO-g1Y"/>
                                                 <constraint firstItem="Bha-z7-R8J" firstAttribute="leading" secondItem="868-CE-U4I" secondAttribute="leadingMargin" id="e1d-zd-yIi"/>
                                                 <constraint firstItem="a6o-HM-Ba9" firstAttribute="top" secondItem="PuU-HD-ald" secondAttribute="bottom" constant="3" id="eSy-sO-dqj"/>
                                                 <constraint firstItem="Bha-z7-R8J" firstAttribute="top" secondItem="868-CE-U4I" secondAttribute="topMargin" id="eUP-im-g4j"/>
                                                 <constraint firstItem="PuU-HD-ald" firstAttribute="top" secondItem="p7J-t7-2Lw" secondAttribute="bottom" constant="3" id="ina-tm-wY6"/>
                                                 <constraint firstItem="aeE-Bx-RTq" firstAttribute="leading" secondItem="868-CE-U4I" secondAttribute="leading" id="ksl-vd-qfF"/>
+                                                <constraint firstItem="SCa-8n-PvT" firstAttribute="top" secondItem="hmI-3h-fc6" secondAttribute="top" id="oeB-fL-iEP"/>
                                                 <constraint firstItem="aeE-Bx-RTq" firstAttribute="top" secondItem="a6o-HM-Ba9" secondAttribute="bottom" constant="8" id="rYn-PC-0qP"/>
+                                                <constraint firstItem="hmI-3h-fc6" firstAttribute="top" secondItem="aeE-Bx-RTq" secondAttribute="bottom" constant="3" id="sKe-vQ-S2I"/>
                                                 <constraint firstAttribute="trailing" secondItem="aeE-Bx-RTq" secondAttribute="trailing" id="v5Y-Vl-eE2"/>
                                                 <constraint firstItem="a6o-HM-Ba9" firstAttribute="leading" secondItem="Bha-z7-R8J" secondAttribute="leading" id="w7T-Sp-iIG"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="likeButton" destination="hmI-3h-fc6" id="Scc-rz-uUU"/>
+                                            <outlet property="likeCount" destination="SCa-8n-PvT" id="y0c-rx-55f"/>
                                             <outlet property="operatingSince" destination="PuU-HD-ald" id="Il7-My-2tT"/>
                                             <outlet property="sales" destination="a6o-HM-Ba9" id="var-5k-GdH"/>
                                             <outlet property="starupCategory" destination="p7J-t7-2Lw" id="jly-T1-naa"/>

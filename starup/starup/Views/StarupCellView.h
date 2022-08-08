@@ -25,9 +25,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *operatingSince;
 @property (weak, nonatomic) IBOutlet UILabel *sales;
 @property (weak, nonatomic) IBOutlet PFImageView *starupImage;
-@property (weak, nonatomic) IBOutlet UILabel *starupDescription;
 @property (strong, nonatomic) Starup *starup;
 @property (nonatomic, weak) id<StarupCellViewDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UIButton *likeButton;
+@property (weak, nonatomic) IBOutlet UILabel *likeCount;
 
 - (void)setStarup:(Starup *)starup;
 
