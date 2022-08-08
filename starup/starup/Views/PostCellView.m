@@ -16,6 +16,7 @@
     // Initialization code
     [Algos formatPictureWithRoundedEdges:self.profilePicture];
     [self pictureGestureRecognizer];
+    [self likeGestureRecognizer];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -45,6 +46,13 @@
         [self setVisualDisslike];
     }
     [self.statusImage loadInBackground];
+}
+
+- (void)likeGestureRecognizer {
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(likeOnCLick:)];
+    tapGesture.numberOfTapsRequired = 2;
+    [self addGestureRecognizer:tapGesture];
+    [self setUserInteractionEnabled:YES];
 }
 
 - (void)pictureGestureRecognizer

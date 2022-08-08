@@ -14,7 +14,7 @@
 {
     [super awakeFromNib];
     // Initialization code
-    [self cellGestureRecognizer];
+    [self addGestureRecognizers];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -49,12 +49,16 @@
     [self.delegate starupCell:self didTap:self.starup];
 }
 
-- (void)cellGestureRecognizer
-{
-    //    Method to set up a tap gesture recognizer for the cell
-    UITapGestureRecognizer *cellTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapCell:)];
-    [self addGestureRecognizer:cellTapGestureRecognizer];
+- (void)addGestureRecognizers{
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(likeOnClick:)];
+    doubleTap.numberOfTapsRequired = 2;
+    [self addGestureRecognizer:doubleTap];
     [self setUserInteractionEnabled:YES];
+    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapCell:)];
+    [self addGestureRecognizer:singleTap];
+    [self setUserInteractionEnabled:YES];
+    [singleTap requireGestureRecognizerToFail:doubleTap];
 }
 
 - (IBAction)likeOnClick:(id)sender {
