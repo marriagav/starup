@@ -36,10 +36,10 @@
     self.operatingSince.text = [NSString stringWithFormat:@"%@%ld", @"Operating since: ", (long)date.year];
     NSMutableArray* likedBy = [[NSMutableArray alloc]initWithArray:[self.starup[@"likedBy"] mutableCopy]];
     if ([likedBy containsObject:PFUser.currentUser.username]){
-        [self setVisualLike];
+        [self setVisualLike: NO];
     }
     else{
-        [self setVisualDisslike];
+        [self setVisualDisslike: NO];
     }
 }
 
@@ -67,23 +67,22 @@
     likeFeedback = NULL;
     NSMutableArray* likedBy = [[NSMutableArray alloc]initWithArray:[self.starup[@"likedBy"] mutableCopy]];
     if ([likedBy containsObject:PFUser.currentUser.username]){
+        [self setVisualDisslike: YES];
         [self unLikeStarup];
     }
     else{
+        [self setVisualLike: YES];
         [self likeStarup];
     }
 }
 
 - (void)likeStarup{
-    //    Dissables likebutton so that the user cant spam it
-    self.likeButton.enabled = false;
-    //    Call to change the profile details
+    //    Call to like the starup
     self.starup[@"likeCount"] = @([self.starup[@"likeCount"] intValue] + 1);
     [self.starup addObject:PFUser.currentUser.username forKey:@"likedBy"];
     [self.starup saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
         if (succeeded) {
-            [self setVisualLike];
-            self.likeButton.enabled = true;
+            nil;
         } else {
             NSLog(@"%@", error);
         }
@@ -91,29 +90,36 @@
 }
 
 - (void)unLikeStarup{
-    //    Dissables likebutton so that the user cant spam it
-    self.likeButton.enabled = false;
-    //    Call to change the profile details
+//    Call to unlike the starup
     self.starup[@"likeCount"] = @([self.starup[@"likeCount"] intValue] - 1);
     [self.starup removeObject:PFUser.currentUser.username forKey:@"likedBy"];
     [self.starup saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
         if (succeeded) {
-            [self setVisualDisslike];
-            self.likeButton.enabled = true;
+            nil;
         } else {
             NSLog(@"%@", error);
         }
     }];
 }
 
-- (void)setVisualLike{
+- (void)setVisualLike: (BOOL)liked{
     [self.likeButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
-    self.likeCount.text = [NSString stringWithFormat:@"%@ likes",self.starup[@"likeCount"]];
+    if (liked){
+        self.likeCount.text = [NSString stringWithFormat:@"%@ likes",@([self.starup[@"likeCount"] intValue] + 1)];
+    }
+    else{
+        self.likeCount.text = [NSString stringWithFormat:@"%@ likes",self.starup[@"likeCount"]];
+    }
 }
 
-- (void)setVisualDisslike{
+- (void)setVisualDisslike: (BOOL)liked{
     [self.likeButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
-    self.likeCount.text = [NSString stringWithFormat:@"%@ likes",self.starup[@"likeCount"]];
+    if (liked){
+        self.likeCount.text = [NSString stringWithFormat:@"%@ likes",@([self.starup[@"likeCount"] intValue] - 1)];
+    }
+    else{
+        self.likeCount.text = [NSString stringWithFormat:@"%@ likes",self.starup[@"likeCount"]];
+    }
 }
 
 @end
