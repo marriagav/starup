@@ -2163,11 +2163,11 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="229" id="UeT-ns-oJg" customClass="PostCellView">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="229"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="245" id="UeT-ns-oJg" customClass="PostCellView">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="245"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UeT-ns-oJg" id="skG-py-GbA">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="229"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="245"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kjq-Lc-5DJ" customClass="PFImageView">
@@ -2232,31 +2232,56 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zi4-dy-Tc7">
+                                                    <rect key="frame" x="20" y="217" width="23" height="23"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="23" id="JDn-o5-sBw"/>
+                                                        <constraint firstAttribute="width" constant="23" id="JXc-AU-iow"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system" title=" "/>
+                                                    <connections>
+                                                        <action selector="likeOnCLick:" destination="UeT-ns-oJg" eventType="touchUpInside" id="ePX-3X-RmN"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 likes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QLF-UZ-iFg">
+                                                    <rect key="frame" x="44" y="217" width="44" height="23"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="Zi4-dy-Tc7" firstAttribute="leading" secondItem="Ooe-76-J3A" secondAttribute="leading" id="8SN-dZ-PKB"/>
                                                 <constraint firstItem="Ooe-76-J3A" firstAttribute="leading" secondItem="Kjq-Lc-5DJ" secondAttribute="leading" id="8mv-8q-qEE"/>
                                                 <constraint firstItem="Ooe-76-J3A" firstAttribute="top" secondItem="6WD-Kd-oSg" secondAttribute="bottom" constant="8.5" id="9jN-qb-XFv"/>
                                                 <constraint firstItem="6WD-Kd-oSg" firstAttribute="top" secondItem="Kjq-Lc-5DJ" secondAttribute="bottom" constant="8" symbolic="YES" id="Bqq-aA-7bM"/>
                                                 <constraint firstItem="Ic5-p0-TVT" firstAttribute="centerY" secondItem="Kjq-Lc-5DJ" secondAttribute="centerY" id="DmW-AM-acC"/>
                                                 <constraint firstItem="6WD-Kd-oSg" firstAttribute="leading" secondItem="skG-py-GbA" secondAttribute="leadingMargin" id="F5i-Z9-jXl"/>
+                                                <constraint firstItem="QLF-UZ-iFg" firstAttribute="top" secondItem="Zi4-dy-Tc7" secondAttribute="top" id="IET-Q7-bXE"/>
                                                 <constraint firstItem="Kjq-Lc-5DJ" firstAttribute="top" secondItem="skG-py-GbA" secondAttribute="topMargin" id="MuB-iZ-IUD"/>
                                                 <constraint firstItem="akM-Kj-HQ8" firstAttribute="top" secondItem="Ic5-p0-TVT" secondAttribute="bottom" constant="3" id="Mup-ew-oTG"/>
                                                 <constraint firstItem="Ooe-76-J3A" firstAttribute="centerX" secondItem="skG-py-GbA" secondAttribute="centerX" id="OYn-NF-7du"/>
                                                 <constraint firstItem="akM-Kj-HQ8" firstAttribute="trailing" secondItem="Ic5-p0-TVT" secondAttribute="trailing" id="Q9F-xE-n7K"/>
                                                 <constraint firstItem="Ooe-76-J3A" firstAttribute="trailing" secondItem="6WD-Kd-oSg" secondAttribute="trailing" id="Swm-AM-M4A"/>
+                                                <constraint firstItem="QLF-UZ-iFg" firstAttribute="bottom" secondItem="Zi4-dy-Tc7" secondAttribute="bottom" id="Wti-Sd-OkX"/>
                                                 <constraint firstItem="6WD-Kd-oSg" firstAttribute="leading" secondItem="Kjq-Lc-5DJ" secondAttribute="leading" id="YFd-V2-Fmg"/>
+                                                <constraint firstItem="QLF-UZ-iFg" firstAttribute="leading" secondItem="Zi4-dy-Tc7" secondAttribute="trailing" constant="1" id="Z0L-9Q-fzf"/>
                                                 <constraint firstItem="Ic5-p0-TVT" firstAttribute="leading" secondItem="Svt-4b-iUx" secondAttribute="leading" id="bhm-2e-iY0"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Ooe-76-J3A" secondAttribute="bottom" constant="5" id="cbK-g3-aVy"/>
                                                 <constraint firstItem="6WD-Kd-oSg" firstAttribute="trailing" secondItem="skG-py-GbA" secondAttribute="trailingMargin" id="dsx-zu-CXf"/>
                                                 <constraint firstItem="Ic5-p0-TVT" firstAttribute="top" secondItem="Svt-4b-iUx" secondAttribute="bottom" constant="3" id="fyt-8j-CMV"/>
                                                 <constraint firstItem="Svt-4b-iUx" firstAttribute="leading" secondItem="Kjq-Lc-5DJ" secondAttribute="trailing" constant="10" id="h9v-vG-fKe"/>
                                                 <constraint firstItem="Kjq-Lc-5DJ" firstAttribute="leading" secondItem="skG-py-GbA" secondAttribute="leadingMargin" id="kAu-mW-OBW"/>
                                                 <constraint firstItem="akM-Kj-HQ8" firstAttribute="leading" secondItem="Svt-4b-iUx" secondAttribute="leading" id="kgj-lq-Vb3"/>
+                                                <constraint firstItem="Zi4-dy-Tc7" firstAttribute="top" secondItem="Ooe-76-J3A" secondAttribute="bottom" constant="4" id="lsy-75-vJE"/>
+                                                <constraint firstAttribute="bottom" secondItem="Zi4-dy-Tc7" secondAttribute="bottom" constant="5" id="y56-Zh-EXC"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="captionOutlet" destination="6WD-Kd-oSg" id="NaP-1n-wll"/>
                                             <outlet property="dateOutlet" destination="akM-Kj-HQ8" id="s1r-2v-8oA"/>
+                                            <outlet property="likeButton" destination="Zi4-dy-Tc7" id="v8e-b9-PqS"/>
+                                            <outlet property="likeCount" destination="QLF-UZ-iFg" id="F8k-e0-pf1"/>
                                             <outlet property="profileName" destination="Svt-4b-iUx" id="GY3-yI-sHK"/>
                                             <outlet property="profilePicture" destination="Kjq-Lc-5DJ" id="A58-Ru-YNQ"/>
                                             <outlet property="statusImage" destination="EIn-h5-idq" id="511-EE-OiP"/>
@@ -2290,7 +2315,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R5f-pu-gtL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-104" y="840"/>
+            <point key="canvasLocation" x="-104.34782608695653" y="839.73214285714278"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7pi-K1-kFN">
@@ -2483,6 +2508,7 @@
         <image name="Paypal_2014_logo (1)" width="24" height="24"/>
         <image name="Starup-Letters" width="460" height="214"/>
         <image name="bubble.right.fill" catalog="system" width="128" height="110"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="ideator-1" width="512" height="512"/>
         <image name="linkedin-4-24" width="24" height="24"/>
