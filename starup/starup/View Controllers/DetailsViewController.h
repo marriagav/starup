@@ -45,6 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray *chatParticipants;
 @property (nonatomic, weak) id<DetailsViewControllerDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIButton *editStarupButton;
+@property (weak, nonatomic) IBOutlet UIButton *likeButton;
+@property (weak, nonatomic) IBOutlet UILabel *likeCount;
 @property BOOL isOwner;
 
 @end

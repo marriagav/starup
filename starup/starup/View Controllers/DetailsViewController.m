@@ -55,6 +55,13 @@
     } else {
         self.editStarupButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     }
+    NSMutableArray* likedBy = [[NSMutableArray alloc]initWithArray:[self.starup[@"likedBy"] mutableCopy]];
+    if ([likedBy containsObject:PFUser.currentUser.username]){
+        [self setVisualLike];
+    }
+    else{
+        [self setVisualDisslike];
+    }
 }
 
 - (void)setProgressBar
@@ -160,6 +167,61 @@
         }
     }];
 }
+
+- (IBAction)likeOnClick:(id)sender {
+    NSMutableArray* likedBy = [[NSMutableArray alloc]initWithArray:[self.starup[@"likedBy"] mutableCopy]];
+    if ([likedBy containsObject:PFUser.currentUser.username]){
+        [self unLikeStarup];
+    }
+    else{
+        [self likeStarup];
+    }
+}
+
+- (void)likeStarup{
+    //    Dissables likebutton so that the user cant spam it
+    self.likeButton.enabled = false;
+    //    Call to change the profile details
+    self.starup[@"likeCount"] = @([self.starup[@"likeCount"] intValue] + 1);
+    [self.starup addObject:PFUser.currentUser.username forKey:@"likedBy"];
+    [self.starup saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
+        if (succeeded) {
+            [self setVisualLike];
+            self.likeButton.enabled = true;
+            [self.delegate updateData];
+        } else {
+            NSLog(@"%@", error);
+        }
+    }];
+}
+
+- (void)unLikeStarup{
+    //    Dissables likebutton so that the user cant spam it
+    self.likeButton.enabled = false;
+    //    Call to change the profile details
+    self.starup[@"likeCount"] = @([self.starup[@"likeCount"] intValue] - 1);
+    [self.starup removeObject:PFUser.currentUser.username forKey:@"likedBy"];
+    [self.starup saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
+        if (succeeded) {
+            [self setVisualDisslike];
+            self.likeButton.enabled = true;
+            [self.delegate updateData];
+        } else {
+            NSLog(@"%@", error);
+        }
+    }];
+}
+
+- (void)setVisualLike{
+    [self.likeButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
+    self.likeCount.text = [NSString stringWithFormat:@"%@ likes",self.starup[@"likeCount"]];
+}
+
+- (void)setVisualDisslike{
+    [self.likeButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
+    self.likeCount.text = [NSString stringWithFormat:@"%@ likes",self.starup[@"likeCount"]];
+}
+
 
 #pragma mark - CollectionView
 
