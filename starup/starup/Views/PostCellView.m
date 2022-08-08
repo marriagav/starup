@@ -70,6 +70,9 @@
 }
 
 - (IBAction)likeOnCLick:(id)sender {
+    UIImpactFeedbackGenerator *likeFeedback = [[UIImpactFeedbackGenerator alloc] initWithStyle:(UIImpactFeedbackStyleMedium)];
+    [likeFeedback impactOccurred];
+    likeFeedback = NULL;
     NSMutableArray* likedBy = [[NSMutableArray alloc]initWithArray:[self.post[@"likedBy"] mutableCopy]];
     if ([likedBy containsObject:PFUser.currentUser.username]){
         [self unLikePost];
