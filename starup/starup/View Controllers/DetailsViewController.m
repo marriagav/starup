@@ -55,6 +55,13 @@
     } else {
         self.editStarupButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     }
+    NSMutableArray* likedBy = [[NSMutableArray alloc]initWithArray:[self.starup[@"likedBy"] mutableCopy]];
+    if ([likedBy containsObject:PFUser.currentUser.username]){
+        [self setVisualLike: NO];
+    }
+    else{
+        [self setVisualDisslike: NO];
+    }
 }
 
 - (void)setProgressBar
@@ -160,6 +167,68 @@
         }
     }];
 }
+
+- (IBAction)likeOnClick:(id)sender {
+    UIImpactFeedbackGenerator *likeFeedback = [[UIImpactFeedbackGenerator alloc] initWithStyle:(UIImpactFeedbackStyleMedium)];
+    [likeFeedback impactOccurred];
+    likeFeedback = NULL;
+    NSMutableArray* likedBy = [[NSMutableArray alloc]initWithArray:[self.starup[@"likedBy"] mutableCopy]];
+    if ([likedBy containsObject:PFUser.currentUser.username]){
+        [self setVisualDisslike: YES];
+        [self unLikeStarup];
+    }
+    else{
+        [self setVisualLike: YES];
+        [self likeStarup];
+    }
+}
+
+- (void)likeStarup{
+    //    Call to like the starup
+    self.starup[@"likeCount"] = @([self.starup[@"likeCount"] intValue] + 1);
+    [self.starup addObject:PFUser.currentUser.username forKey:@"likedBy"];
+    [self.starup saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
+        if (succeeded) {
+            [self.delegate updateData];
+        } else {
+            NSLog(@"%@", error);
+        }
+    }];
+}
+
+- (void)unLikeStarup{
+//    Call to unlike the starup
+    self.starup[@"likeCount"] = @([self.starup[@"likeCount"] intValue] - 1);
+    [self.starup removeObject:PFUser.currentUser.username forKey:@"likedBy"];
+    [self.starup saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
+        if (succeeded) {
+            [self.delegate updateData];
+        } else {
+            NSLog(@"%@", error);
+        }
+    }];
+}
+
+- (void)setVisualLike: (BOOL)liked{
+    [self.likeButton setImage:[UIImage systemImageNamed:@"heart.fill"] forState:UIControlStateNormal];
+    if (liked){
+        self.likeCount.text = [NSString stringWithFormat:@"%@ likes",@([self.starup[@"likeCount"] intValue] + 1)];
+    }
+    else{
+        self.likeCount.text = [NSString stringWithFormat:@"%@ likes",self.starup[@"likeCount"]];
+    }
+}
+
+- (void)setVisualDisslike: (BOOL)liked{
+    [self.likeButton setImage:[UIImage systemImageNamed:@"heart"] forState:UIControlStateNormal];
+    if (liked){
+        self.likeCount.text = [NSString stringWithFormat:@"%@ likes",@([self.starup[@"likeCount"] intValue] - 1)];
+    }
+    else{
+        self.likeCount.text = [NSString stringWithFormat:@"%@ likes",self.starup[@"likeCount"]];
+    }
+}
+
 
 #pragma mark - CollectionView
 

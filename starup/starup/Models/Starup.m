@@ -19,6 +19,7 @@
 @dynamic operatingSince;
 @dynamic sales;
 @dynamic goalInvestment;
+@dynamic likeCount;
 @dynamic percentageToGive;
 @dynamic starupImage;
 @dynamic currentInvestment;
@@ -49,6 +50,7 @@
     newStarup.sales = sales;
     newStarup.goalInvestment = goalInvestment;
     newStarup.currentInvestment = 0;
+    newStarup.likeCount = @(0);
     newStarup.percentageToGive = percentageToGive;
     [newStarup saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
         completion(newStarup, error);

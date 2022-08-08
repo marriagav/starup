@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int percentageToGive;
 @property (nonatomic, strong) PFFileObject *starupImage;
 @property (nonatomic, strong) NSString *starupDescription;
+@property (nonatomic, strong) NSNumber *likeCount;
 
 + (void)postStarup:(NSString *_Nullable)starupName
             withCategory:(NSString *_Nullable)starupCategory
