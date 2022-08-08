@@ -189,7 +189,7 @@
     [self.starup addObject:PFUser.currentUser.username forKey:@"likedBy"];
     [self.starup saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
         if (succeeded) {
-            nil;
+            [self.delegate updateData];
         } else {
             NSLog(@"%@", error);
         }
@@ -202,7 +202,7 @@
     [self.starup removeObject:PFUser.currentUser.username forKey:@"likedBy"];
     [self.starup saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
         if (succeeded) {
-            nil;
+            [self.delegate updateData];
         } else {
             NSLog(@"%@", error);
         }
