@@ -891,13 +891,13 @@
                                                     </collectionViewCell>
                                                 </cells>
                                             </collectionView>
-                                            <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vfm-DG-C0j">
-                                                <rect key="frame" x="306" y="10" width="89" height="21"/>
+                                            <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vfm-DG-C0j">
+                                                <rect key="frame" x="374" y="10" width="21" height="21"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="89" id="dJU-Ir-nqe"/>
+                                                    <constraint firstAttribute="width" constant="21" id="dJU-Ir-nqe"/>
                                                     <constraint firstAttribute="height" constant="21" id="gwi-4C-Gsa"/>
                                                 </constraints>
-                                                <state key="normal" title="Edit Starup">
+                                                <state key="normal" title=" " image="pencil.circle" catalog="system">
                                                     <color key="titleColor" systemColor="systemIndigoColor"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
@@ -950,7 +950,7 @@
                                             <constraint firstItem="2qu-Mc-OaY" firstAttribute="leading" secondItem="cbn-uM-4IH" secondAttribute="leading" id="gCG-nj-ctm"/>
                                             <constraint firstItem="E1f-Fr-xMu" firstAttribute="trailing" secondItem="c0v-Do-D6l" secondAttribute="trailing" id="gVq-pF-LcS"/>
                                             <constraint firstItem="UkQ-Hl-8fK" firstAttribute="top" secondItem="F6y-ux-qgp" secondAttribute="bottom" constant="8" symbolic="YES" id="hK5-pk-ZzL"/>
-                                            <constraint firstItem="Vfm-DG-C0j" firstAttribute="leading" secondItem="erh-Tj-v18" secondAttribute="trailing" constant="44" id="i5T-4r-haD"/>
+                                            <constraint firstItem="Vfm-DG-C0j" firstAttribute="leading" secondItem="erh-Tj-v18" secondAttribute="trailing" constant="112" id="i5T-4r-haD"/>
                                             <constraint firstItem="VGg-tc-Ufm" firstAttribute="leading" secondItem="erh-Tj-v18" secondAttribute="leading" id="lQ8-YY-Xqv"/>
                                             <constraint firstItem="erh-Tj-v18" firstAttribute="top" secondItem="cbn-uM-4IH" secondAttribute="top" constant="10" id="lyw-Im-AQ8"/>
                                             <constraint firstAttribute="trailing" secondItem="TZ4-V2-SU4" secondAttribute="trailing" id="mP4-m0-gSD"/>
@@ -1004,7 +1004,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XJj-NY-iDL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="948" y="1509"/>
+            <point key="canvasLocation" x="947.82608695652186" y="1508.7053571428571"/>
         </scene>
         <!--Invest View Controller-->
         <scene sceneID="2na-DJ-wEx">
@@ -1662,11 +1662,11 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lbw-MH-wNf">
-                                                    <rect key="frame" x="321" y="8" width="74" height="22"/>
+                                                <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lbw-MH-wNf">
+                                                    <rect key="frame" x="374" y="8" width="21" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="74" id="Dq2-LC-4aq"/>
-                                                        <constraint firstAttribute="height" constant="22" id="zIG-Dm-cmx"/>
+                                                        <constraint firstAttribute="width" constant="21" id="Dq2-LC-4aq"/>
+                                                        <constraint firstAttribute="height" constant="21" id="zIG-Dm-cmx"/>
                                                     </constraints>
                                                     <menu key="menu" id="4a9-KQ-wE9">
                                                         <children>
@@ -1674,7 +1674,7 @@
                                                             <command title="Item 2" id="GQe-Oy-MC6"/>
                                                         </children>
                                                     </menu>
-                                                    <state key="normal" title="Settings">
+                                                    <state key="normal" title=" " image="gear" catalog="system">
                                                         <color key="titleColor" systemColor="systemIndigoColor"/>
                                                     </state>
                                                     <userDefinedRuntimeAttributes>
@@ -1785,7 +1785,7 @@
                                                 <constraint firstItem="DqB-cr-U4o" firstAttribute="leading" secondItem="cGr-yE-zSs" secondAttribute="leading" constant="20" symbolic="YES" id="got-7k-j2p"/>
                                                 <constraint firstItem="DqB-cr-U4o" firstAttribute="leading" secondItem="8pf-mM-zK9" secondAttribute="leading" id="iiw-kh-Bwy"/>
                                                 <constraint firstItem="fm1-rc-PVC" firstAttribute="leading" secondItem="fOo-iP-5q9" secondAttribute="leading" id="jUt-TI-16s"/>
-                                                <constraint firstItem="lbw-MH-wNf" firstAttribute="leading" secondItem="gri-MQ-8nI" secondAttribute="trailing" constant="16" id="nAH-x3-MzB"/>
+                                                <constraint firstItem="lbw-MH-wNf" firstAttribute="leading" secondItem="gri-MQ-8nI" secondAttribute="trailing" constant="69" id="nAH-x3-MzB"/>
                                                 <constraint firstItem="SaI-f9-3wJ" firstAttribute="leading" secondItem="gri-MQ-8nI" secondAttribute="leading" id="r3N-AX-ngZ"/>
                                                 <constraint firstAttribute="bottom" secondItem="fm1-rc-PVC" secondAttribute="bottom" id="rH7-uZ-7Za"/>
                                                 <constraint firstItem="SaI-f9-3wJ" firstAttribute="leading" secondItem="gri-MQ-8nI" secondAttribute="leading" id="zQ5-33-2WV"/>
@@ -2532,10 +2532,12 @@
         <image name="Paypal_2014_logo (1)" width="24" height="24"/>
         <image name="Starup-Letters" width="460" height="214"/>
         <image name="bubble.right.fill" catalog="system" width="128" height="110"/>
+        <image name="gear" catalog="system" width="128" height="119"/>
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="ideator-1" width="512" height="512"/>
         <image name="linkedin-4-24" width="24" height="24"/>
+        <image name="pencil.circle" catalog="system" width="128" height="121"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
