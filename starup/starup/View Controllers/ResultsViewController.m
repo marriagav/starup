@@ -40,20 +40,20 @@
 
 #pragma mark - TableView
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
     int count = (int)self.userMatrix[section].count;
-    if (count > 0){
-        NSString *title = [[NSString alloc]init];
+    if (count > 0) {
+        NSString *title = [[NSString alloc] init];
         if (section == 0) {
             title = @"Recommended";
         } else if (section == 1) {
             title = @"You may know";
         } else if (section == 2) {
-            title =  @"Discover";
+            title = @"Discover";
         }
         return title;
-    }
-    else{
+    } else {
         return nil;
     }
 }
