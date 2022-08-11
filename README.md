@@ -52,8 +52,8 @@ Starup is an application that allows startups to connect with investors and inde
 - Linkedin Integration (https://github.com/marriagav/starup/pull/28)
     - Implemented sign in with Linkedin functionality, were the user can authenticate themselves, with the use of the Linkedin API, in order to create their Starup account.
         * This feature also allows users to use their Linkedin names and profile pictures when they log in with Linkedin.
-    * Paypal integration (https://github.com/marriagav/starup/pull/29)
-        * Added PayPal integration so that users can make investments through the Paypal API, using the sandbox environment and a sandbox account.
+- Paypal integration (https://github.com/marriagav/starup/pull/29)
+    - Added PayPal integration so that users can make investments through the Paypal API, using the sandbox environment and a sandbox account.
 
 **Difficult/ Ambiguous Technical Problems:**
 - If a user has Linkedin authentication, they will be able to post both on Starup and on Linkedin if they wish to do so.
