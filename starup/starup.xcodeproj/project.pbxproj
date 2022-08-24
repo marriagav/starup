@@ -42,13 +42,13 @@
 		D458E866288F5954004DF020 /* ConnectionsGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = D458E865288F5954004DF020 /* ConnectionsGraph.m */; };
 		D458E86928904A68004DF020 /* UsersEdge.m in Sources */ = {isa = PBXBuildFile; fileRef = D458E86828904A68004DF020 /* UsersEdge.m */; };
 		D458E86C28920117004DF020 /* ResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D458E86B28920117004DF020 /* ResultsViewController.m */; };
+		D472F64928B67F3500C583E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D472F64828B67F3500C583E6 /* GoogleService-Info.plist */; };
 		D473206A289DC7C600E1E343 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4732069289DC7C600E1E343 /* Keys.plist */; };
 		D4ABAA4E2888C75F00EF3B8A /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4ABAA4D2888C75F00EF3B8A /* PasswordViewController.m */; };
 		D4CDEA4E2878A37C00495426 /* PostCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CDEA4D2878A37C00495426 /* PostCellView.m */; };
 		D4CDEA512878AB7100495426 /* StarupCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CDEA502878AB7100495426 /* StarupCellView.m */; };
 		D4D869DA2889BBBA0084176E /* Linkedin.m in Sources */ = {isa = PBXBuildFile; fileRef = D4D869D92889BBBA0084176E /* Linkedin.m */; };
 		D4E466592898E01900803672 /* MyAppInterfaceAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E466582898E01900803672 /* MyAppInterfaceAdapter.m */; };
-		D4E4665B2898F58B00803672 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4E4665A2898F58B00803672 /* GoogleService-Info.plist */; };
 		D4E4665E2899ECA600803672 /* ChatsNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E4665D2899ECA600803672 /* ChatsNavigationController.m */; };
 		FB50FED72C2285DFF8940994 /* Pods_starup_starupUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 120143D56E6EFC00AC9D69EF /* Pods_starup_starupUITests.framework */; };
 /* End PBXBuildFile section */
@@ -143,6 +143,7 @@
 		D458E86828904A68004DF020 /* UsersEdge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UsersEdge.m; sourceTree = "<group>"; };
 		D458E86A28920117004DF020 /* ResultsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResultsViewController.h; sourceTree = "<group>"; };
 		D458E86B28920117004DF020 /* ResultsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResultsViewController.m; sourceTree = "<group>"; };
+		D472F64828B67F3500C583E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D4732069289DC7C600E1E343 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		D4ABAA4C2888C75F00EF3B8A /* PasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PasswordViewController.h; sourceTree = "<group>"; };
 		D4ABAA4D2888C75F00EF3B8A /* PasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PasswordViewController.m; sourceTree = "<group>"; };
@@ -154,7 +155,6 @@
 		D4D869D92889BBBA0084176E /* Linkedin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Linkedin.m; sourceTree = "<group>"; };
 		D4E466572898E01900803672 /* MyAppInterfaceAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyAppInterfaceAdapter.h; sourceTree = "<group>"; };
 		D4E466582898E01900803672 /* MyAppInterfaceAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyAppInterfaceAdapter.m; sourceTree = "<group>"; };
-		D4E4665A2898F58B00803672 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D4E4665C2899ECA600803672 /* ChatsNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatsNavigationController.h; sourceTree = "<group>"; };
 		D4E4665D2899ECA600803672 /* ChatsNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatsNavigationController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -249,7 +249,7 @@
 				D41A9B842875F0DA0038852B /* Main.storyboard */,
 				D41A9B872875F0DB0038852B /* Assets.xcassets */,
 				D41A9B892875F0DB0038852B /* LaunchScreen.storyboard */,
-				D4E4665A2898F58B00803672 /* GoogleService-Info.plist */,
+				D472F64828B67F3500C583E6 /* GoogleService-Info.plist */,
 				D4732069289DC7C600E1E343 /* Keys.plist */,
 				D41A9B8C2875F0DB0038852B /* Info.plist */,
 				D41A9B8D2875F0DB0038852B /* main.m */,
@@ -492,10 +492,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D41A9B8B2875F0DB0038852B /* LaunchScreen.storyboard in Resources */,
-				D4E4665B2898F58B00803672 /* GoogleService-Info.plist in Resources */,
 				D41A9B882875F0DB0038852B /* Assets.xcassets in Resources */,
 				D41A9B862875F0DA0038852B /* Main.storyboard in Resources */,
 				D473206A289DC7C600E1E343 /* Keys.plist in Resources */,
+				D472F64928B67F3500C583E6 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
